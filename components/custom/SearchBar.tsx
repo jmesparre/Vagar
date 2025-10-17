@@ -12,6 +12,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { AmenitiesPopoverContent } from "./AmenitiesPopoverContent";
+
 const SearchBar = () => {
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(),
@@ -45,11 +47,27 @@ const SearchBar = () => {
       : "¿Cuántos son?";
 
   return (
-    <div className="bg-white rounded-full shadow-lg flex items-center w-full max-w-2xl">
+    <div className="bg-white border-1 border-gray-200 rounded-full shadow-lg flex items-center w-full max-w-3xl">
       <div className="flex-1">
         <Popover>
           <PopoverTrigger asChild>
             <button className="w-full text-left px-6 py-3 hover:bg-gray-100 rounded-l-full">
+              <p className="font-bold text-xs text-gray-800">Amenities</p>
+              <p className="text-sm text-gray-500">filtrar por:</p>
+            </button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <AmenitiesPopoverContent />
+          </PopoverContent>
+        </Popover>
+      </div>
+
+      <div className="h-8 border-l border-gray-200"></div>
+
+      <div className="flex-1">
+        <Popover>
+          <PopoverTrigger asChild>
+            <button className="w-full text-left px-6 py-3 hover:bg-gray-100">
               <p className="font-bold text-xs text-gray-800">Cuándo</p>
               <p className="text-sm text-gray-500">
                 {date?.from ? (
