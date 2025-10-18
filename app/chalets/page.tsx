@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import SearchBar from '@/components/custom/SearchBar';
 import { SearchBarSkeleton } from '@/components/custom/SearchBarSkeleton';
 import ChaletGrid from '@/components/custom/ChaletGrid';
+import { H1 } from '@/components/ui/typography';
 import { Separator } from '@/components/ui/separator';
 
 const ChaletsPage = () => {
@@ -17,6 +18,9 @@ const ChaletsPage = () => {
     <div className="mx-auto px-8 py-8">
       <div className="mb-8 pt-4 w-full flex justify-center">
         {isLoading ? <SearchBarSkeleton /> : <SearchBar />}
+      </div>
+      <div className="text-center">
+        <H1>Nuestros Chalets</H1>
       </div>
       <Separator className="mb-10 mt-16" />
       <ChaletGrid />

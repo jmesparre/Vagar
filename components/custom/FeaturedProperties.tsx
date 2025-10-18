@@ -11,6 +11,7 @@ import {
 import { PropertyCard } from "./PropertyCard";
 import { type Property } from "@/lib/types";
 import { Skeleton } from "@/components/ui/skeleton";
+import { H2 } from "@/components/ui/typography";
 
 interface FeaturedPropertiesProps {
   title: string;
@@ -37,9 +38,9 @@ export function FeaturedProperties({ title, properties }: FeaturedPropertiesProp
         className="w-full"
       >
         <div className="relative mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+          <H2 className="text-2xl md:text-3xl font-bold tracking-tight">
             {title}
-          </h2>
+          </H2>
           <div className="absolute top-3 right-10 hidden  md:flex items-center gap-2">
             <CarouselPrevious />
             <CarouselNext />

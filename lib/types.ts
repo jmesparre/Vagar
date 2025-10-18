@@ -2,7 +2,7 @@ export type Property = {
   id: string;
   title: string;
   category: string;
-  image: string;
+  images: string[];
   guests: number;
   bedrooms: number;
   beds: number;

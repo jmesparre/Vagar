@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from './SearchBar';
 import { SearchBarSkeleton } from './SearchBarSkeleton';
+import { H1, Lead } from '@/components/ui/typography';
 
 const HeroSection = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,12 +38,12 @@ const HeroSection = () => {
 
         {/* Title at the bottom */}
         <div className="flex-grow text-center flex flex-col">
-          <h1 className="text-5xl mt-22 md:text-7xl font-bold leading-tight mb-4">
+          <H1 className="text-5xl mt-22 md:text-7xl font-bold leading-tight mb-4">
             Encuentra tu Próximo Destino
-          </h1>
-          <p className="text-lg md:text-xl">
+          </H1>
+          <Lead className="text-lg md:text-xl">
             Explora propiedades exclusivas para unas vacaciones inolvidables.
-          </p>
+          </Lead>
         </div>
       </div>
     </section>

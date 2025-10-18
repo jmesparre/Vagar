@@ -113,10 +113,10 @@ const ChaletGrid = () => {
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {Array.from({ length: itemsPerPage }).map((_, index) => (
-            <div key={index} className="flex flex-col space-y-3">
+            <div key={index} className="flex flex-col h-full w-full">
               <Skeleton className="w-full rounded-xl aspect-[1/1]" />
-              <div className="space-y-2">
-                <Skeleton className="h-4 w-3/4" />
+              <div className="px-1 pt-2 flex flex-col flex-grow">
+                <Skeleton className="h-4 w-3/4 mb-3 mt-1" />
                 <Skeleton className="h-4 w-1/2" />
               </div>
             </div>
@@ -134,10 +134,10 @@ const ChaletGrid = () => {
             {hasMore && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
                 {Array.from({ length: 3 }).map((_, index) => (
-                  <div key={index} className="flex flex-col space-y-3">
+                  <div key={index} className="flex flex-col h-full w-full">
                     <Skeleton className="w-full rounded-xl aspect-[1/1]" />
-                    <div className="space-y-2">
-                      <Skeleton className="h-4 w-3/4" />
+                    <div className="px-1 pt-2 flex flex-col flex-grow">
+                      <Skeleton className="h-4 w-3/4 mb-1" />
                       <Skeleton className="h-4 w-1/2" />
                     </div>
                   </div>

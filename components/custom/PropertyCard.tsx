@@ -1,26 +1,26 @@
 import Image from "next/image";
-import { Item, ItemContent, ItemMedia, ItemTitle } from "../ui/item";
+import { Item, ItemContent, ItemMedia } from "../ui/item";
 import { BedDouble, Home, Star, Users } from "lucide-react";
 import { Property } from "@/lib/types";
+import { H4, Muted, Small } from "@/components/ui/typography";
 
 export function PropertyCard({ property }: { property: Property }) {
   return (
     <div className="flex flex-col h-full w-full">
       <Item className="border-none shadow-none p-0 flex flex-col flex-grow items-start">
-        <ItemMedia className="relative rounded-xl overflow-hidden w-full">
+        <ItemMedia className="relative rounded-xl overflow-hidden w-full aspect-square">
           <Image
-            src={property.image}
+            src={property.images[0]}
             alt={property.title}
-            width={800}
-            height={800}
-            className="object-cover aspect-[1/1] w-full h-auto transition-transform duration-300 ease-in-out hover:scale-105"
+            layout="fill"
+            objectFit="cover"
+            className="rounded-t-lg"
           />
         </ItemMedia>
-        <ItemContent className="mt-3 px-1 flex flex-col flex-grow">
-          <ItemTitle className="font-bold text-lg truncate">{property.title}</ItemTitle>
-          <div className="flex-grow" />
-          <div className="flex items-center justify-between mt-1">
-            <div className="text-sm text-muted-foreground flex items-center gap-x-4 gap-y-1 flex-wrap">
+        <ItemContent className="px-1 pt-0 -mt-2 flex flex-col flex-grow">
+          <H4 className="text-lg truncate">{property.title}</H4>
+          <div className="flex items-center justify-between pt-0">
+            <Muted className="flex items-center gap-x-4 gap-y-1 flex-wrap">
               <span className="flex items-center gap-1.5">
                 <Users className="w-4 h-4" />
                 {property.guests}
@@ -33,10 +33,10 @@ export function PropertyCard({ property }: { property: Property }) {
                 <BedDouble className="w-4 h-4" />
                 {property.beds}
               </span>
-            </div>
+            </Muted>
             <div className="flex items-center gap-1 pr-1 pl-3 shrink-0">
               <Star className="w-4 h-4 fill-primary text-primary" />
-              <span className="font-semibold text-sm">{property.rating.toFixed(2)}</span>
+              <Small className="font-semibold">{property.rating.toFixed(2)}</Small>
             </div>
           </div>
         </ItemContent>

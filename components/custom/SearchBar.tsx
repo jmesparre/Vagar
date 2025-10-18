@@ -51,7 +51,7 @@ const SearchBar = () => {
       <div className="flex-1">
         <Popover>
           <PopoverTrigger asChild>
-            <button className="w-full text-left px-6 py-3 hover:bg-gray-100 rounded-l-full">
+            <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-l-full">
               <p className="font-bold text-xs text-gray-800">Amenities</p>
               <p className="text-sm text-gray-500">filtrar por:</p>
             </button>
@@ -67,7 +67,7 @@ const SearchBar = () => {
       <div className="flex-1">
         <Popover>
           <PopoverTrigger asChild>
-            <button className="w-full text-left px-6 py-3 hover:bg-gray-100">
+            <button className="w-full text-left px-6 py-3 hover:bg-gray-200">
               <p className="font-bold text-xs text-gray-800">Cuándo</p>
               <p className="text-sm text-gray-500">
                 {date?.from ? (
@@ -102,7 +102,7 @@ const SearchBar = () => {
       <div className="flex-1">
         <Popover>
           <PopoverTrigger asChild>
-            <button className="w-full text-left px-6 py-3 hover:bg-gray-100 rounded-r-full">
+            <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-r-full">
               <p className="font-bold text-xs text-gray-800">Huéspedes</p>
               <p className="text-sm text-gray-500">{guestText}</p>
             </button>
