@@ -21,13 +21,9 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { AmenitiesDialog } from "@/components/custom/AmenitiesDialog";
 import { allAmenities } from "@/lib/amenities-data";
 import { PropertyCard } from "@/components/custom/PropertyCard";
-import { H1, H2, P, Muted, Lead, Large, Small } from "@/components/ui/typography";
+import { H1, H2, P } from "@/components/ui/typography";
 
-export default function ChaletDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default function ChaletDetailPage() {
   // Por ahora, usamos el primer chalet de los datos de ejemplo
   const chalet = properties[0];
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);

@@ -1,14 +1,15 @@
 "use client";
 
+"use client";
+
 import * as React from "react";
 import { format, differenceInDays, parse } from "date-fns";
 import { DateRange } from "react-day-picker";
-import { Calendar as CalendarIcon, X } from "lucide-react";
+import { X } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import { H3, P, Small } from "@/components/ui/typography";
+import { H3, Small } from "@/components/ui/typography";
 import { Input } from "@/components/ui/input";
 
 interface DatePickerPopoverContentProps {

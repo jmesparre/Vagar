@@ -2,7 +2,7 @@
 
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Property } from '@/lib/types';
 import { properties as allProperties } from '@/lib/placeholder-data';
 import { PropertyCard } from './PropertyCard';
@@ -34,9 +34,9 @@ const ChaletGrid = () => {
         case 'rating-asc':
           return a.rating - b.rating;
         case 'price-desc':
-          return b.price - a.price;
+          return b.price.low - a.price.low;
         case 'price-asc':
-          return a.price - b.price;
+          return a.price.low - b.price.low;
         default:
           return 0;
       }
@@ -57,7 +57,7 @@ const ChaletGrid = () => {
     }
   }, [sortedProperties]);
 
-  const fetchMoreData = () => {
+  const fetchMoreData = useCallback(() => {
     if (properties.length >= sortedProperties.length) {
       setHasMore(false);
       return;
@@ -71,7 +71,7 @@ const ChaletGrid = () => {
       );
       setProperties((prevProperties) => [...prevProperties, ...newProperties]);
     }, 1000);
-  };
+  }, [properties.length, sortedProperties]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -93,7 +93,7 @@ const ChaletGrid = () => {
         observer.unobserve(currentRef);
       }
     };
-  }, [hasMore, isLoading, properties.length]);
+  }, [hasMore, isLoading, fetchMoreData]);
 
   return (
     <div>
