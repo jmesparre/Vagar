@@ -102,6 +102,11 @@ Una plataforma web responsive construida con Next.js y shadcn, que muestra propi
 # CRITICAL: La actualización de disponibilidad es un proceso manual a través de la subida de un archivo Excel en el backend.
 # CRITICAL: El portal para propietarios está fuera del alcance del MVP.
 # Tech Stack: Next.js (App Router), TypeScript, Tailwind CSS, shadcn.
+
+# GOOD PRACTICE: Se ha implementado un sistema de tipografía centralizado en `components/ui/typography.tsx`.
+# Para asegurar la consistencia visual, todos los elementos de texto (encabezados, párrafos, etc.)
+# deben usar estos componentes reutilizables (ej. <H1>, <P>, <Lead>) en lugar de etiquetas HTML nativas (<h1>, <p>).
+# Esto permite que los estilos de texto se gestionen desde un único lugar, siguiendo las directrices de Shadcn.
 ```
 
 ## Implementation Blueprint

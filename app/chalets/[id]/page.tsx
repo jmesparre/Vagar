@@ -143,27 +143,40 @@ export default function ChaletDetailPage({
 
           {/* Columna Derecha: Tarjeta de Reserva */}
           <div className="md:col-span-1">
-            <div className="sticky top-24 rounded-xl border p-6 shadow-lg">
-              <Large>
-                ${chalet.price.toLocaleString()}{" "}
-                <span className="text-base font-normal text-muted-foreground">
-                  noche
-                </span>
-              </Large>
-              <div className="mt-4 grid grid-cols-2 gap-2">
-                <Button variant="outline" className="text-left font-normal">
-                  <div className="text-xs uppercase">Check In</div>
-                  <div>Añadir fecha</div>
-                </Button>
-                <Button variant="outline" className="text-left font-normal">
-                  <div className="text-xs uppercase">Check Out</div>
-                  <div>Añadir fecha</div>
-                </Button>
+            <div className="sticky top-24 rounded-xl border p-4 shadow-lg">
+              <div className="grid grid-cols-2 rounded-t-lg border">
+                <div className="p-2">
+                  <div className="text-xs font-bold uppercase">CHECK-IN</div>
+                  <div className="text-sm">12/26/2025</div>
+                </div>
+                <div className="border-l p-2">
+                  <div className="text-xs font-bold uppercase">CHECKOUT</div>
+                  <div className="text-sm">12/28/2025</div>
+                </div>
               </div>
-              <Button className="mt-4 w-full">Contactar para reservar</Button>
-              <Muted className="mt-4 text-center text-xs">
-                No se te cobrará nada aún
-              </Muted>
+              <div className="rounded-b-lg border border-t-0 p-2">
+                <div className="text-xs font-bold uppercase">HUESPEDES</div>
+                <div className="flex items-center justify-between text-sm">
+                  <span>1 huesped</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-4 w-4"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </div>
+              </div>
+              <Button className="mt-4 w-full bg-[#E61E4D] text-white hover:bg-[#E61E4D]/90">
+                Reserve
+              </Button>
             </div>
           </div>
         </section>
