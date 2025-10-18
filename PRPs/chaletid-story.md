@@ -83,3 +83,63 @@ Se ha mejorado significativamente la sección de la galería de imágenes, añad
 *   **Corrección de Errores y Refinamiento:**
     *   Se solucionaron múltiples problemas de apilamiento (`z-index`) y propagación de eventos de clic para asegurar que los modales y sus controles funcionen correctamente sin interferir entre sí.
     *   Se resolvieron advertencias de accesibilidad en todos los componentes nuevos, asegurando que los botones tengan texto descriptivo para lectores de pantalla.
+
+---
+
+## Resumen de Avances (18/10/2025)
+
+Se ha transformado la tarjeta de reserva estática en un componente completamente interactivo, mejorando drásticamente la experiencia de usuario al planificar una estadía.
+
+**Desarrollo y Correcciones:**
+*   **Selector de Huéspedes Interactivo:**
+    *   Se creó un componente reutilizable `GuestsPopoverContent.tsx` para centralizar la lógica de selección de adultos, niños e infantes.
+    *   Se reemplazó el texto estático de "Huéspedes" en la tarjeta de reserva por un `Popover` de `shadcn/ui`.
+    *   Al hacer clic, se despliega un menú que permite al usuario ajustar el número de huéspedes de forma interactiva, y el texto se actualiza dinámicamente.
+
+*   **Selector de Fechas Avanzado:**
+    *   Se implementó un componente reutilizable `DatePickerPopoverContent.tsx` que encapsula un calendario de rango avanzado.
+    *   Se reemplazó el área estática de "CHECK-IN" / "CHECKOUT" por un `PopoverTrigger` que abre el nuevo selector de fechas.
+    *   El popover incluye:
+        *   Un calendario de doble mes para una fácil selección del rango de fechas.
+        *   Campos de `Input` que permiten a los usuarios escribir las fechas directamente.
+        *   Un resumen dinámico que muestra el número de noches seleccionadas.
+        *   Botones para "Limpiar fechas" y "Cerrar".
+    *   Se añadió el componente `Input` de `shadcn/ui` al proyecto para dar soporte a esta funcionalidad.
+
+---
+
+## Resumen de Avances (18/10/2025 - Tarde)
+
+Se ha mejorado la estructura de la página y se ha añadido una sección de precios detallados en la tarjeta de reserva.
+
+**Desarrollo y Correcciones:**
+*   **Corrección de Layout Fijo:**
+    *   Se reestructuró el layout de `app/chalets/[id]/page.tsx` para anidar todo el contenido principal dentro de una grilla de dos columnas.
+    *   Esto soluciona un problema donde las secciones inferiores se expandían al ancho completo, asegurando que la columna de información y la tarjeta de reserva mantengan su disposición a lo largo de todo el scroll.
+    *   La tarjeta de reserva ahora permanece fija (`sticky`) correctamente durante el desplazamiento vertical.
+
+*   **Implementación de Precios por Temporada:**
+    *   Se actualizó el tipo `Property` en `lib/types.ts` para reemplazar el campo `price` (un número) por un objeto que contiene precios para temporada alta, media y baja (`price: { high: number; mid: number; low: number; }`).
+    *   Se actualizaron los datos de ejemplo en `lib/placeholder-data.ts` para que todas las propiedades se ajusten a la nueva estructura de precios.
+    *   Se añadió una nueva sección de "Precio" en la tarjeta de reserva, mostrando los tres precios de temporada con formato de moneda local, justo encima de los selectores de fecha.
+
+---
+
+## Resumen de Avances (18/10/2025 - Noche)
+
+Se ha implementado una funcionalidad avanzada para mostrar los servicios del chalet, mejorando la estructura de datos y la interactividad de la página.
+
+**Desarrollo y Correcciones:**
+*   **Centralización de Datos de Servicios:**
+    *   Se creó un archivo `lib/amenities-data.ts` para centralizar la lista completa de servicios disponibles, cada uno con su `id`, `name`, `icon` y `category`. Esto permite una gestión de datos más robusta y escalable.
+    *   Se actualizó el tipo `Property` en `lib/types.ts` para incluir un array de `amenities` (IDs de los servicios), normalizando la estructura de datos.
+    *   Se actualizaron los datos de ejemplo en `lib/placeholder-data.ts` para asignar los servicios correspondientes a cada propiedad.
+
+*   **Implementación del Diálogo de Servicios:**
+    *   Se creó un nuevo componente reutilizable `components/custom/AmenitiesDialog.tsx`.
+    *   Al hacer clic en el botón "Mostrar los X Amenities", se abre un diálogo de `shadcn` que muestra la lista completa de servicios del chalet.
+    *   Dentro del diálogo, los servicios se agrupan por categoría y se muestran con sus respectivos iconos. Se utiliza el componente `ScrollArea` para permitir el desplazamiento en listas largas y `Separator` para dividir visualmente las categorías.
+
+*   **Corrección de Estilo del Diálogo:**
+    *   Se ajustó el componente `Dialog` de `shadcn` para permitir la personalización del fondo del overlay.
+    *   El diálogo de servicios ahora se muestra con un fondo negro y translúcido (`bg-black/80`), siguiendo el estilo de un lightbox, a diferencia de otros diálogos de la página.

@@ -7,6 +7,11 @@ export type Property = {
   bedrooms: number;
   beds: number;
   rating: number;
-  price: number;
+  price: {
+    high: number;
+    mid: number;
+    low: number;
+  };
   featured: boolean;
+  amenities: string[];
 };

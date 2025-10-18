@@ -1,5 +1,21 @@
 # Plan y Resumen del Desarrollo del Home (`/app/page.tsx`)
 
+## Resumen de Avances (18/10/2025)
+
+Se han realizado mejoras significativas en la interactividad y funcionalidad de la barra de búsqueda y las tarjetas de propiedades, centralizando la lógica y mejorando la experiencia de usuario.
+
+**Componentes Modificados:**
+*   `vagar-mvp/components/custom/AmenitiesPopoverContent.tsx`:
+    *   Se refactorizó completamente para consumir datos desde la fuente centralizada `lib/amenities-data.ts`, eliminando el contenido estático.
+    *   Se añadió una nueva sección superior de "Habitaciones y camas" con contadores interactivos para "Dormitorios", "Camas" y "Baños".
+    *   Se implementó un límite máximo de 7 para cada contador, deshabilitando el botón de incremento al alcanzarlo.
+
+*   `vagar-mvp/components/custom/PropertyCard.tsx`:
+    *   Se envolvió todo el componente con el componente `<Link>` de `next/link`.
+    *   Ahora, cada tarjeta de propiedad es un enlace que redirige dinámicamente a la página de detalle del chalet correspondiente (ej. `/chalets/[id]`).
+
+---
+
 ## Resumen de Avances (17/10/2025) - Noche
 
 Se ha mejorado la experiencia de usuario en la página de inicio al implementar un estado de carga en las secciones de propiedades destacadas.

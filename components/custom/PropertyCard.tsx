@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Item, ItemContent, ItemMedia } from "../ui/item";
 import { BedDouble, Home, Star, Users } from "lucide-react";
 import { Property } from "@/lib/types";
@@ -6,7 +7,7 @@ import { H4, Muted, Small } from "@/components/ui/typography";
 
 export function PropertyCard({ property }: { property: Property }) {
   return (
-    <div className="flex flex-col h-full w-full">
+    <Link href={`/chalets/${property.id}`} className="flex flex-col h-full w-full">
       <Item className="border-none shadow-none p-0 flex flex-col flex-grow items-start">
         <ItemMedia className="relative rounded-xl overflow-hidden w-full aspect-square">
           <Image
@@ -41,6 +42,6 @@ export function PropertyCard({ property }: { property: Property }) {
           </div>
         </ItemContent>
       </Item>
-    </div>
+    </Link>
   );
 }
