@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { addDays, format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import {
@@ -15,19 +15,33 @@ import { properties } from "@/lib/placeholder-data";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogTrigger, DialogClose, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Lightbox } from "@/components/custom/Lightbox";
-import { Star, Check, X } from "lucide-react";
+import { Star, Check, X, ChevronLeft } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { AmenitiesDialog } from "@/components/custom/AmenitiesDialog";
+import { AmenitiesPopoverContent } from "@/components/custom/AmenitiesPopoverContent";
 import { allAmenities } from "@/lib/amenities-data";
 import { PropertyCard } from "@/components/custom/PropertyCard";
 import { H1, H2, P } from "@/components/ui/typography";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ComparisonTable } from "@/components/custom/ComparisonTable";
 
 export default function ChaletDetailPage() {
   // Por ahora, usamos el primer chalet de los datos de ejemplo
   const chalet = properties[0];
+  const [comparisonChalet, setComparisonChalet] = useState(properties[1]);
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  const [countFilters, setCountFilters] = useState({ bedrooms: 0, beds: 0, bathrooms: 0 });
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
@@ -69,46 +83,108 @@ export default function ChaletDetailPage() {
     setSelectedImageIndex(null);
   };
 
+  const handleAmenityToggle = (amenityId: string) => {
+    setActiveFilters((prev) =>
+      prev.includes(amenityId)
+        ? prev.filter((id) => id !== amenityId)
+        : [...prev, amenityId]
+    );
+  };
+
+  const handleCountChange = (
+    type: keyof typeof countFilters,
+    operation: "increment" | "decrement"
+  ) => {
+    setCountFilters((prev) => ({
+      ...prev,
+      [type]:
+        operation === "increment"
+          ? Math.min(7, prev[type] + 1)
+          : Math.max(0, prev[type] - 1),
+    }));
+  };
+
+  const filteredProperties = properties.slice(1).filter(property => {
+    const amenitiesMatch = activeFilters.every(filterId => property.amenities.includes(filterId));
+    const bedroomsMatch = property.bedrooms >= countFilters.bedrooms;
+    const bedsMatch = property.beds >= countFilters.beds;
+    // Assuming bathrooms are not in the property data, so we don't filter by it yet.
+    // const bathroomsMatch = property.bathrooms >= countFilters.bathrooms; 
+    return amenitiesMatch && bedroomsMatch && bedsMatch;
+  });
+
+  useEffect(() => {
+    // Si el chalet de comparación actual ya no está en la lista filtrada,
+    // o si la lista filtrada tiene elementos y el chalet de comparación no está en ella,
+    // actualizamos al primer elemento de la lista filtrada.
+    if (filteredProperties.length > 0 && !filteredProperties.find(p => p.id === comparisonChalet.id)) {
+      setComparisonChalet(filteredProperties[0]);
+    }
+  }, [activeFilters, comparisonChalet.id, filteredProperties]);
+
   return (
     <main className="container mx-auto px-4 py-8">
       <Dialog>
         {/* Galería de Imágenes */}
         <section className="mb-8">
-          <DialogTrigger asChild>
-            <div className="grid cursor-pointer grid-cols-1 gap-2 md:grid-cols-2">
-              <div className="col-span-1 md:col-span-1">
-                <div className="relative h-[400px] w-full">
-                  <Image
-                    src={chalet.images[0]}
-                    alt={`Imagen principal de ${chalet.title}`}
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-lg"
-                  />
+          {isLoading ? (
+            <div>
+              <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+                <div className="col-span-1 md:col-span-1">
+                  <Skeleton className="h-[400px] w-full rounded-lg" />
+                </div>
+                <div className="col-span-1 grid grid-cols-2 grid-rows-2 gap-2">
+                  <Skeleton className="h-full w-full rounded-lg" />
+                  <Skeleton className="h-full w-full rounded-lg" />
+                  <Skeleton className="h-full w-full rounded-lg" />
+                  <Skeleton className="h-full w-full rounded-lg" />
                 </div>
               </div>
-              <div className="col-span-1 grid grid-cols-2 grid-rows-2 gap-2">
-                {chalet.images.slice(1, 5).map((img, index) => (
-                  <div key={index} className="relative h-full w-full">
-                    <Image
-                      src={img}
-                      alt={`Imagen ${index + 1} de ${chalet.title}`}
-                      layout="fill"
-                      objectFit="cover"
-                      className="rounded-lg"
-                    />
-                  </div>
-                ))}
+              <div className="mt-4 flex space-x-2">
+                <Skeleton className="h-10 w-36" />
+                <Skeleton className="h-10 w-28" />
+                <Skeleton className="h-10 w-28" />
               </div>
             </div>
-          </DialogTrigger>
-          <div className="mt-4 flex space-x-2">
-            <DialogTrigger asChild>
-              <Button variant="outline">Ver todas las fotos</Button>
-            </DialogTrigger>
-            <Button variant="outline">Ver Video</Button>
-            <Button variant="outline">Ver Plano</Button>
-          </div>
+          ) : (
+            <>
+              <DialogTrigger asChild>
+                <div className="grid cursor-pointer grid-cols-1 gap-2 md:grid-cols-2">
+                  <div className="col-span-1 md:col-span-1">
+                    <div className="relative h-[400px] w-full">
+                      <Image
+                        src={chalet.images[0]}
+                        alt={`Imagen principal de ${chalet.title}`}
+                        layout="fill"
+                        objectFit="cover"
+                        className="rounded-lg"
+                      />
+                    </div>
+                  </div>
+                  <div className="col-span-1 grid grid-cols-2 grid-rows-2 gap-2">
+                    {chalet.images.slice(1, 5).map((img, index) => (
+                      <div key={index} className="relative h-full w-full">
+                        <Image
+                          src={img}
+                          alt={`Imagen ${index + 1} de ${chalet.title}`}
+                          layout="fill"
+                          objectFit="cover"
+                          className="rounded-lg"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </DialogTrigger>
+              <div className="mt-4 flex space-x-2">
+                <DialogTrigger asChild>
+                  <Button variant="outline">Ver todas las fotos</Button>
+                </DialogTrigger>
+                <Button variant="outline">Ver Video</Button>
+                <Button variant="outline">Ver Plano</Button>
+              </div>
+            </>
+          )}
         </section>
 
         <DialogContent
@@ -125,7 +201,7 @@ export default function ChaletDetailPage() {
             </DialogHeader>
             <DialogClose asChild>
               <Button variant="ghost" className="absolute left-4 top-4 z-10 h-12 w-12 rounded-full p-2">
-                <X className="h-8 w-8" />
+                <ChevronLeft className="h-18 w-18 scale-[140%]" />
                 <span className="sr-only">Cerrar</span>
               </Button>
             </DialogClose>
@@ -163,7 +239,11 @@ export default function ChaletDetailPage() {
         <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {/* Columna Izquierda: Información */}
           <div className="md:col-span-2">
-            <H1 className="text-3xl font-bold">{chalet.title}</H1>
+            {isLoading ? (
+              <Skeleton className="h-9 w-3/4" />
+            ) : (
+              <H1 className="text-3xl font-bold">{chalet.title}</H1>
+            )}
             <div className="mt-2 flex items-center">
               <Star className="h-5 w-5 fill-primary text-primary" />
               <span className="ml-1 font-semibold">{chalet.rating.toFixed(2)}</span>
@@ -253,21 +333,45 @@ export default function ChaletDetailPage() {
                 }}
                 className="w-full"
               >
-                <div className="relative mb-8">
+                <div className="relative mb-4">
                   <H2>Comparar con otros Chalets</H2>
-                  <div className="absolute right-10 top-3 hidden items-center gap-2 md:flex">
-                    <CarouselPrevious />
+                  <div className="absolute right-14 top-4.5 hidden items-center gap-1 md:flex">
+                    <CarouselPrevious  />
                     <CarouselNext />
                   </div>
                 </div>
+
+                <div className="flex items-center justify-between mb-4">
+                  <P className="text-muted-foreground">Filtrar por Ameniti</P>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button variant="outline">Filtros:</Button>
+                    </PopoverTrigger>
+                    <PopoverContent align="end" className="w-[400px]">
+                      <AmenitiesPopoverContent
+                        selectedAmenities={activeFilters}
+                        onAmenityToggle={handleAmenityToggle}
+                        counts={countFilters}
+                        onCountChange={handleCountChange}
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+
                 <CarouselContent>
-                  {properties.slice(1, 6).map((property) => (
-                    <CarouselItem key={property.id} className="md:basis-1/2 lg:basis-1/3">
-                      <div className="p-1">
-                        <PropertyCard property={property} />
-                      </div>
-                    </CarouselItem>
-                  ))}
+                  {filteredProperties.length > 0 ? (
+                    filteredProperties.map((property) => (
+                      <CarouselItem key={property.id} className="md:basis-1/2 lg:basis-1/3 cursor-pointer" onClick={() => setComparisonChalet(property)}>
+                        <div className="p-1">
+                          <PropertyCard property={property} disableLink={true} />
+                        </div>
+                      </CarouselItem>
+                    ))
+                  ) : (
+                    <div className="w-full text-center py-8">
+                      <P>No se encontraron chalets con los filtros seleccionados.</P>
+                    </div>
+                  )}
                 </CarouselContent>
                 <div className="mt-6 flex items-center justify-center gap-2 md:hidden">
                   <CarouselPrevious />
@@ -275,47 +379,15 @@ export default function ChaletDetailPage() {
                 </div>
               </Carousel>
 
-              <div className="mt-6 overflow-x-auto">
-                <table className="w-full min-w-[600px] border-collapse text-left">
-                  <thead>
-                    <tr>
-                      <th className="border-b p-2">Característica</th>
-                      <th className="border-b p-2 text-center font-bold">{chalet.title}</th>
-                      <th className="border-b p-2 text-center">Chalet de Montaña</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="border-b p-2">Precio por noche</td>
-                      <td className="border-b p-2 text-center font-bold">${chalet.price.toLocaleString()}</td>
-                      <td className="border-b p-2 text-center">$250</td>
-                    </tr>
-                    <tr>
-                      <td className="border-b p-2">Huéspedes</td>
-                      <td className="border-b p-2 text-center font-bold">{chalet.guests}</td>
-                      <td className="border-b p-2 text-center">5</td>
-                    </tr>
-                    <tr>
-                      <td className="border-b p-2">Piscina Privada</td>
-                      <td className="border-b p-2 text-center font-bold"><Check className="mx-auto h-5 w-5 text-green-500" /></td>
-                      <td className="border-b p-2 text-center"><X className="mx-auto h-5 w-5 text-red-500" /></td>
-                    </tr>
-                    <tr>
-                      <td className="border-b p-2">Wifi</td>
-                      <td className="border-b p-2 text-center font-bold"><Check className="mx-auto h-5 w-5 text-green-500" /></td>
-                      <td className="border-b p-2 text-center"><Check className="mx-auto h-5 w-5 text-green-500" /></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <ComparisonTable mainChalet={chalet} comparisonChalet={comparisonChalet} />
             </section>
           </div>
 
           {/* Columna Derecha: Tarjeta de Reserva */}
           <div className="md:col-span-1">
-            <div className="sticky top-24 rounded-xl border p-4 shadow-lg">
-              <H2 className="mb-4">Precio</H2>
-              <div className="space-y-2 text-muted-foreground">
+            <div className="sticky top-6 rounded-xl border px-6 pt-6 pb-8 shadow-lg">
+              <H2 className="mb-1">Precio</H2>
+              <div className="space-y-2 text-sm text-muted-foreground mb-6">
                 <div className="flex justify-between">
                   <span>Temporada alta</span>
                   <span className="font-semibold text-foreground">
@@ -335,19 +407,18 @@ export default function ChaletDetailPage() {
                   </span>
                 </div>
               </div>
-              <Separator className="my-4" />
               <Popover open={isDatePickerOpen} onOpenChange={setIsDatePickerOpen}>
                 <PopoverTrigger asChild>
                   <div className="grid grid-cols-2 rounded-t-lg border cursor-pointer">
                     <div className="p-2">
                       <div className="text-xs font-bold uppercase">CHECK-IN</div>
-                      <div className="text-sm">
+                      <div className="text-xs">
                         {date?.from ? format(date.from, "MM/dd/yyyy") : "Add date"}
                       </div>
                     </div>
                     <div className="border-l p-2">
                       <div className="text-xs font-bold uppercase">CHECKOUT</div>
-                      <div className="text-sm">
+                      <div className="text-xs">
                         {date?.to ? format(date.to, "MM/dd/yyyy") : "Add date"}
                       </div>
                     </div>
@@ -365,7 +436,7 @@ export default function ChaletDetailPage() {
                 <PopoverTrigger asChild>
                   <div className="rounded-b-lg border border-t-0 p-2 cursor-pointer">
                     <div className="text-xs font-bold uppercase">HUESPEDES</div>
-                    <div className="flex items-center justify-between text-sm">
+                    <div className="flex items-center justify-between text-xs">
                       <span>{guestText}</span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -391,8 +462,8 @@ export default function ChaletDetailPage() {
                   />
                 </PopoverContent>
               </Popover>
-              <Button className="mt-4 w-full bg-[#E61E4D] text-white hover:bg-[#E61E4D]/90">
-                Reserve
+              <Button className="mt-4 w-full bg-blue-400 text-white hover:bg-blue-500">
+                Reservar
               </Button>
             </div>
           </div>

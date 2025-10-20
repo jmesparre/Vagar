@@ -119,7 +119,7 @@ const SearchBar = () => {
       <div className="p-2">
         <Button
           title="Buscar"
-          className="bg-red-500 text-white rounded-full w-12 h-12 hover:bg-red-600"
+          className="bg-blue-400 text-white rounded-full w-12 h-12 hover:bg-blue-500"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

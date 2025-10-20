@@ -57,35 +57,43 @@ export const DatePickerPopoverContent: React.FC<DatePickerPopoverContentProps> =
     <div className="p-6">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <H3>{nights > 0 ? `${nights} nights` : "Select dates"}</H3>
+          <H3>{nights > 0 ? `${nights} noches` : "Elegir fecha"}</H3>
           <Small className="text-muted-foreground">
             {date?.from && date?.to
               ? `${format(date.from, "MMM d, yyyy")} - ${format(
                   date.to,
                   "MMM d, yyyy"
                 )}`
-              : "Add your travel dates for exact pricing"}
+              : "2 días"}
           </Small>
         </div>
         <div className="flex space-x-2">
+          <div className="grid w-full max-w-sm items-center gap-1.5">
+            <label htmlFor="checkin" className="text-xs font-medium">CHECK-IN</label>
             <div className="relative">
-                <Input 
-                    value={fromValue}
-                    onChange={handleFromChange}
-                    placeholder="MM/DD/YYYY"
-                    className="pr-8"
-                />
-                {fromValue && <X className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 cursor-pointer" onClick={() => setDate({ from: undefined, to: date?.to })} />}
+              <Input
+                id="checkin"
+                value={fromValue}
+                onChange={handleFromChange}
+                placeholder="11/10/2025"
+                className="h-9 py-1 pr-8 w-32"
+              />
+              {fromValue && <X className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 cursor-pointer" onClick={() => setDate({ from: undefined, to: date?.to })} />}
             </div>
+          </div>
+          <div className="grid w-full max-w-sm items-center gap-1.5">
+            <label htmlFor="checkout" className="text-xs font-medium">CHECKOUT</label>
             <div className="relative">
-                <Input 
-                    value={toValue}
-                    onChange={handleToChange}
-                    placeholder="MM/DD/YYYY"
-                    className="pr-8"
-                />
-                {toValue && <X className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 cursor-pointer" onClick={() => setDate({ from: date?.from, to: undefined })} />}
+              <Input
+                id="checkout"
+                value={toValue}
+                onChange={handleToChange}
+                placeholder="11/13/2025"
+                className="h-9 py-1 pr-8 w-32"
+              />
+              {toValue && <X className="absolute right-2 top-1/2 -translate-y-1/2 h-4 w-4 cursor-pointer" onClick={() => setDate({ from: date?.from, to: undefined })} />}
             </div>
+          </div>
         </div>
       </div>
       <Calendar
@@ -99,9 +107,9 @@ export const DatePickerPopoverContent: React.FC<DatePickerPopoverContentProps> =
       />
       <div className="flex justify-end items-center mt-4 space-x-2">
         <Button variant="link" onClick={() => setDate(undefined)}>
-          Clear dates
+          Limpiar fechas
         </Button>
-        <Button onClick={onClose}>Close</Button>
+        <Button onClick={onClose}>Cerrar</Button>
       </div>
     </div>
   );

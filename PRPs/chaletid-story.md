@@ -143,3 +143,45 @@ Se ha implementado una funcionalidad avanzada para mostrar los servicios del cha
 *   **Corrección de Estilo del Diálogo:**
     *   Se ajustó el componente `Dialog` de `shadcn` para permitir la personalización del fondo del overlay.
     *   El diálogo de servicios ahora se muestra con un fondo negro y translúcido (`bg-black/80`), siguiendo el estilo de un lightbox, a diferencia de otros diálogos de la página.
+
+---
+
+## Resumen de Avances (18/10/2025 - Noche 2)
+
+Se ha refinado la interfaz de usuario de la sección de comparación y se ha realizado una limpieza exhaustiva del código para resolver errores de compilación y advertencias de linting.
+
+**Desarrollo y Correcciones:**
+*   **Ajuste del Carrusel de Comparación:**
+    *   Se reposicionaron los botones de navegación del carrusel en la sección "Comparar con otros Chalets".
+    *   Inspirado en el componente `FeaturedProperties` del home, los botones ahora aparecen en la esquina superior derecha en pantallas de escritorio para una mayor consistencia visual, utilizando posicionamiento absoluto. En móviles, se mantienen centrados debajo para una mejor usabilidad.
+    *   Se corrigió un problema de desbordamiento visual donde los botones se salían de los límites de la columna.
+
+*   **Corrección de Errores de Compilación y Linting:**
+    *   Se solucionó un error crítico de TypeScript en `components/ui/input.tsx` cambiando la `interface` vacía `InputProps` por un `type` alias.
+    *   Se eliminaron múltiples importaciones y variables no utilizadas en varios componentes (`ChaletDetailPage`, `DatePickerPopoverContent`, `SearchBar`) para limpiar el código.
+    *   Se corrigieron advertencias de `react-hooks/exhaustive-deps` en los componentes `ChaletGrid` y `Lightbox`, añadiendo las dependencias faltantes a los `useEffect` y `useCallback` para asegurar un comportamiento predecible y optimizado.
+    *   Se resolvió un error de tipo en `ChaletGrid` que ocurría al ordenar por precio, ajustando la lógica para comparar `price.low` en lugar del objeto `price` completo.
+
+---
+
+## Resumen de Avances (20/10/2025)
+
+Se ha mejorado drásticamente la sección "Comparar con otros Chalets", transformándola de una visualización estática a una herramienta interactiva y funcional.
+
+**Desarrollo y Correcciones:**
+*   **Tabla de Comparación Dinámica:**
+    *   Se creó un nuevo componente reutilizable `components/custom/ComparisonTable.tsx` para manejar la lógica de la comparación.
+    *   La tabla ahora muestra una lista expandida de características, incluyendo precios por temporada, capacidad, y todos los `amenities` disponibles.
+    *   Se implementó un botón "Mostrar todos" que expande la tabla para revelar la lista completa de `amenities`.
+    *   La selección de un chalet en el carrusel ahora actualiza dinámicamente la columna de comparación en la tabla.
+
+*   **Filtro Interactivo de Chalets:**
+    *   Se añadió una nueva fila de UI con el texto "Filtrar por Ameniti" y un botón que despliega un popover.
+    *   Se refactorizó el componente `components/custom/AmenitiesPopoverContent.tsx` para que sea controlable y reutilizable, aceptando `props` para gestionar los `amenities` seleccionados y los contadores de habitaciones/camas/baños.
+    *   Se implementó la lógica de filtrado en el carrusel: ahora, los chalets mostrados se actualizan en tiempo real según los filtros de `amenities` y contadores seleccionados por el usuario.
+    *   Se añadió un mensaje de retroalimentación para el usuario si ningún chalet coincide con los filtros seleccionados.
+
+*   **Corrección de Errores y Refinamiento:**
+    *   Se solucionó un problema de navegación no deseada en el carrusel de comparación. Se modificó el componente `PropertyCard.tsx` para aceptar una `prop` `disableLink` que previene la redirección.
+    *   Se corrigió un error crítico (`TypeError`) en el `SearchBar` de la página de inicio, causado por la refactorización de `AmenitiesPopoverContent.tsx`. Se ajustó el componente para que las nuevas `props` sean opcionales, asegurando la compatibilidad hacia atrás.
+    *   Se restauró la sección de contadores de "Habitaciones y camas" en el `AmenitiesPopoverContent`, que había sido eliminada por error durante la refactorización.

@@ -5,17 +5,23 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { allAmenities } from "@/lib/amenities-data";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
-const AmenityButton = ({
-  text,
-  Icon,
-}: {
+interface AmenityButtonProps {
   text: string;
   Icon: React.ElementType;
-}) => (
+  isSelected: boolean;
+  onClick: () => void;
+}
+
+const AmenityButton = ({ text, Icon, isSelected, onClick }: AmenityButtonProps) => (
   <Button
     variant="outline"
-    className="flex items-center gap-2 h-8 rounded-md px-2 text-xs"
+    onClick={onClick}
+    className={cn(
+      "flex items-center gap-2 h-8 rounded-md px-2 text-xs",
+      isSelected && "border-primary text-primary"
+    )}
   >
     <Icon className="h-4 w-4" />
     {text}
@@ -33,9 +39,9 @@ const CounterRow = ({
   onDecrement: () => void;
   onIncrement: () => void;
 }) => (
-  <div className="flex items-center justify-between">
-    <p className="font-semibold">{label}</p>
-    <div className="flex items-center gap-4">
+  <div className="flex items-center">
+    <p className="font-semibold flex-1">{label}</p>
+    <div className="flex items-center gap-2">
       <Button
         variant="outline"
         size="icon"
@@ -59,24 +65,45 @@ const CounterRow = ({
   </div>
 );
 
-export function AmenitiesPopoverContent() {
-  const [counts, setCounts] = React.useState({
+interface AmenitiesPopoverContentProps {
+  selectedAmenities?: string[];
+  onAmenityToggle?: (amenityId: string) => void;
+  counts?: { bedrooms: number; beds: number; bathrooms: number };
+  onCountChange?: (
+    type: "bedrooms" | "beds" | "bathrooms",
+    operation: "increment" | "decrement"
+  ) => void;
+}
+
+export function AmenitiesPopoverContent({
+  selectedAmenities = [],
+  onAmenityToggle = () => {},
+  counts: controlledCounts,
+  onCountChange,
+}: AmenitiesPopoverContentProps) {
+  const [internalCounts, setInternalCounts] = React.useState({
     bedrooms: 0,
     beds: 0,
     bathrooms: 0,
   });
 
+  const counts = controlledCounts ?? internalCounts;
+
   const handleCountChange = (
     type: keyof typeof counts,
     operation: "increment" | "decrement"
   ) => {
-    setCounts((prev) => ({
-      ...prev,
-      [type]:
-        operation === "increment"
-          ? Math.min(7, prev[type] + 1)
-          : Math.max(0, prev[type] - 1),
-    }));
+    if (onCountChange) {
+      onCountChange(type, operation);
+    } else {
+      setInternalCounts((prev) => ({
+        ...prev,
+        [type]:
+          operation === "increment"
+            ? Math.min(7, prev[type] + 1)
+            : Math.max(0, prev[type] - 1),
+      }));
+    }
   };
 
   const groupedAmenities = allAmenities.reduce((acc, amenity) => {
@@ -127,6 +154,8 @@ export function AmenitiesPopoverContent() {
                     key={amenity.id}
                     text={amenity.name}
                     Icon={amenity.icon}
+                    isSelected={selectedAmenities.includes(amenity.id)}
+                    onClick={() => onAmenityToggle(amenity.id)}
                   />
                 ))}
               </div>
@@ -134,10 +163,6 @@ export function AmenitiesPopoverContent() {
           ))}
         </div>
       </ScrollArea>
-
-      <div className="flex justify-end mt-4">
-        <Button>Mostrar 36 casas</Button>
-      </div>
     </div>
   );
 }
