@@ -1,5 +1,24 @@
 # Plan y Resumen del Desarrollo del Home (`/app/page.tsx`)
 
+## Resumen de Avances (20/10/2025)
+
+Se ha realizado una refactorización y mejora exhaustiva del componente `SearchBar`, añadiendo animaciones complejas y una lógica de estado más robusta para crear una experiencia de usuario más fluida e intuitiva.
+
+**Componentes Modificados:**
+*   `vagar-mvp/components/custom/SearchBar.tsx`:
+    *   **Animación del Botón de Búsqueda:** Se implementó una animación de transición para el botón de búsqueda. Ahora se expande suavemente para mostrar el texto "Buscar" cuando cualquiera de los filtros (Amenities, Cuándo, Huéspedes) está activo, y se contrae mostrando solo el ícono cuando están inactivos.
+    *   **Lógica de Animación Mejorada:** Se añadió lógica con `useEffect` y un `setTimeout` para prevenir que la animación del botón se reinicie al cambiar rápidamente entre los diferentes popovers de filtros, manteniendo el estado expandido de forma consistente.
+    *   **Lógica de Huéspedes Avanzada:**
+        *   El estado inicial de huéspedes ahora es "Agregar huéspedes".
+        *   Se implementó una regla que añade automáticamente un adulto si se seleccionan niños o infantes primero.
+        *   El conteo de infantes ahora se muestra por separado en la leyenda (ej. "3 huéspedes, 2 Infantes").
+    *   **Textos Dinámicos en Filtros:**
+        *   El filtro de fechas ahora muestra "Agregar fechas" por defecto si no hay ninguna seleccionada.
+        *   El filtro de amenities ahora muestra un contador del número de filtros seleccionados (ej. "filtrar por: 3 amenities").
+    *   **Selección de Amenities Persistente:** Se implementó la gestión de estado para que los amenities seleccionados en el popover se mantengan visualmente marcados, similar a la funcionalidad del componente de comparación.
+
+---
+
 ## Resumen de Avances (18/10/2025)
 
 Se han realizado mejoras significativas en la interactividad y funcionalidad de la barra de búsqueda y las tarjetas de propiedades, centralizando la lógica y mejorando la experiencia de usuario.
