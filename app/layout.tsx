@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Vagar Vacaciones",
-  description: "Alquileres en Merlo San Luis",
+  description: "Alquileres en Merlo, San Luis",
 };
 
 export default function RootLayout({
