@@ -11,6 +11,23 @@ interface ComparisonTableProps {
   comparisonChalet: Property;
 }
 
+type Characteristic = {
+  name: string;
+  getValue: (chalet: Property) => string | number;
+  isAmenity?: undefined;
+  amenityId?: undefined;
+};
+
+type AmenityFeature = {
+  name: string;
+  isAmenity: true;
+  amenityId: string;
+  getValue?: undefined;
+};
+
+type ComparisonItem = Characteristic | AmenityFeature;
+
+
 export function ComparisonTable({ mainChalet, comparisonChalet }: ComparisonTableProps) {
   const [showAll, setShowAll] = useState(false);
 
@@ -23,15 +40,17 @@ export function ComparisonTable({ mainChalet, comparisonChalet }: ComparisonTabl
     { name: 'Camas', getValue: (chalet: Property) => chalet.beds },
   ];
 
-  const combinedAmenities = [...characteristics, ...allAmenities.map(amenity => ({
+  const amenityFeatures: AmenityFeature[] = allAmenities.map(amenity => ({
     name: amenity.name,
     isAmenity: true,
     amenityId: amenity.id,
-  }))];
+  }));
+
+  const combinedAmenities: ComparisonItem[] = [...characteristics, ...amenityFeatures];
 
   const visibleAmenities = showAll ? combinedAmenities : combinedAmenities.slice(0, 10);
 
-  const renderValue = (chalet: Property, amenity: any) => {
+  const renderValue = (chalet: Property, amenity: ComparisonItem) => {
     if (amenity.isAmenity) {
       const hasAmenity = chalet.amenities.includes(amenity.amenityId);
       return hasAmenity ? 

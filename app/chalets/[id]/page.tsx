@@ -15,7 +15,7 @@ import { properties } from "@/lib/placeholder-data";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogTrigger, DialogClose, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Lightbox } from "@/components/custom/Lightbox";
-import { Star, Check, X, ChevronLeft } from "lucide-react";
+import { Star, ChevronLeft } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { AmenitiesDialog } from "@/components/custom/AmenitiesDialog";
