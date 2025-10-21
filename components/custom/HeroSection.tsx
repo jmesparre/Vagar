@@ -4,7 +4,19 @@ import SearchBar from './SearchBar';
 import { SearchBarSkeleton } from './SearchBarSkeleton';
 import { H1, Lead } from '@/components/ui/typography';
 
-const HeroSection = () => {
+interface HeroSectionProps {
+  videoSrc: string;
+  title: string;
+  subtitle: string;
+  showSearchBar?: boolean;
+}
+
+const HeroSection = ({
+  videoSrc,
+  title,
+  subtitle,
+  showSearchBar = true,
+}: HeroSectionProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +33,7 @@ const HeroSection = () => {
         muted
         className="absolute z-0 w-full h-full object-cover"
       >
-        <source src="https://www.pexels.com/download/video/34219110/" type="video/mp4" />
+        <source src={videoSrc} type="video/mp4" />
         Tu navegador no soporta la etiqueta de video.
       </video>
 
@@ -33,17 +45,15 @@ const HeroSection = () => {
        
         {/* SearchBar in the middle */}
         <div className="w-full flex justify-center">
-          {isLoading ? <SearchBarSkeleton /> : <SearchBar />}
+          {showSearchBar && (isLoading ? <SearchBarSkeleton /> : <SearchBar />)}
         </div>
 
         {/* Title at the bottom */}
         <div className="flex-grow text-center flex flex-col">
           <H1 className="text-5xl mt-22 md:text-7xl font-bold leading-tight mb-4">
-            Encuentra tu Próximo Destino
+            {title}
           </H1>
-          <Lead className="text-lg md:text-xl">
-            Explora propiedades exclusivas para unas vacaciones inolvidables.
-          </Lead>
+          <Lead className="text-lg md:text-xl">{subtitle}</Lead>
         </div>
       </div>
     </section>

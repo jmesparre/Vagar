@@ -15,8 +15,15 @@ export default function Home() {
 
   return (
     <main>
-      <HeroSection />
-      <FeaturedProperties title="Chalets Celestes" properties={chaletsCelestes} />
+      <HeroSection
+        videoSrc="https://www.pexels.com/download/video/34219110/"
+        title="Encuentra tu Próximo Destino"
+        subtitle="Explora propiedades exclusivas para unas vacaciones inolvidables."
+      />
+      <FeaturedProperties
+        title="Chalets Celestes"
+        properties={chaletsCelestes}
+      />
       <FeaturedProperties title="Chalets Verdes" properties={chaletsVerdes} />
       <FeaturedProperties
         title="Chalets Amarillos"

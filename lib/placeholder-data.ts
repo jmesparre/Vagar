@@ -1,3 +1,5 @@
+import { type Experience } from './types';
+
 export const properties = [
   // Chalets Celestes
   {
@@ -456,5 +458,97 @@ export const properties = [
       "calidad_constructiva",
       "hidromasaje",
     ],
+  },
+];
+
+export const experiences: Experience[] = [
+  // Zona deportiva y social
+  {
+    id: 'exp1',
+    title: 'Cabalgata por las Sierras',
+    description: 'Recorre paisajes increíbles a caballo.',
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=2568&auto=format&fit=crop',
+    category: 'Zona deportiva y social',
+  },
+  {
+    id: 'exp4',
+    title: 'Torneo de Golf',
+    description: 'Compite en un campo de nivel profesional.',
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=2568&auto=format&fit=crop',
+    category: 'Zona deportiva y social',
+  },
+  {
+    id: 'exp7',
+    title: 'Clases de Tenis',
+    description: 'Mejora tu juego con instructores expertos.',
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=2568&auto=format&fit=crop',
+    category: 'Zona deportiva y social',
+  },
+  {
+    id: 'exp10',
+    title: 'Ciclismo de Montaña',
+    description: 'Aventura y adrenalina sobre dos ruedas.',
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=2568&auto=format&fit=crop',
+    category: 'Zona deportiva y social',
+  },
+
+  // Turismo
+  {
+    id: 'exp2',
+    title: 'Clases de Cocina Regional',
+    description: 'Aprende a preparar platos típicos de la zona.',
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=2568&auto=format&fit=crop',
+    category: 'Turismo',
+  },
+  {
+    id: 'exp5',
+    title: 'Visita a Bodegas',
+    description: 'Degusta los mejores vinos de la región.',
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=2568&auto=format&fit=crop',
+    category: 'Turismo',
+  },
+  {
+    id: 'exp8',
+    title: 'Tour Histórico por el Pueblo',
+    description: 'Descubre los secretos y la historia local.',
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=2568&auto=format&fit=crop',
+    category: 'Turismo',
+  },
+  {
+    id: 'exp11',
+    title: 'Feria de Artesanos',
+    description: 'Encuentra piezas únicas y productos locales.',
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=2568&auto=format&fit=crop',
+    category: 'Turismo',
+  },
+
+  // Zona de naturaleza
+  {
+    id: 'exp3',
+    title: 'Senderismo al Atardecer',
+    description: 'Disfruta de vistas panorámicas únicas.',
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=2568&auto=format&fit=crop',
+    category: 'Zona de naturaleza',
+  },
+  {
+    id: 'exp6',
+    title: 'Avistaje de Aves',
+    description: 'Conecta con la fauna local en su hábitat.',
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=2568&auto=format&fit=crop',
+    category: 'Zona de naturaleza',
+  },
+  {
+    id: 'exp9',
+    title: 'Paseo en Kayak por el Lago',
+    description: 'Explora las aguas tranquilas y sus alrededores.',
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=2568&auto=format&fit=crop',
+    category: 'Zona de naturaleza',
+  },
+  {
+    id: 'exp12',
+    title: 'Noche de Astroturismo',
+    description: 'Observa las estrellas en un cielo despejado.',
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?q=80&w=2568&auto=format&fit=crop',
+    category: 'Zona de naturaleza',
   },
 ];

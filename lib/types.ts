@@ -15,3 +15,11 @@ export type Property = {
   featured: boolean;
   amenities: string[];
 };
+
+export type Experience = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  category: 'Zona deportiva y social' | 'Turismo' | 'Zona de naturaleza';
+};
