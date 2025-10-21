@@ -23,6 +23,7 @@ export default function ExperienciasPage() {
         <FeaturedExperiences
           title="Zona deportiva y social"
           experiences={zonaDeportiva}
+          priority
         />
         <FeaturedExperiences title="Turismo" experiences={turismo} />
         <FeaturedExperiences

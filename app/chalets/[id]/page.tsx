@@ -13,9 +13,8 @@ import { DatePickerPopoverContent } from "@/components/custom/DatePickerPopoverC
 import { Button } from "@/components/ui/button";
 import { properties } from "@/lib/placeholder-data";
 import Image from "next/image";
-import { Dialog, DialogContent, DialogTrigger, DialogClose, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Lightbox } from "@/components/custom/Lightbox";
-import { Star, ChevronLeft } from "lucide-react";
+import { Star } from "lucide-react";
+import { ImageGallery } from "@/components/custom/ImageGallery";
 import { Separator } from "@/components/ui/separator";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { AmenitiesDialog } from "@/components/custom/AmenitiesDialog";
@@ -33,7 +32,6 @@ export default function ChaletDetailPage() {
   const [comparisonChalet, setComparisonChalet] = useState(properties[1]);
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const [countFilters, setCountFilters] = useState({ bedrooms: 0, beds: 0, bathrooms: 0 });
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -76,14 +74,6 @@ export default function ChaletDetailPage() {
       ? `${totalGuests} huésped${totalGuests > 1 ? "es" : ""}`
       : "Seleccione huéspedes";
 
-  const handleOpenLightbox = (index: number) => {
-    setSelectedImageIndex(index);
-  };
-
-  const handleCloseLightbox = () => {
-    setSelectedImageIndex(null);
-  };
-
   const handleAmenityToggle = (amenityId: string) => {
     setActiveFilters((prev) =>
       prev.includes(amenityId)
@@ -125,116 +115,29 @@ export default function ChaletDetailPage() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <Dialog>
-        {/* Galería de Imágenes */}
-        <section className="mb-8">
-          {isLoading ? (
-            <div>
-              <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-                <div className="col-span-1 md:col-span-1">
-                  <Skeleton className="h-[400px] w-full rounded-lg" />
-                </div>
-                <div className="col-span-1 grid grid-cols-2 grid-rows-2 gap-2">
-                  <Skeleton className="h-full w-full rounded-lg" />
-                  <Skeleton className="h-full w-full rounded-lg" />
-                  <Skeleton className="h-full w-full rounded-lg" />
-                  <Skeleton className="h-full w-full rounded-lg" />
-                </div>
+      {/* Galería de Imágenes */}
+      <section className="mb-8">
+        {isLoading ? (
+          <div>
+            <div className="grid grid-cols-1 gap-2 md:grid-cols-4">
+              <div className="col-span-1 h-full md:col-span-2 md:row-span-2">
+                <Skeleton className="h-full min-h-[200px] w-full rounded-lg md:min-h-[412px]" />
               </div>
-              <div className="mt-4 flex space-x-2">
-                <Skeleton className="h-10 w-36" />
-                <Skeleton className="h-10 w-28" />
-                <Skeleton className="h-10 w-28" />
-              </div>
+              <Skeleton className="h-full min-h-[200px] w-full rounded-lg" />
+              <Skeleton className="h-full min-h-[200px] w-full rounded-lg" />
+              <Skeleton className="h-full min-h-[200px] w-full rounded-lg" />
+              <Skeleton className="h-full min-h-[200px] w-full rounded-lg" />
             </div>
-          ) : (
-            <>
-              <DialogTrigger asChild>
-                <div className="grid cursor-pointer grid-cols-1 gap-2 md:grid-cols-2">
-                  <div className="col-span-1 md:col-span-1">
-                    <div className="relative h-[400px] w-full">
-                      <Image
-                        src={chalet.images[0]}
-                        alt={`Imagen principal de ${chalet.title}`}
-                        layout="fill"
-                        objectFit="cover"
-                        className="rounded-lg"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-span-1 grid grid-cols-2 grid-rows-2 gap-2">
-                    {chalet.images.slice(1, 5).map((img, index) => (
-                      <div key={index} className="relative h-full w-full">
-                        <Image
-                          src={img}
-                          alt={`Imagen ${index + 1} de ${chalet.title}`}
-                          layout="fill"
-                          objectFit="cover"
-                          className="rounded-lg"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </DialogTrigger>
-              <div className="mt-4 flex space-x-2">
-                <DialogTrigger asChild>
-                  <Button variant="outline">Ver todas las fotos</Button>
-                </DialogTrigger>
-                <Button variant="outline">Ver Video</Button>
-                <Button variant="outline">Ver Plano</Button>
-              </div>
-            </>
-          )}
-        </section>
-
-        <DialogContent
-          showCloseButton={false}
-          onPointerDownOutside={(e) => {
-            if ((e.target as HTMLElement)?.closest('[data-lightbox-root]')) {
-              e.preventDefault();
-            }
-          }}
-          className="!h-screen !w-screen !max-w-full !top-0 !left-0 !translate-x-0 !translate-y-0 !rounded-none !border-none bg-white p-0"
-        >
-            <DialogHeader>
-              <DialogTitle className="sr-only">Galería de Imágenes</DialogTitle>
-            </DialogHeader>
-            <DialogClose asChild>
-              <Button variant="ghost" className="absolute left-4 top-4 z-10 h-12 w-12 rounded-full p-2">
-                <ChevronLeft className="h-18 w-18 scale-[140%]" />
-                <span className="sr-only">Cerrar</span>
-              </Button>
-            </DialogClose>
-            <div className="h-full overflow-y-auto p-4 pt-16">
-              <div className="columns-1 gap-4 space-y-4 sm:columns-2 lg:columns-3">
-                {chalet.images.map((src, index) => (
-                  <div
-                    key={index}
-                    className="break-inside-avoid cursor-pointer"
-                    onClick={() => handleOpenLightbox(index)}
-                  >
-                    <Image
-                      src={src}
-                      alt={`Imagen de la galería ${index + 1}`}
-                      width={500}
-                      height={500}
-                      className="h-auto w-full rounded-lg object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
+            <div className="mt-4 flex space-x-2">
+              <Skeleton className="h-10 w-48" />
+              <Skeleton className="h-10 w-36" />
+              <Skeleton className="h-10 w-36" />
             </div>
-        </DialogContent>
-      </Dialog>
-
-      {selectedImageIndex !== null && (
-        <Lightbox
-          images={chalet.images}
-          initialIndex={selectedImageIndex}
-          onClose={handleCloseLightbox}
-        />
-      )}
+          </div>
+        ) : (
+          <ImageGallery images={chalet.images} />
+        )}
+      </section>
 
       {/* Información Principal y Reserva */}
         <section className="grid grid-cols-1 gap-8 md:grid-cols-3">

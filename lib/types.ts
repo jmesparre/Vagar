@@ -19,7 +19,9 @@ export type Property = {
 export type Experience = {
   id: string;
   title: string;
-  description: string;
-  image: string;
+  shortDescription: string;
+  longDescription: string;
+  images: string[];
   category: 'Zona deportiva y social' | 'Turismo' | 'Zona de naturaleza';
+  whatYouShouldKnow: string[];
 };

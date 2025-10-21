@@ -16,9 +16,14 @@ import { H2 } from "@/components/ui/typography";
 interface FeaturedExperiencesProps {
   title: string;
   experiences: Experience[];
+  priority?: boolean;
 }
 
-export function FeaturedExperiences({ title, experiences }: FeaturedExperiencesProps) {
+export function FeaturedExperiences({
+  title,
+  experiences,
+  priority = false,
+}: FeaturedExperiencesProps) {
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -59,9 +64,15 @@ export function FeaturedExperiences({ title, experiences }: FeaturedExperiencesP
                   </div>
                 </CarouselItem>
               ))
-            : experiences.map((experience) => (
-                <CarouselItem key={experience.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <ExperienceCard experience={experience} />
+            : experiences.map((experience, index) => (
+                <CarouselItem
+                  key={experience.id}
+                  className="pl-4 md:basis-1/2 lg:basis-1/3"
+                >
+                  <ExperienceCard
+                    experience={experience}
+                    priority={priority && index < 3}
+                  />
                 </CarouselItem>
               ))}
         </CarouselContent>
