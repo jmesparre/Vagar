@@ -98,7 +98,7 @@ Una plataforma web responsive construida con Next.js y shadcn, que muestra propi
 
 ### Known Gotchas of our codebase & Library Quirks
 ```
-# CRITICAL: El MVP no incluye reservas o pagos en línea. El flujo termina al enviar un mensaje de WhatsApp.
+# CRITICAL: El MVP no incluye reservas o pagos en línea. 
 # CRITICAL: La actualización de disponibilidad es un proceso manual a través de la subida de un archivo Excel en el backend.
 # CRITICAL: El portal para propietarios está fuera del alcance del MVP.
 # Tech Stack: Next.js (App Router), TypeScript, Tailwind CSS, shadcn.

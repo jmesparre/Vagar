@@ -25,6 +25,7 @@ import { PropertyCard } from "@/components/custom/PropertyCard";
 import { H1, H2, P } from "@/components/ui/typography";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ComparisonTable } from "@/components/custom/ComparisonTable";
+import { BookingDialog } from "@/components/custom/BookingDialog";
 
 export default function ChaletDetailPage() {
   // Por ahora, usamos el primer chalet de los datos de ejemplo
@@ -462,9 +463,11 @@ export default function ChaletDetailPage() {
                   />
                 </PopoverContent>
               </Popover>
-              <Button className="mt-4 w-full bg-blue-400 text-white hover:bg-blue-500">
-                Reservar
-              </Button>
+              <BookingDialog
+                chalet={chalet}
+                selectedDates={date}
+                guestCount={guests}
+              />
             </div>
           </div>
         </section>

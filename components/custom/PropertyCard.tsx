@@ -25,7 +25,7 @@ export function PropertyCard({ property, disableLink = false }: PropertyCardProp
       <ItemContent className="px-1 pt-0 -mt-2 flex flex-col flex-grow">
         <H4 className="text-lg truncate">{property.title}</H4>
         <div className="flex items-center justify-between pt-0">
-          <Muted className="flex items-center gap-x-4 gap-y-1 flex-wrap">
+          <Muted className="flex items-center gap-x-2 gap-y-1 flex-wrap">
             <span className="flex items-center gap-1.5">
               <Users className="w-4 h-4" />
               {property.guests}

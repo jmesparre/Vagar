@@ -185,3 +185,29 @@ Se ha mejorado drásticamente la sección "Comparar con otros Chalets", transfor
     *   Se solucionó un problema de navegación no deseada en el carrusel de comparación. Se modificó el componente `PropertyCard.tsx` para aceptar una `prop` `disableLink` que previene la redirección.
     *   Se corrigió un error crítico (`TypeError`) en el `SearchBar` de la página de inicio, causado por la refactorización de `AmenitiesPopoverContent.tsx`. Se ajustó el componente para que las nuevas `props` sean opcionales, asegurando la compatibilidad hacia atrás.
     *   Se restauró la sección de contadores de "Habitaciones y camas" en el `AmenitiesPopoverContent`, que había sido eliminada por error durante la refactorización.
+
+---
+
+## Resumen de Avances (21/10/2025)
+
+Se ha implementado y refinado por completo la funcionalidad de solicitud de reserva, reemplazando el botón estático por un flujo interactivo a través de un diálogo modal.
+
+**Desarrollo y Correcciones:**
+*   **Creación del Diálogo de Reserva:**
+    *   Se creó un nuevo componente reutilizable `components/custom/BookingDialog.tsx` para encapsular el formulario de solicitud de reserva.
+    *   El diálogo muestra dinámicamente la imagen y el título del chalet, junto con las fechas y el número de huéspedes seleccionados por el usuario.
+    *   Incluye campos de entrada para el nombre y el teléfono del cliente.
+
+*   **Integración con WhatsApp:**
+    *   Al hacer clic en el botón "Enviar", el componente construye un mensaje de texto pre-llenado con todos los detalles de la reserva.
+    *   Se abre automáticamente una nueva pestaña con la URL de WhatsApp, permitiendo al usuario enviar la solicitud de forma instantánea.
+
+*   **Integración en la Página de Detalle:**
+    *   Se reemplazó el botón de "Reservar" estático en `app/chalets/[id]/page.tsx` por el nuevo componente `BookingDialog`.
+    *   Se pasan los estados de `chalet`, `date` y `guests` como `props` para asegurar que el diálogo siempre muestre la información actualizada.
+
+*   **Correcciones de UI y Accesibilidad:**
+    *   Se solucionó un error de anidamiento de HTML (`<h4>` dentro de `<h2>`) en el título del diálogo para evitar errores de hidratación en React.
+    *   Se añadió una `DialogDescription` oculta para mejorar la accesibilidad del componente para lectores de pantalla.
+    *   Se ajustó el estilo del `overlay` del diálogo para que tenga un fondo oscuro y translúcido (`bg-black/80`), manteniendo la consistencia visual con otros modales de la aplicación.
+    *   Se refinó el espaciado y la alineación del texto dentro del diálogo para que coincida con las especificaciones del diseño, asegurando que el contenido esté compacto y bien alineado.
