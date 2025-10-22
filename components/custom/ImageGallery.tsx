@@ -39,9 +39,6 @@ export const ImageGallery = ({
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
 
   return (
     <>

@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Property } from "@/lib/types";
-import { H4, P, Small } from "@/components/ui/typography";
+import { P, Small } from "@/components/ui/typography";
 import { DateRange } from "react-day-picker";
 import { format } from "date-fns";
 
