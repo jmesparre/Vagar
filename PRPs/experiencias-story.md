@@ -1,5 +1,29 @@
 # Plan y Resumen del Desarrollo de la Sección de Experiencias
 
+## Resumen de Avances (21/10/2025 - Noche)
+
+Se ha enriquecido la página de detalle de las experiencias con contenido adicional y una sección de recomendaciones, mejorando la profundidad de la información y fomentando la navegación cruzada.
+
+**Desarrollo y Correcciones:**
+
+*   **Ampliación de la Estructura de Datos:**
+    *   Se actualizó el tipo `Experience` en `lib/types.ts` para incluir más detalles. Se renombró `description` a `shortDescription` y se añadieron los campos `longDescription` (para el texto principal) y `whatYouShouldKnow` (un array de strings para bullet points).
+    *   Se actualizaron los datos de `lib/placeholder-data.ts` para poblar estos nuevos campos en todas las experiencias existentes.
+
+*   **Implementación de Nuevas Secciones de Contenido:**
+    *   Se modificó la página `app/experiencias/[id]/page.tsx` para mostrar la `longDescription` como el contenido principal.
+    *   Se añadió una nueva sección titulada "Qué deberías saber", que renderiza los `bullet points` en un formato de dos columnas, similar a otras secciones del sitio.
+
+*   **Sección de Experiencias Relacionadas:**
+    *   Se implementó una nueva sección "Otras experiencias" al final de la página de detalle.
+    *   Se añadió lógica para filtrar y mostrar hasta tres experiencias que pertenezcan a la misma categoría que la actual, excluyendo la que se está visualizando.
+    *   Se reutilizó el componente `FeaturedExperiences.tsx` para mostrar las experiencias relacionadas en un carrusel, manteniendo la consistencia visual y funcional con otras partes de la aplicación.
+
+*   **Corrección de Errores de TypeScript:**
+    *   Se solucionaron los errores de compilación resultantes de la actualización del tipo `Experience`, ajustando los componentes `ExperienceCard.tsx` y `ExperienciaDetailPage` para que utilizaran los nuevos nombres de campo (`shortDescription` en lugar de `description`).
+
+---
+
 ## Resumen de Avances (21/10/2025)
 
 Se ha implementado la sección completa de "Experiencias", incluyendo la página principal, las páginas de detalle y los componentes necesarios. Durante el desarrollo, se realizaron varias iteraciones para corregir errores de carga de imágenes y ajustar el contenido según el feedback.
