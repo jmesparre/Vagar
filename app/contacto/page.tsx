@@ -12,16 +12,17 @@ export default function ContactPage() {
         {/* Columna Izquierda: Información de Contacto */}
         <div className="space-y-8">
           <div>
-            <Small className="text-muted-foreground">/ get in touch /</Small>
-            <H1>We are always ready to help you and answer your questions</H1>
+            
+            <Small className="text-muted-foreground">/ ponte en contacto /</Small>
+            <H1>Siempre estamos listos para ayudarte y responder tus preguntas</H1>
             <P className="text-muted-foreground mt-4">
-              Pacific hake false trevally queen parrotfish black prickleback mosshead warbonnet sweetlips. Greenling sleeper.
+              Completa el formulario o utiliza nuestros canales de contacto directo. Nuestro equipo está disponible para asistirte con cualquier consulta que tengas.
             </P>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div>
-              <H4>Call Center</H4>
+              <H4>Atención Telefónica</H4>
               <div className="flex items-center mt-4 text-muted-foreground">
                 <Phone className="h-4 w-4 mr-2" />
                 <span>800 100 975 20 54</span>
@@ -32,7 +33,7 @@ export default function ContactPage() {
               </div>
             </div>
             <div>
-              <H4>Our Location</H4>
+              <H4>Nuestra Ubicación</H4>
               <P className="mt-4 text-muted-foreground">USA, New York - 1060</P>
               <P className="text-muted-foreground">Str. First Avenue 1</P>
             </div>
@@ -47,7 +48,7 @@ export default function ContactPage() {
               </div>
             </div>
             <div>
-              <H4>Social network</H4>
+              <H4>Redes Sociales</H4>
               <div className="flex items-center space-x-4 mt-4">
                 <Facebook className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
                 <Twitter className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
@@ -62,19 +63,19 @@ export default function ContactPage() {
         <div>
           <Card className="bg-gray-50 border-none shadow-lg">
             <CardHeader>
-              <CardTitle>Get in Touch</CardTitle>
+              <CardTitle>Ponte en Contacto</CardTitle>
               <P className="text-muted-foreground pt-2">
-                Define your goals and identify areas where AI can add value to your business.
+                Completa el formulario y nos pondremos en contacto contigo a la brevedad.
               </P>
             </CardHeader>
             <CardContent>
               <form className="space-y-6">
-                <Input placeholder="Full name" />
-                <Input type="email" placeholder="Email" />
-                <Input placeholder="Subject" />
-                <Textarea placeholder="Message" rows={5} />
+                <Input placeholder="Nombre completo" />
+                <Input type="email" placeholder="Correo electrónico" />
+                <Input placeholder="Asunto" />
+                <Textarea placeholder="Mensaje" rows={5} />
                 <Button type="submit" className="w-full">
-                  Send a message
+                  Enviar Mensaje
                 </Button>
               </form>
             </CardContent>
@@ -84,9 +85,9 @@ export default function ContactPage() {
 
       {/* Placeholder para el Mapa */}
       <div className="mt-16 text-center bg-gray-100 p-16 rounded-lg">
-        <H4>Map Section</H4>
+        <H4>Sección del Mapa</H4>
         <P className="text-muted-foreground mt-2">
-          The interactive map will be implemented here in a future update.
+          El mapa interactivo se implementará aquí en una futura actualización.
         </P>
       </div>
     </div>
