@@ -166,7 +166,7 @@ export const properties = [
   // Chalets Verdes
   {
     id: '2',
-    title: 'Villa con Piscina',
+    title: 'Villa con Piscina y Parrilla con Asador',
     category: 'Chalets Verdes',
     images: [
       'https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=2670&auto=format&fit=crop',

@@ -120,3 +120,24 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Estilos para el mapa interactivo */
+.interactive-polygon {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  fill: rgb(255, 0, 170);
+  stroke-width: 35.28;
+  pointer-events: all;
+  stroke: white;
+}
+
+.interactive-polygon.hovered {
+  fill: rgba(219, 16, 16, 0.7);
+  filter: url(#drop-shadow);
+  stroke-width: 50;
+}
+
+.interactive-polygon.selected {
+  fill: rgba(255, 243, 24, 0.8);
+  stroke-width: 50;
+}

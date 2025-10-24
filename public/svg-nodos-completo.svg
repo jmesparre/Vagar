@@ -1,0 +1,5074 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: CorelDRAW -->
+
+<svg
+   xml:space="preserve"
+   width="4026.8799"
+   height="1339.2"
+   version="1.1"
+   style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
+   viewBox="0 0 4026.8799 1339.2"
+   id="svg3097"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+ <defs
+   id="defs364"><style
+     type="text/css"
+     id="style1">
+   <![CDATA[
+    .str43 {stroke:#9DD3AF;stroke-width:100;stroke-miterlimit:22.9256}
+    .str15 {stroke:#00A859;stroke-width:100;stroke-miterlimit:22.9256}
+    .str16 {stroke:#00A859;stroke-width:100;stroke-miterlimit:22.9256}
+    .str72 {stroke:#D2AE6D;stroke-width:75;stroke-miterlimit:22.9256}
+    .str52 {stroke:#FEFEFE;stroke-width:35.28;stroke-miterlimit:22.9256}
+    .str26 {stroke:#FEFEFE;stroke-width:35.28;stroke-miterlimit:22.9256}
+    .str40 {stroke:#A8AAAD;stroke-width:35.28;stroke-miterlimit:22.9256}
+    .str12 {stroke:#373435;stroke-width:35.28;stroke-miterlimit:22.9256}
+    .str47 {stroke:#8FD8F7;stroke-width:17.6;stroke-miterlimit:22.9256}
+    .str21 {stroke:#00AFEF;stroke-width:17.6;stroke-miterlimit:22.9256}
+    .str44 {stroke:#A8AAAD;stroke-width:17.64;stroke-miterlimit:22.9256}
+    .str27 {stroke:#373435;stroke-width:17.64;stroke-miterlimit:22.9256}
+    .str17 {stroke:#373435;stroke-width:17.64;stroke-miterlimit:22.9256}
+    .str38 {stroke:#D2D9B0;stroke-width:17.64;stroke-miterlimit:22.9256}
+    .str10 {stroke:#99B155;stroke-width:17.64;stroke-miterlimit:22.9256}
+    .str71 {stroke:#FFF212;stroke-width:17.78;stroke-miterlimit:22.9256}
+    .str53 {stroke:#FEFEFE;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str35 {stroke:#C1C3C5;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str70 {stroke:#A9ABAE;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str29 {stroke:#A8AAAD;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str7 {stroke:#727376;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str1 {stroke:#373435;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str18 {stroke:#373435;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str45 {stroke:#8E8989;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str46 {stroke:#8FD8F7;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str50 {stroke:#9DD3AF;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str62 {stroke:#48887B;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str19 {stroke:#363434;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str20 {stroke:#00AFEF;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str24 {stroke:#00A859;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str51 {stroke:white;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str25 {stroke:white;stroke-width:7.62;stroke-miterlimit:22.9256}
+    .str36 {stroke:#A8AAAD;stroke-width:23.42;stroke-miterlimit:22.9256}
+    .str8 {stroke:#373435;stroke-width:23.42;stroke-miterlimit:22.9256}
+    .str37 {stroke:#8E8989;stroke-width:23.42;stroke-miterlimit:22.9256}
+    .str9 {stroke:#363434;stroke-width:23.42;stroke-miterlimit:22.9256}
+    .str28 {stroke:#A8AAAD;stroke-width:23.42;stroke-miterlimit:22.9256}
+    .str0 {stroke:#373435;stroke-width:23.42;stroke-miterlimit:22.9256}
+    .str31 {stroke:#A8AAAD;stroke-width:23.48;stroke-miterlimit:22.9256}
+    .str3 {stroke:#373435;stroke-width:23.48;stroke-miterlimit:22.9256}
+    .str30 {stroke:#A8AAAD;stroke-width:23.48;stroke-miterlimit:22.9256}
+    .str2 {stroke:#373435;stroke-width:23.48;stroke-miterlimit:22.9256}
+    .str39 {stroke:#A8AAAD;stroke-width:115.72;stroke-miterlimit:22.9256}
+    .str11 {stroke:#373435;stroke-width:115.72;stroke-miterlimit:22.9256}
+    .str69 {stroke:#F79752;stroke-width:23.98;stroke-miterlimit:22.9256}
+    .str67 {stroke:#727376;stroke-width:26.62;stroke-miterlimit:22.9256}
+    .str66 {stroke:#727376;stroke-width:26.69;stroke-miterlimit:22.9256}
+    .str33 {stroke:#F6EAD8;stroke-width:590.31;stroke-miterlimit:22.9256}
+    .str5 {stroke:#EDD2AD;stroke-width:590.31;stroke-miterlimit:22.9256}
+    .str68 {stroke:#373435;stroke-width:27.29;stroke-miterlimit:22.9256}
+    .str63 {stroke:#FEFEFE;stroke-width:27.27;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str65 {stroke:#FEFEFE;stroke-width:27.29;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str64 {stroke:#FEFEFE;stroke-width:27.29;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str58 {stroke:#FEFEFE;stroke-width:21.28;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str61 {stroke:#FEFEFE;stroke-width:21.28;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str55 {stroke:#FEFEFE;stroke-width:21.28;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str60 {stroke:#FEFEFE;stroke-width:21.28;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str56 {stroke:#FEFEFE;stroke-width:21.28;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str57 {stroke:#FEFEFE;stroke-width:21.28;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str59 {stroke:#FEFEFE;stroke-width:21.28;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str54 {stroke:#FEFEFE;stroke-width:21.32;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str49 {stroke:#A8AAAD;stroke-width:23.9;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str23 {stroke:#373435;stroke-width:23.9;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str42 {stroke:#DCF1FC;stroke-width:94.08;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str14 {stroke:#ACE1F9;stroke-width:94.08;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str41 {stroke:#C1C997;stroke-width:94.18;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str13 {stroke:#7B8B30;stroke-width:94.18;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str32 {stroke:#DCF1FC;stroke-width:94.28;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str4 {stroke:#ACE1F9;stroke-width:94.28;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str34 {stroke:#DCF1FC;stroke-width:94.28;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str6 {stroke:#ACE1F9;stroke-width:94.28;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:22.9256}
+    .str48 {stroke:#A8AAAD;stroke-width:16.22;stroke-miterlimit:22.9256;stroke-dasharray:81.100000 48.660000 16.220000 48.660000}
+    .str22 {stroke:#373435;stroke-width:16.22;stroke-miterlimit:22.9256;stroke-dasharray:81.100000 48.660000 16.220000 48.660000}
+    .fil15 {fill:none}
+    .fil19 {fill:none;fill-rule:nonzero}
+    .fil27 {fill:#FEFEFE}
+    .fil46 {fill:#F3F3F4}
+    .fil1 {fill:#E6E7E8}
+    .fil66 {fill:#E2E3E4}
+    .fil23 {fill:#BDBFC1}
+    .fil113 {fill:#BDBFC1}
+    .fil65 {fill:#A8AAAD}
+    .fil107 {fill:#96989A}
+    .fil22 {fill:#373435}
+    .fil37 {fill:#373435}
+    .fil109 {fill:#FFFBD6}
+    .fil74 {fill:#FFF8AE}
+    .fil31 {fill:#FFF212}
+    .fil47 {fill:#FFF7E5}
+    .fil2 {fill:#FFEEC7}
+    .fil111 {fill:#FDD1A1}
+    .fil114 {fill:#FDD1A1}
+    .fil101 {fill:#FFCC29}
+    .fil112 {fill:#EFBF8B}
+    .fil102 {fill:#EEB02D}
+    .fil105 {fill:#FAA954}
+    .fil60 {fill:#F8AB91}
+    .fil61 {fill:#E19C86}
+    .fil106 {fill:#EB9336}
+    .fil16 {fill:#ED3237}
+    .fil116 {fill:#ED3237}
+    .fil115 {fill:#CF3034}
+    .fil17 {fill:#BC2E31}
+    .fil59 {fill:#F5F8E7}
+    .fil58 {fill:#F1F6E4}
+    .fil48 {fill:#F0F5DE}
+    .fil57 {fill:#EEF5E1}
+    .fil71 {fill:#EFF4D8}
+    .fil117 {fill:#EDF2CA}
+    .fil56 {fill:#EBF3DC}
+    .fil62 {fill:#EAF3D7}
+    .fil14 {fill:#EBF2CC}
+    .fil55 {fill:#E8F2D9}
+    .fil54 {fill:#E5F0D5}
+    .fil53 {fill:#E2EFD2}
+    .fil13 {fill:#E3EEC3}
+    .fil64 {fill:#C1C997}
+    .fil80 {fill:#E2ECCA}
+    .fil52 {fill:#DEEDCE}
+    .fil51 {fill:#DCECCA}
+    .fil3 {fill:#DEEAB2}
+    .fil45 {fill:#D4DEB7}
+    .fil67 {fill:#D3DDB5}
+    .fil12 {fill:#DBEABA}
+    .fil28 {fill:#DDE9A4}
+    .fil108 {fill:#D3DC91}
+    .fil50 {fill:#D8EAC7}
+    .fil68 {fill:#D9E3B8}
+    .fil49 {fill:#D6E9C3}
+    .fil11 {fill:#D4E6B0}
+    .fil18 {fill:#D2E4A2}
+    .fil77 {fill:#C6EAFB}
+    .fil10 {fill:#CDE3A7}
+    .fil78 {fill:#B8E1F4}
+    .fil9 {fill:#C5DF9F}
+    .fil21 {fill:#7B8B30}
+    .fil8 {fill:#BDDC97}
+    .fil38 {fill:#BED788}
+    .fil103 {fill:#B6DCAF}
+    .fil7 {fill:#B5D890}
+    .fil0 {fill:#A2BC61}
+    .fil6 {fill:#AED587}
+    .fil104 {fill:#A1CB9B}
+    .fil24 {fill:#A0BA5E}
+    .fil5 {fill:#A6D27F}
+    .fil25 {fill:#A9C45C}
+    .fil82 {fill:#8FD8F7}
+    .fil76 {fill:#9DD3AF}
+    .fil69 {fill:#93C9ED}
+    .fil4 {fill:#9ECF77}
+    .fil34 {fill:#71D0F6}
+    .fil35 {fill:#4CBFE8}
+    .fil36 {fill:#363434}
+    .fil32 {fill:#00AFEF}
+    .fil40 {fill:#00AFEF}
+    .fil33 {fill:#00A859}
+    .fil100 {fill:#00A2DA}
+    .fil26 {fill:#0098DA}
+    .fil39 {fill:black}
+    .fil41 {fill:black}
+    .fil93 {fill:#0096D6}
+    .fil92 {fill:#009EBD}
+    .fil96 {fill:#0876A1}
+    .fil97 {fill:#0D64AB}
+    .fil95 {fill:#40917F}
+    .fil91 {fill:#4DAB98}
+    .fil94 {fill:#649E54}
+    .fil43 {fill:#6699FF}
+    .fil90 {fill:#83BD71}
+    .fil83 {fill:#989898}
+    .fil89 {fill:#A8CF45}
+    .fil85 {fill:#C1D6FF}
+    .fil44 {fill:white}
+    .fil70 {fill:#FEFEFE;fill-rule:nonzero}
+    .fil72 {fill:#A8AAAD;fill-rule:nonzero}
+    .fil29 {fill:#373435;fill-rule:nonzero}
+    .fil73 {fill:#FFF8AE;fill-rule:nonzero}
+    .fil30 {fill:#FFF212;fill-rule:nonzero}
+    .fil110 {fill:#F79752;fill-rule:nonzero}
+    .fil75 {fill:#C1C997;fill-rule:nonzero}
+    .fil79 {fill:#8E8989;fill-rule:nonzero}
+    .fil63 {fill:#8FD8F7;fill-rule:nonzero}
+    .fil20 {fill:#00AFEF;fill-rule:nonzero}
+    .fil98 {fill:black;fill-rule:nonzero}
+    .fil88 {fill:#009EBD;fill-rule:nonzero}
+    .fil87 {fill:#4DAB98;fill-rule:nonzero}
+    .fil99 {fill:gray;fill-rule:nonzero}
+    .fil86 {fill:#83BD71;fill-rule:nonzero}
+    .fil81 {fill:#989898;fill-rule:nonzero}
+    .fil84 {fill:white;fill-rule:nonzero}
+    .fil42 {fill:white;fill-rule:nonzero}
+    .fnt22 {font-weight:normal;font-size:211.67px;font-family:'Arial'}
+    .fnt10 {font-weight:normal;font-size:248.07px;font-family:'Arial'}
+    .fnt11 {font-weight:normal;font-size:251.42px;font-family:'Arial'}
+    .fnt14 {font-weight:normal;font-size:289.61px;font-family:'Arial'}
+    .fnt17 {font-weight:normal;font-size:294.99px;font-family:'Arial'}
+    .fnt21 {font-weight:normal;font-size:352.78px;font-family:'Arial'}
+    .fnt16 {font-weight:normal;font-size:354.63px;font-family:'Arial'}
+    .fnt5 {font-weight:normal;font-size:361.67px;font-family:'Arial'}
+    .fnt23 {font-weight:normal;font-size:362.82px;font-family:'Arial'}
+    .fnt18 {font-weight:normal;font-size:365.12px;font-family:'Arial'}
+    .fnt7 {font-weight:normal;font-size:389.49px;font-family:'Arial'}
+    .fnt20 {font-weight:bold;font-size:423.33px;font-family:'Arial'}
+    .fnt19 {font-weight:normal;font-size:452.72px;font-family:'Arial'}
+    .fnt2 {font-weight:900;font-size:453.31px;font-family:'Arial Black'}
+    .fnt15 {font-weight:normal;font-size:472.89px;font-family:'Arial'}
+    .fnt13 {font-weight:normal;font-size:482.69px;font-family:'Arial'}
+    .fnt9 {font-weight:normal;font-size:486.89px;font-family:'Arial'}
+    .fnt8 {font-weight:bold;font-size:535.59px;font-family:'Arial'}
+    .fnt12 {font-weight:bold;font-size:579.22px;font-family:'Arial'}
+    .fnt6 {font-weight:normal;font-size:605.83px;font-family:'Arial'}
+    .fnt4 {font-weight:bold;font-size:636.86px;font-family:'Arial'}
+    .fnt3 {font-weight:bold;font-size:650.29px;font-family:'Arial'}
+    .fnt0 {font-weight:900;font-size:752.64px;font-family:'Arial Black'}
+    .fnt1 {font-weight:bold;font-size:817.86px;font-family:'Arial'}
+   ]]>
+  </style></defs>
+ 
+ 
+ 
+ <g
+   id="_1_x002f_1-2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_5Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="-8089.85,15713.23 -10190.09,15496.14 -9302.44,12064.76 -8308.79,12356.23 -7448.82,13232.92 "
+   id="polygon1743"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+ </g>
+ <g
+   id="_1_x002f_3-4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_6Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="-4903.91,15827.35 -7448.82,13232.92 -8089.85,15713.23 -4917.16,16039.33 "
+   id="polygon1746"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+ </g>
+ <g
+   id="_2_x002f_1-2-3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_7Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="-7822.51,16394 -7932.67,17997.05 -10513.45,17408.86 -10262.34,16329.1 -9966.71,16149.02 "
+   id="polygon1749"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+ </g>
+ <g
+   id="_2_x002f_4-5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_8Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="-6175.92,16582.13 -6334.91,18361.2 -7932.67,17997.05 -7822.51,16394 "
+   id="polygon1752"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+ </g>
+ <g
+   id="_2_x002f_6-7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_9Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="-4553.83,16767.47 -4752.46,18721.86 -6334.91,18361.2 -6175.92,16582.13 "
+   id="polygon1755"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+ </g>
+ <g
+   id="_2_x002f_8-9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_10Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="-3510.68,19004.88 -4752.46,18721.86 -4553.83,16767.47 -2956.1,16950.01 -3102.14,18995.28 "
+   id="polygon1758"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_2_x002f_10-11"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_11Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="-1346.12,17133.96 -1501.44,18957.71 -3102.14,18995.28 -2956.1,16950.01 "
+   id="polygon1762"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+ </g>
+ <g
+   id="_2_x002f_12-13"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_12Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="257.53,17317.19 148.27,18918.98 -1501.44,18957.71 -1346.12,17133.96 "
+   id="polygon1765"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+ </g>
+ <g
+   id="_2_x002f_14-15"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_13Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="1886.78,17503.34 1768.33,18880.94 148.27,18918.98 257.53,17317.19 "
+   id="polygon1768"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_2_x002f_16"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_14Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="1768.33,18880.94 3370.74,18843.32 3475.95,17684.91 1886.78,17503.34 "
+   id="polygon1772"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_2_x002f_17"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_15Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="5118.42,18802.3 3370.74,18843.32 3475.95,17684.91 6093.98,17984.04 6046.37,18571.93 "
+   id="polygon1776"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_3_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_16Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="1219.34,15389.54 1365.42,14038.24 440.72,13938.29 153.13,14114.84 -296.76,15197.27 "
+   id="polygon1780"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_3_x002f_2-6"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_17Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="2689.73,16976.11 2948.53,14209.38 1365.42,14038.24 1219.34,15389.54 1062.13,16793.9 "
+   id="polygon1784"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_3_x002f_3-7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_18Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="4557.65,14383.33 4247.88,17150.53 2689.73,16976.11 2948.53,14209.38 "
+   id="polygon1788"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_3_x002f_5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_19Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="-746.66,16279.71 -296.76,15197.27 1219.34,15389.54 1062.13,16793.9 -626.07,16604.92 "
+   id="polygon1792"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_3_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_20Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="6154.98,14765.22 6048.3,15940.58 4403.94,15756.5 4557.65,14383.33 5941.62,14532.94 "
+   id="polygon1796"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_3_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_21Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="6048.3,15940.58 4403.94,15756.5 4247.88,17150.53 5681.88,17311.07 5941.62,17115.95 "
+   id="polygon1800"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_4_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_22Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="7304.62,16475.05 9430.64,16280.52 8708.07,17739.55 6915.54,18420.44 "
+   id="polygon1804"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_23Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="10876.14,13534.23 12140.28,13223.48 12334.82,13390.23 12209.76,14321.24 12209.76,14988.23 11323.94,15067.64 "
+   id="polygon1808"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_24Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="10876.14,13534.23 11196.56,14632.11 9920.69,14959.69 9583.5,14015.53 "
+   id="polygon1812"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_25Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="11576.37,15930.69 11196.56,14632.11 9920.69,14959.69 10000.36,15182.76 10000.36,15832.09 "
+   id="polygon1816"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_26Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="11576.37,15930.69 10000.36,15832.09 10000.36,17142.04 11056.43,16627.91 11804.19,16709.63 "
+   id="polygon1820"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_27Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="11804.19,16709.63 11323.94,15067.64 12209.76,14988.23 12362.61,15363.41 12835.06,15752.48 "
+   id="polygon1824"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_6"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_28Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="12835.06,15752.48 13613.22,15752.48 14298.25,16979.94 11804.19,16709.63 "
+   id="polygon1827"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_29Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="15042.09,17057.99 14298.25,16979.94 13613.22,15752.48 14169.04,15460.68 15718.35,16259.62 "
+   id="polygon1831"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_30Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="15718.35,16259.62 14169.04,15460.68 14113.46,14807.58 15753.83,14713.15 16264.43,15614.94 "
+   id="polygon1835"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_31Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="14975.93,13338.25 15753.83,14713.15 14113.46,14807.58 13131.5,14562.93 "
+   id="polygon1839"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_32Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="12904.54,12973.36 14182.94,12639.87 14585.98,12648.01 14975.93,13338.25 13131.5,14562.93 12862.86,14501.88 12626.63,14279.55 12737.8,13320.75 "
+   id="polygon1843"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_11"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_33Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="14585.98,12648.01 16264.43,15614.94 16945.45,14810.97 15819.35,12542.23 15558.6,12667.66 "
+   id="polygon1847"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_12"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_34Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="16656.35,12139.63 15819.35,12542.23 16945.45,14810.97 17620.01,13984.97 "
+   id="polygon1851"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_13"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_35Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="16656.35,12139.63 17620.01,13984.97 18246.37,13218 17412.17,11103.42 "
+   id="polygon1855"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_14-15"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_36Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="18246.37,13218 18672.57,12696.13 19545.93,12072.74 19894.03,10583.32 18643.42,10680.59 17517.88,10958.5 17412.17,11103.42 "
+   id="polygon1859"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_17"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_37Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="18742.15,12646.46 19545.93,12072.74 20541.97,12842.39 19655.91,14496.22 "
+   id="polygon1863"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_18"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_38Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="18002.87,14705.23 19101.98,15530.15 19655.91,14496.22 18742.15,12646.46 18672.57,12696.13 17620.01,13984.97 "
+   id="polygon1867"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_5_x002f_19-20"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_39Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="17267.76,17294.89 15042.09,17057.99 15718.35,16259.62 16264.43,15614.94 16945.45,14810.97 17620.01,13984.97 18002.87,14705.23 19101.98,15530.15 17934.75,17044.77 "
+   id="polygon1871"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_6_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_40Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="14667.71,12295.76 13738.28,12334.17 12376.51,12723.24 12181.97,11847.82 14573.28,11412 "
+   id="polygon1875"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_6_x002f_2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_41Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="15419.64,12264.69 14667.71,12295.76 14573.28,11412 16267.28,10944.61 16545.19,11722.76 "
+   id="polygon1879"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_8_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_42Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="26887.57,12899.56 24768.02,13088.44 27444.97,15696.16 28717.85,15757.95 "
+   id="polygon1883"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_8_x002f_2-3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_43Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="28717.85,15757.95 29821.92,15811.55 31065.55,15248.02 29429.61,12673.05 26887.08,12898.8 "
+   id="polygon1887"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_8_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_44Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="29429.61,12673.05 31065.55,15248.02 31927.81,14857.31 30185.82,12183.1 "
+   id="polygon1891"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_8_x002f_5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_45Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="30185.82,12183.1 31927.81,14857.31 32804.43,14461.91 31020.93,11642.05 "
+   id="polygon1895"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_8_x002f_6-7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_46Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="32804.43,14461.91 34552.74,13780.76 33001.03,11061.47 31020.93,11642.05 "
+   id="polygon1899"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_8_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_47Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="33001.03,11061.47 34552.74,13780.76 35232.57,13064.5 33906.58,10803.8 "
+   id="polygon1903"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_8_x002f_9-10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_48Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="35845.06,12419.2 36686.08,11789.65 35029.21,9119.86 33906.58,10803.8 35232.57,13064.5 "
+   id="polygon1907"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+ </g>
+ <g
+   id="_8_x002f_11"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_49Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="37433.11,11230.47 35736.38,8621.85 35029.21,9119.86 36686.08,11789.65 "
+   id="polygon1910"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_8_x002f_12"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_50Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="35736.38,8621.85 36601.49,8253.23 38209.57,10649.27 37433.11,11230.47 "
+   id="polygon1914"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_8_x002f_13"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_51Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="36601.49,8253.23 37496.58,7871.84 38999.99,10057.61 38209.57,10649.27 "
+   id="polygon1918"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_8_x002f_14"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_52Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="37496.58,7871.84 38999.99,10057.61 39791.25,9465.33 40137.41,9003.78 40025.48,7873 39647.74,6955.25 "
+   id="polygon1922"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_53Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="29518.2,16352.31 28575.75,16319.24 27929.59,17080.79 28806.53,18719.27 29011.34,19379.96 30292.06,18777.39 "
+   id="polygon1926"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_54Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="30292.06,18777.39 31610.8,18155.57 30586.45,16051.3 29891.15,16365.4 29518.2,16352.31 "
+   id="polygon1930"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_55Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="30586.42,16051.23 31610.8,18155.57 32570.69,17704.21 31599.16,15593.63 "
+   id="polygon1934"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_56Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="31599.16,15593.63 32570.69,17704.21 33582.91,17228.25 32532.06,15172.09 "
+   id="polygon1938"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_5-6"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_57Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="33582.91,17228.25 35534.66,16310.82 34627.01,14436.83 33006.57,14957.69 32532.06,15172.09 "
+   id="polygon1942"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_58Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="36616.31,15801.91 35534.66,16310.82 34627.01,14436.83 34945.05,14334.61 35512.24,13711.81 "
+   id="polygon1946"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_59Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="36139.05,13029.42 37612.74,15054.82 36661.88,15780.49 36616.31,15801.91 35512.24,13711.81 "
+   id="polygon1950"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_60Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="36139.05,13029.42 36915.59,12443.97 38401.53,14452.85 37612.74,15054.82 "
+   id="polygon1954"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_61Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="36915.59,12443.97 38401.53,14452.85 39275.01,13786.25 37719.64,11837.78 "
+   id="polygon1958"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_11"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_62Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="37719.51,11837.87 39275.01,13786.25 40049.64,13195.09 38452.84,11285 "
+   id="polygon1962"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_12"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_63Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="38452.84,11285 40049.64,13195.09 40852.38,12582.46 39229,10700.16 "
+   id="polygon1966"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_13-14"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_64Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="39229,10700.16 40852.23,12582.3 42229,11531.03 40852.8,9696.1 40552.8,9719.18 "
+   id="polygon1970"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_15-16"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_65Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="42606.67,14888.46 41349.72,15496.51 40216.96,13067.4 42229,11531.03 42837.44,12696.13 42952.83,14149.99 "
+   id="polygon1974"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_17"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_66Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="41349.72,15496.51 40217.83,13068.88 39411.93,13681.76 40507.03,15904.16 "
+   id="polygon1978"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_18"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_67Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="38559.7,14332.14 39411.93,13681.76 40507.03,15904.16 39610.84,16337.7 "
+   id="polygon1982"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_19"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_68Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="37769.17,14935.43 38559.7,14332.14 39610.84,16337.7 38686.76,16784.72 "
+   id="polygon1986"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_20-21"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_69Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="38686.76,16784.72 36914.25,17642.19 36095.62,16046.9 36661.88,15780.49 37769.17,14935.43 "
+   id="polygon1990"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_22"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_70Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="36914.25,17642.19 36095.62,16046.9 35191.81,16472.13 35970.56,18098.7 "
+   id="polygon1993"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_23"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_71Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="34289.79,16895.87 35191.81,16472.13 35970.56,18098.7 35066.78,18535.91 "
+   id="polygon1997"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_24"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_72Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="35066.78,18535.91 34289.79,16895.87 33416.84,17306.34 34197.2,18956.57 "
+   id="polygon2001"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_25"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_73Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="32454.68,17758.75 33416.84,17306.34 34197.2,18956.57 33252.7,19413.48 "
+   id="polygon2005"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_26"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_74Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="33252.7,19413.48 32454.68,17758.75 31610.8,18155.57 32418.74,19816.91 "
+   id="polygon2009"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_27"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_75Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="30713.41,18579.15 31610.8,18155.57 32418.74,19816.91 31551.3,20236.54 "
+   id="polygon2013"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_28"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_76Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="29815.52,19001.6 30713.41,18579.15 31551.3,20236.54 30611.37,20691.23 "
+   id="polygon2017"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_9_x002f_29"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_77Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="29821.92,21073.14 30611.37,20691.23 29815.52,19001.6 29011.34,19379.96 29521.92,21026.99 "
+   id="polygon2021"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_10_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_78Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="28674,20002.18 27930.98,18689.51 26198.34,19593.49 23034.4,21878.56 24959.18,22814.22 26993.04,21098.44 "
+   id="polygon2025"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_10_x002f_2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_79Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="29312.07,22004.11 27529.21,24665.84 26650.34,23636.31 24959.18,22814.22 26993.04,21098.44 28674,20002.18 28756.39,20248.2 "
+   id="polygon2029"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_80Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="30906.55,22619.31 30121.92,22019.3 30214.23,21511.61 31377.13,20952.81 31962.88,22940.78 31921.94,22942.39 "
+   id="polygon2033"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_81Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="32312.21,20503.48 33054.43,22897.97 32031.63,22938.08 31962.88,22940.78 31377.13,20952.81 "
+   id="polygon2037"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_3-4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_82Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="34937.66,21017.28 34465.64,19468.71 32312.21,20503.48 32685.79,21708.7 "
+   id="polygon2041"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_83Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="35897.25,20722.54 35336.8,19050.1 34465.64,19468.71 34937.66,21017.28 "
+   id="polygon2045"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_6"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_84Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="36285.4,18594.28 36884.45,20419.31 35897.25,20722.54 35336.8,19050.1 "
+   id="polygon2049"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_85Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="37226,18142.31 37844.2,20124.51 36884.45,20419.31 36285.4,18594.28 "
+   id="polygon2053"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_86Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="38138.85,17703.66 38770.97,19839.85 37844.78,20124.34 37226,18142.31 "
+   id="polygon2057"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_87Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="39287.15,17151.88 39696.86,19555.45 38770.97,19839.85 38138.85,17703.66 "
+   id="polygon2061"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_88Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="40553.97,19292.19 39696.86,19555.45 39287.15,17151.88 40554.31,16542.99 40611.42,19291.52 "
+   id="polygon2065"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_11"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_89Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="41753.42,15966.79 41810.24,18240.77 40596.31,18262.07 40554.31,16542.99 "
+   id="polygon2069"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_12"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_90Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="41810.24,18240.77 43027.62,18219.28 42998.98,15765.39 42652.82,15534.62 41753.42,15966.79 "
+   id="polygon2073"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_13"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_91Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="43027.62,18219.28 40596.31,18262.07 40611.42,19291.52 43039.81,19263.98 "
+   id="polygon2077"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_14"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_92Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="43039.81,19263.98 40611.42,19291.52 40631.96,20279.88 43051.52,20266.98 "
+   id="polygon2081"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_15"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_93Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="43068.21,21696.22 42560.51,22388.54 41852.68,22148.96 41852.21,20273.37 43051.52,20266.98 "
+   id="polygon2085"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_16"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_94Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="41852.68,22148.96 41060.5,21880.84 40666.57,21945.68 40631.96,20279.88 41852.21,20273.37 "
+   id="polygon2089"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_17-18"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_95Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="40611.42,19291.52 40666.57,21945.68 38803.96,22252.28 38770.97,19839.85 40553.97,19292.19 "
+   id="polygon2093"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_19"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_96Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="37844.78,20124.34 38770.97,19839.85 38803.96,22252.28 37858.54,22407.91 "
+   id="polygon2097"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_20"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_97Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="36885.04,20421.09 37844.78,20124.34 37858.54,22407.91 36870.63,22570.53 "
+   id="polygon2101"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_21"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_98Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="35897.25,20722.54 36885.04,20421.09 36870.63,22570.53 35897.33,22730.74 "
+   id="polygon2105"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_22"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_99Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="35452.75,22803.93 34923.29,22824.69 34937.66,21017.28 35897.25,20722.54 35897.33,22730.74 "
+   id="polygon2109"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_11_x002f_23-24"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_100Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="32685.79,21708.7 34937.66,21017.28 34923.29,22824.69 33054.43,22897.97 "
+   id="polygon2113"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_1-2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_101Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="35419.75,26968.72 37280.15,26972.12 37181.75,23215.44 36193.59,23376.33 35300.7,23356.48 "
+   id="polygon2117"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_102Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="37181.75,23215.44 38112.5,23090.06 38197.38,26974.29 37280.15,26972.12 "
+   id="polygon2121"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_103Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="38112.5,23090.06 38197.38,26974.29 39156.13,26976.55 39029.67,22966.5 "
+   id="polygon2125"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_104Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="39029.67,22966.5 40018.38,22833.31 40100.61,26978.77 39156.13,26976.55 "
+   id="polygon2129"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_6-7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_105Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="40100.61,26978.77 42021.25,26983.3 41927.94,22860.43 40995.37,22701.7 40018.38,22833.31 "
+   id="polygon2133"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_8-9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_106Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="43954.1,26987.86 42021.25,26983.3 41927.94,22860.43 42820.83,23237.43 43830.31,23187.82 "
+   id="polygon2137"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_107Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="43830.31,23187.82 43954.1,26987.86 44857.91,26989.99 44773.31,22936.35 "
+   id="polygon2141"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_11"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_108Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="44857.91,26989.99 45831.04,26992.29 45689.79,22731.18 45578.88,22721.54 44773.31,22936.35 "
+   id="polygon2145"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_12"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_109Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="46621.97,22812.24 46720.6,26994.39 45831.04,26992.29 45689.79,22731.18 "
+   id="polygon2149"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_13"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_110Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="46720.6,26994.39 47693.57,26996.68 47566.24,22749.97 47404.35,22880.28 46621.97,22812.24 "
+   id="polygon2153"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_14"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_111Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="47620.74,24542.48 47566.24,22749.97 48217.87,22225.49 48992.51,24259.36 49077.3,26999.94 47693.57,26996.68 "
+   id="polygon2157"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_15"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_112Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="49819.62,24002.58 48992.51,24259.36 48217.87,22225.49 49110.76,21749.28 "
+   id="polygon2161"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_16"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_113Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="49110.76,21749.28 49819.62,24002.58 50705.84,23727.46 49963.97,21531.02 "
+   id="polygon2165"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_17"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_114Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="49963.97,21531.02 50481.83,23064.25 52087.07,22205.65 51571.18,21630.23 50618.76,21511.17 "
+   id="polygon2169"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_18"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_115Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="50481.83,23064.25 51114.81,24924.01 51551.33,24090.64 52206.12,23098.54 52305.33,22642.17 52087.07,22205.65 "
+   id="polygon2173"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_12_x002f_19"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_116Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="51114.81,24924.01 50705.84,23727.46 48992.51,24259.36 49077.3,26999.94 52245.81,27007.42 52245.81,26451.84 51293.39,26174.06 50936.23,25420.06 "
+   id="polygon2177"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_13_x002f_1-2-3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_117Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="46895.16,18133.57 43665.14,18133.47 43622.06,16065.4 46299.01,15973.09 46599.02,16134.63 "
+   id="polygon2181"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_13_x002f_4-5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_118Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="46895.16,18133.57 47189.28,20118.92 45399.74,20146.1 45355.44,18133.47 "
+   id="polygon2185"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_13_x002f_6-7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_119Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="44863.55,20154.32 47189.28,20118.92 47429.8,21742.38 46991.33,22227 45145.16,22065.46 44931.42,22146.33 "
+   id="polygon2189"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_13_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_120Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="44863.55,20154.32 44931.42,22146.33 44291.3,22388.54 43737.45,21603.91 43707.61,20171.71 "
+   id="polygon2193"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_13_x002f_9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_121Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="45377.99,19148.26 43686.51,19158.98 43707.61,20171.71 45399.74,20146.1 "
+   id="polygon2197"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_13_x002f_10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_122Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="45355.44,18133.47 45377.99,19148.26 43686.51,19158.98 43665.14,18133.47 "
+   id="polygon2201"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_123Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="47478.31,18183.07 48984.84,17913.66 48719.97,16130.23 47390.97,15991.97 47219.88,16182.08 "
+   id="polygon2205"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_124Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="48719.97,16130.23 49140.21,18962.41 50017.28,19046.1 50285.27,16293.07 "
+   id="polygon2209"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_125Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="51248.43,16393.27 50285.27,16293.07 50017.28,19046.1 50975.72,19137.56 "
+   id="polygon2213"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_126Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="51248.43,16393.27 50975.72,19137.56 51959.64,19231.44 52250.62,16497.53 "
+   id="polygon2217"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_5-6"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_127Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="52250.62,16497.53 51959.64,19231.44 53900.54,19416.64 54166.93,16696.9 "
+   id="polygon2221"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_128Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="54933.39,19515.2 55218.3,16806.28 54166.93,16696.9 53900.54,19416.64 "
+   id="polygon2225"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_129Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="56344.76,16923.47 55218.3,16806.28 55029.46,18601.69 56545.81,18714.21 56591.89,17151.59 "
+   id="polygon2229"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_130Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="55029.46,18601.69 56545.81,18714.21 56507.64,20008.92 54895.9,19848.45 "
+   id="polygon2233"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_131Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="54895.9,19848.45 56507.64,20008.92 56479.37,20967.71 54791.69,20832.27 "
+   id="polygon2237"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_11"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_132Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="56479.37,20967.71 56449.7,21973.99 54683.28,21855.79 54791.69,20832.27 "
+   id="polygon2241"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_12"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_133Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="54683.28,21855.79 56449.7,21973.99 56418.18,23043.09 54576.34,22865.51 "
+   id="polygon2245"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_13"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_134Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="56418.18,23043.09 56388.62,24045.7 54457.16,23990.64 54576.34,22865.51 "
+   id="polygon2249"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_14"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_135Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="56388.62,24045.7 54835.21,24001.44 54812.41,25361.17 56021.59,25325.96 56363.77,24888.73 "
+   id="polygon2253"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_15"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_136Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="54835.21,24001.44 53540.93,23964.46 53587.31,25497.08 54063.54,25382.99 54812.41,25361.17 "
+   id="polygon2257"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_16"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_137Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="53587.31,25497.08 52238.56,25820.23 51687.27,25135.86 52048.46,24432.48 52401.64,23931.45 53540.93,23964.46 "
+   id="polygon2261"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_17"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_138Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="54457.16,23990.64 54576.34,22865.51 52895.93,22862.42 52865.9,23272.86 52401.64,23931.45 "
+   id="polygon2265"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_18"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_139Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="52922.93,22493.45 52895.93,22862.42 54576.34,22865.51 54791.69,20832.27 52767.84,22010.95 "
+   id="polygon2269"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_19"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_140Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="52009.96,21294.99 53900.54,19416.64 54933.39,19515.2 54791.69,20832.27 52767.84,22010.95 52751.84,21961.16 "
+   id="polygon2273"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_20"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_141Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="51820.34,21124.72 51195.07,20999.66 51959.64,19231.44 53900.54,19416.64 52009.96,21294.99 "
+   id="polygon2277"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_21"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_142Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="51959.64,19231.44 50396.65,19082.3 50396.3,20921.52 50774.78,20915.61 51195.07,20999.66 "
+   id="polygon2281"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_22"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_143Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="49558.13,20934.62 49436.88,20964.93 49140.21,18962.41 50396.65,19082.3 50396.3,20921.52 "
+   id="polygon2285"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_23"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_144Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="49436.88,20964.93 49285.06,19940.13 47735.14,20171.64 47885.24,21333.83 48303.46,21466.9 49177.93,21029.67 "
+   id="polygon2289"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_24"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_145Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="49140.21,18962.41 49285.06,19940.13 47735.14,20171.64 47608.49,19191.04 "
+   id="polygon2293"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_14_x002f_25"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_146Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="49140.21,18962.41 47608.49,19191.04 47478.31,18183.07 48984.84,17913.66 "
+   id="polygon2297"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_147Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="45413.92,13672.73 45432.93,13482.63 47424.04,12389.33 48013.58,13518.74 47892.59,14922.86 46915.72,14832.35 "
+   id="polygon2301"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_148Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="49026.16,13279.02 48013.58,13518.74 47424.04,12389.33 48706.56,11685.11 "
+   id="polygon2305"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_149Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="49930.48,11013.06 49900.48,13072.04 49026.16,13279.02 48706.56,11685.11 "
+   id="polygon2309"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_150Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="49900.32,13069.18 50820.33,12854.28 50911.63,10604.72 50660.72,10612.1 49930.48,11013.06 "
+   id="polygon2313"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_151Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="51623,12664.27 50820.33,12854.28 50911.63,10604.72 51846.47,10577.22 51785.94,12662.24 "
+   id="polygon2317"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_6"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_152Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="51846.47,10577.22 52914.76,10545.8 52856.04,12648.93 51785.94,12662.24 "
+   id="polygon2321"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_153Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="53896.23,10516.93 53851.78,12636.55 52856.04,12648.93 52914.76,10545.8 "
+   id="polygon2325"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_154Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="54905.01,10487.26 54903.14,12623.47 53851.78,12636.55 53896.23,10516.93 "
+   id="polygon2329"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_155Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="54905.01,11654.91 57521.63,11623.19 57409.33,10593.09 57124.18,10422 54905.01,10487.26 "
+   id="polygon2333"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_156Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="57626.97,12589.41 57521.63,11623.19 54905.01,11654.91 54903.14,12623.47 "
+   id="polygon2337"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_11"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_157Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="57626.97,12589.41 55852.07,12611.67 55756.48,13643.05 57741.98,13644.32 "
+   id="polygon2341"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_12"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_158Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="57789.53,15839.89 56565.71,15726.49 56701.95,13644.42 57741.98,13644.32 57960.62,15649.79 "
+   id="polygon2345"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_13"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_159Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="55756.48,13643.05 55571.96,15634.41 56565.71,15726.49 56701.95,13644.42 "
+   id="polygon2349"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_14"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_160Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="54903.14,12623.47 55852.07,12611.67 55571.96,15634.41 54609.48,15545.23 "
+   id="polygon2353"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_15"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_161Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="53583.87,15450.2 53851.78,12636.55 54903.14,12623.47 54609.48,15545.23 "
+   id="polygon2357"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_16"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_162Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="52482.59,15348.16 52689.84,12651 53851.78,12636.55 53583.87,15450.2 "
+   id="polygon2361"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_17"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_163Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="52689.84,12651 52482.59,15348.16 51401.52,15247.99 51623,12664.27 "
+   id="polygon2365"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_18"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_164Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="50509.49,12927.87 50314.65,15147.28 51401.52,15247.99 51623,12664.27 "
+   id="polygon2369"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_19"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_165Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="49409.9,13188.18 49259.16,15049.48 50314.65,15147.28 50509.49,12927.87 "
+   id="polygon2373"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_15_x002f_20"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_166Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="48013.58,13518.74 47892.59,14922.86 49259.16,15049.48 49409.9,13188.18 "
+   id="polygon2377"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_167Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="44294.86,10157.58 43460.08,8696 41875.38,9193.33 41759.65,9482.64 42692.47,10626.9 "
+   id="polygon2381"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_168Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="45271.99,9871.39 44449.47,8385.5 43460.08,8696 44294.86,10157.58 "
+   id="polygon2385"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_3-4-5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_169Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="45271.99,9871.39 44449.47,8385.5 45501.42,8055.37 47851.6,7171.97 48324.42,8882.49 46252.3,9583.36 "
+   id="polygon2389"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_6-7-8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_170Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="48324.42,8882.49 50271.58,8223.9 51394.63,8227.67 51084.5,5834.82 50901.91,5837.31 48220.95,7033.14 47851.6,7171.97 "
+   id="polygon2393"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_171Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="52183.66,5819.87 52472.31,8231.28 51394.63,8227.67 51084.5,5834.82 "
+   id="polygon2397"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_10-11"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_172Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="52472.31,8231.28 52183.66,5819.87 54382.32,5789.95 54687.81,8238.72 "
+   id="polygon2401"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_12-13"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_173Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="54382.32,5789.95 54569.01,7288.39 56933.26,7258.38 56746.01,5933.75 56572.42,5760.16 "
+   id="polygon2405"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_14"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_174Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="54569.01,7288.39 54697.1,8313.27 57075.81,8266.82 56933.26,7258.38 "
+   id="polygon2409"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_15"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_175Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="57093.18,9829.82 56040.85,9857.11 55865.89,8290.53 57075.81,8266.82 57266.77,9617.65 "
+   id="polygon2413"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_16"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_176Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="56040.85,9857.11 55865.89,8290.53 54697.1,8313.27 54893.35,9886.87 "
+   id="polygon2417"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_17"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_177Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="54687.81,8238.72 54893.35,9886.87 53807.83,9915.02 53582.57,8235 "
+   id="polygon2421"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_18"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_178Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="53582.57,8235 53807.83,9915.02 52677.4,9946.59 52472.31,8231.28 "
+   id="polygon2425"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_19"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_179Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="52472.31,8231.28 52677.13,9944.35 51620.48,9971.75 51394.63,8227.67 "
+   id="polygon2429"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_20"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_180Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="51394.63,8227.67 51620.48,9971.75 50434.94,10005.99 50271.58,8223.9 "
+   id="polygon2433"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_21-22"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_181Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="50400.43,10003.4 48868.13,10853.46 48324.42,8882.49 50271.58,8223.9 50434.59,10002.51 "
+   id="polygon2437"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_23-24"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_182Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="48324.42,8882.49 48868.13,10853.46 47310.37,11717.66 46252.3,9583.36 "
+   id="polygon2441"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_25-26"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_183Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="45693.18,10631.96 45271.99,9871.39 46252.3,9583.36 47310.37,11717.66 45765.15,12574.91 44887.55,11046.13 "
+   id="polygon2445"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_27"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_184Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="44942.08,13031.53 45765.15,12574.91 44887.55,11046.13 43581.71,11717.7 44652.77,13031.53 "
+   id="polygon2449"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_16_x002f_28"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_185Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="45271.99,9871.39 42692.47,10626.9 43581.71,11717.7 45693.18,10631.96 "
+   id="polygon2453"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_186Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="57506.43,6725.39 58796.57,6553.71 58662.21,4862.37 58501.16,4892.23 57382.49,5760.16 "
+   id="polygon2457"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_187Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="59979.89,6396.04 58796.57,6553.71 58662.21,4862.37 59775.76,4655.92 "
+   id="polygon2461"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_188Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="59775.76,4655.92 59979.89,6396.04 61132.66,6242.44 60951.55,4437.94 "
+   id="polygon2465"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_189Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="62389.3,6075.01 62185.07,4487.19 61934.33,4255.74 60951.55,4437.94 61132.66,6242.44 "
+   id="polygon2469"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_190Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="62389.3,6075.01 62519.13,7084.44 60096.23,7385.54 59979.89,6396.04 "
+   id="polygon2473"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_6"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_191Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="62519.13,7084.44 62634.79,7983.62 60206.07,8319.77 60096.23,7385.54 "
+   id="polygon2477"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_192Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="62634.79,7983.62 62766.85,9010.37 60324.86,9330.2 60206.07,8319.77 "
+   id="polygon2481"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_193Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="62766.85,9010.37 62888.44,9955.66 60436.74,10281.73 60324.86,9330.2 "
+   id="polygon2485"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_194Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="62888.44,9955.66 63004.58,10858.61 60546,11211.09 60436.74,10281.73 "
+   id="polygon2489"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_195Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="63004.58,10858.61 63115.89,11723.98 60644.21,12046.4 60546,11211.09 "
+   id="polygon2493"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_11-12"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_196Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="60873.82,14011.97 63371.57,13711.84 63115.89,11723.98 60644.21,12046.4 "
+   id="polygon2497"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_13"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_197Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="63371.57,13711.84 62179.59,13854.8 62347.25,15973.63 62705.83,15982.51 63554.48,15133.87 "
+   id="polygon2500"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_14"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_198Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="61098.57,15942.72 62347.25,15973.63 62179.59,13854.8 60873.82,14011.97 "
+   id="polygon2504"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_15"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_199Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="59686.24,14154.92 59868.1,15912.27 61098.57,15942.72 60873.82,14011.97 "
+   id="polygon2508"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_16"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_200Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="59686.24,14154.92 58479.11,14300.55 58655.46,15673.92 58809.76,15886.08 59868.1,15912.27 "
+   id="polygon2512"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_17"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_201Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="58479.11,14300.55 60873.82,14011.97 60720.16,12694.91 58318.97,13053.44 "
+   id="polygon2516"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_18"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_202Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="58318.97,13053.44 58139.38,11654.74 60598.19,11654.99 60720.16,12694.91 "
+   id="polygon2520"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_19"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_203Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="60598.19,11654.99 58139.38,11654.74 58004.57,10604.85 60436.74,10281.73 "
+   id="polygon2524"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_20"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_204Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="57881.98,9650.18 58004.57,10604.85 60436.74,10281.73 60324.86,9330.2 "
+   id="polygon2528"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_21"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_205Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="57754.69,8658.82 57881.98,9650.18 60324.86,9330.2 60206.07,8319.77 "
+   id="polygon2532"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_22"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_206Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="57630.6,7692.47 57754.69,8658.82 60206.07,8319.77 60096.23,7385.54 "
+   id="polygon2536"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_17_x002f_23"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_207Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="57506.43,6725.39 57630.6,7692.47 60096.23,7385.54 59979.89,6396.04 "
+   id="polygon2540"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_18_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_208Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="57462.26,16962.14 58177.05,16986.23 58109.76,19042.23 57128.8,19019.84 57190.94,17136.56 "
+   id="polygon2544"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_18_x002f_2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_209Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="59129.54,17018.34 59047.97,19063.65 58109.76,19042.23 58177.05,16986.23 "
+   id="polygon2548"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_18_x002f_3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_210Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="59129.54,17018.34 59047.97,19063.65 60065.25,19086.88 60105.16,17051.22 "
+   id="polygon2552"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_18_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_211Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="61068.68,17083.7 60105.16,17051.22 60065.25,19086.88 61041.59,19109.17 "
+   id="polygon2556"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_18_x002f_5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_212Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="62059.01,17117.08 62023.96,19131.6 61041.59,19109.17 61068.68,17083.7 "
+   id="polygon2560"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_18_x002f_6"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_213Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="62636.69,17136.56 63659.78,19169.79 62023.96,19131.6 62059.01,17117.08 "
+   id="polygon2564"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_18_x002f_7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_214Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="63659.78,19169.79 62437.15,19141.03 62436.7,20743.19 63024.29,20760.6 64167.7,20179.2 "
+   id="polygon2568"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_18_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_215Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="62436.7,20743.19 62437.15,19141.03 61381.95,19116.94 61420.93,20713.09 "
+   id="polygon2572"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_18_x002f_9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_216Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="60408,20683.08 60337.84,19093.1 61381.95,19116.94 61420.93,20713.09 "
+   id="polygon2576"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_18_x002f_10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_217Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="59535.91,21341.99 59296.26,21008.93 59296.26,19069.32 60337.84,19093.1 60404.06,20683.11 "
+   id="polygon2580"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_18_x002f_11-12"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_218Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="57074.66,24927.27 56939,24772.23 57030.05,22012.66 58997.2,22051.3 58043.66,24462.16 "
+   id="polygon2584"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_18_x002f_13"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_219Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="59535.91,21341.99 59296.26,21008.93 57064.86,20957.42 57030.05,22012.66 58997.2,22051.3 59070.79,21865.25 "
+   id="polygon2588"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_18_x002f_14-15"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_220Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="59296.26,19069.32 59296.26,21008.93 57064.86,20957.42 57128.8,19019.84 "
+   id="polygon2592"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+ </g>
+ <g
+   id="_19_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_221Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="56055.48,25955.79 56055.48,27027.26 58181.5,27027.26 57444.42,25499.43 "
+   id="polygon2595"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_19_x002f_2-3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_222Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="58496.05,24943.85 58887.23,23962.33 60037.89,26170.74 59329.42,27027.26 58181.5,27027.26 57444.42,25499.43 "
+   id="polygon2599"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_19_x002f_4-5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_223Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="60037.89,26170.74 58887.23,23962.33 59587.36,22205.65 60043.73,21769.12 61520.47,24871.43 60658.83,25420.06 "
+   id="polygon2603"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_19_x002f_6"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_224Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="62409.22,24305.54 61520.47,24871.43 60043.73,21769.12 60678.68,21253.23 60829.54,21263.28 "
+   id="polygon2607"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_19_x002f_7-8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_225Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="60829.54,21263.28 62409.22,24305.54 64013.29,23284.2 63059.72,21411.96 "
+   id="polygon2611"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_19_x002f_9-10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_226Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="64013.29,23284.2 65713.72,22201.51 64865.35,20578.6 64329.06,20826.12 63059.72,21411.96 "
+   id="polygon2615"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_19_x002f_11"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_227Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="65713.72,22201.51 64865.35,20578.6 64706.61,19804.76 66541.69,19822.67 66524.07,21628.13 "
+   id="polygon2619"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_19_x002f_12"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_228Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="66553.12,18578.98 65771.85,17995.7 64371.87,19099.67 64706.61,19804.76 66541.69,19822.67 "
+   id="polygon2623"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_19_x002f_13"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_229Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="65771.85,17995.7 64686.77,17185.61 63952.61,17126.08 63774.03,17840.4 64371.87,19099.67 "
+   id="polygon2627"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_19_x002f_14-15"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_230Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="69032.18,20558.76 68913.12,19269.02 67583.71,19348.39 66553.12,18578.98 66524.07,21628.13 67504.34,21630.23 "
+   id="polygon2631"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+ </g>
+ <g
+   id="_20_x002f_1-5"
+   style="display:inline"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_231Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="64210.25,15943.94 64422.41,16194.68 65612.4,16220.69 65642.25,13872.57 64113.78,13805.4 63901.65,13957.33 "
+   id="polygon2634"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_20_x002f_2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_232Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="65612.4,16220.69 66592.4,16242.11 66607.36,13914.98 65642.25,13872.57 "
+   id="polygon2638"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_20_x002f_3-4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_233Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="66592.4,16242.11 66607.36,13914.98 68009.88,13976.62 68202.75,14188.78 68125.6,16098.24 67952.02,16271.83 "
+   id="polygon2642"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_21_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_234Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="70456.1,15026.21 68564.6,14970.51 68588.5,14150.21 68781.38,13995.91 70468.31,14049.04 "
+   id="polygon2646"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_21_x002f_2-3-4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_235Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="69476.12,16364.56 69488.4,14997.71 70456.1,15026.21 70468.31,14049.04 71230.89,14073.06 72021.67,15423.18 72040.96,16117.53 71327.32,16426.13 "
+   id="polygon2650"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_21_x002f_5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_236Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="68664.82,16337.58 68530.64,16136.81 68564.6,14970.51 69488.4,14997.71 69476.12,16364.56 "
+   id="polygon2654"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_22_x002f_1-2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_237Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="65776.28,10763.4 63512.46,10704.21 63380.89,9675.52 63554.48,9501.93 65791.22,9578.67 "
+   id="polygon2658"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_22_x002f_3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_238Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="66807.33,9613.54 66736.46,11671.84 65765.27,11666.35 65791.22,9578.67 "
+   id="polygon2662"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_22_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_239Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="67676.63,11677.15 67750.89,9645.11 66807.33,9613.54 66736.46,11671.84 "
+   id="polygon2666"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_22_x002f_5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_240Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="67676.63,11677.15 68672.51,11682.78 68745.68,9680.05 67750.89,9645.11 "
+   id="polygon2670"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_22_x002f_6"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_241Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="69681.36,9712.16 68745.68,9680.05 68672.51,11682.78 69609.65,11688.07 "
+   id="polygon2674"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_22_x002f_7-8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_242Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="71655.21,10022.69 71585.3,11700.39 69609.65,11688.07 69681.36,9712.16 71423.76,9771.95 "
+   id="polygon2678"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_22_x002f_9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_243Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="71269.46,13455.86 71520.2,13262.98 71585.3,11700.39 70606.6,11693.7 70543.56,13430.76 "
+   id="polygon2682"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_22_x002f_10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_244Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="69609.65,11688.07 70606.6,11693.7 70543.56,13430.76 69547.33,13396.31 "
+   id="polygon2686"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_22_x002f_11"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_245Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="69609.65,11688.07 68672.51,11682.78 68611.61,13363.96 69547.33,13396.31 "
+   id="polygon2690"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_22_x002f_12"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_246Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="67616.77,13329.56 68611.61,13363.96 68672.51,11682.78 67676.63,11677.15 "
+   id="polygon2694"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_22_x002f_13-14"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_247Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="65745.49,13264.86 67616.77,13329.56 67676.63,11677.15 65765.27,11666.35 "
+   id="polygon2698"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_22_x002f_15-16"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_248Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="65765.27,11666.35 63634.05,11654.84 63805.21,12992.96 64017.38,13205.12 65745.49,13264.86 "
+   id="polygon2702"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_22_x002f_17"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_249Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="65776.28,10763.4 65765.27,11666.35 63634.05,11654.84 63512.46,10704.21 "
+   id="polygon2706"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_23_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_250Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="63949.18,7048.03 62992.91,7021.25 62647.97,4795.79 62917.99,4506.48 64017.38,4950.09 "
+   id="polygon2710"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_23_x002f_2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_251Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="64989.12,4962.23 64940.82,7075.79 63949.18,7048.03 64017.38,4950.09 "
+   id="polygon2714"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_23_x002f_3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_252Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="65983.37,4974.66 65904.34,7102.77 64940.82,7075.79 64989.12,4962.23 "
+   id="polygon2718"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_23_x002f_4-5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_253Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="67276.96,5200.83 67246.66,7139.56 65904.34,7102.77 65983.37,4974.66 67103.37,4988.67 "
+   id="polygon2722"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_23_x002f_6-7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_254Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="65904.34,7102.77 67246.66,7139.56 67219.09,8904.02 67006.93,9000.46 65835.53,8955.89 "
+   id="polygon2726"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_23_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_255Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="65904.34,7102.77 65835.53,8955.89 64901.73,8920.36 64940.82,7075.79 "
+   id="polygon2730"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_23_x002f_9-10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_256Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="63245.88,8653.28 62992.91,7021.25 64940.82,7075.79 64901.73,8920.36 63458.04,8865.44 "
+   id="polygon2734"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_24_x002f_1-2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_257Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="69840.08,6686.52 67930.08,6634.33 67990.59,5220.11 68144.89,5065.82 69904.24,5116.16 "
+   id="polygon2738"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_24_x002f_3-4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_258Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="71886.66,5393.7 71828.09,6740.79 69840.08,6686.52 69904.24,5116.16 71713.07,5162.25 "
+   id="polygon2742"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_24_x002f_5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_259Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="71786.08,7706.9 71828.09,6740.79 69840.08,6686.52 69801.56,7629.38 "
+   id="polygon2746"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_24_x002f_6-7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_260Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="69801.56,7629.38 71786.08,7706.9 71732.36,8942.59 71539.48,9154.76 69740.88,9114.95 "
+   id="polygon2750"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_24_x002f_8-9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_261Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="67836.29,8826.87 67890.71,7554.61 69801.56,7629.38 69740.88,9114.95 68029.17,9077.61 "
+   id="polygon2754"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_24_x002f_10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_262Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="69801.56,7629.38 69840.08,6686.52 67930.08,6634.33 67890.71,7554.61 "
+   id="polygon2758"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_1-2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_263Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="19782.86,9416.09 21172.42,9402.2 21797.72,10291.51 21580.2,10683.3 20255.31,10124.77 19504.95,10083.08 17490.09,10444.37 17434.51,10277.62 18129.29,9624.53 18448.88,8874.16 "
+   id="polygon2762"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_264Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="41740.37,8633.99 43397.43,8142.05 42935.57,5878.69 41258.18,7650.33 41431.77,8479.69 "
+   id="polygon2766"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_6-7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_265Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="43397.43,8142.05 45300.78,7576.99 44804.15,5080.61 42974.76,5837.31 42935.57,5878.69 "
+   id="polygon2770"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_266Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="45443.56,7534.61 45300.78,7576.99 44804.15,5080.61 45772.78,4679.94 46234.6,7214.56 "
+   id="polygon2774"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_267Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="45772.78,4679.94 46234.6,7214.56 47169.51,6836.31 46705.82,4294.01 "
+   id="polygon2778"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_268Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="47169.51,6836.31 46705.82,4294.01 47218,4082.16 47714.23,3967.46 48119.79,6441.85 47970.21,6512.37 "
+   id="polygon2782"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_11-12"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_269Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="47714.23,3967.46 48119.79,6441.85 49947.52,5580.21 49628.73,3524.95 "
+   id="polygon2786"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_13"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_270Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="50579.2,3305.27 49628.73,3524.95 49947.52,5580.21 50670.46,5239.4 50826.41,5237.54 "
+   id="polygon2790"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_14-15"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_271Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="50579.2,3305.27 50826.41,5237.54 52825.91,5215.12 52453.03,2872.16 "
+   id="polygon2794"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_16"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_272Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="52453.03,2872.16 52825.91,5215.12 53824.76,5201.84 53416.65,2649.44 "
+   id="polygon2798"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_17"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_273Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="53416.65,2649.44 53824.76,5201.84 54906,5188.97 54429.43,2415.35 "
+   id="polygon2802"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_18-19"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_274Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="56835.19,5166.01 56225.84,1267.3 55299.45,1459.06 55395.88,2191.98 54429.43,2415.35 54906,5188.97 "
+   id="polygon2806"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_20"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_275Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="57188.95,1067.94 56225.84,1267.3 56835.19,5166.01 57151.04,5162.25 57749.91,4701.79 "
+   id="polygon2810"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_21"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_276Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="57188.95,1067.94 58170.38,864.79 58711.23,4288.1 58153.99,4390.75 57749.91,4701.79 "
+   id="polygon2814"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_22"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_277Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="58170.38,864.79 58711.23,4288.1 59686.94,4110.25 59162.79,659.36 "
+   id="polygon2818"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_23"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_278Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="60101.58,465.04 59162.79,659.36 59686.94,4110.25 60640.99,3932.61 "
+   id="polygon2822"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_24"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_279Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="60101.58,465.04 60640.99,3932.61 61665.58,3743.88 61071.7,264.22 "
+   id="polygon2826"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_7_x002f_25"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_280Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="61915.04,89.65 61071.7,264.22 61665.58,3743.88 62551.53,3580.68 "
+   id="polygon2830"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_25_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_281Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="62898.87,1246.58 62783.2,3619.14 63692.6,3952.52 63790.31,1282.53 "
+   id="polygon2834"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_25_x002f_2-3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_282Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="63692.44,3952.09 64732.2,4333.14 65842.09,4365.34 65928.09,1366.6 63789.78,1282.29 "
+   id="polygon2838"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_25_x002f_4-5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_283Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="65927.51,1366.49 65841.76,4365.22 68027.65,4428.64 68112.12,1453.14 "
+   id="polygon2842"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_25_x002f_6-7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_284Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="68111.43,1453.03 68027.33,4428.62 70127.92,4490.52 70200.14,1536.37 "
+   id="polygon2846"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_25_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_285Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="70199.85,1536.14 70127.46,4490.5 71196.3,4521.4 71281.2,1578.42 "
+   id="polygon2850"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_25_x002f_9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_286Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="72002.96,4544.07 71196.09,4521.67 71280.57,1578.42 72156.6,1613.31 72137.89,4410.3 "
+   id="polygon2854"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_26_x002f_1-2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_287Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="72563.42,4642.19 74472.86,4702.2 74570.57,1719.25 72504.04,1652.17 72426.83,4467.63 "
+   id="polygon2858"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_26_x002f_3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_288Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="74570.3,1719.15 74472.28,4702.17 75590.04,4737.75 75704.55,1756.05 "
+   id="polygon2862"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_26_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_289Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="75704.15,1755.95 75589.74,4737.46 76646.86,4771.38 76743.45,1789.41 "
+   id="polygon2866"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_26_x002f_5-6"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_290Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="76743.05,1789.43 76646.97,4770.96 78819.34,4840.57 78916.52,1860.12 "
+   id="polygon2870"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_26_x002f_7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_291Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="78916.22,1860.13 78819.05,4840.56 79834.4,4872.95 79935.83,1893.47 "
+   id="polygon2874"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_26_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_292Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="79935.7,1893.48 79833.99,4872.79 80908.04,4728.8 81004.5,1927.36 "
+   id="polygon2878"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_26_x002f_9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_293Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="82072.17,1962 81976.8,4586.49 80907.71,4728.15 81003.9,1927.41 "
+   id="polygon2882"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_26_x002f_10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_294Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="83104.35,1995.81 82997.98,4448.75 81976.56,4586.28 82072.2,1962.19 "
+   id="polygon2886"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_26_x002f_11"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_295Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="83865.47,4874.71 84405.39,3541.98 84385.13,2037.16 83104.5,1995.95 82998.51,4449.85 "
+   id="polygon2890"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_26_x002f_12"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_296Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="84423.83,6049.44 83865.39,4874.33 84405.23,3542.12 85423.29,3565.27 85410.66,6049.62 "
+   id="polygon2894"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_26_x002f_13"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_297Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="86467.23,3588.89 86410.77,6050.11 85410.52,6049.7 85423.06,3565.48 "
+   id="polygon2898"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_26_x002f_14"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_298Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="87378.07,5586.41 87398.09,3610.71 86466.95,3588.94 86410.8,6049.46 "
+   id="polygon2902"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_26_x002f_15-16"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_299Corel-Layer" />
+  <path
+   class="fil43 str26"
+   d="m 5663.948,2106.9932 0.7686,-74.624 77.9504,1.7319 26.1543,109.969 -38.5809,-1.7889 c -0.6409,-21.4488 -11.4997,-30.2202 -29.2495,-33.8858 z"
+   id="path2906"
+   style="stroke-width:1.33313;stroke-dasharray:none" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_26_x002f_17"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_300Corel-Layer" />
+  <path
+   class="fil43 str26"
+   d="m 5730.2721,2142.2922 38.5422,1.7583 -19.744,71.4902 -42.9579,-2.1957 0.7493,-46.5877 c 16.4911,-4.361 22.6983,-14.9349 23.4104,-24.4651 z"
+   id="path2910"
+   style="stroke-width:1.33313;stroke-dasharray:none" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_27_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_301Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="81798.87,8912.7 83131.44,8939.29 83044.2,10320.1 81776.83,9652.3 "
+   id="polygon2914"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_27_x002f_2-3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_302Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="81798.71,8912.89 83131.56,8939.48 84321.51,8249.35 84011.31,6992.31 82879.66,7553.44 82037.94,7543.53 81835.1,7688.77 "
+   id="polygon2918"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_27_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_303Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="85301.03,8288.37 85338.5,6642.98 84399.91,6614.18 84010.75,6992.87 84321.51,8249.9 "
+   id="polygon2922"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_27_x002f_5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_304Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="86311.54,8328.21 86333.46,6673.03 85338.23,6642.99 85300.75,8288.66 "
+   id="polygon2926"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_27_x002f_6-7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_305Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="86311.13,8327.98 88248.93,8404.87 88277.87,7174.01 87362.3,7176.21 86332.9,6673.23 "
+   id="polygon2930"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_28_x002f_1-10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_306Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="76881.02,6388.1 76834.65,7360.51 78327.57,7397.17 78348.68,6400.67 78348.63,6400.67 78370.45,5404.47 77152.27,5374.86 76920.54,5567.88 76880.91,6387.94 "
+   id="polygon2934"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_28_x002f_2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_307Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="79353.16,5428.66 79309.4,7426.97 78327.78,7397.54 78370.06,5404.46 "
+   id="polygon2938"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_28_x002f_3-4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_308Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="81231.23,7481.4 79308.76,7427.69 79352.97,5428.8 81068.02,5470.98 81279.53,5682.86 "
+   id="polygon2942"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_28_x002f_5-6"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_309Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="80913.54,9520.33 81183.09,9270.75 81231.26,7481.16 79309.57,7427.81 79267.67,9457.16 "
+   id="polygon2946"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_28_x002f_7-8-9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_310Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="76834.44,7360.23 79309.11,7427.42 79267.79,9457.21 76941.36,9366.87 76747.13,9156.97 "
+   id="polygon2950"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_29_x002f_1-2-10"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_311Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="74304.25,5267.23 74200.5,7818.66 72305.96,7745.85 72407.66,5374.29 72561.85,5220.09 "
+   id="polygon2954"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_29_x002f_3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_312Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="75339.58,5295.19 75278.12,6904.6 74238.53,6877.05 74304.26,5267.09 "
+   id="polygon2958"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_29_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_313Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="76303.65,5548.34 76243.43,6929.82 75278.53,6904.62 75339.31,5295.2 76130.57,5316.28 "
+   id="polygon2962"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_29_x002f_5"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_314Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="76201.4,7895.84 76243.57,6929.41 74238.66,6877.04 74200.5,7818.66 "
+   id="polygon2966"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_29_x002f_6-7"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_315Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="76149.19,9096.89 75956.31,9309.06 74141.65,9269.17 74200.5,7818.66 76201.4,7895.84 "
+   id="polygon2970"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_29_x002f_8-9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_316Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="74200.48,7819.02 74141.65,9269.17 72445.99,9231.91 72253.12,8981.17 72305.96,7745.85 "
+   id="polygon2974"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_30_x002f_1-2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_317Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="74121.07,11656.76 72128.72,11657.84 72175.97,9964.83 72388.13,9810.53 74168.96,9869.69 "
+   id="polygon2978"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_30_x002f_3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_318Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="75133.45,9901.73 74168.96,9869.69 74121.07,11656.76 75091.05,11656.76 "
+   id="polygon2982"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_30_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_319Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="75091.05,11656.76 76087.32,11656.76 76087.32,9932.97 75133.45,9901.73 "
+   id="polygon2986"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_30_x002f_5-6"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_320Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="78193.66,10003.4 78598.69,10929.2 76087.32,11767.93 76087.32,9932.97 "
+   id="polygon2990"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_30_x002f_7-9"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_321Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="76087.32,11767.93 76087.32,11656.76 72128.72,11657.84 72088.44,13101.26 73101.03,13089.21 73924.35,13285.3 73950.42,13243.7 74991.94,12144.31 "
+   id="polygon2994"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_30_x002f_8"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_322Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="72947.47,14844.56 72465.28,14863.84 72060.25,14111.63 72088.44,13101.26 73101.03,13089.21 73924.35,13285.3 "
+   id="polygon2998"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_31_x002f_1"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_323Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="70806.56,17930.55 70806.56,19087.8 73101.77,18393.45 71612.68,17357.11 "
+   id="polygon3002"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_31_x002f_2"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_324Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="74779.78,17969.12 73101.77,18393.45 71612.68,17357.11 72677.44,16599.71 "
+   id="polygon3006"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_31_x002f_3"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_325Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="72677.44,16599.71 74779.78,17969.12 75261.96,16773.3 73387.82,15512.82 "
+   id="polygon3010"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_31_x002f_4"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_326Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="75744.15,15577.48 75262.53,16771.88 73387.82,15512.82 74099.88,14423.37 "
+   id="polygon3014"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ <g
+   id="_31_x002f_5-6"
+   transform="translate(-1937,-1630)">
+  <metadata
+   id="CorelCorpID_327Corel-Layer" />
+  <polygon
+   class="fil43 str26"
+   points="75744.15,15577.48 76457.79,14516.67 77325.72,13706.6 76843.53,12433.62 75551.28,12665.07 74606.19,13648.73 74099.88,14423.37 "
+   id="polygon3018"
+   transform="matrix(0.0377844,0,0,0.03777342,2362.4313,1895.9791)" />
+  
+  
+  
+  
+ </g>
+ 
+ 
+</svg>
