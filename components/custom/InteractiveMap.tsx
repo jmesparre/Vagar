@@ -98,9 +98,9 @@ const InteractiveMap = () => {
   return (
     <div className="relative w-full h-full overflow-hidden bg-[#C5D594]">
       <TransformWrapper
-        initialScale={2}
-        initialPositionX={-300}
-        initialPositionY={-300}
+        initialScale={1.2}
+        initialPositionX={-500}
+        initialPositionY={-200}
       >
         {({ zoomIn, zoomOut, resetTransform }) => (
           <React.Fragment>

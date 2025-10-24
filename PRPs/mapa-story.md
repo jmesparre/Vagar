@@ -1,5 +1,21 @@
 # Plan y Resumen del Desarrollo del Mapa Interactivo (`/app/mapa`)
 
+## Resumen de Avances (24/10/2025) - Fin de Tarde
+
+Se realizó una refactorización completa de los estilos del mapa y se corrigieron errores de interactividad para mejorar la mantenibilidad y la experiencia de usuario.
+
+**Componentes Modificados:**
+
+*   `vagar-mvp/app/globals.css`:
+    *   **Externalización de Estilos:** Se crearon clases CSS (`.interactive-polygon`, `.hovered`, `.selected`) para manejar los estilos de los polígonos del mapa, moviendo la lógica fuera del componente de React.
+    *   **Corrección de Eventos de Puntero:** Se añadió la propiedad `pointer-events: all;` a la clase `.interactive-polygon` para asegurar que toda el área del polígono (relleno y borde) sea sensible a los eventos del mouse.
+
+*   `vagar-mvp/components/custom/InteractiveMap.tsx`:
+    *   **Uso de Clases CSS:** Se refactorizó la lógica de `html-react-parser` para asignar dinámicamente las nuevas clases CSS a los polígonos en lugar de usar estilos en línea.
+    *   **Corrección de Manejador de Clic:** Se movieron los manejadores de eventos (`onClick`, `onMouseEnter`, `onMouseLeave`) del elemento `<polygon>` al elemento padre `<g>` para asegurar una detección de clics más robusta y fiable.
+
+---
+
 ## Resumen de Avances (24/10/2025) - Tarde
 
 La nueva implementación carga dinámicamente el archivo `public/svg-nodos.svg` en lugar de utilizar un SVG en línea con datos quemados.
