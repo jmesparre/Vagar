@@ -17,9 +17,17 @@ interface AmenitiesDialogProps {
 
 export function AmenitiesDialog({ chalet }: AmenitiesDialogProps) {
   const amenitiesDetails = chalet.amenities
-    .map((amenityId) =>
-      allAmenities.find((amenity) => amenity.id === amenityId)
-    )
+    .map((dbAmenity) => {
+      const staticAmenity = allAmenities.find(
+        (a) => a.name === dbAmenity.name
+      );
+      if (!staticAmenity) return null;
+      return {
+        ...dbAmenity,
+        id: staticAmenity.id, // Usar el id de string para las keys de React
+        icon: staticAmenity.icon,
+      };
+    })
     .filter(Boolean);
 
   const amenitiesByCategory = amenitiesDetails.reduce((acc, amenity) => {

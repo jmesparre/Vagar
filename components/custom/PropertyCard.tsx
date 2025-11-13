@@ -1,7 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { Item, ItemContent, ItemMedia } from "../ui/item";
-import { BedDouble, Home, Star, Users } from "lucide-react";
+import { Bath, BedDouble, CircleDollarSign, Star, Users } from "lucide-react";
 import { Property } from "@/lib/types";
 import { H4, Muted, Small } from "@/components/ui/typography";
 
@@ -11,37 +14,63 @@ interface PropertyCardProps {
 }
 
 export function PropertyCard({ property, disableLink = false }: PropertyCardProps) {
+  const [isPriceVisible, setIsPriceVisible] = useState(false);
+
+  const placeholderImage = "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2070&auto=format&fit=crop";
+  const imageUrl = property.main_image_url || placeholderImage;
+
   const CardContent = (
     <Item className="border-none shadow-none p-0 flex flex-col flex-grow items-start h-full w-full">
-      <ItemMedia className="relative rounded-xl overflow-hidden w-full aspect-square">
+      <ItemMedia
+        className="relative rounded-xl overflow-hidden w-full aspect-square"
+        onMouseEnter={() => setIsPriceVisible(true)}
+        onMouseLeave={() => setIsPriceVisible(false)}
+      >
         <Image
-          src={property.images[0]}
-          alt={property.title}
-          layout="fill"
-          objectFit="cover"
-          className="rounded-t-lg"
+          src={imageUrl}
+          alt={property.name}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="rounded-t-lg object-cover"
         />
+        <div className="absolute bottom-2 left-2 z-10">
+          <CircleDollarSign className="w-8 h-8 text-white bg-black/50 rounded-full p-1" />
+        </div>
+        <div
+          className={`absolute inset-0 bg-black/70 p-4 text-white transition-opacity duration-300 z-20 ${
+            isPriceVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
+        >
+          <H4>Precios por Temporada</H4>
+          <ul className="mt-2 space-y-1">
+            <li>Alta: ${property.price_high?.toLocaleString() ?? 'N/A'}</li>
+            <li>Media: ${property.price_mid?.toLocaleString() ?? 'N/A'}</li>
+            <li>Baja: ${property.price_low?.toLocaleString() ?? 'N/A'}</li>
+          </ul>
+        </div>
       </ItemMedia>
       <ItemContent className="px-1 pt-0 -mt-2 flex flex-col flex-grow">
-        <H4 className="text-lg truncate">{property.title}</H4>
+        <H4 className="text-lg truncate">{property.name}</H4>
         <div className="flex items-center justify-between pt-0">
           <Muted className="flex items-center gap-x-2 gap-y-1 flex-wrap">
             <span className="flex items-center gap-1.5">
               <Users className="w-4 h-4" />
-              {property.guests}
+              {property.guests ?? 'N/A'}
             </span>
             <span className="flex items-center gap-1.5">
-              <Home className="w-4 h-4" />
-              {property.bedrooms}
+              <Bath className="w-4 h-4" />
+              {property.bathrooms ?? 'N/A'}
             </span>
             <span className="flex items-center gap-1.5">
               <BedDouble className="w-4 h-4" />
-              {property.beds}
+              {property.beds ?? 'N/A'}
             </span>
           </Muted>
           <div className="flex items-center gap-1 pr-1 pl-3 shrink-0">
             <Star className="w-4 h-4 fill-primary text-primary" />
-            <Small className="font-semibold">{property.rating.toFixed(2)}</Small>
+            <Small className="font-semibold">
+              {property.rating ? parseFloat(String(property.rating)).toFixed(2) : 'N/A'}
+            </Small>
           </div>
         </div>
       </ItemContent>
@@ -53,7 +82,7 @@ export function PropertyCard({ property, disableLink = false }: PropertyCardProp
   }
 
   return (
-    <Link href={`/chalets/${property.id}`} className="flex flex-col h-full w-full">
+    <Link href={`/chalets/${property.slug}`} className="flex flex-col h-full w-full">
       {CardContent}
     </Link>
   );

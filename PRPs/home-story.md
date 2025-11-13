@@ -1,5 +1,25 @@
 # Plan y Resumen del Desarrollo del Home (`/app/page.tsx`)
 
+## Resumen de Avances (24/10/2025)
+
+Se han implementado mejoras significativas en el componente `PropertyCard` para enriquecer la información mostrada al usuario y mejorar la interactividad.
+
+**Componentes Modificados:**
+*   `vagar-mvp/lib/types.ts`:
+    *   Se añadió la propiedad `bathrooms: number` al tipo `Property` para estandarizar la estructura de datos.
+
+*   `vagar-mvp/lib/placeholder-data.ts`:
+    *   Se actualizaron todos los objetos de propiedades para incluir un valor en el nuevo campo `bathrooms`.
+
+*   `vagar-mvp/components/custom/PropertyCard.tsx`:
+    *   **Visualización de Baños:** Se reemplazó el ícono de `Home` por el de `Bath` (baño) y ahora se muestra el número de baños de la propiedad.
+    *   **Panel de Precios Animado:**
+        *   Se añadió un ícono de `CircleDollarSign` en la esquina inferior izquierda de la imagen de la propiedad.
+        *   Al pasar el mouse sobre la imagen, un panel superpuesto aparece con una animación de fundido (`fade-in`), mostrando los precios de temporada alta, media y baja.
+        *   La animación se gestiona con el estado de React y clases de transición de Tailwind CSS para una experiencia de usuario fluida.
+
+---
+
 ## Resumen de Avances (20/10/2025)
 
 Se ha realizado una refactorización y mejora exhaustiva del componente `SearchBar`, añadiendo animaciones complejas y una lógica de estado más robusta para crear una experiencia de usuario más fluida e intuitiva.

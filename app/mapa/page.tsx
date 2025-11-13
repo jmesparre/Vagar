@@ -1,12 +1,10 @@
-import React from 'react';
-import InteractiveMap from '@/components/custom/InteractiveMap';
+import { fetchProperties } from '@/lib/data';
+import MapContainer from '@/components/custom/MapContainer';
 
-const MapPage = () => {
-  return (
-    <div className="w-full h-screen">
-      <InteractiveMap />
-    </div>
-  );
+const MapPage = async () => {
+  const properties = await fetchProperties();
+
+  return <MapContainer properties={properties} />;
 };
 
 export default MapPage;

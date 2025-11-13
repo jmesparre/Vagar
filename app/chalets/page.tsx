@@ -1,31 +1,21 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import SearchBar from '@/components/custom/SearchBar';
-import { SearchBarSkeleton } from '@/components/custom/SearchBarSkeleton';
-import ChaletGrid from '@/components/custom/ChaletGrid';
-import { H1 } from '@/components/ui/typography';
-import { Separator } from '@/components/ui/separator';
+import { fetchProperties } from '@/lib/data';
+import ChaletsClientPage from '@/components/custom/ChaletsClientPage';
+import { Property } from '@/lib/types';
 
-const ChaletsPage = () => {
-  const [isLoading, setIsLoading] = useState(true);
+interface ChaletsPageProps {
+  searchParams: {
+    startDate?: string;
+    endDate?: string;
+    guests?: string;
+    amenities?: string;
+  };
+}
 
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 500); // Simular carga
-    return () => clearTimeout(timer);
-  }, []);
+const ChaletsPage = async ({ searchParams }: ChaletsPageProps) => {
+  const { startDate, endDate, guests, amenities } = await searchParams;
+  const initialProperties: Property[] = await fetchProperties({ startDate, endDate, guests, amenities });
 
-  return (
-    <div className="mx-auto px-8 py-8">
-      <div className="mb-8 pt-4 w-full flex justify-center">
-        {isLoading ? <SearchBarSkeleton /> : <SearchBar />}
-      </div>
-      <div className="text-center">
-        <H1>Nuestros Chalets</H1>
-      </div>
-      <Separator className="mb-10 mt-16" />
-      <ChaletGrid />
-    </div>
-  );
+  return <ChaletsClientPage initialProperties={initialProperties} />;
 };
 
 export default ChaletsPage;

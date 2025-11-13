@@ -4,7 +4,6 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Property } from '@/lib/types';
-import { properties as allProperties } from '@/lib/placeholder-data';
 import { PropertyCard } from './PropertyCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import {
@@ -15,7 +14,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-const ChaletGrid = () => {
+interface ChaletGridProps {
+  initialProperties: Property[];
+}
+
+const ChaletGrid = ({ initialProperties }: ChaletGridProps) => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [sortedProperties, setSortedProperties] = useState<Property[]>([]);
   const [sortOrder, setSortOrder] = useState('rating-desc'); // Default sort
@@ -27,22 +30,22 @@ const ChaletGrid = () => {
 
   // Effect to sort properties when sortOrder changes
   useEffect(() => {
-    const newSortedProperties = [...allProperties].sort((a, b) => {
+    const newSortedProperties = [...initialProperties].sort((a, b) => {
       switch (sortOrder) {
         case 'rating-desc':
           return b.rating - a.rating;
         case 'rating-asc':
           return a.rating - b.rating;
         case 'price-desc':
-          return b.price.low - a.price.low;
+          return b.price_low - a.price_low;
         case 'price-asc':
-          return a.price.low - b.price.low;
+          return a.price_low - b.price_low;
         default:
           return 0;
       }
     });
     setSortedProperties(newSortedProperties);
-  }, [sortOrder]);
+  }, [sortOrder, initialProperties]);
 
   // Effect for initial load and when sorted properties are updated
   useEffect(() => {

@@ -10,29 +10,59 @@ import {
 } from '@/components/ui/dialog-custom';
 import { Lightbox } from '@/components/custom/Lightbox';
 import { Video, Camera, Layout } from 'lucide-react';
+import { Image as ImageType } from '@/lib/types';
+import { VideoDialog } from './VideoDialog';
 
 interface ImageGalleryProps {
-  images: string[];
-  showVideoButton?: boolean;
-  showPlanButton?: boolean;
+  galleryImages: ImageType[];
+  blueprintImages?: ImageType[];
+  videoUrl?: string;
 }
 
 export const ImageGallery = ({
-  images,
-  showVideoButton = true,
-  showPlanButton = true,
+  galleryImages,
+  blueprintImages = [],
+  videoUrl,
 }: ImageGalleryProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [isGalleryLightboxOpen, setIsGalleryLightboxOpen] = useState(false);
+  const [isBlueprintLightboxOpen, setIsBlueprintLightboxOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(0);
 
-  const openLightbox = (index: number) => {
+  const galleryImageUrls = galleryImages.map(img => img.url);
+  const blueprintImageUrls = blueprintImages.map(img => img.url);
+
+  if (!galleryImageUrls || galleryImageUrls.length === 0) {
+    return (
+      <div className="relative h-[412px] w-full overflow-hidden rounded-lg bg-slate-200">
+        <Image
+          src="https://images.unsplash.com/photo-1588557132643-ff9f8a442332?q=80&w=2574&auto=format&fit=crop"
+          alt="Placeholder image"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
+          <span className="text-white text-lg font-semibold">No hay imágenes disponibles</span>
+        </div>
+      </div>
+    );
+  }
+
+  const openGalleryLightbox = (index: number) => {
     setSelectedImage(index);
-    setIsLightboxOpen(true);
+    setIsGalleryLightboxOpen(true);
   };
 
-  const closeLightbox = () => {
-    setIsLightboxOpen(false);
+  const closeGalleryLightbox = () => {
+    setIsGalleryLightboxOpen(false);
+  };
+
+  const openBlueprintLightbox = () => {
+    setIsBlueprintLightboxOpen(true);
+  };
+
+  const closeBlueprintLightbox = () => {
+    setIsBlueprintLightboxOpen(false);
   };
 
   const openModal = () => {
@@ -47,10 +77,10 @@ export const ImageGallery = ({
           <div className="h-full cursor-pointer">
             <div
               className="relative h-full min-h-[200px] w-full overflow-hidden rounded-lg md:min-h-[412px]"
-              onClick={() => openLightbox(0)}
+              onClick={() => openGalleryLightbox(0)}
             >
               <Image
-                src={images[0]}
+                src={galleryImageUrls[0]}
                 alt="Main gallery image"
                 fill
                 className="object-cover transition-transform duration-300 ease-in-out hover:scale-105"
@@ -58,14 +88,14 @@ export const ImageGallery = ({
             </div>
           </div>
           <div className="grid grid-cols-2 grid-rows-2 gap-2">
-            {images.slice(1, 5).map((image, index) => (
+            {galleryImageUrls.slice(1, 5).map((imageUrl, index) => (
               <div
                 key={index}
                 className="relative hidden h-full min-h-[200px] w-full cursor-pointer overflow-hidden rounded-lg md:block"
-                onClick={() => openLightbox(index + 1)}
+                onClick={() => openGalleryLightbox(index + 1)}
               >
                 <Image
-                  src={image}
+                  src={imageUrl}
                   alt={`Gallery image ${index + 2}`}
                   fill
                   className="object-cover transition-transform duration-300 ease-in-out hover:scale-105"
@@ -83,14 +113,13 @@ export const ImageGallery = ({
             <Camera size={16} />
             Ver todas las fotos
           </Button>
-          {showVideoButton && (
-            <Button variant="secondary" className="flex items-center gap-2">
-              <Video size={16} />
-              Ver Video
-            </Button>
-          )}
-          {showPlanButton && (
-            <Button variant="secondary" className="flex items-center gap-2">
+          {videoUrl && <VideoDialog videoUrl={videoUrl} />}
+          {blueprintImageUrls.length > 0 && (
+            <Button
+              variant="secondary"
+              className="flex items-center gap-2"
+              onClick={openBlueprintLightbox}
+            >
               <Layout size={16} />
               Ver Plano
             </Button>
@@ -102,14 +131,14 @@ export const ImageGallery = ({
         <DialogContent className="h-screen max-w-full bg-white p-4">
           <DialogTitle className="sr-only">Image Gallery</DialogTitle>
           <div className="columns-1 gap-4 sm:columns-2 md:columns-3 lg:columns-4">
-            {images.map((image, index) => (
+            {galleryImageUrls.map((imageUrl, index) => (
               <div
                 key={index}
                 className="relative mb-4 cursor-pointer overflow-hidden rounded-lg"
-                onClick={() => openLightbox(index)}
+                onClick={() => openGalleryLightbox(index)}
               >
                 <Image
-                  src={image}
+                  src={imageUrl}
                   alt={`Gallery image ${index + 1}`}
                   width={500}
                   height={300}
@@ -121,11 +150,19 @@ export const ImageGallery = ({
         </DialogContent>
       </Dialog>
 
-      {isLightboxOpen && (
+      {isGalleryLightboxOpen && (
         <Lightbox
-          images={images}
+          images={galleryImageUrls}
           initialIndex={selectedImage}
-          onClose={closeLightbox}
+          onClose={closeGalleryLightbox}
+        />
+      )}
+
+      {isBlueprintLightboxOpen && (
+        <Lightbox
+          images={blueprintImageUrls}
+          initialIndex={0}
+          onClose={closeBlueprintLightbox}
         />
       )}
     </>

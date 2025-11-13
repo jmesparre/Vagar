@@ -1,8 +1,10 @@
 import HeroSection from '@/components/custom/HeroSection';
 import { FeaturedExperiences } from '@/components/custom/FeaturedExperiences';
-import { experiences } from '@/lib/placeholder-data';
+import { fetchExperiences } from '@/lib/data';
 
-export default function ExperienciasPage() {
+export default async function ExperienciasPage() {
+  const experiences = await fetchExperiences();
+
   const zonaDeportiva = experiences.filter(
     (exp) => exp.category === 'Zona deportiva y social'
   );

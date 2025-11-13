@@ -2,8 +2,10 @@
 
 import * as React from "react";
 import { format } from "date-fns";
+import { es } from "date-fns/locale";
 import { DateRange } from "react-day-picker";
-import { cn } from "@/lib/utils";
+import { cn, formatDateToYYYYMMDD } from "@/lib/utils";
+import { X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -15,15 +17,69 @@ import {
 import { AmenitiesPopoverContent } from "./AmenitiesPopoverContent";
 import { GuestsPopoverContent } from "./GuestsPopoverContent";
 
-const SearchBar = () => {
-  const [date, setDate] = React.useState<DateRange | undefined>();
+// Helper function to safely parse a YYYY-MM-DD string into a local Date object
+const parseDateString = (dateString: string): Date | null => {
+  const parts = dateString.split("-");
+  if (parts.length === 3) {
+    const year = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1; // Month is 0-indexed
+    const day = parseInt(parts[2], 10);
+    if (!isNaN(year) && !isNaN(month) && !isNaN(day)) {
+      return new Date(year, month, day);
+    }
+  }
+  return null;
+};
+
+interface SearchBarProps {
+  onSearch: (filters: {
+    guests: number;
+    amenities: string[];
+    startDate?: string;
+    endDate?: string;
+  }) => void;
+  initialFilters?: {
+    guests: number;
+    amenities: string[];
+    dateRange: {
+      from?: string;
+      to?: string;
+    };
+  };
+}
+
+const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
+  const [date, setDate] = React.useState<DateRange | undefined>(() => {
+    const fromString = initialFilters?.dateRange?.from;
+    const toString = initialFilters?.dateRange?.to;
+
+    if (!fromString) {
+      return undefined;
+    }
+
+    const fromDate = parseDateString(fromString);
+    if (!fromDate) {
+      return undefined;
+    }
+
+    const toDate = toString ? parseDateString(toString) : undefined;
+
+    return { from: fromDate, to: toDate || undefined };
+  });
 
   const [isAmenitiesPopoverOpen, setIsAmenitiesPopoverOpen] =
     React.useState(false);
   const [isDatePopoverOpen, setIsDatePopoverOpen] = React.useState(false);
   const [isGuestsPopoverOpen, setIsGuestsPopoverOpen] = React.useState(false);
 
-  const [selectedAmenities, setSelectedAmenities] = React.useState<string[]>([]);
+  const [selectedAmenities, setSelectedAmenities] = React.useState<string[]>(
+    initialFilters?.amenities || []
+  );
+
+  const handleClearAmenities = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setSelectedAmenities([]);
+  };
 
   const handleAmenityToggle = (amenityId: string) => {
     setSelectedAmenities((prev) =>
@@ -38,10 +94,20 @@ const SearchBar = () => {
       ? `filtrar por: ${selectedAmenities.length} amenities`
       : "filtrar por:";
 
-  const [guests, setGuests] = React.useState({
-    adults: 0,
-    children: 0,
-    infants: 0,
+  const [guests, setGuests] = React.useState(() => {
+    const totalGuests = initialFilters?.guests || 0;
+    if (totalGuests > 0) {
+      return {
+        adults: totalGuests,
+        children: 0,
+        infants: 0,
+      };
+    }
+    return {
+      adults: 0,
+      children: 0,
+      infants: 0,
+    };
   });
 
   const handleGuestChange = (
@@ -79,6 +145,11 @@ const SearchBar = () => {
     });
   };
 
+  const handleClearGuests = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setGuests({ adults: 0, children: 0, infants: 0 });
+  };
+
   const totalGuests = guests.adults + guests.children;
   const guestsPart =
     totalGuests > 0
@@ -109,12 +180,32 @@ const SearchBar = () => {
     return () => clearTimeout(timer);
   }, [isAnyPopoverOpen]);
 
+  const handleClearDate = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setDate(undefined);
+  };
+
+  const handleSearch = () => {
+    const startDate = date?.from
+      ? formatDateToYYYYMMDD(date.from)
+      : undefined;
+    const endDate = date?.to ? formatDateToYYYYMMDD(date.to) : undefined;
+
+    const filters = {
+      guests: totalGuests,
+      amenities: selectedAmenities,
+      startDate,
+      endDate,
+    };
+    onSearch(filters);
+  };
+
   return (
     <div className="bg-white border-1 border-gray-200 rounded-full shadow-lg flex items-center w-full max-w-3xl">
-      <div className="flex-1">
+      <div className="flex-1 relative">
         <Popover onOpenChange={setIsAmenitiesPopoverOpen}>
           <PopoverTrigger asChild>
-            <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-l-full">
+            <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-l-full pr-10">
               <p className="font-bold text-xs text-gray-800">Amenities</p>
               <p className="text-sm text-gray-500">{amenitiesText}</p>
             </button>
@@ -126,23 +217,33 @@ const SearchBar = () => {
             />
           </PopoverContent>
         </Popover>
+        {selectedAmenities.length > 0 && (
+          <button
+            title="Limpiar amenities"
+            onClick={handleClearAmenities}
+            className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-300"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
       </div>
 
       <div className="h-8 border-l border-gray-200"></div>
 
-      <div className="flex-1">
+      <div className="flex-1 relative">
         <Popover onOpenChange={setIsDatePopoverOpen}>
           <PopoverTrigger asChild>
-            <button className="w-full text-left px-6 py-3 hover:bg-gray-200">
+            <button className="w-full text-left px-6 py-3 hover:bg-gray-200 pr-10">
               <p className="font-bold text-xs text-gray-800">Cuándo</p>
               <p className="text-sm text-gray-500">
                 {date?.from ? (
                   date.to ? (
                     <>
-                      {format(date.from, "LLL dd")} - {format(date.to, "LLL dd")}
+                      {format(date.from, "LLL dd", { locale: es })} -{" "}
+                      {format(date.to, "LLL dd", { locale: es })}
                     </>
                   ) : (
-                    format(date.from, "LLL dd, y")
+                    format(date.from, "LLL dd, y", { locale: es })
                   )
                 ) : (
                   <span>Agregar fechas</span>
@@ -158,17 +259,27 @@ const SearchBar = () => {
               selected={date}
               onSelect={setDate}
               numberOfMonths={2}
+              locale={es}
             />
           </PopoverContent>
         </Popover>
+        {date?.from && (
+          <button
+            title="Limpiar fechas"
+            onClick={handleClearDate}
+            className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-300"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
       </div>
 
       <div className="h-8 border-l border-gray-200"></div>
 
-      <div className="flex-1">
+      <div className="flex-1 relative">
         <Popover onOpenChange={setIsGuestsPopoverOpen}>
           <PopoverTrigger asChild>
-            <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-r-full">
+            <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-r-full pr-10">
               <p className="font-bold text-xs text-gray-800">Huéspedes</p>
               <p className="text-sm text-gray-500">{guestText}</p>
             </button>
@@ -180,11 +291,21 @@ const SearchBar = () => {
             />
           </PopoverContent>
         </Popover>
+        {totalGuests > 0 && (
+          <button
+            title="Limpiar huéspedes"
+            onClick={handleClearGuests}
+            className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-300"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        )}
       </div>
 
       <div className="p-2">
         <Button
           title="Buscar"
+          onClick={handleSearch}
           className={cn(
             "bg-blue-400 text-white rounded-full hover:bg-blue-500 flex items-center justify-center transition-all duration-300 ease-in-out overflow-hidden",
             isButtonExpanded ? "w-26 h-12" : "w-12 h-12"

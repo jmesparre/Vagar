@@ -26,7 +26,7 @@ Implementar la página de detalle para cada chalet, proporcionando a los usuario
 *   **Acción:** Implementar el botón "Mostrar los X servicios" que revelará una lista completa (posiblemente en un modal o expandiendo la sección).
 *   **Estado:** Completado.
 
-**Paso 5: Sección de Servicios Adicionales**
+**Paso 5: Sección de icionales**
 *   **Acción:** Listar los servicios opcionales con sus respectivos precios (ej. Climatizador de piscina, Ropa blanca, etc.).
 *   **Estado:** Completado.
 
@@ -211,3 +211,27 @@ Se ha implementado y refinado por completo la funcionalidad de solicitud de rese
     *   Se añadió una `DialogDescription` oculta para mejorar la accesibilidad del componente para lectores de pantalla.
     *   Se ajustó el estilo del `overlay` del diálogo para que tenga un fondo oscuro y translúcido (`bg-black/80`), manteniendo la consistencia visual con otros modales de la aplicación.
     *   Se refinó el espaciado y la alineación del texto dentro del diálogo para que coincida con las especificaciones del diseño, asegurando que el contenido esté compacto y bien alineado.
+
+---
+
+## Resumen de Avances (11/11/2025)
+
+Se ha implementado una sección de "Disponibilidad" en la página de detalle del chalet, mostrando un calendario interactivo que visualiza los días no disponibles.
+
+**Desarrollo y Correcciones:**
+*   **Obtención de Datos de Disponibilidad:**
+    *   Se creó una nueva función `getChaletBookings(chaletId)` en `lib/data.ts` para obtener todos los registros de `Bookings` (reservas y bloqueos) de un chalet específico.
+
+*   **Creación del Componente de Calendario:**
+    *   Se desarrolló un nuevo componente reutilizable `components/custom/AvailabilityCalendar.tsx`.
+    *   Utiliza el componente `Calendar` de `shadcn/ui` para mostrar un calendario de dos meses.
+    *   Recibe los datos de `bookings` y los procesa para determinar los rangos de fechas no disponibles.
+
+*   **Integración en la Página de Detalle:**
+    *   Se añadió una nueva sección "Disponibilidad" en `app/chalets/[slug]/page.tsx`.
+    *   Se llama a `getChaletBookings` para obtener los datos y se pasan al componente `AvailabilityCalendar`.
+
+*   **Estilo y Funcionalidad:**
+    *   Los rangos de fechas no disponibles se marcan como deshabilitados, impidiendo su selección.
+    *   Se aplicó un estilo de "tachado" (`text-decoration: line-through`) a los días no disponibles para una clara visualización, siguiendo la solicitud del cliente.
+    *   Se ajustó la lógica de fechas para que el día de `check-out` se muestre como disponible, en línea con las reglas de negocio.

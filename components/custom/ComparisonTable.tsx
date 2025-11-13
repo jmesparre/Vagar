@@ -21,7 +21,6 @@ type Characteristic = {
 type AmenityFeature = {
   name: string;
   isAmenity: true;
-  amenityId: string;
   getValue?: undefined;
 };
 
@@ -32,9 +31,9 @@ export function ComparisonTable({ mainChalet, comparisonChalet }: ComparisonTabl
   const [showAll, setShowAll] = useState(false);
 
   const characteristics = [
-    { name: 'Precio Temporada Baja', getValue: (chalet: Property) => `$${chalet.price.low.toLocaleString('es-AR')}` },
-    { name: 'Precio Temporada Media', getValue: (chalet: Property) => `$${chalet.price.mid.toLocaleString('es-AR')}` },
-    { name: 'Precio Temporada Alta', getValue: (chalet: Property) => `$${chalet.price.high.toLocaleString('es-AR')}` },
+    { name: 'Precio Temporada Baja', getValue: (chalet: Property) => `$${chalet.price_low.toLocaleString('es-AR')}` },
+    { name: 'Precio Temporada Media', getValue: (chalet: Property) => `$${chalet.price_mid.toLocaleString('es-AR')}` },
+    { name: 'Precio Temporada Alta', getValue: (chalet: Property) => `$${chalet.price_high.toLocaleString('es-AR')}` },
     { name: 'Huéspedes', getValue: (chalet: Property) => chalet.guests },
     { name: 'Dormitorios', getValue: (chalet: Property) => chalet.bedrooms },
     { name: 'Camas', getValue: (chalet: Property) => chalet.beds },
@@ -43,7 +42,6 @@ export function ComparisonTable({ mainChalet, comparisonChalet }: ComparisonTabl
   const amenityFeatures: AmenityFeature[] = allAmenities.map(amenity => ({
     name: amenity.name,
     isAmenity: true,
-    amenityId: amenity.id,
   }));
 
   const combinedAmenities: ComparisonItem[] = [...characteristics, ...amenityFeatures];
@@ -52,7 +50,7 @@ export function ComparisonTable({ mainChalet, comparisonChalet }: ComparisonTabl
 
   const renderValue = (chalet: Property, amenity: ComparisonItem) => {
     if (amenity.isAmenity) {
-      const hasAmenity = chalet.amenities.includes(amenity.amenityId);
+      const hasAmenity = chalet.amenities?.some(a => a.name === amenity.name);
       return hasAmenity ? 
         <Check className="mx-auto h-5 w-5 text-green-500" /> : 
         <X className="mx-auto h-5 w-5 text-red-500" />;
@@ -67,8 +65,8 @@ export function ComparisonTable({ mainChalet, comparisonChalet }: ComparisonTabl
           <thead>
             <tr>
               <th className="border-b p-2">Característica</th>
-              <th className="border-b p-2 text-center font-bold">{mainChalet.title}</th>
-              <th className="border-b p-2 text-center">{comparisonChalet.title}</th>
+              <th className="border-b p-2 text-center font-bold">{mainChalet.name}</th>
+              <th className="border-b p-2 text-center">{comparisonChalet.name}</th>
             </tr>
           </thead>
           <tbody>

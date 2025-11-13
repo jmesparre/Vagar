@@ -1,27 +1,106 @@
-export type Property = {
-  id: string;
-  title: string;
+import { RowDataPacket } from 'mysql2';
+
+export type Image = {
+  id: number;
+  url: string;
+  alt_text: string;
+  image_category: 'gallery' | 'blueprint';
+};
+
+export type Amenity = {
+  id: number;
+  name: string;
   category: string;
-  images: string[];
-  guests: number;
-  bedrooms: number;
-  beds: number;
-  rating: number;
-  price: {
-    high: number;
-    mid: number;
-    low: number;
-  };
+  icon: string;
+};
+
+export type Property = {
+  id: number;
+  slug: string;
+  name: string;
+  description: string;
+  latitude: number;
+  longitude: number;
+  category: string;
+  guests: number | null;
+  bedrooms: number | null;
+  beds: number | null;
+  bathrooms: number | null;
+  rating: number | null;
+  price_high: number | null;
+  price_mid: number | null;
+  price_low: number | null;
   featured: boolean;
-  amenities: string[];
+  map_node_id: string;
+  video_url?: string;
+  optional_services?: string;
+  main_image_url?: string;
+  gallery_images: Image[];
+  blueprint_images: Image[];
+  amenities: Amenity[];
+  rules: PropertyRule[];
+};
+
+export type PropertyRule = {
+  id?: number;
+  rule_text: string;
 };
 
 export type Experience = {
-  id: string;
+  id: number;
+  slug: string;
   title: string;
-  shortDescription: string;
-  longDescription: string;
-  images: string[];
-  category: 'Zona deportiva y social' | 'Turismo' | 'Zona de naturaleza';
-  whatYouShouldKnow: string[];
+  category: string;
+  short_description: string;
+  long_description: string;
+  what_to_know: string[]; // Assuming this is stored as JSON and parsed
+  featured: boolean;
+  main_image_url?: string;
+  gallery_images: Image[]; // Populated from the Images table
 };
+
+export type DashboardMetrics = {
+  pendingBookings: number;
+  activeProperties: number;
+  newBookingsToday: number;
+};
+
+export type LatestBooking = {
+  id: number;
+  client_name: string;
+  property_name: string;
+  check_in_date: string;
+  status: 'pending' | 'confirmed' | 'cancelled';
+};
+
+export type Booking = {
+  id: number;
+  property_id: number;
+  client_name: string;
+  client_phone: string;
+  check_in_date: string;
+  check_out_date: string;
+  guests: number;
+  status: 'pending' | 'confirmed' | 'cancelled';
+  created_at: string;
+  property_name: string; // Joined from Properties table
+};
+
+export type Testimonial = {
+  id: number;
+  author_name: string;
+  author_image_url?: string;
+  testimonial_text: string;
+  rating: number;
+  is_featured: boolean;
+  created_at: string;
+};
+
+export interface User extends RowDataPacket {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  role: 'admin';
+  created_at: Date;
+}

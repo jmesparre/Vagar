@@ -1,58 +1,33 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import { TransformWrapper, TransformComponent, ReactZoomPanPinchRef } from 'react-zoom-pan-pinch';
 import { PropertyCard } from './PropertyCard';
-import { properties } from '@/lib/placeholder-data';
 import { type Property } from '@/lib/types';
 import parse, { domToReact, HTMLReactParserOptions, Element } from 'html-react-parser';
 
-// Mapeo de IDs de polígonos a IDs de propiedades
-const propertyNodeMap: { [key: string]: string } = {
-  '_2_-_8-9': '1',
-  '_5_-_14-15': '2',
-  '_9_-_13-14': '3',
-  '_9_-_11': '4',
-  '_9_-_7': '5',
-  '_9_-_22': '6',
-  '_11_-_10': '7',
-  '_11_-_7': '8',
-  '_11_-_8': '9',
-  '_11_-_21': '10',
-  '_11_-_23-24': '11',
-  '_12_-_10': '12',
-  '_12_-_17': '13',
-  '_12_-_18': '14',
-  '_12_-_19': '15',
-  '_7_-_6-7': '16',
-  '_7_-_18-19': '17',
-  '_7_-_20': '18',
-  '_7_-_21': '19',
-  '_16_-_12-13': '20',
-  '_16_-_17': '21',
-  '_17_-_1': '22',
-  '_17_-_2': '23',
-  '_17_-_3': '24',
-  '_17_-_23': '25',
-  '_17_-_10': '26',
-  '_17_-_11-12': '27',
-  '_18_-_11-12': '28',
-  '_19_-_4-5': '29',
-  '_31_-_4': '30',
-  '_29_-_6-7': '31',
-  '_24_-_1-2': '32',
-  '_24_-_8-9': '33',
-  '_22_-_5': '34',
-  '_22_-_6': '35',
-  '_22_-_15-16': '36',
-  '_22_-_17': '37',
-};
+interface InteractiveMapProps {
+  properties: Property[];
+  selectedNodeId?: string | null;
+}
 
-const InteractiveMap = () => {
+const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => {
+  const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null);
   const [svgContent, setSvgContent] = useState<string>('');
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
-  const [hoveredPropertyId, setHoveredPropertyId] = useState<string | null>(null);
+  const [hoveredPropertyId, setHoveredPropertyId] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (selectedNodeId && transformComponentRef.current) {
+      const property = properties.find((p) => p.map_node_id === selectedNodeId);
+      if (property) {
+        setSelectedProperty(property);
+        // Usamos un selector de ID para encontrar el elemento en el DOM
+        transformComponentRef.current.zoomToElement(selectedNodeId, 2, 300);
+      }
+    }
+  }, [selectedNodeId, properties]);
 
   useEffect(() => {
     fetch('/svg-nodos.svg')
@@ -80,8 +55,7 @@ const InteractiveMap = () => {
         ) as Element | undefined;
 
         if (polygon) {
-          const propertyId = propertyNodeMap[domNode.attribs.id];
-          const property = properties.find((p) => p.id === propertyId);
+          const property = properties.find((p) => p.map_node_id === domNode.attribs.id);
 
           if (property) {
             const { class: originalClassName, ...restPolygonAttribs } = polygon.attribs;
@@ -115,6 +89,7 @@ const InteractiveMap = () => {
   return (
     <div className="relative w-full h-full overflow-hidden bg-[#C5D594]">
       <TransformWrapper
+        ref={transformComponentRef}
         initialScale={1.2}
         initialPositionX={-500}
         initialPositionY={-200}
