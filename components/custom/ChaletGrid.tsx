@@ -33,13 +33,13 @@ const ChaletGrid = ({ initialProperties }: ChaletGridProps) => {
     const newSortedProperties = [...initialProperties].sort((a, b) => {
       switch (sortOrder) {
         case 'rating-desc':
-          return b.rating - a.rating;
+          return (b.rating ?? 0) - (a.rating ?? 0);
         case 'rating-asc':
-          return a.rating - b.rating;
+          return (a.rating ?? 0) - (b.rating ?? 0);
         case 'price-desc':
-          return b.price_low - a.price_low;
+          return (b.price_low ?? 0) - (a.price_low ?? 0);
         case 'price-asc':
-          return a.price_low - b.price_low;
+          return (a.price_low ?? 0) - (b.price_low ?? 0);
         default:
           return 0;
       }

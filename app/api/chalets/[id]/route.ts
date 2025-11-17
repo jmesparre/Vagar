@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import pool from "@/lib/db";
-import { RowDataPacket } from "mysql2";
+import { RowDataPacket, ResultSetHeader } from "mysql2";
 import { allAmenities as amenitiesData } from "@/lib/amenities-data";
 
 const formSchema = z.object({
@@ -81,7 +81,7 @@ export async function PUT(request: Request) {
       // No hay campos para actualizar, pero continuamos para manejar las imágenes
     } else {
       const setClause = fields.map(field => `\`${field}\` = ?`).join(", ");
-      const values = fields.map(field => (chaletData as any)[field]);
+      const values = fields.map(field => chaletData[field as keyof typeof chaletData]);
 
       await connection.query(`UPDATE Properties SET ${setClause} WHERE id = ?`, [
         ...values,
@@ -194,12 +194,11 @@ export async function DELETE(request: Request) {
     await connection.query("DELETE FROM PropertyRules WHERE property_id = ?", [propertyId]);
 
     // Eliminar la propiedad
-    const [result] = await connection.query("DELETE FROM Properties WHERE id = ?", [propertyId]);
+    const [result] = await connection.query<ResultSetHeader>("DELETE FROM Properties WHERE id = ?", [propertyId]);
 
     await connection.commit();
 
-    const deleteResult = result as any;
-    if (deleteResult.affectedRows === 0) {
+    if (result.affectedRows === 0) {
       return NextResponse.json({ error: "Chalet no encontrado" }, { status: 404 });
     }
 

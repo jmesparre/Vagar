@@ -31,12 +31,12 @@ export function ComparisonTable({ mainChalet, comparisonChalet }: ComparisonTabl
   const [showAll, setShowAll] = useState(false);
 
   const characteristics = [
-    { name: 'Precio Temporada Baja', getValue: (chalet: Property) => `$${chalet.price_low.toLocaleString('es-AR')}` },
-    { name: 'Precio Temporada Media', getValue: (chalet: Property) => `$${chalet.price_mid.toLocaleString('es-AR')}` },
-    { name: 'Precio Temporada Alta', getValue: (chalet: Property) => `$${chalet.price_high.toLocaleString('es-AR')}` },
-    { name: 'Huéspedes', getValue: (chalet: Property) => chalet.guests },
-    { name: 'Dormitorios', getValue: (chalet: Property) => chalet.bedrooms },
-    { name: 'Camas', getValue: (chalet: Property) => chalet.beds },
+    { name: 'Precio Temporada Baja', getValue: (chalet: Property) => chalet.price_low != null ? `$${chalet.price_low.toLocaleString('es-AR')}` : 'Consultar' },
+    { name: 'Precio Temporada Media', getValue: (chalet: Property) => chalet.price_mid != null ? `$${chalet.price_mid.toLocaleString('es-AR')}` : 'Consultar' },
+    { name: 'Precio Temporada Alta', getValue: (chalet: Property) => chalet.price_high != null ? `$${chalet.price_high.toLocaleString('es-AR')}` : 'Consultar' },
+    { name: 'Huéspedes', getValue: (chalet: Property) => chalet.guests ?? 'N/A' },
+    { name: 'Dormitorios', getValue: (chalet: Property) => chalet.bedrooms ?? 'N/A' },
+    { name: 'Camas', getValue: (chalet: Property) => chalet.beds ?? 'N/A' },
   ];
 
   const amenityFeatures: AmenityFeature[] = allAmenities.map(amenity => ({

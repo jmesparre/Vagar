@@ -1,6 +1,6 @@
 "use client"
 
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef, Row } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { useRouter } from "next/navigation"
 
@@ -18,7 +18,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { Booking } from "@/lib/types"
 
 
-const ActionsCell = ({ row }: { row: any }) => {
+const ActionsCell = ({ row }: { row: Row<Booking> }) => {
   const router = useRouter();
   const { toast } = useToast();
   const booking = row.original as Booking;

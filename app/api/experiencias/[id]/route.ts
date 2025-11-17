@@ -1,8 +1,10 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import pool from '@/lib/db';
 import { z } from 'zod';
 import { fetchExperienceById } from '@/lib/data';
+import { ResultSetHeader } from 'mysql2';
+import { Experience } from '@/lib/types';
 
 const formSchema = z.object({
   title: z.string().min(2, "El título debe tener al menos 2 caracteres."),
@@ -13,11 +15,10 @@ const formSchema = z.object({
   images: z.array(z.object({ url: z.string().url("Debe ser una URL válida.") })),
 });
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
-  const id = params.id;
-
+export async function GET(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
-    const experience = await fetchExperienceById(id);
+    const { id } = await context.params;
+    const experience: Experience | undefined = await fetchExperienceById(id);
     if (!experience) {
       return NextResponse.json({ error: 'Experiencia no encontrada' }, { status: 404 });
     }
@@ -28,11 +29,10 @@ export async function GET(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
-  const id = params.id;
+export async function PUT(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   let connection;
-
   try {
+    const { id } = await context.params;
     const body = await request.json();
     const validatedData = formSchema.parse(body);
     
@@ -79,11 +79,10 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-  const id = params.id;
+export async function DELETE(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   let connection;
-
   try {
+    const { id } = await context.params;
     connection = await pool.getConnection();
     await connection.beginTransaction();
 
@@ -91,13 +90,13 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
     await connection.query('DELETE FROM Images WHERE entity_type = ? AND entity_id = ?', ['experience', id]);
     
     // Eliminar la experiencia
-    const [result] = await connection.query('DELETE FROM Experiences WHERE id = ?', [id]);
+    const [result] = await connection.query<ResultSetHeader>('DELETE FROM Experiences WHERE id = ?', [id]);
 
     await connection.commit();
 
     revalidatePath('/experiencias');
 
-    if ((result as any).affectedRows === 0) {
+    if (result.affectedRows === 0) {
       return NextResponse.json({ error: 'Experiencia no encontrada' }, { status: 404 });
     }
 

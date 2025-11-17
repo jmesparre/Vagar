@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/carousel";
 import { PropertyCard } from "./PropertyCard";
 import { type Property } from "@/lib/types";
-import { H2 } from "@/components/ui/typography";
 
 interface FeaturedPropertiesProps {
   title?: string;

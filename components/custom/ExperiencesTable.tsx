@@ -46,7 +46,7 @@ export default function ExperiencesTable({ experiences: initialExperiences }: Ex
       const updatedExperiences = experiences.filter(exp => exp.id !== id);
       setExperiences(updatedExperiences);
 
-    } catch (error) {
+    } catch {
       toast({
         title: 'Error',
         description: 'No se pudo eliminar la experiencia.',
@@ -69,15 +69,15 @@ export default function ExperiencesTable({ experiences: initialExperiences }: Ex
         <TableBody>
           {experiences.map((experience) => (
             <TableRow key={experience.id}>
-              <TableCell>
-                <Image
-                  src={experience.images?.[0]?.url || '/placeholder.svg'}
-                  alt={experience.title}
-                  width={64}
-                  height={64}
-                  className="rounded-md object-cover"
-                />
-              </TableCell>
+                <TableCell>
+                  <Image
+                    src={experience.main_image_url || '/placeholder.svg'}
+                    alt={experience.title}
+                    width={64}
+                    height={64}
+                    className="rounded-md object-cover"
+                  />
+                </TableCell>
               <TableCell className="font-medium">{experience.title}</TableCell>
               <TableCell>
                 <Badge variant="outline">{experience.category}</Badge>

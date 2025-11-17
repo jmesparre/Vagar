@@ -3,7 +3,6 @@
 import * as React from "react"
 import {
   ColumnDef,
-  ColumnFiltersState,
   SortingState,
   flexRender,
   getCoreRowModel,
@@ -110,7 +109,7 @@ export function DataTable<TData, TValue>({
       params.delete('order');
     }
     router.replace(`?${params.toString()}`);
-  }, [sorting]);
+  }, [sorting, router, searchParams]);
 
   return (
     <div>

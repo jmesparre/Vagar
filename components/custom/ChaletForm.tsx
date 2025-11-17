@@ -29,7 +29,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Property, PropertyRule } from "@/lib/types";
+import { Property } from "@/lib/types";
 
 const mapNodeIds = [
   "_2_-_8-9", "_5_-_14-15", "_9_-_13-14", "_9_-_11", "_9_-_7",
@@ -42,54 +42,35 @@ const mapNodeIds = [
   "_22_-_15-16", "_22_-_17"
 ];
 
+const numericString = z
+  .union([z.string(), z.number(), z.null(), z.undefined()])
+  .transform((val) => {
+    if (val === "" || val === null || val === undefined) return null;
+    const n = Number(val);
+    return Number.isNaN(n) ? null : n;
+  })
+  .refine((val) => val === null || typeof val === "number", {
+    message: "Debe ser un número válido",
+  });
+
 const formSchema = z.object({
   name: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }),
   slug: z.string().optional(),
   description: z.string().optional(),
   optional_services: z.string().optional(),
-  latitude: z.preprocess(
-    (val) => (val === "" || val === null || val === undefined ? undefined : Number(val)),
-    z.number().min(-90).max(90).optional()
-  ),
-  longitude: z.preprocess(
-    (val) => (val === "" || val === null || val === undefined ? undefined : Number(val)),
-    z.number().min(-180).max(180).optional()
-  ),
+  latitude: numericString.refine(val => val === null || (val >= -90 && val <= 90), { message: "Latitud fuera de rango" }),
+  longitude: numericString.refine(val => val === null || (val >= -180 && val <= 180), { message: "Longitud fuera de rango" }),
   category: z.string().optional(),
-  guests: z.preprocess(
-    (val) => (val === "" || val === null || val === undefined ? undefined : Number(val)),
-    z.number().int().positive().optional()
-  ),
-  bedrooms: z.preprocess(
-    (val) => (val === "" || val === null || val === undefined ? undefined : Number(val)),
-    z.number().int().positive().optional()
-  ),
-  beds: z.preprocess(
-    (val) => (val === "" || val === null || val === undefined ? undefined : Number(val)),
-    z.number().int().positive().optional()
-  ),
-  bathrooms: z.preprocess(
-    (val) => (val === "" || val === null || val === undefined ? undefined : Number(val)),
-    z.number().int().positive().optional()
-  ),
-  rating: z.preprocess(
-    (val) => (val === "" || val === null || val === undefined ? undefined : Number(val)),
-    z.number().min(0).max(10).optional()
-  ),
-  price_high: z.preprocess(
-    (val) => (val === "" || val === null || val === undefined ? undefined : Number(val)),
-    z.number().positive().optional()
-  ),
-  price_mid: z.preprocess(
-    (val) => (val === "" || val === null || val === undefined ? undefined : Number(val)),
-    z.number().positive().optional()
-  ),
-  price_low: z.preprocess(
-    (val) => (val === "" || val === null || val === undefined ? undefined : Number(val)),
-    z.number().positive().optional()
-  ),
+  guests: numericString.refine(val => val === null || (Number.isInteger(val) && val > 0), { message: "Debe ser un entero positivo" }),
+  bedrooms: numericString.refine(val => val === null || (Number.isInteger(val) && val > 0), { message: "Debe ser un entero positivo" }),
+  beds: numericString.refine(val => val === null || (Number.isInteger(val) && val > 0), { message: "Debe ser un entero positivo" }),
+  bathrooms: numericString.refine(val => val === null || (Number.isInteger(val) && val > 0), { message: "Debe ser un entero positivo" }),
+  rating: numericString.refine(val => val === null || (val >= 0 && val <= 10), { message: "Debe estar entre 0 y 10" }),
+  price_high: numericString.refine(val => val === null || val > 0, { message: "Debe ser un número positivo" }),
+  price_mid: numericString.refine(val => val === null || val > 0, { message: "Debe ser un número positivo" }),
+  price_low: numericString.refine(val => val === null || val > 0, { message: "Debe ser un número positivo" }),
   map_node_id: z.string().optional(),
-  video_url: z.string().url({ message: "Por favor, introduce una URL válida." }).optional().or(z.literal('')),
+  video_url: z.string().url({ message: "Por favor, introduce una URL válida." }).or(z.literal("")).optional(),
   featured: z.boolean().default(false),
   gallery_images: z.array(z.string().url({ message: "Por favor, introduce una URL válida." })).optional(),
   blueprint_images: z.array(z.string().url({ message: "Por favor, introduce una URL válida." })).optional(),
@@ -117,62 +98,76 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [] }: ChaletFormPro
     (id) => !usedMapNodeIds.includes(id) || id === defaultValues?.map_node_id
   );
 
-  const form = useForm<ChaletFormValues>({
+  const getInitialValues = (): ChaletFormValues => {
+    const initialValues: ChaletFormValues = {
+      name: "",
+      slug: "",
+      description: "",
+      optional_services: "",
+      latitude: null,
+      longitude: null,
+      category: "",
+      guests: null,
+      bedrooms: null,
+      beds: null,
+      bathrooms: null,
+      rating: null,
+      price_high: null,
+      price_mid: null,
+      price_low: null,
+      map_node_id: "",
+      video_url: "",
+      featured: false,
+      gallery_images: [],
+      blueprint_images: [],
+      amenities: [],
+      rules: [],
+    };
+
+    if (!isEditMode || !defaultValues) {
+      return initialValues;
+    }
+
+    // Safely map Property to ChaletFormValues
+    const mappedValues: ChaletFormValues = {
+      ...initialValues,
+      name: defaultValues.name,
+      slug: defaultValues.slug || "",
+      description: defaultValues.description || "",
+      optional_services: defaultValues.optional_services || "",
+      latitude: defaultValues.latitude ?? null,
+      longitude: defaultValues.longitude ?? null,
+      category: defaultValues.category || "",
+      guests: defaultValues.guests ?? null,
+      bedrooms: defaultValues.bedrooms ?? null,
+      beds: defaultValues.beds ?? null,
+      bathrooms: defaultValues.bathrooms ?? null,
+      rating: defaultValues.rating ?? null,
+      price_high: defaultValues.price_high ?? null,
+      price_mid: defaultValues.price_mid ?? null,
+      price_low: defaultValues.price_low ?? null,
+      map_node_id: defaultValues.map_node_id || "",
+      video_url: defaultValues.video_url || "",
+      featured: defaultValues.featured || false,
+      gallery_images: defaultValues.gallery_images?.map((img) => img.url) || [],
+      blueprint_images: defaultValues.blueprint_images?.map((img) => img.url) || [],
+      amenities:
+        defaultValues.amenities
+          ?.map((amenity) => {
+            const matchingAmenity = allAmenities.find(
+              (a) => a.name === amenity.name
+            );
+            return matchingAmenity ? matchingAmenity.id : "";
+          })
+          .filter((id): id is string => id !== "") || [],
+      rules: defaultValues.rules || [],
+    };
+    return mappedValues;
+  };
+
+  const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: (() => {
-      if (!isEditMode || !defaultValues) {
-        return {
-          name: "",
-          slug: "",
-          description: "",
-          optional_services: "",
-          latitude: undefined,
-          longitude: undefined,
-          category: "",
-          guests: undefined,
-          bedrooms: undefined,
-          beds: undefined,
-          bathrooms: undefined,
-          rating: undefined,
-          price_high: undefined,
-          price_mid: undefined,
-          price_low: undefined,
-          map_node_id: "",
-          video_url: "",
-          featured: false,
-          gallery_images: [],
-          blueprint_images: [],
-          amenities: [],
-          rules: [],
-        };
-      }
-
-      // Create a mutable copy to safely handle null values
-      const processedValues: any = { ...defaultValues };
-
-      // Convert null numeric fields to undefined for the form
-      (Object.keys(processedValues) as Array<keyof Property>).forEach(key => {
-        if (processedValues[key] === null) {
-          processedValues[key] = undefined;
-        }
-      });
-
-      return {
-        ...processedValues,
-        slug: processedValues.slug || "",
-        gallery_images: processedValues.gallery_images?.map((img: any) => img.url) || [],
-        blueprint_images: processedValues.blueprint_images?.map((img: any) => img.url) || [],
-        amenities:
-          processedValues.amenities
-            ?.map((amenity: any) => {
-              const matchingAmenity = allAmenities.find(
-                (a) => a.name === amenity.name
-              );
-              return matchingAmenity ? matchingAmenity.id : "";
-            })
-            .filter((id: string) => id !== "") || [],
-      };
-    })(),
+    defaultValues: getInitialValues(),
   });
 
   const { fields: ruleFields, append: appendRule, remove: removeRule } = useFieldArray({
@@ -191,9 +186,10 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [] }: ChaletFormPro
   }, [chaletName, setValue]);
 
   useEffect(() => {
-    if (priceHigh && priceHigh > 0) {
-      const midPrice = priceHigh * 0.8;
-      const lowPrice = priceHigh * 0.6;
+    const price = Number(priceHigh);
+    if (!Number.isNaN(price) && price > 0) {
+      const midPrice = price * 0.8;
+      const lowPrice = price * 0.6;
       setValue("price_mid", parseFloat(midPrice.toFixed(2)), { shouldValidate: true });
       setValue("price_low", parseFloat(lowPrice.toFixed(2)), { shouldValidate: true });
     }
@@ -201,18 +197,29 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [] }: ChaletFormPro
 
   const [newRule, setNewRule] = useState("");
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: ChaletFormValues) {
     setIsSubmitting(true);
     try {
       const url = isEditMode ? `/api/chalets/${defaultValues.id}` : '/api/chalets';
       const method = isEditMode ? 'PUT' : 'POST';
+
+      // Transform amenities back to the structure expected by the API
+      const transformedValues = {
+        ...values,
+        amenities: values.amenities
+          ?.map(id => {
+            const amenity = allAmenities.find(a => a.id === id);
+            return amenity ? { name: amenity.name, id: amenity.id } : null;
+          })
+          .filter((a): a is { name: string; id: string } => a !== null),
+      };
 
       const response = await fetch(url, {
         method: method,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(transformedValues),
       });
 
       if (!response.ok) {
@@ -227,7 +234,7 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [] }: ChaletFormPro
       if (!isEditMode) {
         form.reset();
       }
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: `No se pudo ${isEditMode ? 'actualizar' : 'guardar'} el chalet. Inténtalo de nuevo.`,

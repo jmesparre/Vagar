@@ -4,7 +4,6 @@
 
 import React, { useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { DateRange } from "react-day-picker";
 import SearchBar from "@/components/custom/SearchBar";
 import ChaletGrid from '@/components/custom/ChaletGrid';
 import { H1 } from '@/components/ui/typography';

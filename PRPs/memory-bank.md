@@ -1,71 +1,214 @@
-# 📝 Plan de Despliegue de Base de Datos en WNPower
+error de tipos en useForm + zodResolver”
 
-## 🎯 Objetivo
-Desplegar la base de datos MySQL del proyecto Vagar en WNPower, asegurando la integridad del sitio WordPress existente y conectando la nueva aplicación Next.js a la base de datos en la nube.
+
+🔵 PROBLEMA PRINCIPAL
+
+Cuando se usa:
+
+const form = useForm<ChaletFormValues>({
+  resolver: zodResolver(formSchema),
+  defaultValues: getInitialValues(),
+});
+
+
+y el esquema Zod transforma ciertos valores (como numericString, que convierte "123" en 123), React Hook Form no espera valores transformados a nivel de su tipado interno.
+
+Esto genera errores como:
+
+Type 'Resolver<{ ... }, any>' is not assignable to type 'Resolver<{ ... }>'
+
+
+o
+
+Type 'string | number | null' is not assignable to type 'number | null'.
+
+
+Porque:
+
+RHF cree que latitude es string o undefined (lo que viene de los inputs).
+
+Zod transforma latitude a number | null.
+
+Por lo tanto el tipo del resolver no coincide con el tipo del form.
+
+Este conflicto entre tipos pre-transformación vs. post-transformación es lo que dispara TODOS tus errores.
+
+🔵 CAUSA TÉCNICA
+
+Tus <input type="number" /> envían siempre strings, como "3" o "".
+
+Tu numericString transforma esos strings a:
+
+string → number | null
+
+
+React Hook Form no sabe que Zod transformará el valor.
+
+Al poner manualmente:
+
+useForm<ChaletFormValues>()
+
+
+forzaste a RHF a creer que los valores de los campos YA SON números, pero en realidad siguen siendo strings hasta que Zod los procesa.
+1. RHF detecta que el resolver entrega un tipo incompatible con el que tú tipaste manualmente → y falla la compilación.
+
+🔵 SOLUCIÓN PRINCIPAL
+
+La regla general cuando se usa Zod con transformaciones es:
+
+NO tipar useForm manualmente. Dejar que zodResolver infiera el tipo final.
+
+Es decir, cambiar:
+
+const form = useForm<ChaletFormValues>({
+
+
+por:
+
+const form = useForm({
+
+
+RHF toma el tipo resultante de Zod, que ya es el correcto (number | null).
+
+Esto evita todas las colisiones de tipos.
+
+🔵 PROBLEMA SECUNDARIO
+
+Tu esquema actual:
+
+const numericString = z
+  .string()
+  .transform(...)
+
+
+Esto falla cuando el valor inicial es:
+
+null
+
+number
+
+undefined
+
+que sí aparecen en defaultValues y en datos provenientes de la DB.
+
+Zod se queja porque solo acepta string.
+
+🔵 SOLUCIÓN SECUNDARIA
+
+Cambiar numericString para aceptar los tipos reales que llegan:
+
+const numericString = z
+  .union([z.string(), z.number(), z.null(), z.undefined()])
+  .transform((val) => {
+    if (val === "" || val === null || val === undefined) return null;
+    const n = Number(val);
+    return Number.isNaN(n) ? null : n;
+  })
+  .refine((val) => val === null || typeof val === "number", {
+    message: "Debe ser un número válido",
+  });
+
+
+Así:
+
+Los defaultValues funcionan.
+
+Los datos del backend funcionan.
+
+Zod no tira errores antes de tiempo.
+
+🔵 PROBLEMA TERCARIO
+
+Tus campos numeric inputs hacen:
+
+value={field.value ?? ""}
+
+
+Si field.value NO es string (por ejemplo number), React lanza advertencias de control/uncontrol.
+
+Con el numericString corregido, esto queda bien.
+
+🔵 PROBLEMA CUATERNARIO (AMENITIES)
+
+En tu esquema:
+
+amenities: z.array(z.string())
+
+
+En getInitialValues mapeas amenity.id (string).
+Correcto.
+
+En el submit transformas a:
+
+{ name, id }
+
+
+Correcto también.
+
+NO hay cambios necesarios aquí.
+
+🟢 LISTA COMPLETA DE CAMBIOS QUE DEBES HACER (CLARA Y RESUMIDA)
+✅ 1. Modificar numericString
+
+Para aceptar string | number | null | undefined
+📌 Esto elimina errores por defaultValues y transforms.
+
+✅ 2. Eliminar <ChaletFormValues> de useForm
+
+Cambiar:
+
+const form = useForm<ChaletFormValues>({
+
+
+por:
+
+const form = useForm({
+
+
+📌 Esto hace que RHF tome el tipo correcto de Zod y evita el conflicto de tipos.
+
+✅ 3. Mantener defaultValues tal cual están
+
+Tus valores iniciales son consistentes con el esquema después del fix.
+
+❗ 4. (Opcional) Agregar un type final con infer si quieres usar ChaletFormValues en otras partes:
+type ChaletFormValues = z.infer<typeof formSchema>;
+
+
+Pero no lo pongas en useForm.
+
+🟢 RESULTADO DESPUÉS DE LOS CAMBIOS
+
+✓ El resolver compila correctamente
+✓ Todos los numeric fields funcionan
+✓ latitude/longitude/price/etc validan correctamente
+✓ defaultValues funcionan sin conflicto
+✓ RHF ya no espera strings donde Zod produce numbers
+✓ Las APIs reciben datos limpios
+✓ No aparece más el error gigantesco de incompatibilidad de tipos
 
 ---
+### **ACTUALIZACIÓN SESIÓN POSTERIOR**
 
-## ⚠️ Prerrequisitos y Precauciones
-- **Acceso a WNPower:** Credenciales de acceso al panel de hosting.
-- **No interrumpir el servicio:** El sitio de WordPress debe permanecer online durante todo el proceso.
-- **Backup:** Es crucial tener un respaldo completo de la base de datos actual antes de hacer cualquier cambio.
+Se continuó con la corrección de errores de `build`.
 
----
+🔵 **PROBLEMA 5: Error de tipo `null` en `ChaletGrid.tsx`**
 
-## 🚀 Fases del Plan
+**Causa:** La función de ordenamiento intentaba hacer operaciones matemáticas con `a.rating` y `b.rating`, que podían ser `null`.
+**Solución:** Se utilizó el operador `??` para asignar `0` como valor por defecto en caso de `null`.
+```typescript
+// Antes
+return b.rating - a.rating;
 
-### Fase 1: Respaldo de Seguridad (Backup)
-*   **Paso 1.1:** Acceder al panel de WNPower y localizar la gestión de bases de datos (phpMyAdmin o similar).
-*   **Paso 1.2:** Identificar la base de datos existente de WordPress.
-*   **Paso 1.3:** Realizar una exportación completa (backup) de la base de datos de WordPress y guardarla en un lugar seguro.
+// Después
+return (b.rating ?? 0) - (a.rating ?? 0);
+```
 
-### Fase 2: Creación de la Nueva Base de Datos
-*   **Paso 2.1:** Crear una nueva base de datos en WNPower para el proyecto Vagar.
-*   **Paso 2.2:** Crear un nuevo usuario de base de datos con contraseña segura.
-*   **Paso 2.3:** Asignar todos los privilegios al nuevo usuario sobre la nueva base de datos.
-*   **Paso 2.4:** Anotar las credenciales: host, nombre de la base de datos, usuario y contraseña.
+🔵 **PROBLEMA 6: Error de props en `ComparisonCarousel.tsx`**
 
-### Fase 3: Migración de Datos
-*   **Paso 3.1:** Importar el schema de la base de datos (`init.sql`) a la nueva base de datos en WNPower.
-*   **Paso 3.2:** (Opcional) Si hay datos locales que migrar, exportarlos y luego importarlos a la nueva base de datos.
+**Causa:** El componente `AmenitiesPopoverContent` recibía las props `counts` y `onCountChange`, pero no estaban definidas en su interfaz `AmenitiesPopoverContentProps`.
+**Solución:**
+1.  Se actualizó la interfaz `AmenitiesPopoverContentProps` para incluir `counts` y `onCountChange` con sus tipos correspondientes.
+2.  Se implementó la UI y la lógica para manejar los contadores de dormitorios, camas y baños dentro del popover.
 
-### Fase 4: Conexión de la Aplicación
-*   **Paso 4.1:** Actualizar el archivo de variables de entorno (`.env.local` o similar) del proyecto Next.js con las nuevas credenciales de la base de datos.
-*   **Paso 4.2:** Asegurarse de que el host de la base de datos permite conexiones remotas si la aplicación no está en el mismo servidor.
-
-### Fase 5: Verificación y Pruebas
-*   **Paso 5.1:** Desplegar la aplicación Next.js.
-*   **Paso 5.2:** Realizar pruebas para confirmar que la aplicación lee y escribe correctamente en la nueva base de datos.
-*   **Paso 5.3:** Verificar que el sitio de WordPress sigue funcionando correctamente.
-
----
-
-## 🗒️ Resumen de Sesión (13/11/2025)
-
-### ✅ Progreso Realizado:
-- **Fase 1 (Completada):** Se realizó con éxito el backup de la base de datos de WordPress (`vagarcom_wp850`).
-- **Fase 2 (Completada):** Se creó la nueva base de datos (`vagarcom_vagar`) y el usuario (`vagarcom_vagar_user`) en el cPanel de WNPower.
-- **Fase 3 (Completada):** Se importó la estructura inicial de la base de datos desde el archivo `init.sql`.
-- **Fase 4 (En progreso):** Se identificaron las credenciales necesarias y se determinó que el `DB_HOST` es la IP `190.228.29.101`.
-
-### ➡️ Próximos Pasos:
-1.  **Autorizar Conexión Remota:** En el cPanel de WNPower, ir a "MySQL Remoto" y añadir un nuevo "Host de Acceso" con el valor `%` para permitir conexiones desde Vercel.
-2.  **Configurar Variables en Vercel:** Añadir las variables de entorno (`DB_HOST`, `DB_USER`, `DB_PASSWORD`, `DB_NAME`) en la configuración del proyecto en Vercel.
-3.  **Continuar con la Fase 5:** Realizar el despliegue y las pruebas de conexión.
-
----
-
-## 🗒️ Resumen de Sesión (13/11/2025 - Tarde)
-
-### ✅ Progreso Realizado:
-- **Configuración de Auth:** Se aclaró el uso de las variables `NEXTAUTH_URL` y `NEXTAUTH_SECRET` y se subieron a Vercel.
-- **Diagnóstico de Conexión:** Al intentar conectar la aplicación local a la base de datos remota, se encontró el error `ECONNREFUSED 190.228.29.101:3306`.
-- **Troubleshooting de Acceso Remoto:**
-    - Se verificó que el host `%` estaba correctamente añadido en "MySQL Remoto" en cPanel.
-    - Como prueba adicional, se añadió la IP específica del usuario (`45.178.1.252`) a los hosts permitidos.
-    - El error de conexión persistió en ambos casos, lo que sugiere un bloqueo a nivel de firewall del servidor.
-
-### ➡️ Próximos Pasos:
-1.  **Contactar a Soporte de WNPower:** El paso más importante es crear un ticket de soporte solicitando que verifiquen y, si es necesario, abran el puerto `3306` para conexiones remotas en el firewall del servidor. Esta es la causa más probable del problema.
-2.  **Re-testear Conexión:** Una vez que WNPower confirme que el puerto está abierto, volver a probar la conexión desde el entorno de desarrollo local.
-3.  **Verificar Despliegue en Vercel:** Si la conexión local funciona, el despliegue en Vercel también debería conectarse correctamente.
+**Estado actual:** Se han corregido todos los errores de compilación detectados. El próximo paso es ejecutar `pnpm build` para verificar que el proyecto compila sin errores.

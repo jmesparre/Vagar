@@ -1,5 +1,4 @@
 import { fetchAllTestimonials } from '@/lib/data';
-import { Testimonial } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import TestimonialsTable from '@/components/custom/TestimonialsTable';

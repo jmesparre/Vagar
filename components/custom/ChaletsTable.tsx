@@ -46,7 +46,7 @@ export default function ChaletsTable({ initialChalets }: ChaletsTableProps) {
       const updatedChalets = chalets.filter(chalet => chalet.id !== id);
       setChalets(updatedChalets);
 
-    } catch (error) {
+    } catch {
       toast({
         title: 'Error',
         description: 'No se pudo eliminar el chalet.',

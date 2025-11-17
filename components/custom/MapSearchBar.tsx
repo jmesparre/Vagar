@@ -13,7 +13,8 @@ interface MapSearchBarProps {
 export function MapSearchBar({ onSearchResultSelect }: MapSearchBarProps) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<Property[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (query.length < 2) {

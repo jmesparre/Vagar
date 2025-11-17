@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import pool from "@/lib/db";
-import { RowDataPacket } from "mysql2";
+import { RowDataPacket, ResultSetHeader } from "mysql2";
 import { allAmenities as amenitiesData } from "@/lib/amenities-data";
 
 const formSchema = z.object({
@@ -71,11 +71,11 @@ export async function POST(request: Request) {
     connection = await pool.getConnection();
     await connection.beginTransaction();
 
-    const [result] = await connection.query(
+    const [result] = await connection.query<ResultSetHeader>(
       "INSERT INTO Properties SET ?",
       [chaletData]
     );
-    const propertyId = (result as any).insertId;
+    const propertyId = result.insertId;
 
     if (gallery_images && gallery_images.length > 0) {
       for (const imageUrl of gallery_images) {

@@ -23,7 +23,15 @@ const formSchema = z.object({
   author_name: z.string().min(2, 'El nombre debe tener al menos 2 caracteres.'),
   author_image_url: z.string().url('Debe ser una URL válida.').optional().or(z.literal('')),
   testimonial_text: z.string().min(10, 'El testimonio debe tener al menos 10 caracteres.'),
-  rating: z.coerce.number().min(1).max(5),
+  rating: z.union([z.string(), z.number(), z.null(), z.undefined()])
+    .transform((val) => {
+      if (val === "" || val === null || val === undefined) return null;
+      const n = Number(val);
+      return isNaN(n) ? null : n;
+    })
+    .refine((val): val is number => val !== null && val >= 1 && val <= 5, {
+      message: "El rating debe ser un número entre 1 y 5.",
+    }),
   is_featured: z.boolean(),
 });
 
@@ -35,7 +43,7 @@ interface TestimonialFormProps {
 
 export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
   const router = useRouter();
-  const form = useForm<TestimonialFormValues>({
+  const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       author_name: testimonial?.author_name || '',
@@ -122,7 +130,14 @@ export default function TestimonialForm({ testimonial }: TestimonialFormProps) {
             <FormItem>
               <FormLabel>Rating (1-5)</FormLabel>
               <FormControl>
-                <Input type="number" min="1" max="5" {...field} />
+                <Input
+                  type="number"
+                  min="1"
+                  max="5"
+                  {...field}
+                  value={field.value ?? ''}
+                  onChange={field.onChange}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

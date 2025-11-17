@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useEffect } from "react";
 import { slugify } from "@/lib/utils";
@@ -96,7 +96,7 @@ export function ExperienceForm({ defaultValues }: ExperienceFormProps) {
       router.push('/admin/experiencias');
       router.refresh();
 
-    } catch (error) {
+    } catch {
       toast({
         title: "Error",
         description: `No se pudo ${isEditMode ? 'actualizar' : 'crear'} la experiencia. Inténtalo de nuevo.`,

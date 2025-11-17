@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { TransformWrapper, TransformComponent, ReactZoomPanPinchRef } from 'react-zoom-pan-pinch';
 import { PropertyCard } from './PropertyCard';
 import { type Property } from '@/lib/types';
-import parse, { domToReact, HTMLReactParserOptions, Element } from 'html-react-parser';
+import parse, { HTMLReactParserOptions, Element } from 'html-react-parser';
 
 interface InteractiveMapProps {
   properties: Property[];

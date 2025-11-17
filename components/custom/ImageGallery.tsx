@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog-custom';
 import { Lightbox } from '@/components/custom/Lightbox';
-import { Video, Camera, Layout } from 'lucide-react';
+import { Camera, Layout } from 'lucide-react';
 import { Image as ImageType } from '@/lib/types';
 import { VideoDialog } from './VideoDialog';
 

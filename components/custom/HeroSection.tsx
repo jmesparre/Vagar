@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { DateRange } from 'react-day-picker';
 import SearchBar from './SearchBar';
 import { SearchBarSkeleton } from './SearchBarSkeleton';
 import { H1, Lead } from '@/components/ui/typography';

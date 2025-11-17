@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
     
-    const rawData: any[][] = xlsx.utils.sheet_to_json(worksheet, { header: 1, raw: true });
+    const rawData: unknown[][] = xlsx.utils.sheet_to_json(worksheet, { header: 1, raw: true });
 
     // Se omiten las dos primeras filas para corregir el desfase.
     // La fila de IDs ahora estará en el índice 0, y las fechas comenzarán en el índice 1.
@@ -39,7 +39,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: 'El archivo Excel no tiene el formato esperado (faltan filas de datos).' }, { status: 400 });
     }
 
-    const mapNodeIds: string[] = jsonData[0].slice(1); // IDs están en la 1ra fila del nuevo array
+    const headerRow = jsonData[0];
+    if (!Array.isArray(headerRow)) {
+      return NextResponse.json({ message: 'La fila de cabecera (IDs) no es válida.' }, { status: 400 });
+    }
+    const mapNodeIds: string[] = headerRow.slice(1).filter(Boolean).map(String); // IDs están en la 1ra fila del nuevo array
 
     const availabilityData: { map_node_id: string; start_date: Date; end_date: Date }[] = [];
 
@@ -51,6 +55,8 @@ export async function POST(request: Request) {
       // El bucle ahora comienza en 1, que es la primera fila de fechas.
       for (let rowIndex = 1; rowIndex < jsonData.length; rowIndex++) {
         const row = jsonData[rowIndex];
+        if (!Array.isArray(row)) continue; // Saltar filas que no son arrays
+
         const dateValue = row[0];
         const cellValue = row[colIndex + 1];
         const isUnavailable = cellValue !== null && cellValue !== undefined && String(cellValue).trim().toUpperCase() === 'X';
@@ -80,16 +86,19 @@ export async function POST(request: Request) {
 
       // Si el archivo termina con un rango no disponible, hay que guardarlo
       if (startDate) {
-        // La fecha de fin debe ser el día siguiente al último día no disponible.
-        const lastUnavailableDate = excelDateToJSDate(jsonData[jsonData.length - 1][0]);
-        const endDate = new Date(lastUnavailableDate.getTime());
-        endDate.setDate(endDate.getDate() + 1);
+        const lastDateValue = jsonData[jsonData.length - 1][0];
+        if (typeof lastDateValue === 'number') {
+          // La fecha de fin debe ser el día siguiente al último día no disponible.
+          const lastUnavailableDate = excelDateToJSDate(lastDateValue);
+          const endDate = new Date(lastUnavailableDate.getTime());
+          endDate.setDate(endDate.getDate() + 1);
 
-        availabilityData.push({
-          map_node_id: String(mapNodeId),
-          start_date: startDate,
-          end_date: endDate,
-        });
+          availabilityData.push({
+            map_node_id: String(mapNodeId),
+            start_date: startDate,
+            end_date: endDate,
+          });
+        }
       }
     });
     

@@ -16,7 +16,7 @@ export default async function EditExperiencePage({ params }: { params: { id: str
     ...experience,
     what_to_know: JSON.stringify(experience.what_to_know || []),
     // The form also expects images as an array of objects with a `url` property.
-    images: experience.images.map(img => ({ url: img.url })),
+    images: experience.gallery_images.map(img => ({ url: img.url })),
   };
 
   return (

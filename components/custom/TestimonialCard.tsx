@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Star } from "lucide-react";
 import { Testimonial } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { P, Small } from "@/components/ui/typography";
+import { P } from "@/components/ui/typography";
 
 interface TestimonialCardProps {
   testimonial: Testimonial;

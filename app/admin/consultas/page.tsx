@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { columns } from './columns';
 import { DataTable } from './data-table';
 import { Booking } from '@/lib/types';
@@ -12,7 +12,6 @@ export default function ConsultasPage() {
   const [isLoading, setIsLoading] = useState(true);
   
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   useEffect(() => {
     const fetchBookings = async () => {

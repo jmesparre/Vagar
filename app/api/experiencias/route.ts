@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import pool from '@/lib/db';
 import { z } from 'zod';
 import { fetchExperiences } from '@/lib/data';
+import { ResultSetHeader } from 'mysql2';
+import { Experience } from '@/lib/types';
 
 const experienceSchema = z.object({
   title: z.string(),
@@ -37,7 +39,7 @@ export async function POST(request: Request) {
 
     try {
       // Insertar la experiencia
-      const [experienceResult]: any = await connection.execute(
+      const [experienceResult] = await connection.execute<ResultSetHeader>(
         `INSERT INTO Experiences (title, slug, category, short_description, long_description, what_to_know) VALUES (?, ?, ?, ?, ?, ?)`,
         [title, slug, category, short_description, long_description, whatToKnowJson]
       );
@@ -73,7 +75,7 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
-    const experiences = await fetchExperiences();
+    const experiences: Experience[] = await fetchExperiences();
     return NextResponse.json(experiences);
   } catch (error) {
     console.error('Error fetching experiences:', error);

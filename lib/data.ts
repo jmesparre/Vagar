@@ -1,5 +1,47 @@
 import { Property, DashboardMetrics, LatestBooking, Booking, Experience, Testimonial } from '@/lib/types';
 import pool from './db';
+import { RowDataPacket } from 'mysql2';
+
+// Defino un tipo para la fila de la base de datos
+interface PropertyRow extends Omit<Property, 'gallery_images' | 'blueprint_images' | 'amenities' | 'rules'>, RowDataPacket {
+  main_image_url: string;
+  gallery_images: string;
+  blueprint_images: string;
+  amenities: string;
+  rules: string;
+}
+
+interface SearchPropertyRow extends Omit<Property, 'gallery_images' | 'blueprint_images' | 'amenities' | 'rules' | 'main_image_url'>, RowDataPacket {
+  main_image_url: string | null;
+}
+
+interface CountResult extends RowDataPacket {
+  count: number;
+}
+
+interface TotalResult extends RowDataPacket {
+  total: number;
+}
+
+interface FeaturedPropertyRow extends Omit<Property, 'gallery_images' | 'blueprint_images' | 'amenities' | 'rules'>, RowDataPacket {
+  main_image_url: string;
+  gallery_images: string;
+  blueprint_images: string;
+}
+
+interface ExperienceRow extends Omit<Experience, 'gallery_images' | 'what_to_know' | 'main_image_url'>, RowDataPacket {
+  main_image_url?: string;
+  gallery_images: string;
+  what_to_know: string;
+}
+
+interface FeaturedExperienceRow extends Omit<Experience, 'gallery_images' | 'what_to_know'>, RowDataPacket {
+  main_image_url?: string;
+}
+
+interface BookingRow extends Booking, RowDataPacket {}
+
+interface LatestBookingRow extends LatestBooking, RowDataPacket {}
 
 /**
  * Fetches properties from the database, optionally filtering them.
@@ -42,15 +84,15 @@ export const fetchProperties = async (searchParams?: {
          WHERE pr.property_id = p.id), '[]') as rules
       FROM Properties p
     `);
-    const properties = rows as any[];
-    properties.forEach(p => {
-      p.featured = !!p.featured;
-      if (typeof p.gallery_images === 'string') p.gallery_images = JSON.parse(p.gallery_images || '[]');
-      if (typeof p.blueprint_images === 'string') p.blueprint_images = JSON.parse(p.blueprint_images || '[]');
-      if (typeof p.amenities === 'string') p.amenities = JSON.parse(p.amenities || '[]');
-      if (typeof p.rules === 'string') p.rules = JSON.parse(p.rules || '[]');
-    });
-    return properties as Property[];
+    const properties = (rows as PropertyRow[]).map(p => ({
+      ...p,
+      featured: !!p.featured,
+      gallery_images: typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images) : p.gallery_images || [],
+      blueprint_images: typeof p.blueprint_images === 'string' ? JSON.parse(p.blueprint_images) : p.blueprint_images || [],
+      amenities: typeof p.amenities === 'string' ? JSON.parse(p.amenities) : p.amenities || [],
+      rules: typeof p.rules === 'string' ? JSON.parse(p.rules) : p.rules || [],
+    }));
+    return properties;
   } catch (error) {
     console.error('Failed to fetch all properties:', error);
     return [];
@@ -85,9 +127,16 @@ export const searchProperties = async (filters: {
            LIMIT 1) as main_image_url
         FROM Properties p
       `);
-      const properties = rows as any[];
-      properties.forEach(p => { p.featured = !!p.featured; });
-      return properties as Property[];
+      const properties = (rows as SearchPropertyRow[]).map(p => ({
+        ...p,
+        main_image_url: p.main_image_url ?? undefined,
+        featured: !!p.featured,
+        gallery_images: [],
+        blueprint_images: [],
+        amenities: [],
+        rules: [],
+      }));
+      return properties;
     }
 
     // Step 1: Build and execute a subquery to get the IDs of matching properties.
@@ -135,8 +184,8 @@ export const searchProperties = async (filters: {
       subQuery += ' WHERE ' + conditions.join(' AND ');
     }
 
-    const [subRows]: any = await connection.execute(subQuery, subQueryParams);
-    const propertyIds = subRows.map((row: any) => row.id);
+    const [subRows] = await connection.execute(subQuery, subQueryParams);
+    const propertyIds = (subRows as { id: number }[]).map((row) => row.id);
 
     if (propertyIds.length === 0) {
       return [];
@@ -157,14 +206,17 @@ export const searchProperties = async (filters: {
 
     const [rows] = await connection.query(query, [propertyIds]);
     
-    const properties = rows as any[];
-    properties.forEach(p => {
-      p.featured = !!p.featured;
-      // No need to parse JSON here as it's not fetched in this simplified query.
-      // If more details are needed, the main fetchProperties query should be used.
-    });
+    const properties = (rows as SearchPropertyRow[]).map(p => ({
+      ...p,
+      main_image_url: p.main_image_url ?? undefined,
+      featured: !!p.featured,
+      gallery_images: [],
+      blueprint_images: [],
+      amenities: [],
+      rules: [],
+    }));
 
-    return properties as Property[];
+    return properties;
   } catch (error) {
     console.error('Failed to search properties:', error);
     return [];
@@ -187,7 +239,7 @@ export const fetchAllBookings = async (): Promise<Booking[]> => {
       JOIN Properties p ON b.property_id = p.id
       ORDER BY b.created_at DESC
     `);
-    return rows as Booking[];
+    return rows as BookingRow[];
   } catch (error) {
     console.error('Failed to fetch all bookings:', error);
     return [];
@@ -253,14 +305,14 @@ export const fetchFilteredBookings = async (
     dataQuery += ` ORDER BY ${sortColumn} ${sortOrder} LIMIT ? OFFSET ?`;
     const dataParams = [...params, itemsPerPage, offset];
 
-    const [countRows] = await connection.query(countQuery, params);
-    const totalItems = (countRows as any)[0].total;
+    const [countRows] = await connection.query<TotalResult[]>(countQuery, params);
+    const totalItems = countRows[0].total;
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-    const [bookingRows] = await connection.query(dataQuery, dataParams);
+    const [bookingRows] = await connection.query<BookingRow[]>(dataQuery, dataParams);
 
     return {
-      bookings: bookingRows as Booking[],
+      bookings: bookingRows,
       totalPages,
     };
   } catch (error) {
@@ -280,13 +332,13 @@ export const fetchFilteredBookings = async (
 export const fetchDashboardMetrics = async (): Promise<DashboardMetrics> => {
   const connection = await pool.getConnection();
   try {
-    const [pendingResult] = await connection.query("SELECT COUNT(*) as count FROM Bookings WHERE status = 'pending'");
-    const [propertiesResult] = await connection.query("SELECT COUNT(*) as count FROM Properties");
-    const [newTodayResult] = await connection.query("SELECT COUNT(*) as count FROM Bookings WHERE DATE(created_at) = CURDATE()");
+    const [pendingResult] = await connection.query<CountResult[]>("SELECT COUNT(*) as count FROM Bookings WHERE status = 'pending'");
+    const [propertiesResult] = await connection.query<CountResult[]>("SELECT COUNT(*) as count FROM Properties");
+    const [newTodayResult] = await connection.query<CountResult[]>("SELECT COUNT(*) as count FROM Bookings WHERE DATE(created_at) = CURDATE()");
 
-    const pendingBookings = (pendingResult as any)[0].count;
-    const activeProperties = (propertiesResult as any)[0].count;
-    const newBookingsToday = (newTodayResult as any)[0].count;
+    const pendingBookings = pendingResult[0].count;
+    const activeProperties = propertiesResult[0].count;
+    const newBookingsToday = newTodayResult[0].count;
 
     return { pendingBookings, activeProperties, newBookingsToday };
   } catch (error) {
@@ -315,7 +367,7 @@ export const fetchLatestBookings = async (): Promise<LatestBooking[]> => {
       ORDER BY b.created_at DESC
       LIMIT 5
     `);
-    return rows as LatestBooking[];
+    return rows as LatestBookingRow[];
   } catch (error) {
     console.error('Failed to fetch latest bookings:', error);
     return [];
@@ -350,7 +402,7 @@ export const fetchPropertyById = async (id: string): Promise<Property | undefine
       WHERE p.id = ?
     `, [id]);
     
-    const properties = rows as any[];
+    const properties = rows as PropertyRow[];
     if (properties.length === 0) {
       return undefined;
     }
@@ -373,7 +425,7 @@ export const fetchPropertyById = async (id: string): Promise<Property | undefine
 
     chalet.featured = !!chalet.featured;
 
-    return chalet as Property;
+    return chalet as unknown as Property;
   } catch (error) {
     console.error(`Failed to fetch property with id ${id}:`, error);
     return undefined;
@@ -484,7 +536,7 @@ export const fetchPropertyBySlug = async (slug: string): Promise<Property | unde
       WHERE p.slug = ?
     `, [slug]);
     
-    const properties = rows as any[];
+    const properties = rows as PropertyRow[];
     if (properties.length === 0) {
       return undefined;
     }
@@ -507,7 +559,7 @@ export const fetchPropertyBySlug = async (slug: string): Promise<Property | unde
 
     chalet.featured = !!chalet.featured;
 
-    return chalet as Property;
+    return chalet as unknown as Property;
   } catch (error) {
     console.error(`Failed to fetch property with slug ${slug}:`, error);
     return undefined;
@@ -546,19 +598,17 @@ export const fetchFeaturedPropertiesByCategory = async (category: string, limit:
       LIMIT ?
     `, [category, limit]);
     
-    const properties = rows as any[];
-    // Ensure images and featured are parsed correctly
-    properties.forEach(p => {
-      p.featured = !!p.featured;
-      if (typeof p.gallery_images === 'string') {
-        p.gallery_images = JSON.parse(p.gallery_images || '[]');
-      }
-      if (typeof p.blueprint_images === 'string') {
-        p.blueprint_images = JSON.parse(p.blueprint_images || '[]');
-      }
-    });
+    const properties = (rows as FeaturedPropertyRow[]).map(p => ({
+      ...p,
+      featured: !!p.featured,
+      gallery_images: typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images || '[]') : [],
+      blueprint_images: typeof p.blueprint_images === 'string' ? JSON.parse(p.blueprint_images || '[]') : [],
+      // This query doesn't fetch amenities or rules, so we provide empty arrays to match the Property type.
+      amenities: [],
+      rules: [],
+    }));
 
-    return properties as Property[];
+    return properties;
   } catch (error) {
     console.error(`Failed to fetch featured properties for category ${category}:`, error);
     return [];
@@ -587,19 +637,16 @@ export const fetchFeaturedProperties = async (limit: number = 6): Promise<Proper
       LIMIT ?
     `, [limit]);
     
-    const properties = rows as any[];
-    // Ensure images and featured are parsed correctly
-    properties.forEach(p => {
-      p.featured = !!p.featured;
-      if (typeof p.gallery_images === 'string') {
-        p.gallery_images = JSON.parse(p.gallery_images || '[]');
-      }
-      if (typeof p.blueprint_images === 'string') {
-        p.blueprint_images = JSON.parse(p.blueprint_images || '[]');
-      }
-    });
+    const properties = (rows as FeaturedPropertyRow[]).map(p => ({
+      ...p,
+      featured: !!p.featured,
+      gallery_images: typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images || '[]') : [],
+      blueprint_images: typeof p.blueprint_images === 'string' ? JSON.parse(p.blueprint_images || '[]') : [],
+      amenities: [],
+      rules: [],
+    }));
 
-    return properties as Property[];
+    return properties;
   } catch (error) {
     console.error(`Failed to fetch featured properties:`, error);
     return [];
@@ -625,17 +672,15 @@ export const fetchAllChalets = async (): Promise<Property[]> => {
       FROM Properties p
       ORDER BY p.id DESC
     `);
-    const properties = rows as any[];
-    properties.forEach(p => {
-      p.featured = !!p.featured;
-      if (typeof p.gallery_images === 'string') {
-        p.gallery_images = JSON.parse(p.gallery_images || '[]');
-      }
-      if (typeof p.blueprint_images === 'string') {
-        p.blueprint_images = JSON.parse(p.blueprint_images || '[]');
-      }
-    });
-    return properties as Property[];
+    const properties = (rows as PropertyRow[]).map(p => ({
+      ...p,
+      featured: !!p.featured,
+      gallery_images: typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images) : p.gallery_images || [],
+      blueprint_images: typeof p.blueprint_images === 'string' ? JSON.parse(p.blueprint_images) : p.blueprint_images || [],
+      amenities: typeof p.amenities === 'string' ? JSON.parse(p.amenities) : p.amenities || [],
+      rules: typeof p.rules === 'string' ? JSON.parse(p.rules) : p.rules || [],
+    }));
+    return properties;
   } catch (error) {
     console.error('Failed to fetch all chalets:', error);
     return [];
@@ -659,17 +704,13 @@ export const fetchExperiences = async (): Promise<Experience[]> => {
       FROM Experiences e
       ORDER BY e.id DESC
     `);
-    const experiences = rows as any[];
-    experiences.forEach(e => {
-      e.featured = !!e.featured;
-      if (typeof e.gallery_images === 'string') {
-        e.gallery_images = JSON.parse(e.gallery_images || '[]');
-      }
-      if (typeof e.what_to_know === 'string') {
-        e.what_to_know = JSON.parse(e.what_to_know || '[]');
-      }
-    });
-    return experiences as Experience[];
+    const experiences = (rows as ExperienceRow[]).map(e => ({
+      ...e,
+      featured: !!e.featured,
+      gallery_images: typeof e.gallery_images === 'string' ? JSON.parse(e.gallery_images || '[]') : [],
+      what_to_know: typeof e.what_to_know === 'string' ? JSON.parse(e.what_to_know || '[]') : [],
+    }));
+    return experiences;
   } catch (error) {
     console.error('Failed to fetch all experiences:', error);
     return [];
@@ -694,19 +735,18 @@ export const fetchExperienceById = async (id: string): Promise<Experience | unde
       WHERE e.id = ?
     `, [id]);
     
-    const experiences = rows as any[];
+    const experiences = rows as ExperienceRow[];
     if (experiences.length === 0) {
       return undefined;
     }
-    const experience = experiences[0];
-    experience.featured = !!experience.featured;
-    if (typeof experience.gallery_images === 'string') {
-      experience.gallery_images = JSON.parse(experience.gallery_images || '[]');
-    }
-    if (typeof experience.what_to_know === 'string') {
-      experience.what_to_know = JSON.parse(experience.what_to_know || '[]');
-    }
-    return experience as Experience;
+    const row = experiences[0];
+    const experience: Experience = {
+      ...row,
+      featured: !!row.featured,
+      gallery_images: typeof row.gallery_images === 'string' ? JSON.parse(row.gallery_images || '[]') : [],
+      what_to_know: typeof row.what_to_know === 'string' ? JSON.parse(row.what_to_know || '[]') : [],
+    };
+    return experience;
   } catch (error) {
     console.error(`Failed to fetch experience with id ${id}:`, error);
     return undefined;
@@ -731,19 +771,18 @@ export const fetchExperienceBySlug = async (slug: string): Promise<Experience | 
       WHERE e.slug = ?
     `, [slug]);
     
-    const experiences = rows as any[];
+    const experiences = rows as ExperienceRow[];
     if (experiences.length === 0) {
       return undefined;
     }
-    const experience = experiences[0];
-    experience.featured = !!experience.featured;
-    if (typeof experience.gallery_images === 'string') {
-      experience.gallery_images = JSON.parse(experience.gallery_images || '[]');
-    }
-    if (typeof experience.what_to_know === 'string') {
-      experience.what_to_know = JSON.parse(experience.what_to_know || '[]');
-    }
-    return experience as Experience;
+    const row = experiences[0];
+    const experience: Experience = {
+      ...row,
+      featured: !!row.featured,
+      gallery_images: typeof row.gallery_images === 'string' ? JSON.parse(row.gallery_images || '[]') : [],
+      what_to_know: typeof row.what_to_know === 'string' ? JSON.parse(row.what_to_know || '[]') : [],
+    };
+    return experience;
   } catch (error) {
     console.error(`Failed to fetch experience with slug ${slug}:`, error);
     return undefined;
@@ -768,12 +807,14 @@ export const fetchFeaturedExperiences = async (limit: number = 4): Promise<Exper
       LIMIT ?
     `, [limit]);
     
-    const experiences = rows as any[];
-    experiences.forEach(e => {
-      e.featured = !!e.featured;
-    });
+    const experiences = (rows as FeaturedExperienceRow[]).map(e => ({
+      ...e,
+      featured: !!e.featured,
+      gallery_images: [],
+      what_to_know: [],
+    }));
 
-    return experiences as Experience[];
+    return experiences;
   } catch (error) {
     console.error('Failed to fetch featured experiences:', error);
     return [];
@@ -853,24 +894,16 @@ export const fetchFilteredChalets = async (filters: {
 
     const [rows] = await connection.query(query, params);
     
-    const properties = rows as any[];
-    properties.forEach(p => {
-      p.featured = !!p.featured;
-      if (typeof p.gallery_images === 'string') {
-        p.gallery_images = JSON.parse(p.gallery_images || '[]');
-      }
-      if (typeof p.blueprint_images === 'string') {
-        p.blueprint_images = JSON.parse(p.blueprint_images || '[]');
-      }
-      if (typeof p.amenities === 'string') {
-        p.amenities = JSON.parse(p.amenities || '[]');
-      }
-      if (typeof p.rules === 'string') {
-        p.rules = JSON.parse(p.rules || '[]');
-      }
-    });
+    const properties = (rows as PropertyRow[]).map(p => ({
+      ...p,
+      featured: !!p.featured,
+      gallery_images: typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images || '[]') : [],
+      blueprint_images: typeof p.blueprint_images === 'string' ? JSON.parse(p.blueprint_images || '[]') : [],
+      amenities: typeof p.amenities === 'string' ? JSON.parse(p.amenities || '[]') : [],
+      rules: typeof p.rules === 'string' ? JSON.parse(p.rules || '[]') : [],
+    }));
 
-    return properties as Property[];
+    return properties;
   } catch (error) {
     console.error('Failed to fetch filtered chalets:', error);
     return [];
@@ -938,7 +971,7 @@ export const fetchTestimonialById = async (id: string): Promise<Testimonial | un
   const connection = await pool.getConnection();
   try {
     const [rows] = await connection.query('SELECT * FROM Testimonials WHERE id = ?', [id]);
-    const testimonials = rows as any[];
+    const testimonials = rows as Testimonial[];
     if (testimonials.length === 0) {
       return undefined;
     }
@@ -967,12 +1000,12 @@ export const getChaletBookings = async (chaletId: string): Promise<Booking[]> =>
     
     // Log para depuración de fechas
     if (rows && Array.isArray(rows)) {
-      (rows as Booking[]).forEach(booking => {
+      (rows as BookingRow[]).forEach(booking => {
         console.log(`[DATA_FETCH] Booking para chalet ${chaletId}: check_in_date=${booking.check_in_date}, check_out_date=${booking.check_out_date}`);
       });
     }
 
-    return rows as Booking[];
+    return rows as BookingRow[];
   } catch (error) {
     console.error(`Failed to fetch bookings for chalet ${chaletId}:`, error);
     return [];

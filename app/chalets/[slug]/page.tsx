@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { Star } from "lucide-react";
 import { AvailabilityCalendar } from "@/components/custom/AvailabilityCalendar";
 import { ImageGallery } from "@/components/custom/ImageGallery";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { H1, H2, P } from "@/components/ui/typography";
 import { AmenitiesDialog } from "@/components/custom/AmenitiesDialog";

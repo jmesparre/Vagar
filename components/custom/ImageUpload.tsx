@@ -52,7 +52,8 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
 
         const newBlob = await response.json();
         uploadedUrls.push(newBlob.url);
-      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      } catch (_error) {
         toast({
           title: 'Error',
           description: `No se pudo subir el archivo ${file.name}.`,
