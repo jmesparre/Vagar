@@ -1,4 +1,3 @@
-import { RowDataPacket } from 'mysql2';
 
 export type Image = {
   id: number;
@@ -97,7 +96,7 @@ export type Testimonial = {
   created_at: string;
 };
 
-export interface User extends RowDataPacket {
+export interface User {
   id: string;
   name: string;
   email: string;
