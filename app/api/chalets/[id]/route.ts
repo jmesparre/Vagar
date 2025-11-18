@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import pool from "@/lib/db";
-import { RowDataPacket, ResultSetHeader } from "mysql2";
-import { allAmenities as amenitiesData } from "@/lib/amenities-data";
+import supabase from "@/lib/db";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }),
@@ -62,118 +60,107 @@ const formSchema = z.object({
 });
 
 export async function PUT(request: Request) {
-  let connection;
   try {
     const url = new URL(request.url);
     const propertyId = url.pathname.split('/').pop();
     if (!propertyId) {
       return NextResponse.json({ error: "ID de chalet no encontrado en la URL" }, { status: 400 });
     }
+
     const body = await request.json();
     const { gallery_images, blueprint_images, amenities, rules, ...chaletData } = formSchema.parse(body);
 
-    connection = await pool.getConnection();
-    await connection.beginTransaction();
+    // 1. Actualizar la propiedad principal
+    const { error: updateError } = await supabase
+      .from("properties")
+      .update(chaletData)
+      .eq("id", propertyId);
 
-    // Construir la consulta de actualización dinámicamente
-    const fields = Object.keys(chaletData);
-    if (fields.length === 0) {
-      // No hay campos para actualizar, pero continuamos para manejar las imágenes
-    } else {
-      const setClause = fields.map(field => `\`${field}\` = ?`).join(", ");
-      const values = fields.map(field => chaletData[field as keyof typeof chaletData]);
-
-      await connection.query(`UPDATE Properties SET ${setClause} WHERE id = ?`, [
-        ...values,
-        propertyId,
-      ]);
+    if (updateError) {
+      console.error("Error updating chalet:", updateError);
+      return NextResponse.json({ error: "Error al actualizar el chalet.", details: updateError.message }, { status: 500 });
     }
 
-    // Borrar imágenes existentes
-    await connection.query("DELETE FROM Images WHERE entity_type = 'property' AND entity_id = ?", [propertyId]);
+    // 2. Gestionar imágenes (borrar e insertar)
+    const { error: deleteImagesError } = await supabase.from("images").delete().match({ entity_type: "property", entity_id: propertyId });
+    if (deleteImagesError) console.error("Error deleting old images:", deleteImagesError);
 
-    // Insertar nuevas imágenes de la galería
     if (gallery_images && gallery_images.length > 0) {
-      for (const imageUrl of gallery_images) {
-        await connection.query("INSERT INTO Images SET ?", {
-          url: imageUrl,
-          entity_type: "property",
-          entity_id: propertyId,
-          image_category: "gallery",
-        });
-      }
+      const imagesToInsert = gallery_images.map(url => ({ url, entity_type: "property", entity_id: propertyId, image_category: "gallery" }));
+      const { error: galleryError } = await supabase.from("images").insert(imagesToInsert);
+      if (galleryError) console.error("Error inserting new gallery images:", galleryError);
     }
-
-    // Insertar nuevas imágenes de los planos
     if (blueprint_images && blueprint_images.length > 0) {
-      for (const imageUrl of blueprint_images) {
-        await connection.query("INSERT INTO Images SET ?", {
-          url: imageUrl,
-          entity_type: "property",
-          entity_id: propertyId,
-          image_category: "blueprint",
-        });
-      }
+      const imagesToInsert = blueprint_images.map(url => ({ url, entity_type: "property", entity_id: propertyId, image_category: "blueprint" }));
+      const { error: blueprintError } = await supabase.from("images").insert(imagesToInsert);
+      if (blueprintError) console.error("Error inserting new blueprint images:", blueprintError);
     }
 
-    // Borrar amenities existentes
-    await connection.query("DELETE FROM PropertyAmenities WHERE property_id = ?", [propertyId]);
+    // 3. Gestionar amenities (borrar e insertar)
+    console.log(`Iniciando gestión de amenities para el chalet ID: ${propertyId}`);
+    const { error: deleteAmenitiesError } = await supabase.from("propertyamenities").delete().eq("property_id", propertyId);
+    if (deleteAmenitiesError) {
+      console.error("Error al borrar amenities antiguos:", deleteAmenitiesError);
+    } else {
+      console.log("Amenities antiguos borrados correctamente.");
+    }
 
-    // Insertar nuevos amenities si existen
     if (amenities && amenities.length > 0) {
-      for (const amenityId of amenities) {
-        const amenityDetail = amenitiesData.find(a => a.id === amenityId);
-        if (amenityDetail) {
-          const [amenityRows] = await connection.query<RowDataPacket[]>(
-            "SELECT id FROM Amenities WHERE name = ?",
-            [amenityDetail.name]
-          );
-          if (amenityRows.length > 0) {
-            const amenityDbId = amenityRows[0].id;
-            await connection.query("INSERT INTO PropertyAmenities SET ?", {
-              property_id: parseInt(propertyId, 10),
-              amenity_id: amenityDbId,
-            });
+      console.log("Amenities recibidos para actualizar (slugs):", amenities);
+
+      const { data: amenitiesFromDb, error: amenitiesError } = await supabase
+        .from("amenities")
+        .select("id, slug")
+        .in("slug", amenities);
+
+      if (amenitiesError) {
+        console.error("Error al buscar amenities en la BD para actualizar:", amenitiesError);
+      } else {
+        console.log("Amenities encontrados en la BD para actualizar:", amenitiesFromDb);
+
+        if (amenitiesFromDb && amenitiesFromDb.length > 0) {
+          const propertyAmenitiesToInsert = amenitiesFromDb.map(amenity => ({
+            property_id: propertyId,
+            amenity_id: amenity.id,
+          }));
+
+          console.log("Datos a insertar en propertyamenities (actualización):", propertyAmenitiesToInsert);
+
+          const { error: paError } = await supabase.from("propertyamenities").insert(propertyAmenitiesToInsert);
+          if (paError) {
+            console.error("Error al insertar nuevos amenities en propertyamenities:", paError);
+          } else {
+            console.log("Nuevos amenities guardados correctamente.");
           }
+        } else {
+          console.warn("No se encontraron amenities en la BD para los slugs proporcionados durante la actualización.");
         }
       }
+    } else {
+      console.log("No se proporcionaron amenities para actualizar, se han borrado los existentes.");
     }
 
-    // Borrar reglas existentes
-    await connection.query("DELETE FROM PropertyRules WHERE property_id = ?", [propertyId]);
+    // 4. Gestionar reglas (borrar e insertar)
+    const { error: deleteRulesError } = await supabase.from("propertyrules").delete().eq("property_id", propertyId);
+    if (deleteRulesError) console.error("Error deleting old rules:", deleteRulesError);
 
-    // Insertar nuevas reglas si existen
     if (rules && rules.length > 0) {
-      for (const rule of rules) {
-        await connection.query("INSERT INTO PropertyRules SET ?", {
-          property_id: parseInt(propertyId, 10),
-          rule_text: rule.rule_text,
-        });
-      }
+      const rulesToInsert = rules.map(rule => ({ property_id: propertyId, rule_text: rule.rule_text }));
+      const { error: rulesError } = await supabase.from("propertyrules").insert(rulesToInsert);
+      if (rulesError) console.error("Error inserting new property rules:", rulesError);
     }
-
-    await connection.commit();
 
     return NextResponse.json({ message: "Chalet actualizado exitosamente" }, { status: 200 });
   } catch (error) {
-    if (connection) {
-      await connection.rollback();
-    }
-
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.issues }, { status: 400 });
     }
-    console.error(error);
+    console.error("An unexpected error occurred during PUT:", error);
     return NextResponse.json({ error: "Error interno del servidor" }, { status: 500 });
-  } finally {
-    if (connection) {
-      connection.release();
-    }
   }
 }
 
 export async function DELETE(request: Request) {
-  let connection;
   try {
     const url = new URL(request.url);
     const propertyId = url.pathname.split('/').pop();
@@ -181,37 +168,25 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: "ID de chalet no encontrado en la URL" }, { status: 400 });
     }
 
-    connection = await pool.getConnection();
-    await connection.beginTransaction();
+    // Asumiendo que hay ON DELETE CASCADE en la base de datos,
+    // Supabase se encargará de borrar los registros relacionados.
+    const { error, count } = await supabase
+      .from("properties")
+      .delete({ count: 'exact' })
+      .eq("id", propertyId);
 
-    // Eliminar imágenes asociadas
-    await connection.query("DELETE FROM Images WHERE entity_type = 'property' AND entity_id = ?", [propertyId]);
+    if (error) {
+      console.error("Error deleting chalet:", error);
+      return NextResponse.json({ error: "Error al eliminar el chalet.", details: error.message }, { status: 500 });
+    }
 
-    // Eliminar amenities asociadas
-    await connection.query("DELETE FROM PropertyAmenities WHERE property_id = ?", [propertyId]);
-    
-    // Eliminar reglas asociadas
-    await connection.query("DELETE FROM PropertyRules WHERE property_id = ?", [propertyId]);
-
-    // Eliminar la propiedad
-    const [result] = await connection.query<ResultSetHeader>("DELETE FROM Properties WHERE id = ?", [propertyId]);
-
-    await connection.commit();
-
-    if (result.affectedRows === 0) {
+    if (count === 0) {
       return NextResponse.json({ error: "Chalet no encontrado" }, { status: 404 });
     }
 
     return NextResponse.json({ message: "Chalet eliminado exitosamente" }, { status: 200 });
   } catch (error) {
-    if (connection) {
-      await connection.rollback();
-    }
-    console.error(error);
+    console.error("An unexpected error occurred during DELETE:", error);
     return NextResponse.json({ error: "Error interno del servidor" }, { status: 500 });
-  } finally {
-    if (connection) {
-      connection.release();
-    }
   }
 }

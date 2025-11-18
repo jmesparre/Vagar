@@ -1,12 +1,20 @@
-import fs from 'fs';
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import mysql from 'mysql2/promise';
-import type { ConnectionOptions, RowDataPacket, ResultSetHeader } from 'mysql2/promise';
+import { createClient } from '@supabase/supabase-js';
 import { allAmenities as amenities } from '../lib/amenities-data';
+import * as dotenv from 'dotenv';
+import * as path from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+// Load environment variables from .env.local
+dotenv.config({ path: path.resolve(__dirname, '../.env.local') });
+
+// Manually configure Supabase client for the script
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+if (!supabaseUrl || !supabaseServiceKey) {
+  throw new Error('Supabase URL and service role key must be defined in environment variables.');
+}
+
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 const slugify = (text: string): string =>
   text
@@ -19,88 +27,98 @@ const slugify = (text: string): string =>
     .replace(/-+$/, ''); // Trim - from end of text
 
 const properties = [
-  {
-    id: '1',
-    name: 'Chalet de Montaña',
-    description: 'Un hermoso chalet en la montaña con vistas espectaculares.',
-    latitude: -31.9916,
-    longitude: -64.7833,
-    category: 'Chalets Celestes',
-    images: [
-      'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=2574&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2670&auto=format&fit=crop',
-    ],
-    blueprint_images: [
-      'https://images.unsplash.com/photo-1542882284-3a86a732813a?q=80&w=2574&auto=format&fit=crop',
-    ],
-    guests: 5,
-    bedrooms: 3,
-    beds: 2,
-    bathrooms: 2,
-    rating: 8.4,
-    price_high: 200500,
-    price_mid: 150000,
-    price_low: 100500,
-    map_node_id: 'node_1',
-    featured: true,
-    amenities: [
-      "sauna", "piscina_privada", "aire_acondicionado_full", "calefaccion_central", "tv_full_hd_premium"
-    ],
-  },
-  {
-    id: '2',
-    name: 'Cabaña del Bosque',
-    description: 'Una acogedora cabaña rodeada de naturaleza.',
-    latitude: -32.0016,
-    longitude: -64.7933,
-    category: 'Chalets Verdes',
-    images: [
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2670&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2670&auto=format&fit=crop',
-    ],
-    blueprint_images: [],
-    guests: 4,
-    bedrooms: 2,
-    beds: 2,
-    bathrooms: 1,
-    rating: 9.1,
-    price_high: 180000,
-    price_mid: 130000,
-    price_low: 90000,
-    map_node_id: 'node_2',
-    featured: true,
-    amenities: [
-      "piscina_privada", "gimnasio_cubierto", "starlink_100", "hidromasaje"
-    ],
-  },
-  {
-    id: '3',
-    name: 'Villa del Lago',
-    description: 'Lujosa villa con acceso directo al lago.',
-    latitude: -31.9816,
-    longitude: -64.7733,
-    category: 'Chalets Azules',
-    images: [
-      'https://images.unsplash.com/photo-1558036117-15d82a90b9b1?q=80&w=2574&auto=format&fit=crop',
-    ],
-    blueprint_images: [],
-    guests: 8,
-    bedrooms: 4,
-    beds: 4,
-    bathrooms: 3,
-    rating: 9.5,
-    price_high: 350000,
-    price_mid: 280000,
-    price_low: 200000,
-    map_node_id: 'node_3',
-    featured: false,
-    amenities: [
-      "gimnasio_cubierto", "minicine_4k", "starlink_250", "piscina_interna_climatizada"
-    ],
-  },
-];
+    {
+      id: '1',
+      name: 'Chalet de Montaña',
+      description: 'Un hermoso chalet en la montaña con vistas espectaculares.',
+      latitude: -31.9916,
+      longitude: -64.7833,
+      category: 'Chalets Celestes',
+      images: [
+        'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=2574&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2670&auto=format&fit=crop',
+      ],
+      blueprint_images: [
+        'https://images.unsplash.com/photo-1542882284-3a86a732813a?q=80&w=2574&auto=format&fit=crop',
+      ],
+      guests: 5,
+      bedrooms: 3,
+      beds: 2,
+      bathrooms: 2,
+      rating: 8.4,
+      price_high: 200500,
+      price_mid: 150000,
+      price_low: 100500,
+      map_node_id: 'node_1',
+      featured: true,
+      amenities: [
+        "sauna", "piscina_privada", "aire_acondicionado_full", "calefaccion_central", "tv_full_hd_premium"
+      ],
+    },
+    {
+      id: '2',
+      name: 'Cabaña del Bosque',
+      description: 'Una acogedora cabaña rodeada de naturaleza.',
+      latitude: -32.0016,
+      longitude: -64.7933,
+      category: 'Chalets Verdes',
+      images: [
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2670&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2670&auto=format&fit=crop',
+      ],
+      blueprint_images: [],
+      guests: 4,
+      bedrooms: 2,
+      beds: 2,
+      bathrooms: 1,
+      rating: 9.1,
+      price_high: 180000,
+      price_mid: 130000,
+      price_low: 90000,
+      map_node_id: 'node_2',
+      featured: true,
+      amenities: [
+        "piscina_privada", "gimnasio_cubierto", "starlink_100", "hidromasaje"
+      ],
+    },
+    {
+      id: '3',
+      name: 'Villa del Lago',
+      description: 'Lujosa villa con acceso directo al lago.',
+      latitude: -31.9816,
+      longitude: -64.7733,
+      category: 'Chalets Azules',
+      images: [
+        'https://images.unsplash.com/photo-1558036117-15d82a90b9b1?q=80&w=2574&auto=format&fit=crop',
+      ],
+      blueprint_images: [],
+      guests: 8,
+      bedrooms: 4,
+      beds: 4,
+      bathrooms: 3,
+      rating: 9.5,
+      price_high: 350000,
+      price_mid: 280000,
+      price_low: 200000,
+      map_node_id: 'node_3',
+      featured: false,
+      amenities: [
+        "gimnasio_cubierto", "minicine_4k", "starlink_250", "piscina_interna_climatizada"
+      ],
+    },
+  ];
+  
+interface ExperienceSeed {
+  id: string;
+  title: string;
+  shortDescription: string;
+  longDescription: string;
+  images: string[];
+  category: string;
+  whatYouShouldKnow: string[];
+}
 
-const experiences = [
+const experiences: ExperienceSeed[] = [
   // Zona deportiva y social
   {
     id: 'exp1',
@@ -131,7 +149,6 @@ const experiences = [
       'Participa en nuestro torneo de golf semanal en un campo de 18 hoyos diseñado por expertos. Disfruta de un día de competencia amistosa en un entorno natural espectacular. El evento concluye con un almuerzo y entrega de premios en el club house.',
     images: [
       'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=2670&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=2670&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1500930287096-c377b86a1a16?q=80&w=2670&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1574015970239-9177b1973e85?q=80&w=2670&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1562246224-e448a0c13198?q=80&w=2669&auto=format&fit=crop',
@@ -151,7 +168,6 @@ const experiences = [
     longDescription:
       'Ofrecemos clases de tenis personalizadas para todas las edades y niveles. Nuestros instructores certificados te ayudarán a perfeccionar tu técnica en nuestras canchas de polvo de ladrillo. Las clases pueden ser individuales o en grupos reducidos.',
     images: [
-      'https://images.unsplash.com/photo-1555169062-013468b47731?q=80&w=2574&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1554062309-3898222873b2?q=80&w=2670&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1540054990332-b1e0180144e5?q=80&w=2670&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1529565266759-f95257039a1a?q=80&w=2670&auto=format&fit=crop',
@@ -172,7 +188,6 @@ const experiences = [
     longDescription:
       'Explora los senderos de montaña en una bicicleta de alta gama. Nuestros guías te llevarán por rutas desafiantes con paisajes espectaculares, adaptadas a tu nivel de experiencia. Una dosis de adrenalina en plena naturaleza.',
     images: [
-      'https://images.unsplash.com/photo-1555169062-013468b47731?q=80&w=2574&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1543335868-3f3c559435a9?q=80&w=2670&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1511994298241-608e28f14fde?q=80&w=2574&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1559348349-36dfc68150d7?q=80&w=2574&auto=format&fit=crop',
@@ -237,7 +252,6 @@ const experiences = [
     longDescription:
       'Un paseo a pie por el casco histórico del pueblo, donde un guía local te contará las historias, leyendas y anécdotas que se esconden en sus calles y edificios centenarios. Un viaje en el tiempo para entender la cultura de la región.',
     images: [
-      'https://images.unsplash.com/photo-1555169062-013468b47731?q=80&w=2574&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1548345248-0275beb8219b?q=80&w=2670&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1569949381669-ecf31ae8e613?q=80&w=2574&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1552585267-8a507a15230d?q=80&w=2670&auto=format&fit=crop',
@@ -258,7 +272,6 @@ const experiences = [
     longDescription:
       'Visita la tradicional feria de artesanos, un espacio vibrante donde artistas y productores locales exhiben sus creaciones. Encontrarás desde tejidos y cerámica hasta dulces y licores regionales. Ideal para llevarse un recuerdo auténtico.',
     images: [
-      'https://images.unsplash.com/photo-1555169062-013468b47731?q=80&w=2574&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1578845413453-53291f182ed1?q=80&w=2670&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1610011490143-a062d17973e9?q=80&w=2670&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1558818563-02b869ae3d39?q=80&w=2670&auto=format&fit=crop',
@@ -303,7 +316,6 @@ const experiences = [
       'Acompañado por un guía ornitólogo, explorarás reservas naturales para identificar la gran diversidad de aves de la región. Una actividad ideal para amantes de la fotografía y la naturaleza, que te permitirá descubrir especies que no se ven en otros lugares.',
     images: [
       'https://images.unsplash.com/photo-1552728089-57bdde30beb3?q=80&w=2574&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1555169062-013468b47731?q=80&w=2574&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1474511320723-9a56873867b5?q=80&w=2672&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1534080564583-6be75777b70a?q=80&w=2670&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1563474218-16a44745a21c?q=80&w=2574&auto=format&fit=crop',
@@ -323,7 +335,6 @@ const experiences = [
     longDescription:
       'Navega a tu propio ritmo por las aguas cristalinas del lago, rodeado de un paisaje imponente. Podrás descubrir playas escondidas y disfrutar de la paz del entorno. Ofrecemos kayaks individuales y dobles, con todo el equipo de seguridad necesario.',
     images: [
-      'https://images.unsplash.com/photo-1555169062-013468b47731?q=80&w=2574&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1559422323-b26d30972a3a?q=80&w=2670&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1572357182843-f878a7b33a10?q=80&w=2670&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=2670&auto=format&fit=crop',
@@ -360,189 +371,200 @@ const experiences = [
   },
 ];
 
-async function connectWithRetry(config: ConnectionOptions, retries = 5, delay = 2000): Promise<mysql.Connection> {
-  for (let i = 0; i < retries; i++) {
-    try {
-      const connection = await mysql.createConnection(config);
-      console.log('Conexión a la base de datos establecida.');
-      return connection;
-    } catch (err) {
-      console.log(`Intento de conexión ${i + 1} fallido. Reintentando en ${delay / 1000} segundos...`);
-      if (i === retries - 1) throw err;
-      await new Promise(res => setTimeout(res, delay));
-    }
-  }
-  throw new Error('No se pudo conectar a la base de datos después de varios intentos.');
-}
-
 async function main() {
-  const db = await connectWithRetry({
-    host: '127.0.0.1',
-    port: 3306,
-    user: 'vagar_user',
-    password: 'vagar_password',
-    database: 'vagar_db',
-  });
+  console.log('Starting database seeding...');
 
-  // Limpiar y recrear la base de datos
-  console.log('Limpiando y recreando la base de datos...');
-  await db.execute('SET FOREIGN_KEY_CHECKS = 0;');
-  await db.execute('DROP TABLE IF EXISTS PropertyAmenities;');
-  await db.execute('DROP TABLE IF EXISTS Bookings;');
-  await db.execute('DROP TABLE IF EXISTS Images;');
-  await db.execute('DROP TABLE IF EXISTS PropertyRules;');
-  await db.execute('DROP TABLE IF EXISTS Amenities;');
-  await db.execute('DROP TABLE IF EXISTS Experiences;');
-  await db.execute('DROP TABLE IF EXISTS Properties;');
-  await db.execute('DROP TABLE IF EXISTS Testimonials;');
-  await db.execute('DROP TABLE IF EXISTS Users;');
-  await db.execute('SET FOREIGN_KEY_CHECKS = 1;');
+  // 1. Clean existing data
+  console.log('Cleaning database...');
+  // The order is critical to avoid foreign key constraint errors.
+  // Child tables must be cleaned before parent tables.
+  const tables = [
+    'images',
+    'propertyrules',
+    'bookings',
+    'testimonials',
+    'users',
+    'experiences',
+    'properties',
+    'amenities',
+  ];
+  
+  // Clean propertyamenities separately since it has no 'id' column
+  const { error: paError } = await supabase.from('propertyamenities').delete().not('property_id', 'is', null);
+  if (paError) {
+    console.error(`Error cleaning table propertyamenities:`, paError);
+    return;
+  }
 
-  const initSqlPath = path.join(__dirname, '..', 'init.sql');
-  const initSql = fs.readFileSync(initSqlPath, 'utf-8');
-  const statements = initSql.split(/;\s*$/m);
-
-  for (const statement of statements) {
-    if (statement.trim().length > 0) {
-      await db.query(statement);
+  for (const table of tables) {
+    const { error } = await supabase.from(table).delete().neq('id', 0); // Trick to delete all rows
+    if (error) {
+      console.error(`Error cleaning table ${table}:`, error);
+      return;
     }
   }
-  console.log('Esquema de la base de datos recreado exitosamente.');
+  console.log('Database cleaned.');
 
-
-  // Verificar si ya existe el usuario admin
-const [rows] = await db.execute<RowDataPacket[]>(
-  "SELECT * FROM Users WHERE email = ?",
-  ['admin@vagar.com']
-);
-
-if (rows.length === 0) {
-  const adminPasswordHash = '$2b$10$7fxnolE0gTw88FmTUpXHNO30nINqKOvdmsF21MHcOvwIse6XFrt46';
-  await db.execute(
-    "INSERT INTO Users (name, email, password, role) VALUES (?, ?, ?, ?)",
-    ['Admin', 'admin@vagar.com', adminPasswordHash, 'admin']
-  );
-  console.log('Usuario administrador insertado.');
-} else {
-  console.log('El usuario administrador ya existe, no se insertó.');
-}
-
-
-  // Insertar Amenities
-  for (const amenity of amenities) {
-    await db.execute(
-      'INSERT INTO Amenities (slug, name, category, icon) VALUES (?, ?, ?, ?)',
-      [amenity.id, amenity.name, amenity.category, amenity.icon]
-    );
+  // 2. Insert Admin User
+  console.log('Inserting admin user...');
+  const { data: existingUser, error: userError } = await supabase.from('users').select('id').eq('email', 'admin@vagar.com').single();
+  if (!existingUser) {
+    const adminPasswordHash = '$2b$10$7fxnolE0gTw88FmTUpXHNO30nINqKOvdmsF21MHcOvwIse6XFrt46'; // Same as before
+    const { error: insertUserError } = await supabase.from('users').insert({
+      id: 1, // Asignar ID manualmente para evitar problemas de secuencia
+      name: 'Admin',
+      email: 'admin@vagar.com',
+      password: adminPasswordHash,
+      role: 'admin'
+    });
+    if (insertUserError) {
+      console.error('Error inserting admin user:', insertUserError);
+      return;
+    }
+    console.log('Admin user inserted.');
+  } else {
+    console.log('Admin user already exists.');
   }
-  console.log('Amenities insertados.');
 
-  // Insertar Properties y sus relaciones
-  for (const prop of properties) {
-    const slug = slugify(prop.name);
-    const [result] = await db.execute<ResultSetHeader>(
-      `INSERT INTO Properties (name, slug, description, latitude, longitude, category, guests, bedrooms, beds, bathrooms, rating, price_high, price_mid, price_low, map_node_id, featured, video_url)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [
-        prop.name,
-        slug,
-        prop.description,
-        prop.latitude,
-        prop.longitude,
-        prop.category,
-        prop.guests,
-        prop.bedrooms,
-        prop.beds,
-        prop.bathrooms,
-        prop.rating,
-        prop.price_high,
-        prop.price_mid,
-        prop.price_low,
-        prop.map_node_id,
-        prop.featured || false,
-        (prop as any).video_url || null,
-      ]
-    );
-    const propertyId = result.insertId;
-
-    // Insertar Imágenes de la propiedad (galería)
-    for (let i = 0; i < prop.images.length; i++) {
-      const imageUrl = prop.images[i];
-      const [existingImageRows] = await db.execute<RowDataPacket[]>('SELECT id FROM Images WHERE url = ?', [imageUrl]);
-      if (existingImageRows.length === 0) {
-        await db.execute(
-          'INSERT INTO Images (url, alt_text, entity_type, entity_id, `order`, image_category) VALUES (?, ?, ?, ?, ?, ?)',
-          [imageUrl, prop.name, 'property', propertyId, i + 1, 'gallery']
-        );
-      }
-    }
-
-    // Insertar Imágenes de la propiedad (planos)
-    if (prop.blueprint_images) {
-      for (let i = 0; i < prop.blueprint_images.length; i++) {
-        const imageUrl = prop.blueprint_images[i];
-        const [existingImageRows] = await db.execute<RowDataPacket[]>('SELECT id FROM Images WHERE url = ?', [imageUrl]);
-        if (existingImageRows.length === 0) {
-          await db.execute(
-            'INSERT INTO Images (url, alt_text, entity_type, entity_id, `order`, image_category) VALUES (?, ?, ?, ?, ?, ?)',
-            [imageUrl, `${prop.name} - Plano`, 'property', propertyId, i + 1, 'blueprint']
-          );
-        }
-      }
-    }
-
-    // Insertar Amenities de la propiedad
-    if (prop.amenities) {
-      for (const amenitySlug of prop.amenities) {
-        const [amenityRows] = await db.execute<RowDataPacket[]>('SELECT id FROM Amenities WHERE slug = ?', [amenitySlug]);
-        if (amenityRows.length > 0) {
-          const amenity = amenityRows[0];
-          await db.execute('INSERT INTO PropertyAmenities (property_id, amenity_id) VALUES (?, ?)', [propertyId, amenity.id]);
-        } else {
-          console.warn(`ADVERTENCIA: No se encontró el amenity con slug "${amenitySlug}" en la base de datos. Saltando...`);
-        }
-      }
-    }
+  // 3. Insert Amenities
+  console.log('Inserting amenities...');
+  const amenitiesToInsert = amenities.map(a => ({ slug: a.id, name: a.name, category: a.category, icon: a.icon }));
+  const { data: insertedAmenities, error: amenitiesError } = await supabase.from('amenities').insert(amenitiesToInsert).select();
+  if (amenitiesError) {
+    console.error('Error inserting amenities:', amenitiesError);
+    return;
   }
-  console.log('Propiedades y sus relaciones insertadas.');
+  console.log('Amenities inserted.');
+  const amenitiesMap = new Map(insertedAmenities.map(a => [a.slug, a.id]));
 
-  // Insertar Experiences y sus imágenes
-  for (const exp of experiences) {
-    const slug = slugify(exp.title);
-    const [result] = await db.execute<ResultSetHeader>(
-      'INSERT INTO Experiences (title, slug, category, short_description, long_description, what_to_know) VALUES (?, ?, ?, ?, ?, ?)',
-      [
-        exp.title,
-        slug,
-        exp.category,
-        exp.shortDescription,
-        exp.longDescription,
-        JSON.stringify(exp.whatYouShouldKnow),
-      ]
-    );
-    const experienceId = result.insertId;
+  // 4. Insert Properties
+  console.log('Inserting properties...');
+  const propertiesToInsert = properties.map(p => ({
+    name: p.name,
+    slug: slugify(p.name),
+    description: p.description,
+    latitude: p.latitude,
+    longitude: p.longitude,
+    category: p.category,
+    guests: p.guests,
+    bedrooms: p.bedrooms,
+    beds: p.beds,
+    bathrooms: p.bathrooms,
+    rating: p.rating,
+    price_high: p.price_high,
+    price_mid: p.price_mid,
+    price_low: p.price_low,
+    map_node_id: p.map_node_id,
+    featured: p.featured,
+  }));
+  const { data: insertedProperties, error: propertiesError } = await supabase.from('properties').insert(propertiesToInsert).select();
+  if (propertiesError) {
+    console.error('Error inserting properties:', propertiesError);
+    return;
+  }
+  console.log('Properties inserted.');
 
-    for (let i = 0; i < exp.images.length; i++) {
-      const imageUrl = exp.images[i];
-      const [existingImageRows] = await db.execute<RowDataPacket[]>('SELECT id FROM Images WHERE url = ?', [imageUrl]);
-      if (existingImageRows.length === 0) {
-        await db.execute(
-          'INSERT INTO Images (url, alt_text, entity_type, entity_id, `order`) VALUES (?, ?, ?, ?, ?)',
-          [imageUrl, exp.title, 'experience', experienceId, i + 1]
-        );
+  // 5. Insert Property-related data (Images, Amenities)
+  console.log('Inserting property images and amenities...');
+  const imagesToInsert = [];
+  const propertyAmenitiesToInsert = [];
+
+  for (let i = 0; i < properties.length; i++) {
+    const propData = properties[i];
+    const propertyId = insertedProperties[i].id;
+
+    // Gallery Images
+    for (let j = 0; j < propData.images.length; j++) {
+      imagesToInsert.push({
+        url: propData.images[j],
+        alt_text: propData.name,
+        entity_type: 'property',
+        entity_id: propertyId,
+        order: j + 1,
+        image_category: 'gallery'
+      });
+    }
+
+    // Blueprint Images
+    for (let j = 0; j < propData.blueprint_images.length; j++) {
+        imagesToInsert.push({
+          url: propData.blueprint_images[j],
+          alt_text: `${propData.name} - Plano`,
+          entity_type: 'property',
+          entity_id: propertyId,
+          order: j + 1,
+          image_category: 'blueprint'
+        });
+      }
+
+    // Property Amenities
+    for (const amenitySlug of propData.amenities) {
+      const amenityId = amenitiesMap.get(amenitySlug);
+      if (amenityId) {
+        propertyAmenitiesToInsert.push({ property_id: propertyId, amenity_id: amenityId });
+      } else {
+        console.warn(`Amenity with slug "${amenitySlug}" not found.`);
       }
     }
   }
-  console.log('Experiencias y sus imágenes insertadas.');
 
-  await db.end();
-  console.log('Conexión a la base de datos cerrada.');
+  const { error: imagesError } = await supabase.from('images').insert(imagesToInsert);
+  if (imagesError) {
+    console.error('Error inserting images:', imagesError);
+    return;
+  }
+
+  const { error: paInsertError } = await supabase.from('propertyamenities').insert(propertyAmenitiesToInsert);
+  if (paInsertError) {
+    console.error('Error inserting property amenities:', paInsertError);
+    return;
+  }
+  console.log('Property images and amenities inserted.');
+
+  // 6. Insert Experiences
+  console.log('Inserting experiences...');
+  const experiencesToInsert = experiences.map(exp => ({
+    title: exp.title,
+    slug: slugify(exp.title),
+    category: exp.category,
+    short_description: exp.shortDescription,
+    long_description: exp.longDescription,
+    what_to_know: JSON.stringify(exp.whatYouShouldKnow),
+  }));
+  const { data: insertedExperiences, error: experiencesError } = await supabase.from('experiences').insert(experiencesToInsert).select();
+  if (experiencesError) {
+    console.error('Error inserting experiences:', experiencesError);
+    return;
+  }
+  console.log('Experiences inserted.');
+
+  // 7. Insert Experience Images
+  console.log('Inserting experience images...');
+  const experienceImagesToInsert = [];
+  for (let i = 0; i < experiences.length; i++) {
+    const expData = experiences[i];
+    const experienceId = insertedExperiences[i].id;
+    for (let j = 0; j < expData.images.length; j++) {
+      experienceImagesToInsert.push({
+        url: expData.images[j],
+        alt_text: expData.title,
+        entity_type: 'experience',
+        entity_id: experienceId,
+        order: j + 1,
+      });
+    }
+  }
+  const { error: expImagesError } = await supabase.from('images').insert(experienceImagesToInsert);
+  if (expImagesError) {
+    console.error('Error inserting experience images:', expImagesError);
+    return;
+  }
+  console.log('Experience images inserted.');
+
+  console.log('Database seeding completed successfully.');
 }
 
 main().catch((err) => {
-  console.error(
-    'Ocurrió un error durante el seeding de la base de datos:',
-    err
-  );
+  console.error('An error occurred during the database seeding process:', err);
   process.exit(1);
 });

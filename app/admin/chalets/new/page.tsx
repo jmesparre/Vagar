@@ -6,10 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { fetchUsedMapNodeIds } from "@/lib/data";
+import { fetchAllAmenities, fetchUsedMapNodeIds } from "@/lib/data";
 
 export default async function NewChaletPage() {
   const usedMapNodeIds = await fetchUsedMapNodeIds();
+  const allAmenities = await fetchAllAmenities();
 
   return (
     <Card>
@@ -20,7 +21,7 @@ export default async function NewChaletPage() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChaletForm usedMapNodeIds={usedMapNodeIds} />
+        <ChaletForm usedMapNodeIds={usedMapNodeIds} allAmenities={allAmenities} />
       </CardContent>
     </Card>
   );

@@ -26,9 +26,18 @@ export async function DELETE(request: Request) {
     await del(url);
 
     // Eliminar de la base de datos
-    const connection = await db.getConnection();
-    await connection.query('DELETE FROM Images WHERE url = ?', [url]);
-    connection.release();
+    const { error: dbError } = await db
+      .from('Images')
+      .delete()
+      .eq('url', url);
+
+    if (dbError) {
+      console.error('Error deleting image from database:', dbError);
+      return NextResponse.json(
+        { error: 'Error al eliminar la imagen de la base de datos.' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ message: 'Imagen eliminada correctamente.' });
   } catch (error) {

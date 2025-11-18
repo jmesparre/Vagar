@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/db';
+import supabase from '@/lib/db';
 import { z } from 'zod';
 import { fetchExperiences } from '@/lib/data';
-import { ResultSetHeader } from 'mysql2';
 import { Experience } from '@/lib/types';
 
 const experienceSchema = z.object({
@@ -30,40 +29,55 @@ export async function POST(request: Request) {
       images,
     } = parsedData;
 
-    // Convertir el string de "what_to_know" en un array de strings, asumiendo saltos de línea.
     const whatToKnowArray = what_to_know.split('\n').filter(line => line.trim() !== '');
     const whatToKnowJson = JSON.stringify(whatToKnowArray);
 
-    const connection = await pool.getConnection();
-    await connection.beginTransaction();
+    // Insertar la experiencia en Supabase
+    const { data: experienceData, error: experienceError } = await supabase
+      .from('experiences')
+      .insert({
+        title,
+        slug,
+        category,
+        short_description,
+        long_description,
+        what_to_know: whatToKnowJson,
+      })
+      .select('id')
+      .single();
 
-    try {
-      // Insertar la experiencia
-      const [experienceResult] = await connection.execute<ResultSetHeader>(
-        `INSERT INTO Experiences (title, slug, category, short_description, long_description, what_to_know) VALUES (?, ?, ?, ?, ?, ?)`,
-        [title, slug, category, short_description, long_description, whatToKnowJson]
-      );
-
-      const experienceId = experienceResult.insertId;
-
-      // Insertar las imágenes
-      for (const [index, image] of images.entries()) {
-        await connection.execute(
-          `INSERT INTO Images (url, alt_text, entity_type, entity_id, \`order\`) VALUES (?, ?, ?, ?, ?)`,
-          [image.url, `Image for ${title}`, 'experience', experienceId, index + 1]
-        );
-      }
-
-      await connection.commit();
-      connection.release();
-
-      return NextResponse.json({ message: 'Experiencia creada con éxito', id: experienceId }, { status: 201 });
-    } catch (error) {
-      await connection.rollback();
-      connection.release();
-      console.error('Error during transaction:', error);
+    if (experienceError) {
+      console.error('Error inserting experience:', experienceError);
       return NextResponse.json({ message: 'Error al crear la experiencia en la base de datos' }, { status: 500 });
     }
+
+    const experienceId = experienceData.id;
+
+    // Insertar las imágenes si existen, manejando duplicados (upsert)
+    if (images && images.length > 0) {
+      const imageUpserts = images.map((image, index) => ({
+        url: image.url,
+        alt_text: `Image for ${title}`,
+        entity_type: 'experience',
+        entity_id: experienceId,
+        order: index + 1,
+      }));
+
+      // Usar 'upsert' con 'onConflict' para evitar errores de URL duplicada
+      const { error: imageError } = await supabase
+        .from('images')
+        .upsert(imageUpserts, { onConflict: 'url' });
+
+      if (imageError) {
+        console.error('Error upserting images:', imageError);
+        // Si falla la inserción/actualización de imágenes, eliminar la experiencia creada
+        await supabase.from('experiences').delete().eq('id', experienceId);
+        return NextResponse.json({ message: 'Error al guardar las imágenes de la experiencia' }, { status: 500 });
+      }
+    }
+
+    return NextResponse.json({ message: 'Experiencia creada con éxito', id: experienceId }, { status: 201 });
+
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ message: 'Datos inválidos', errors: error.issues }, { status: 400 });

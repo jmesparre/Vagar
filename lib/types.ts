@@ -10,8 +10,9 @@ export type Image = {
 export type Amenity = {
   id: number;
   name: string;
+  slug: string;
   category: string;
-  icon: string;
+  icon?: string; // Making icon optional as it's not in the DB
 };
 
 export type Property = {

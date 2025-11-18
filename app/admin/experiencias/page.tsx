@@ -4,7 +4,9 @@ import ExperiencesTable from '@/components/custom/ExperiencesTable';
 import { Experience } from '@/lib/types';
 
 async function getExperiences(): Promise<Experience[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/experiencias`, {
+  // Construct the base URL using the VERCEL_URL or a local fallback
+  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
+  const res = await fetch(`${baseUrl}/api/experiencias`, {
     cache: 'no-store',
   });
   if (!res.ok) {

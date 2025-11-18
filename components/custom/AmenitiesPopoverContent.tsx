@@ -27,45 +27,15 @@ const AmenityButton = ({ text, Icon, isSelected, onClick }: AmenityButtonProps) 
   </Button>
 );
 
-interface CountControlProps {
-  label: string;
-  count: number;
-  onIncrement: () => void;
-  onDecrement: () => void;
-}
-
-const CountControl = ({ label, count, onIncrement, onDecrement }: CountControlProps) => (
-  <div className="flex items-center justify-between">
-    <span className="text-sm">{label}</span>
-    <div className="flex items-center gap-2">
-      <Button variant="outline" size="icon" className="h-6 w-6" onClick={onDecrement} disabled={count === 0}>-</Button>
-      <span className="w-4 text-center">{count}</span>
-      <Button variant="outline" size="icon" className="h-6 w-6" onClick={onIncrement} disabled={count === 7}>+</Button>
-    </div>
-  </div>
-);
-
 interface AmenitiesPopoverContentProps {
   selectedAmenities?: string[];
   onAmenityToggle?: (amenityId: string) => void;
-  counts?: {
-    bedrooms: number;
-    beds: number;
-    bathrooms: number;
-  };
-  onCountChange?: (
-    type: "bedrooms" | "beds" | "bathrooms",
-    operation: "increment" | "decrement"
-  ) => void;
 }
 
 export function AmenitiesPopoverContent({
   selectedAmenities = [],
   onAmenityToggle = () => {},
-  counts = { bedrooms: 0, beds: 0, bathrooms: 0 },
-  onCountChange = () => {},
 }: AmenitiesPopoverContentProps) {
-
   const groupedAmenities = allAmenities.reduce((acc, amenity) => {
     const { category } = amenity;
     if (!acc[category]) {
@@ -79,30 +49,6 @@ export function AmenitiesPopoverContent({
     <div className="p-4 w-96">
       <ScrollArea className="h-80 w-full">
         <div className="pr-4">
-          <div className="mb-4">
-            <h4 className="font-semibold mb-3">Habitaciones y camas</h4>
-            <div className="space-y-2">
-              <CountControl
-                label="Dormitorios"
-                count={counts.bedrooms}
-                onIncrement={() => onCountChange("bedrooms", "increment")}
-                onDecrement={() => onCountChange("bedrooms", "decrement")}
-              />
-              <CountControl
-                label="Camas"
-                count={counts.beds}
-                onIncrement={() => onCountChange("beds", "increment")}
-                onDecrement={() => onCountChange("beds", "decrement")}
-              />
-              <CountControl
-                label="Baños"
-                count={counts.bathrooms}
-                onIncrement={() => onCountChange("bathrooms", "increment")}
-                onDecrement={() => onCountChange("bathrooms", "decrement")}
-              />
-            </div>
-          </div>
-
           {Object.entries(groupedAmenities).map(([category, amenities]) => (
             <div key={category} className="mb-4">
               <h4 className="font-semibold mb-3">{category}</h4>

@@ -16,6 +16,18 @@ export default async function ExperienciaDetailPage({
     notFound();
   }
 
+  // Ensure what_to_know is an array
+  let whatToKnowItems = [];
+  if (typeof experience.what_to_know === 'string') {
+    try {
+      whatToKnowItems = JSON.parse(experience.what_to_know);
+    } catch (error) {
+      console.error('Failed to parse what_to_know:', error);
+    }
+  } else if (Array.isArray(experience.what_to_know)) {
+    whatToKnowItems = experience.what_to_know;
+  }
+
   // Fetch all experiences to find related ones
   const allExperiences = await fetchExperiences();
   const relatedExperiences = allExperiences
@@ -38,7 +50,7 @@ export default async function ExperienciaDetailPage({
       <div>
         <H2>Qué deberías saber</H2>
         <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-          {experience.what_to_know.map((item, index) => (
+          {whatToKnowItems.map((item: string, index: number) => (
             <div key={index} className="flex items-start">
               <span className="mr-2 mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-black" />
               <P>{item}</P>

@@ -1,47 +1,5 @@
 import { Property, DashboardMetrics, LatestBooking, Booking, Experience, Testimonial } from '@/lib/types';
-import pool from './db';
-import { RowDataPacket } from 'mysql2';
-
-// Defino un tipo para la fila de la base de datos
-interface PropertyRow extends Omit<Property, 'gallery_images' | 'blueprint_images' | 'amenities' | 'rules'>, RowDataPacket {
-  main_image_url: string;
-  gallery_images: string;
-  blueprint_images: string;
-  amenities: string;
-  rules: string;
-}
-
-interface SearchPropertyRow extends Omit<Property, 'gallery_images' | 'blueprint_images' | 'amenities' | 'rules' | 'main_image_url'>, RowDataPacket {
-  main_image_url: string | null;
-}
-
-interface CountResult extends RowDataPacket {
-  count: number;
-}
-
-interface TotalResult extends RowDataPacket {
-  total: number;
-}
-
-interface FeaturedPropertyRow extends Omit<Property, 'gallery_images' | 'blueprint_images' | 'amenities' | 'rules'>, RowDataPacket {
-  main_image_url: string;
-  gallery_images: string;
-  blueprint_images: string;
-}
-
-interface ExperienceRow extends Omit<Experience, 'gallery_images' | 'what_to_know' | 'main_image_url'>, RowDataPacket {
-  main_image_url?: string;
-  gallery_images: string;
-  what_to_know: string;
-}
-
-interface FeaturedExperienceRow extends Omit<Experience, 'gallery_images' | 'what_to_know'>, RowDataPacket {
-  main_image_url?: string;
-}
-
-interface BookingRow extends Booking, RowDataPacket {}
-
-interface LatestBookingRow extends LatestBooking, RowDataPacket {}
+import supabase from './db';
 
 /**
  * Fetches properties from the database, optionally filtering them.
@@ -65,40 +23,50 @@ export const fetchProperties = async (searchParams?: {
   }
 
   // Otherwise, fetch all properties with full details
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(`
-      SELECT 
-        p.*,
-        (SELECT i.url FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery' ORDER BY i.id LIMIT 1) as main_image_url,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text, 'image_category', i.image_category)) 
-         FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery'), '[]') as gallery_images,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text, 'image_category', i.image_category)) 
-         FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'blueprint'), '[]') as blueprint_images,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', a.id, 'name', a.name, 'category', a.category, 'icon', a.icon)) 
-         FROM PropertyAmenities pa
-         JOIN Amenities a ON pa.amenity_id = a.id
-         WHERE pa.property_id = p.id), '[]') as amenities,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', pr.id, 'rule_text', pr.rule_text))
-         FROM PropertyRules pr
-         WHERE pr.property_id = p.id), '[]') as rules
-      FROM Properties p
-    `);
-    const properties = (rows as PropertyRow[]).map(p => ({
-      ...p,
-      featured: !!p.featured,
-      gallery_images: typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images) : p.gallery_images || [],
-      blueprint_images: typeof p.blueprint_images === 'string' ? JSON.parse(p.blueprint_images) : p.blueprint_images || [],
-      amenities: typeof p.amenities === 'string' ? JSON.parse(p.amenities) : p.amenities || [],
-      rules: typeof p.rules === 'string' ? JSON.parse(p.rules) : p.rules || [],
-    }));
-    return properties;
-  } catch (error) {
-    console.error('Failed to fetch all properties:', error);
+  const { data: properties, error: propertiesError } = await supabase
+    .from('properties')
+    .select('*');
+
+  if (propertiesError) {
+    console.error('Failed to fetch all properties:', propertiesError);
     return [];
-  } finally {
-    connection.release();
   }
+
+  if (!properties || properties.length === 0) {
+    return [];
+  }
+
+  const propertyIds = properties.map(p => p.id);
+
+  const [
+    { data: images, error: imagesError },
+    { data: propertyAmenities, error: paError },
+    { data: propertyRules, error: rulesError }
+  ] = await Promise.all([
+    supabase.from('images').select('*').in('entity_id', propertyIds).eq('entity_type', 'property'),
+    supabase.from('propertyamenities').select('*, amenities(*)').in('property_id', propertyIds),
+    supabase.from('propertyrules').select('*').in('property_id', propertyIds)
+  ]);
+
+  if (imagesError) console.error('Failed to fetch images:', imagesError);
+  if (paError) console.error('Failed to fetch property amenities:', paError);
+  if (rulesError) console.error('Failed to fetch property rules:', rulesError);
+
+  return properties.map(property => {
+    const relatedImages = images?.filter(img => img.entity_id === property.id) || [];
+    const galleryImages = relatedImages.filter(img => img.image_category === 'gallery');
+    const relatedAmenities = propertyAmenities?.filter(pa => pa.property_id === property.id).map(pa => pa.amenities) || [];
+    const relatedRules = propertyRules?.filter(rule => rule.property_id === property.id) || [];
+
+    return {
+      ...property,
+      main_image_url: galleryImages[0]?.url ?? undefined,
+      gallery_images: galleryImages,
+      blueprint_images: relatedImages.filter(img => img.image_category === 'blueprint'),
+      amenities: relatedAmenities.filter(Boolean),
+      rules: relatedRules,
+    };
+  }) as Property[];
 };
 
 /**
@@ -112,140 +80,168 @@ export const searchProperties = async (filters: {
   endDate?: string | null;
 }): Promise<Property[]> => {
   const { guests, amenities, startDate, endDate } = filters;
-  const connection = await pool.getConnection();
 
-  try {
-    // Si no hay filtros, devuelve todas las propiedades de manera eficiente.
-    if (!guests && (!amenities || amenities.length === 0) && !startDate && !endDate) {
-      const [rows] = await connection.query(`
-        SELECT 
-          p.*,
-          (SELECT i.url 
-           FROM Images i 
-           WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery' 
-           ORDER BY i.id 
-           LIMIT 1) as main_image_url
-        FROM Properties p
-      `);
-      const properties = (rows as SearchPropertyRow[]).map(p => ({
-        ...p,
-        main_image_url: p.main_image_url ?? undefined,
-        featured: !!p.featured,
-        gallery_images: [],
-        blueprint_images: [],
-        amenities: [],
-        rules: [],
-      }));
-      return properties;
-    }
+  let propertyIdsToFilter: number[] | null = null;
 
-    // Step 1: Build and execute a subquery to get the IDs of matching properties.
-    let subQuery = `SELECT p.id FROM Properties p`;
-    const conditions: string[] = [];
-    const subQueryParams: (string | number)[] = [];
+  // 1. Filter by amenities if provided
+  if (amenities && amenities.length > 0) {
+    // The frontend sends amenity slugs. We need to find their corresponding IDs.
+    const { data: foundAmenities, error: amenitiesError } = await supabase
+      .from('amenities')
+      .select('id, slug')
+      .in('slug', amenities);
 
-    if (guests && !isNaN(parseInt(guests, 10)) && parseInt(guests, 10) > 0) {
-      conditions.push('p.guests >= ?');
-      subQueryParams.push(parseInt(guests, 10));
-    }
-
-    if (amenities && amenities.length > 0) {
-      const amenitiesPlaceholders = amenities.map(() => '?').join(',');
-      conditions.push(`
-        p.id IN (
-          SELECT pa.property_id
-          FROM PropertyAmenities pa
-          JOIN Amenities a ON pa.amenity_id = a.id
-          WHERE a.slug IN (${amenitiesPlaceholders})
-          GROUP BY pa.property_id
-          HAVING COUNT(DISTINCT a.slug) = ?
-        )
-      `);
-      subQueryParams.push(...amenities, amenities.length);
-    }
-
-    if (startDate && endDate) {
-      conditions.push(`
-        p.id NOT IN (
-          SELECT b.property_id
-          FROM Bookings b
-          WHERE b.status = 'confirmed'
-          AND b.check_in_date <= ? 
-          AND b.check_out_date > ?
-        )
-      `);
-      // The logic is: a booking overlaps if the search starts before the booking ends,
-      // and the search ends after the booking starts.
-      // So we pass endDate first, then startDate.
-      subQueryParams.push(endDate, startDate);
-    }
-
-    if (conditions.length > 0) {
-      subQuery += ' WHERE ' + conditions.join(' AND ');
-    }
-
-    const [subRows] = await connection.execute(subQuery, subQueryParams);
-    const propertyIds = (subRows as { id: number }[]).map((row) => row.id);
-
-    if (propertyIds.length === 0) {
+    if (amenitiesError) {
+      console.error('Could not find amenities by slug:', amenitiesError);
       return [];
     }
 
-    // Step 2: Fetch the full data for the matching properties.
-    const query = `
-      SELECT 
-        p.*,
-        (SELECT i.url 
-         FROM Images i 
-         WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery' 
-         ORDER BY i.id 
-         LIMIT 1) as main_image_url
-      FROM Properties p
-      WHERE p.id IN (?)
-    `;
+    const foundSlugs = foundAmenities.map(a => a.slug);
+    const notFoundSlugs = amenities.filter(slug => !foundSlugs.includes(slug));
 
-    const [rows] = await connection.query(query, [propertyIds]);
+    if (notFoundSlugs.length > 0) {
+      console.warn('Some amenities were not found:', notFoundSlugs);
+    }
+
+    const requestedAmenityIds = foundAmenities.map(a => a.id);
+
+    if (requestedAmenityIds.length === 0) {
+      return [];
+    }
     
-    const properties = (rows as SearchPropertyRow[]).map(p => ({
-      ...p,
-      main_image_url: p.main_image_url ?? undefined,
-      featured: !!p.featured,
-      gallery_images: [],
-      blueprint_images: [],
-      amenities: [],
-      rules: [],
-    }));
+    const ids = requestedAmenityIds;
 
-    return properties;
-  } catch (error) {
+    const { data: propertyAmenities, error: paError } = await supabase
+      .from('propertyamenities')
+      .select('property_id')
+      .in('amenity_id', ids);
+
+    if (paError) {
+      console.error('Failed to filter by amenities:', paError);
+      return [];
+    }
+
+    // Count occurrences of each property_id
+    const propertyCounts = propertyAmenities.reduce((acc, { property_id }) => {
+      acc[property_id] = (acc[property_id] || 0) + 1;
+      return acc;
+    }, {} as Record<number, number>);
+
+    // Filter properties that have all the requested amenities
+    propertyIdsToFilter = Object.keys(propertyCounts)
+      .filter(id => propertyCounts[parseInt(id, 10)] === amenities.length)
+      .map(id => parseInt(id, 10));
+
+    if (propertyIdsToFilter.length === 0) {
+      return []; // No properties match all amenities
+    }
+  }
+
+  // 2. Build the main query
+  let query = supabase.from('properties').select('*');
+
+  if (guests && !isNaN(parseInt(guests, 10)) && parseInt(guests, 10) > 0) {
+    query = query.gte('guests', parseInt(guests, 10));
+  }
+
+  if (propertyIdsToFilter) {
+    query = query.in('id', propertyIdsToFilter);
+  }
+
+  // Date-based availability search
+  if (startDate && endDate) {
+    // Find properties that have a confirmed booking overlapping with the selected date range
+    const { data: unavailableBookings, error: bookingsError } = await supabase
+      .from('bookings')
+      .select('property_id')
+      .eq('status', 'confirmed')
+      // A booking overlaps if its start date is before or on the search's end date,
+      // AND its end date is after the search's start date.
+      // This ensures the first day of a booking is counted, and the check-out day is available.
+      .lte('check_in_date', endDate)
+      .gt('check_out_date', startDate);
+
+    if (bookingsError) {
+      console.error('Failed to fetch bookings for availability check:', bookingsError);
+      return []; // Return empty if the check fails
+    }
+
+    if (unavailableBookings && unavailableBookings.length > 0) {
+      const unavailablePropertyIds = unavailableBookings.map((b: { property_id: number }) => b.property_id);
+      // Exclude the unavailable properties from the query
+      query = query.filter('id', 'not.in', `(${unavailablePropertyIds.join(',')})`);
+    }
+  }
+
+  // 3. Execute the main query
+  const { data: properties, error } = await query;
+
+  if (error) {
     console.error('Failed to search properties:', error);
     return [];
-  } finally {
-    connection.release();
   }
+
+  if (!properties || properties.length === 0) {
+    return [];
+  }
+
+  // 4. Fetch related data for the filtered properties
+  const propertyIds = properties.map(p => p.id);
+
+  const [
+    { data: images, error: imagesError },
+    { data: propertyAmenities, error: paError },
+    { data: propertyRules, error: rulesError }
+  ] = await Promise.all([
+    supabase.from('images').select('*').in('entity_id', propertyIds).eq('entity_type', 'property'),
+    supabase.from('propertyamenities').select('*, amenities(*)').in('property_id', propertyIds),
+    supabase.from('propertyrules').select('*').in('property_id', propertyIds)
+  ]);
+
+  if (imagesError) console.error('Failed to fetch images:', imagesError);
+  if (paError) console.error('Failed to fetch property amenities:', paError);
+  if (rulesError) console.error('Failed to fetch property rules:', rulesError);
+
+  // 5. Combine all data and return
+  return properties.map(property => {
+    const relatedImages = images?.filter(img => img.entity_id === property.id) || [];
+    const galleryImages = relatedImages.filter(img => img.image_category === 'gallery');
+    const relatedAmenities = propertyAmenities?.filter(pa => pa.property_id === property.id).map(pa => pa.amenities) || [];
+    const relatedRules = propertyRules?.filter(rule => rule.property_id === property.id) || [];
+
+    return {
+      ...property,
+      main_image_url: galleryImages[0]?.url ?? undefined,
+      gallery_images: galleryImages,
+      blueprint_images: relatedImages.filter(img => img.image_category === 'blueprint'),
+      amenities: relatedAmenities.filter(Boolean),
+      rules: relatedRules,
+    };
+  }) as Property[];
 };
 
 /**
  * Fetches all bookings from the database.
  */
 export const fetchAllBookings = async (): Promise<Booking[]> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(`
-      SELECT 
-        b.*,
-        p.name as property_name
-      FROM Bookings b
-      JOIN Properties p ON b.property_id = p.id
-      ORDER BY b.created_at DESC
-    `);
-    return rows as BookingRow[];
-  } catch (error) {
+  const { data, error } = await supabase
+    .from('bookings')
+    .select(`
+      *,
+      properties(name)
+    `)
+    .order('created_at', { ascending: false });
+
+  if (error) {
     console.error('Failed to fetch all bookings:', error);
     return [];
-  } finally {
-    connection.release();
   }
+  // The 'properties' field is an array because it's a relationship.
+  // We need to safely access the first element.
+  return data.map((b: Booking & { properties: { name: string }[] }) => ({
+    ...b,
+    property_name: b.properties[0]?.name ?? 'Chalet no encontrado',
+  }));
 };
 
 /**
@@ -259,121 +255,91 @@ export const fetchFilteredBookings = async (
   sortBy: string,
   order: string
 ) => {
-  const connection = await pool.getConnection();
-  try {
-    const offset = (currentPage - 1) * itemsPerPage;
+  const offset = (currentPage - 1) * itemsPerPage;
 
-    let countQuery = `SELECT COUNT(*) as total FROM Bookings b JOIN Properties p ON b.property_id = p.id`;
-    let dataQuery = `
-      SELECT 
-        b.*,
-        p.name as property_name
-      FROM Bookings b
-      JOIN Properties p ON b.property_id = p.id
-    `;
+  let supabaseQuery = supabase
+    .from('bookings')
+    .select(`
+      *,
+      properties(name)
+    `, { count: 'exact' });
 
-    const whereClauses: string[] = [];
-    const params: (string | number)[] = [];
-
-    if (status) {
-      whereClauses.push(`b.status = ?`);
-      params.push(status);
-    }
-
-    if (query) {
-      whereClauses.push(`(b.client_name LIKE ? OR b.client_phone LIKE ? OR p.name LIKE ?)`);
-      const likeQuery = `%${query}%`;
-      params.push(likeQuery, likeQuery, likeQuery);
-    }
-
-    if (whereClauses.length > 0) {
-      const whereString = ` WHERE ${whereClauses.join(' AND ')}`;
-      countQuery += whereString;
-      dataQuery += whereString;
-    }
-
-    // Whitelist columns to prevent SQL injection
-    const validSortColumns: { [key: string]: string } = {
-      created_at: 'b.created_at',
-      client_name: 'b.client_name',
-      property_name: 'p.name',
-      status: 'b.status',
-    };
-    const sortColumn = validSortColumns[sortBy] || 'b.created_at';
-    const sortOrder = order === 'asc' ? 'ASC' : 'DESC';
-
-    dataQuery += ` ORDER BY ${sortColumn} ${sortOrder} LIMIT ? OFFSET ?`;
-    const dataParams = [...params, itemsPerPage, offset];
-
-    const [countRows] = await connection.query<TotalResult[]>(countQuery, params);
-    const totalItems = countRows[0].total;
-    const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-    const [bookingRows] = await connection.query<BookingRow[]>(dataQuery, dataParams);
-
-    return {
-      bookings: bookingRows,
-      totalPages,
-    };
-  } catch (error) {
-    console.error('Failed to fetch filtered bookings:', error);
-    return {
-      bookings: [],
-      totalPages: 0,
-    };
-  } finally {
-    connection.release();
+  if (status) {
+    supabaseQuery = supabaseQuery.eq('status', status);
   }
+
+  if (query) {
+    supabaseQuery = supabaseQuery.or(`client_name.ilike.%${query}%,client_phone.ilike.%${query}%,properties.name.ilike.%${query}%`);
+  }
+  
+  const validSortBy = ['created_at', 'client_name', 'status'].includes(sortBy) ? sortBy : 'created_at';
+
+  supabaseQuery = supabaseQuery
+    .order(validSortBy, { ascending: order === 'asc' })
+    .range(offset, offset + itemsPerPage - 1);
+
+  const { data, error, count } = await supabaseQuery;
+
+  if (error) {
+    console.error('Failed to fetch filtered bookings:', error);
+    return { bookings: [], totalPages: 0 };
+  }
+
+  const totalPages = count ? Math.ceil(count / itemsPerPage) : 0;
+  const bookings = data.map((b: Booking & { properties: { name: string }[] }) => ({
+    ...b,
+    property_name: b.properties[0]?.name ?? 'Chalet no encontrado',
+  }));
+
+  return { bookings, totalPages };
 };
 
 /**
  * Fetches dashboard metrics from the database.
  */
 export const fetchDashboardMetrics = async (): Promise<DashboardMetrics> => {
-  const connection = await pool.getConnection();
-  try {
-    const [pendingResult] = await connection.query<CountResult[]>("SELECT COUNT(*) as count FROM Bookings WHERE status = 'pending'");
-    const [propertiesResult] = await connection.query<CountResult[]>("SELECT COUNT(*) as count FROM Properties");
-    const [newTodayResult] = await connection.query<CountResult[]>("SELECT COUNT(*) as count FROM Bookings WHERE DATE(created_at) = CURDATE()");
+  const { count: pendingBookings, error: pendingError } = await supabase.from('bookings').select('*', { count: 'exact', head: true }).eq('status', 'pending');
+  const { count: activeProperties, error: propertiesError } = await supabase.from('properties').select('*', { count: 'exact', head: true });
+  
+  const today = new Date().toISOString().slice(0, 10);
+  const { count: newBookingsToday, error: newTodayError } = await supabase.from('bookings').select('*', { count: 'exact', head: true }).gte('created_at', `${today}T00:00:00Z`).lt('created_at', `${today}T23:59:59Z`);
 
-    const pendingBookings = pendingResult[0].count;
-    const activeProperties = propertiesResult[0].count;
-    const newBookingsToday = newTodayResult[0].count;
-
-    return { pendingBookings, activeProperties, newBookingsToday };
-  } catch (error) {
-    console.error('Failed to fetch dashboard metrics:', error);
+  if (pendingError || propertiesError || newTodayError) {
+    console.error('Failed to fetch dashboard metrics:', pendingError || propertiesError || newTodayError);
     return { pendingBookings: 0, activeProperties: 0, newBookingsToday: 0 };
-  } finally {
-    connection.release();
   }
+
+  return {
+    pendingBookings: pendingBookings ?? 0,
+    activeProperties: activeProperties ?? 0,
+    newBookingsToday: newBookingsToday ?? 0,
+  };
 };
 
 /**
  * Fetches the latest bookings from the database.
  */
 export const fetchLatestBookings = async (): Promise<LatestBooking[]> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(`
-      SELECT 
-        b.id,
-        b.client_name,
-        p.name as property_name,
-        b.check_in_date,
-        b.status
-      FROM Bookings b
-      JOIN Properties p ON b.property_id = p.id
-      ORDER BY b.created_at DESC
-      LIMIT 5
-    `);
-    return rows as LatestBookingRow[];
-  } catch (error) {
+  const { data, error } = await supabase
+    .from('bookings')
+    .select(`
+      id,
+      client_name,
+      properties(name),
+      check_in_date,
+      status
+    `)
+    .order('created_at', { ascending: false })
+    .limit(5);
+
+  if (error) {
     console.error('Failed to fetch latest bookings:', error);
     return [];
-  } finally {
-    connection.release();
   }
+  return data.map((b: Omit<LatestBooking, 'property_name'> & { properties: { name: string }[] }) => ({
+    ...b,
+    property_name: b.properties[0]?.name ?? 'Chalet no encontrado',
+  }));
 };
 
 /**
@@ -381,57 +347,44 @@ export const fetchLatestBookings = async (): Promise<LatestBooking[]> => {
  * @param id The ID of the property to fetch.
  */
 export const fetchPropertyById = async (id: string): Promise<Property | undefined> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(`
-      SELECT 
-        p.*,
-        (SELECT i.url FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery' ORDER BY i.id LIMIT 1) as main_image_url,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text, 'image_category', i.image_category)) 
-         FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery'), '[]') as gallery_images,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text, 'image_category', i.image_category)) 
-         FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'blueprint'), '[]') as blueprint_images,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', a.id, 'name', a.name, 'category', a.category, 'icon', a.icon)) 
-         FROM PropertyAmenities pa
-         JOIN Amenities a ON pa.amenity_id = a.id
-         WHERE pa.property_id = p.id), '[]') as amenities,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', pr.id, 'rule_text', pr.rule_text))
-         FROM PropertyRules pr
-         WHERE pr.property_id = p.id), '[]') as rules
-      FROM Properties p
-      WHERE p.id = ?
-    `, [id]);
-    
-    const properties = rows as PropertyRow[];
-    if (properties.length === 0) {
-      return undefined;
-    }
+  // 1. Fetch the property
+  const { data: property, error: propertyError } = await supabase
+    .from('properties')
+    .select('*')
+    .eq('id', id)
+    .single();
 
-    const chalet = properties[0];
-
-    // Asegurarse de que los campos JSON se parseen correctamente
-    if (typeof chalet.gallery_images === 'string') {
-      chalet.gallery_images = JSON.parse(chalet.gallery_images);
-    }
-    if (typeof chalet.blueprint_images === 'string') {
-      chalet.blueprint_images = JSON.parse(chalet.blueprint_images);
-    }
-    if (typeof chalet.amenities === 'string') {
-      chalet.amenities = JSON.parse(chalet.amenities);
-    }
-    if (typeof chalet.rules === 'string') {
-      chalet.rules = JSON.parse(chalet.rules);
-    }
-
-    chalet.featured = !!chalet.featured;
-
-    return chalet as unknown as Property;
-  } catch (error) {
-    console.error(`Failed to fetch property with id ${id}:`, error);
+  if (propertyError) {
+    console.error(`Failed to fetch property with id ${id}:`, propertyError);
     return undefined;
-  } finally {
-    connection.release();
   }
+  if (!property) {
+    return undefined;
+  }
+
+  // 2. Fetch related data in parallel
+  const [
+    { data: images, error: imagesError },
+    { data: propertyAmenities, error: paError },
+    { data: propertyRules, error: rulesError }
+  ] = await Promise.all([
+    supabase.from('images').select('*').eq('entity_id', property.id).eq('entity_type', 'property'),
+    supabase.from('propertyamenities').select('*, amenities(id, name, slug, category, icon)').eq('property_id', property.id),
+    supabase.from('propertyrules').select('*').eq('property_id', property.id)
+  ]);
+
+  if (imagesError) console.error('Failed to fetch images for property:', imagesError);
+  if (paError) console.error('Failed to fetch amenities for property:', paError);
+  if (rulesError) console.error('Failed to fetch rules for property:', rulesError);
+
+  // 3. Combine the data
+  return {
+    ...property,
+    gallery_images: images?.filter(img => img.image_category === 'gallery') || [],
+    blueprint_images: images?.filter(img => img.image_category === 'blueprint') || [],
+    amenities: propertyAmenities?.map(pa => pa.amenities).filter(Boolean) || [],
+    rules: propertyRules || [],
+  } as Property;
 };
 
 /**
@@ -442,72 +395,14 @@ export const fetchPropertyById = async (id: string): Promise<Property | undefine
 export const updateAvailabilityFromExcel = async (
   availabilityData: { map_node_id: string; start_date: Date; end_date: Date }[]
 ) => {
-  if (availabilityData.length === 0) {
-    console.log("No availability data to update.");
-    // Still need to clear old data
-  }
+  // This will be implemented with an RPC function for transactional integrity.
+  const { error } = await supabase.rpc('update_availability_from_excel', { availability_data: availabilityData });
 
-  const connection = await pool.getConnection();
-  try {
-    await connection.beginTransaction();
-
-    // Step 1: Clear all previous availability records sourced from Excel.
-    await connection.query("DELETE FROM Bookings WHERE source = 'excel_upload'");
-
-    if (availabilityData.length > 0) {
-      // Step 2: Fetch all properties to create a map from map_node_id to property ID.
-      const [properties] = await connection.query('SELECT id, map_node_id FROM Properties');
-      const propertyMap = new Map<string, number>();
-      (properties as { id: number; map_node_id: string }[]).forEach(p => {
-        if (p.map_node_id) {
-          propertyMap.set(p.map_node_id, p.id);
-        }
-      });
-
-      // Step 3: Prepare the new availability records for batch insertion.
-      const newBookings = availabilityData
-        .map(item => {
-          const propertyId = propertyMap.get(item.map_node_id);
-          if (!propertyId) {
-            console.warn(`Property with map_node_id "${item.map_node_id}" not found. Skipping.`);
-            return null;
-          }
-          return [
-            propertyId,
-            item.start_date,
-            item.end_date,
-            'Bloqueado por Sistema', // client_name
-            'N/A', // client_phone
-            'N/A', // client_email
-            0, // guests
-            'confirmed', // status
-            'excel_upload', // source
-          ];
-        })
-        .filter(item => item !== null);
-
-      // Step 4: Execute the batch insert if there are new bookings to add.
-      if (newBookings.length > 0) {
-        const sql = `
-          INSERT INTO Bookings 
-          (property_id, check_in_date, check_out_date, client_name, client_phone, client_email, guests, status, source) 
-          VALUES ?
-        `;
-        await connection.query(sql, [newBookings]);
-      }
-    }
-
-    // Step 5: Commit the transaction.
-    await connection.commit();
-    console.log('Availability updated successfully.');
-
-  } catch (error) {
-    await connection.rollback();
+  if (error) {
     console.error('Failed to update availability from Excel:', error);
     throw new Error('Error al actualizar la base de datos.');
-  } finally {
-    connection.release();
   }
+  console.log('Availability updated successfully.');
 };
 
 /**
@@ -515,57 +410,44 @@ export const updateAvailabilityFromExcel = async (
  * @param slug The slug of the property to fetch.
  */
 export const fetchPropertyBySlug = async (slug: string): Promise<Property | undefined> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(`
-      SELECT 
-        p.*,
-        (SELECT i.url FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery' ORDER BY i.id LIMIT 1) as main_image_url,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text, 'image_category', i.image_category)) 
-         FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery'), '[]') as gallery_images,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text, 'image_category', i.image_category)) 
-         FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'blueprint'), '[]') as blueprint_images,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', a.id, 'name', a.name, 'category', a.category, 'icon', a.icon)) 
-         FROM PropertyAmenities pa
-         JOIN Amenities a ON pa.amenity_id = a.id
-         WHERE pa.property_id = p.id), '[]') as amenities,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', pr.id, 'rule_text', pr.rule_text))
-         FROM PropertyRules pr
-         WHERE pr.property_id = p.id), '[]') as rules
-      FROM Properties p
-      WHERE p.slug = ?
-    `, [slug]);
-    
-    const properties = rows as PropertyRow[];
-    if (properties.length === 0) {
-      return undefined;
-    }
+  // 1. Fetch the property
+  const { data: property, error: propertyError } = await supabase
+    .from('properties')
+    .select('*')
+    .eq('slug', slug)
+    .single();
 
-    const chalet = properties[0];
-
-    // Asegurarse de que los campos JSON se parseen correctamente
-    if (typeof chalet.gallery_images === 'string') {
-      chalet.gallery_images = JSON.parse(chalet.gallery_images);
-    }
-    if (typeof chalet.blueprint_images === 'string') {
-      chalet.blueprint_images = JSON.parse(chalet.blueprint_images);
-    }
-    if (typeof chalet.amenities === 'string') {
-      chalet.amenities = JSON.parse(chalet.amenities);
-    }
-    if (typeof chalet.rules === 'string') {
-      chalet.rules = JSON.parse(chalet.rules);
-    }
-
-    chalet.featured = !!chalet.featured;
-
-    return chalet as unknown as Property;
-  } catch (error) {
-    console.error(`Failed to fetch property with slug ${slug}:`, error);
+  if (propertyError) {
+    console.error(`Failed to fetch property with slug ${slug}:`, propertyError);
     return undefined;
-  } finally {
-    connection.release();
   }
+  if (!property) {
+    return undefined;
+  }
+
+  // 2. Fetch related data in parallel
+  const [
+    { data: images, error: imagesError },
+    { data: propertyAmenities, error: paError },
+    { data: propertyRules, error: rulesError }
+  ] = await Promise.all([
+    supabase.from('images').select('*').eq('entity_id', property.id).eq('entity_type', 'property'),
+    supabase.from('propertyamenities').select('*, amenities(id, name, slug, category, icon)').eq('property_id', property.id),
+    supabase.from('propertyrules').select('*').eq('property_id', property.id)
+  ]);
+
+  if (imagesError) console.error('Failed to fetch images for property:', imagesError);
+  if (paError) console.error('Failed to fetch amenities for property:', paError);
+  if (rulesError) console.error('Failed to fetch rules for property:', rulesError);
+
+  // 3. Combine the data
+  return {
+    ...property,
+    gallery_images: images?.filter(img => img.image_category === 'gallery') || [],
+    blueprint_images: images?.filter(img => img.image_category === 'blueprint') || [],
+    amenities: propertyAmenities?.map(pa => pa.amenities).filter(Boolean) || [],
+    rules: propertyRules || [],
+  } as Property;
 };
 
 /**
@@ -582,39 +464,43 @@ export const fetchChaletPageData = async (id: string): Promise<Property | undefi
  * @param limit The maximum number of properties to return.
  */
 export const fetchFeaturedPropertiesByCategory = async (category: string, limit: number = 6): Promise<Property[]> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(`
-      SELECT 
-        p.*,
-        (SELECT i.url FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery' ORDER BY i.id LIMIT 1) as main_image_url,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text, 'image_category', i.image_category)) 
-         FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery'), '[]') as gallery_images,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text, 'image_category', i.image_category)) 
-         FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'blueprint'), '[]') as blueprint_images
-      FROM Properties p
-      WHERE p.featured = 1 AND p.category = ?
-      ORDER BY RAND()
-      LIMIT ?
-    `, [category, limit]);
-    
-    const properties = (rows as FeaturedPropertyRow[]).map(p => ({
-      ...p,
-      featured: !!p.featured,
-      gallery_images: typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images || '[]') : [],
-      blueprint_images: typeof p.blueprint_images === 'string' ? JSON.parse(p.blueprint_images || '[]') : [],
-      // This query doesn't fetch amenities or rules, so we provide empty arrays to match the Property type.
-      amenities: [],
-      rules: [],
-    }));
+  // Step 1: Fetch the properties
+  const { data: properties, error: propertiesError } = await supabase
+    .from('properties')
+    .select('*')
+    .eq('category', category)
+    .eq('featured', true)
+    .limit(limit);
 
-    return properties;
-  } catch (error) {
-    console.error(`Failed to fetch featured properties for category ${category}:`, error);
+  if (propertiesError) {
+    console.error(`Failed to fetch featured properties for category ${category}:`, propertiesError);
     return [];
-  } finally {
-    connection.release();
   }
+  if (!properties || properties.length === 0) {
+    return [];
+  }
+
+  // Step 2: Fetch the images for these properties
+  const propertyIds = properties.map(p => p.id);
+  const { data: images, error: imagesError } = await supabase
+    .from('images')
+    .select('url, entity_id')
+    .in('entity_id', propertyIds)
+    .eq('entity_type', 'property');
+
+  if (imagesError) {
+    console.error('Failed to fetch images for featured properties:', imagesError);
+    // If images fail, we can still return properties without them
+  }
+
+  // Step 3: Map images to their properties
+  return properties.map(p => {
+    const mainImage = images?.find(img => img.entity_id === p.id);
+    return {
+      ...p,
+      main_image_url: mainImage?.url ?? undefined,
+    };
+  }) as Property[];
 };
 
 /**
@@ -622,101 +508,140 @@ export const fetchFeaturedPropertiesByCategory = async (category: string, limit:
  * @param limit The maximum number of properties to return.
  */
 export const fetchFeaturedProperties = async (limit: number = 6): Promise<Property[]> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(`
-      SELECT 
-        p.*,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text, 'image_category', i.image_category)) 
-         FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery'), '[]') as gallery_images,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text, 'image_category', i.image_category)) 
-         FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'blueprint'), '[]') as blueprint_images
-      FROM Properties p
-      WHERE p.featured = 1
-      ORDER BY RAND()
-      LIMIT ?
-    `, [limit]);
-    
-    const properties = (rows as FeaturedPropertyRow[]).map(p => ({
-      ...p,
-      featured: !!p.featured,
-      gallery_images: typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images || '[]') : [],
-      blueprint_images: typeof p.blueprint_images === 'string' ? JSON.parse(p.blueprint_images || '[]') : [],
-      amenities: [],
-      rules: [],
-    }));
-
-    return properties;
-  } catch (error) {
-    console.error(`Failed to fetch featured properties:`, error);
+  // Step 1: Fetch featured properties
+  const { data: properties, error: propertiesError } = await supabase
+    .from('properties')
+    .select('*')
+    .eq('featured', true)
+    .limit(limit);
+  
+  if (propertiesError) {
+    console.error(`Failed to fetch featured properties:`, propertiesError);
     return [];
-  } finally {
-    connection.release();
   }
+  if (!properties || properties.length === 0) {
+    return [];
+  }
+
+  // Step 2: Fetch images for these properties
+  const propertyIds = properties.map(p => p.id);
+  const { data: images, error: imagesError } = await supabase
+    .from('images')
+    .select('url, entity_id')
+    .in('entity_id', propertyIds)
+    .eq('entity_type', 'property');
+
+  if (imagesError) {
+    console.error('Failed to fetch images for featured properties:', imagesError);
+  }
+
+  // Step 3: Map images to their properties
+  return properties.map(p => {
+    const mainImage = images?.find(img => img.entity_id === p.id);
+    return {
+      ...p,
+      main_image_url: mainImage?.url ?? undefined,
+    };
+  }) as Property[];
 };
 
 /**
  * Fetches all chalets from the database for the admin panel.
  */
 export const fetchAllChalets = async (): Promise<Property[]> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(`
-      SELECT 
-        p.*,
-        (SELECT i.url FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery' ORDER BY i.id LIMIT 1) as main_image_url,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text, 'image_category', i.image_category)) 
-         FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery'), '[]') as gallery_images,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text, 'image_category', i.image_category)) 
-         FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'blueprint'), '[]') as blueprint_images
-      FROM Properties p
-      ORDER BY p.id DESC
-    `);
-    const properties = (rows as PropertyRow[]).map(p => ({
-      ...p,
-      featured: !!p.featured,
-      gallery_images: typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images) : p.gallery_images || [],
-      blueprint_images: typeof p.blueprint_images === 'string' ? JSON.parse(p.blueprint_images) : p.blueprint_images || [],
-      amenities: typeof p.amenities === 'string' ? JSON.parse(p.amenities) : p.amenities || [],
-      rules: typeof p.rules === 'string' ? JSON.parse(p.rules) : p.rules || [],
-    }));
-    return properties;
-  } catch (error) {
-    console.error('Failed to fetch all chalets:', error);
+  // 1. Fetch all properties
+  const { data: properties, error: propertiesError } = await supabase
+    .from('properties')
+    .select('*')
+    .order('id', { ascending: false });
+
+  if (propertiesError) {
+    console.error('Failed to fetch all chalets:', propertiesError);
     return [];
-  } finally {
-    connection.release();
   }
+
+  if (!properties || properties.length === 0) {
+    return [];
+  }
+
+  // 2. Get all property IDs
+  const propertyIds = properties.map(p => p.id);
+
+  // 3. Fetch all related data in parallel
+  const [
+    { data: images, error: imagesError },
+    { data: propertyAmenities, error: paError },
+    { data: propertyRules, error: rulesError }
+  ] = await Promise.all([
+    supabase.from('images').select('*').in('entity_id', propertyIds).eq('entity_type', 'property'),
+    supabase.from('propertyamenities').select('*, amenities(*)').in('property_id', propertyIds),
+    supabase.from('propertyrules').select('*').in('property_id', propertyIds)
+  ]);
+
+  // Handle errors for related data fetches
+  if (imagesError) console.error('Failed to fetch images:', imagesError);
+  if (paError) console.error('Failed to fetch property amenities:', paError);
+  if (rulesError) console.error('Failed to fetch property rules:', rulesError);
+
+  // 4. Map related data to properties
+  const propertiesWithDetails = properties.map(property => {
+    const relatedImages = images?.filter(img => img.entity_id === property.id) || [];
+    const galleryImages = relatedImages.filter(img => img.image_category === 'gallery');
+    const relatedAmenities = propertyAmenities?.filter(pa => pa.property_id === property.id).map(pa => pa.amenities) || [];
+    const relatedRules = propertyRules?.filter(rule => rule.property_id === property.id) || [];
+
+    return {
+      ...property,
+      main_image_url: galleryImages[0]?.url ?? undefined,
+      gallery_images: galleryImages,
+      blueprint_images: relatedImages.filter(img => img.image_category === 'blueprint'),
+      amenities: relatedAmenities.filter(Boolean),
+      rules: relatedRules,
+    };
+  });
+
+  return propertiesWithDetails as Property[];
 };
 
 /**
  * Fetches all experiences from the database.
  */
 export const fetchExperiences = async (): Promise<Experience[]> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(`
-      SELECT 
-        e.*,
-        (SELECT i.url FROM Images i WHERE i.entity_id = e.id AND i.entity_type = 'experience' ORDER BY i.id LIMIT 1) as main_image_url,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text)) 
-         FROM Images i WHERE i.entity_id = e.id AND i.entity_type = 'experience'), '[]') as gallery_images
-      FROM Experiences e
-      ORDER BY e.id DESC
-    `);
-    const experiences = (rows as ExperienceRow[]).map(e => ({
-      ...e,
-      featured: !!e.featured,
-      gallery_images: typeof e.gallery_images === 'string' ? JSON.parse(e.gallery_images || '[]') : [],
-      what_to_know: typeof e.what_to_know === 'string' ? JSON.parse(e.what_to_know || '[]') : [],
-    }));
-    return experiences;
-  } catch (error) {
-    console.error('Failed to fetch all experiences:', error);
+  // 1. Fetch all experiences
+  const { data: experiences, error: experiencesError } = await supabase
+    .from('experiences')
+    .select('*')
+    .order('id', { ascending: false });
+
+  if (experiencesError) {
+    console.error('Failed to fetch all experiences:', experiencesError);
     return [];
-  } finally {
-    connection.release();
   }
+  if (!experiences || experiences.length === 0) {
+    return [];
+  }
+
+  // 2. Fetch related images
+  const experienceIds = experiences.map(e => e.id);
+  const { data: images, error: imagesError } = await supabase
+    .from('images')
+    .select('*')
+    .in('entity_id', experienceIds)
+    .eq('entity_type', 'experience');
+
+  if (imagesError) {
+    console.error('Failed to fetch images for experiences:', imagesError);
+  }
+
+  // 3. Map images to their respective experiences
+  return experiences.map(experience => {
+    const relatedImages = images?.filter(img => img.entity_id === experience.id) || [];
+    return {
+      ...experience,
+      main_image_url: relatedImages[0]?.url ?? undefined,
+      images: relatedImages,
+    };
+  }) as Experience[];
 };
 
 /**
@@ -724,35 +649,37 @@ export const fetchExperiences = async (): Promise<Experience[]> => {
  * @param id The ID of the experience to fetch.
  */
 export const fetchExperienceById = async (id: string): Promise<Experience | undefined> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(`
-      SELECT 
-        e.*,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text)) 
-         FROM Images i WHERE i.entity_id = e.id AND i.entity_type = 'experience'), '[]') as gallery_images
-      FROM Experiences e
-      WHERE e.id = ?
-    `, [id]);
-    
-    const experiences = rows as ExperienceRow[];
-    if (experiences.length === 0) {
-      return undefined;
-    }
-    const row = experiences[0];
-    const experience: Experience = {
-      ...row,
-      featured: !!row.featured,
-      gallery_images: typeof row.gallery_images === 'string' ? JSON.parse(row.gallery_images || '[]') : [],
-      what_to_know: typeof row.what_to_know === 'string' ? JSON.parse(row.what_to_know || '[]') : [],
-    };
-    return experience;
-  } catch (error) {
-    console.error(`Failed to fetch experience with id ${id}:`, error);
+  // 1. Fetch the experience
+  const { data: experience, error: experienceError } = await supabase
+    .from('experiences')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (experienceError) {
+    console.error(`Failed to fetch experience with id ${id}:`, experienceError);
     return undefined;
-  } finally {
-    connection.release();
   }
+  if (!experience) {
+    return undefined;
+  }
+
+  // 2. Fetch related images
+  const { data: images, error: imagesError } = await supabase
+    .from('images')
+    .select('*')
+    .eq('entity_id', experience.id)
+    .eq('entity_type', 'experience');
+
+  if (imagesError) {
+    console.error('Failed to fetch images for experience:', imagesError);
+  }
+
+  // 3. Combine and return
+  return {
+    ...experience,
+    gallery_images: images || [],
+  } as Experience;
 };
 
 /**
@@ -760,35 +687,37 @@ export const fetchExperienceById = async (id: string): Promise<Experience | unde
  * @param slug The slug of the experience to fetch.
  */
 export const fetchExperienceBySlug = async (slug: string): Promise<Experience | undefined> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(`
-      SELECT 
-        e.*,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text)) 
-         FROM Images i WHERE i.entity_id = e.id AND i.entity_type = 'experience'), '[]') as gallery_images
-      FROM Experiences e
-      WHERE e.slug = ?
-    `, [slug]);
-    
-    const experiences = rows as ExperienceRow[];
-    if (experiences.length === 0) {
-      return undefined;
-    }
-    const row = experiences[0];
-    const experience: Experience = {
-      ...row,
-      featured: !!row.featured,
-      gallery_images: typeof row.gallery_images === 'string' ? JSON.parse(row.gallery_images || '[]') : [],
-      what_to_know: typeof row.what_to_know === 'string' ? JSON.parse(row.what_to_know || '[]') : [],
-    };
-    return experience;
-  } catch (error) {
-    console.error(`Failed to fetch experience with slug ${slug}:`, error);
+  // 1. Fetch the experience
+  const { data: experience, error: experienceError } = await supabase
+    .from('experiences')
+    .select('*')
+    .eq('slug', slug)
+    .single();
+
+  if (experienceError) {
+    console.error(`Failed to fetch experience with slug ${slug}:`, experienceError);
     return undefined;
-  } finally {
-    connection.release();
   }
+  if (!experience) {
+    return undefined;
+  }
+
+  // 2. Fetch related images
+  const { data: images, error: imagesError } = await supabase
+    .from('images')
+    .select('*')
+    .eq('entity_id', experience.id)
+    .eq('entity_type', 'experience');
+
+  if (imagesError) {
+    console.error('Failed to fetch images for experience:', imagesError);
+  }
+
+  // 3. Combine and return
+  return {
+    ...experience,
+    gallery_images: images || [],
+  } as Experience;
 };
 
 /**
@@ -796,31 +725,42 @@ export const fetchExperienceBySlug = async (slug: string): Promise<Experience | 
  * @param limit The maximum number of experiences to return.
  */
 export const fetchFeaturedExperiences = async (limit: number = 4): Promise<Experience[]> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(`
-      SELECT 
-        e.*,
-        (SELECT i.url FROM Images i WHERE i.entity_id = e.id AND i.entity_type = 'experience' ORDER BY i.id LIMIT 1) as main_image_url
-      FROM Experiences e
-      ORDER BY RAND()
-      LIMIT ?
-    `, [limit]);
-    
-    const experiences = (rows as FeaturedExperienceRow[]).map(e => ({
-      ...e,
-      featured: !!e.featured,
-      gallery_images: [],
-      what_to_know: [],
-    }));
+  // Step 1: Fetch featured experiences
+  const { data: experiences, error: experiencesError } = await supabase
+    .from('experiences')
+    .select('*')
+    .eq('featured', true)
+    .limit(limit);
 
-    return experiences;
-  } catch (error) {
-    console.error('Failed to fetch featured experiences:', error);
+  if (experiencesError) {
+    console.error('Failed to fetch featured experiences:', experiencesError);
     return [];
-  } finally {
-    connection.release();
   }
+  if (!experiences || experiences.length === 0) {
+    return [];
+  }
+
+  // Step 2: Fetch images for these experiences
+  const experienceIds = experiences.map(e => e.id);
+  const { data: images, error: imagesError } = await supabase
+    .from('images')
+    .select('*')
+    .in('entity_id', experienceIds)
+    .eq('entity_type', 'experience');
+
+  if (imagesError) {
+    console.error('Failed to fetch images for featured experiences:', imagesError);
+  }
+
+  // Step 3: Map images to their experiences
+  return experiences.map(experience => {
+    const relatedImages = images?.filter(img => img.entity_id === experience.id) || [];
+    return {
+      ...experience,
+      main_image_url: relatedImages[0]?.url ?? undefined,
+      images: relatedImages,
+    };
+  }) as Experience[];
 };
 
 /**
@@ -834,133 +774,80 @@ export const fetchFilteredChalets = async (filters: {
   bathrooms: string;
   amenities: string[];
 }): Promise<Property[]> => {
-  const connection = await pool.getConnection();
-  try {
-    let query = `
-      SELECT 
-        p.*,
-        (SELECT i.url FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery' ORDER BY i.id LIMIT 1) as main_image_url,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text, 'image_category', i.image_category)) 
-         FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'gallery'), '[]') as gallery_images,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', i.id, 'url', i.url, 'alt_text', i.alt_text, 'image_category', i.image_category)) 
-         FROM Images i WHERE i.entity_id = p.id AND i.entity_type = 'property' AND i.image_category = 'blueprint'), '[]') as blueprint_images,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', a.id, 'name', a.name, 'category', a.category, 'icon', a.icon)) 
-         FROM PropertyAmenities pa
-         JOIN Amenities a ON pa.amenity_id = a.id
-         WHERE pa.property_id = p.id), '[]') as amenities,
-        COALESCE((SELECT JSON_ARRAYAGG(JSON_OBJECT('id', pr.id, 'rule_text', pr.rule_text))
-         FROM PropertyRules pr
-         WHERE pr.property_id = p.id), '[]') as rules
-      FROM Properties p
-    `;
-    
-    const params: (string | number | string[])[] = [];
-    const whereClauses: string[] = [];
+  // This is a complex query that will require an RPC function for filtering by amenities.
+  console.warn("Filtered chalet search is not fully implemented with Supabase yet.");
+  
+  let query = supabase.from('properties').select('*');
 
-    if (parseInt(filters.guests, 10) > 0) {
-      whereClauses.push('p.guests >= ?');
-      params.push(parseInt(filters.guests, 10));
-    }
-    if (parseInt(filters.bedrooms, 10) > 0) {
-      whereClauses.push('p.bedrooms >= ?');
-      params.push(parseInt(filters.bedrooms, 10));
-    }
-    if (parseInt(filters.beds, 10) > 0) {
-      whereClauses.push('p.beds >= ?');
-      params.push(parseInt(filters.beds, 10));
-    }
-    if (parseInt(filters.bathrooms, 10) > 0) {
-      whereClauses.push('p.bathrooms >= ?');
-      params.push(parseInt(filters.bathrooms, 10));
-    }
+  if (parseInt(filters.guests, 10) > 0) {
+    query = query.gte('guests', parseInt(filters.guests, 10));
+  }
+  if (parseInt(filters.bedrooms, 10) > 0) {
+    query = query.gte('bedrooms', parseInt(filters.bedrooms, 10));
+  }
+  if (parseInt(filters.beds, 10) > 0) {
+    query = query.gte('beds', parseInt(filters.beds, 10));
+  }
+  if (parseInt(filters.bathrooms, 10) > 0) {
+    query = query.gte('bathrooms', parseInt(filters.bathrooms, 10));
+  }
 
-    if (filters.amenities.length > 0) {
-      const amenityPlaceholders = '?,'.repeat(filters.amenities.length).slice(0, -1);
-      const subQuery = `
-        SELECT pa.property_id
-        FROM PropertyAmenities pa
-        JOIN Amenities a ON pa.amenity_id = a.id
-        WHERE a.slug IN (${amenityPlaceholders})
-        GROUP BY pa.property_id
-        HAVING COUNT(DISTINCT a.slug) = ?
-      `;
-      whereClauses.push(`p.id IN (${subQuery})`);
-      params.push(...filters.amenities, filters.amenities.length);
-    }
+  const { data, error } = await query;
 
-    if (whereClauses.length > 0) {
-      query += ` WHERE ${whereClauses.join(' AND ')}`;
-    }
-
-    const [rows] = await connection.query(query, params);
-    
-    const properties = (rows as PropertyRow[]).map(p => ({
-      ...p,
-      featured: !!p.featured,
-      gallery_images: typeof p.gallery_images === 'string' ? JSON.parse(p.gallery_images || '[]') : [],
-      blueprint_images: typeof p.blueprint_images === 'string' ? JSON.parse(p.blueprint_images || '[]') : [],
-      amenities: typeof p.amenities === 'string' ? JSON.parse(p.amenities || '[]') : [],
-      rules: typeof p.rules === 'string' ? JSON.parse(p.rules || '[]') : [],
-    }));
-
-    return properties;
-  } catch (error) {
+  if (error) {
     console.error('Failed to fetch filtered chalets:', error);
     return [];
-  } finally {
-    connection.release();
   }
+  return data as Property[];
 };
 
 /**
  * Fetches all map_node_id values that are currently in use by properties.
  */
 export const fetchUsedMapNodeIds = async (): Promise<string[]> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(`
-      SELECT map_node_id FROM Properties WHERE map_node_id IS NOT NULL
-    `);
-    const nodeIds = (rows as { map_node_id: string }[]).map(row => row.map_node_id);
-    return nodeIds;
-  } catch (error) {
+  const { data, error } = await supabase
+    .from('properties')
+    .select('map_node_id')
+    .not('map_node_id', 'is', null);
+
+  if (error) {
     console.error('Failed to fetch used map node IDs:', error);
     return [];
-  } finally {
-    connection.release();
   }
+  return data.map((row: { map_node_id: string }) => row.map_node_id);
 };
 
 /**
  * Fetches all testimonials from the database.
  */
 export const fetchAllTestimonials = async (): Promise<Testimonial[]> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query('SELECT * FROM Testimonials ORDER BY created_at DESC');
-    return rows as Testimonial[];
-  } catch (error) {
+  const { data, error } = await supabase
+    .from('testimonials')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
     console.error('Failed to fetch testimonials:', error);
     return [];
-  } finally {
-    connection.release();
   }
+  return data as Testimonial[];
 };
 
 /**
  * Fetches featured testimonials from the database.
  */
 export const fetchFeaturedTestimonials = async (): Promise<Testimonial[]> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query('SELECT * FROM Testimonials WHERE is_featured = 1 ORDER BY created_at DESC');
-    return rows as Testimonial[];
-  } catch (error) {
+  const { data, error } = await supabase
+    .from('testimonials')
+    .select('*')
+    .eq('is_featured', true)
+    .order('created_at', { ascending: false });
+
+  if (error) {
     console.error('Failed to fetch featured testimonials:', error);
     return [];
-  } finally {
-    connection.release();
   }
+  return data as Testimonial[];
 };
 
 /**
@@ -968,22 +855,17 @@ export const fetchFeaturedTestimonials = async (): Promise<Testimonial[]> => {
  * @param id The ID of the testimonial to fetch.
  */
 export const fetchTestimonialById = async (id: string): Promise<Testimonial | undefined> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query('SELECT * FROM Testimonials WHERE id = ?', [id]);
-    const testimonials = rows as Testimonial[];
-    if (testimonials.length === 0) {
-      return undefined;
-    }
-    const testimonial = testimonials[0];
-    testimonial.is_featured = !!testimonial.is_featured;
-    return testimonial as Testimonial;
-  } catch (error) {
+  const { data, error } = await supabase
+    .from('testimonials')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
     console.error(`Failed to fetch testimonial with id ${id}:`, error);
     return undefined;
-  } finally {
-    connection.release();
   }
+  return data as Testimonial;
 };
 
 /**
@@ -991,25 +873,30 @@ export const fetchTestimonialById = async (id: string): Promise<Testimonial | un
  * @param chaletId The ID of the chalet.
  */
 export const getChaletBookings = async (chaletId: string): Promise<Booking[]> => {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(
-      `SELECT * FROM Bookings WHERE property_id = ? AND status = 'confirmed'`,
-      [chaletId]
-    );
-    
-    // Log para depuración de fechas
-    if (rows && Array.isArray(rows)) {
-      (rows as BookingRow[]).forEach(booking => {
-        console.log(`[DATA_FETCH] Booking para chalet ${chaletId}: check_in_date=${booking.check_in_date}, check_out_date=${booking.check_out_date}`);
-      });
-    }
+  const { data, error } = await supabase
+    .from('bookings')
+    .select('*')
+    .eq('property_id', chaletId)
+    .eq('status', 'confirmed');
 
-    return rows as BookingRow[];
-  } catch (error) {
+  if (error) {
     console.error(`Failed to fetch bookings for chalet ${chaletId}:`, error);
     return [];
-  } finally {
-    connection.release();
   }
+  return data as Booking[];
+};
+
+/**
+ * Fetches all amenities from the database.
+ */
+export const fetchAllAmenities = async () => {
+  const { data, error } = await supabase
+    .from('amenities')
+    .select('id, name, slug, category');
+
+  if (error) {
+    console.error('Error fetching all amenities:', error);
+    return [];
+  }
+  return data;
 };

@@ -1,17 +1,15 @@
-import mysql from 'mysql2/promise';
+import { createClient } from '@supabase/supabase-js';
 
-// Crear un pool de conexiones.
-// El pool gestiona múltiples conexiones, lo que es más eficiente
-// que crear una nueva conexión para cada consulta.
-const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
-  timezone: 'Z', // Forzar UTC
-});
+// Obtener las variables de entorno de Supabase
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-export default pool;
+// Validar que las variables de entorno estén definidas
+if (!supabaseUrl || !supabaseServiceKey) {
+  throw new Error('Supabase URL and service role key must be defined in .env.local');
+}
+
+// Crear y exportar el cliente de Supabase
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+export default supabase;

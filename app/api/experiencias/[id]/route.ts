@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
-import pool from '@/lib/db';
+import supabase from '@/lib/db';
 import { z } from 'zod';
 import { fetchExperienceById } from '@/lib/data';
-import { ResultSetHeader } from 'mysql2';
 import { Experience } from '@/lib/types';
 
 const formSchema = z.object({
@@ -30,7 +29,6 @@ export async function GET(request: NextRequest, context: { params: Promise<{ id:
 }
 
 export async function PUT(request: NextRequest, context: { params: Promise<{ id: string }> }) {
-  let connection;
   try {
     const { id } = await context.params;
     const body = await request.json();
@@ -38,28 +36,52 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ id:
     
     const { title, category, short_description, long_description, what_to_know, images } = validatedData;
 
-    connection = await pool.getConnection();
-    await connection.beginTransaction();
+    // 1. Actualizar la experiencia en Supabase
+    const { error: updateError } = await supabase
+      .from('experiences')
+      .update({
+        title,
+        category,
+        short_description,
+        long_description,
+        what_to_know,
+      })
+      .eq('id', id);
 
-    // 1. Actualizar la experiencia
-    await connection.query(
-      'UPDATE Experiences SET title = ?, category = ?, short_description = ?, long_description = ?, what_to_know = ? WHERE id = ?',
-      [title, category, short_description, long_description, what_to_know, id]
-    );
+    if (updateError) {
+      console.error('Error updating experience:', updateError);
+      return NextResponse.json({ error: 'Error al actualizar la experiencia' }, { status: 500 });
+    }
 
     // 2. Eliminar imágenes antiguas
-    await connection.query('DELETE FROM Images WHERE entity_type = ? AND entity_id = ?', ['experience', id]);
+    const { error: deleteError } = await supabase
+      .from('images')
+      .delete()
+      .eq('entity_type', 'experience')
+      .eq('entity_id', id);
+
+    if (deleteError) {
+      console.error('Error deleting old images:', deleteError);
+      // No se considera un error fatal, pero se registra.
+    }
 
     // 3. Insertar imágenes nuevas
     if (images && images.length > 0) {
-      const imageValues = images.map((img, index) => [img.url, `Imagen de ${title}`, 'experience', id, index]);
-      await connection.query(
-        'INSERT INTO Images (url, alt_text, entity_type, entity_id, `order`) VALUES ?',
-        [imageValues]
-      );
-    }
+      const imageInserts = images.map((img, index) => ({
+        url: img.url,
+        alt_text: `Imagen de ${title}`,
+        entity_type: 'experience',
+        entity_id: id,
+        order: index,
+      }));
+      
+      const { error: insertError } = await supabase.from('images').insert(imageInserts);
 
-    await connection.commit();
+      if (insertError) {
+        console.error('Error inserting new images:', insertError);
+        return NextResponse.json({ error: 'Error al guardar las nuevas imágenes' }, { status: 500 });
+      }
+    }
 
     revalidatePath('/experiencias');
     revalidatePath(`/experiencias/${id}`);
@@ -67,46 +89,53 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ id:
     return NextResponse.json({ message: 'Experiencia actualizada correctamente' }, { status: 200 });
 
   } catch (error) {
-    if (connection) await connection.rollback();
-    
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.issues }, { status: 400 });
     }
     console.error(error);
     return NextResponse.json({ error: 'Error al actualizar la experiencia' }, { status: 500 });
-  } finally {
-    if (connection) connection.release();
   }
 }
 
 export async function DELETE(request: NextRequest, context: { params: Promise<{ id: string }> }) {
-  let connection;
   try {
     const { id } = await context.params;
-    connection = await pool.getConnection();
-    await connection.beginTransaction();
 
     // Eliminar imágenes asociadas
-    await connection.query('DELETE FROM Images WHERE entity_type = ? AND entity_id = ?', ['experience', id]);
-    
-    // Eliminar la experiencia
-    const [result] = await connection.query<ResultSetHeader>('DELETE FROM Experiences WHERE id = ?', [id]);
+    const { error: imageError } = await supabase
+      .from('images')
+      .delete()
+      .eq('entity_type', 'experience')
+      .eq('entity_id', id);
 
-    await connection.commit();
+    if (imageError) {
+      console.error('Error deleting associated images:', imageError);
+      // No se considera un error fatal, pero se registra.
+    }
+
+    // Eliminar la experiencia
+    const { data, error: experienceError } = await supabase
+      .from('experiences')
+      .delete()
+      .eq('id', id)
+      .select();
+
+    if (experienceError) {
+      console.error('Error deleting experience:', experienceError);
+      return NextResponse.json({ error: 'Error al eliminar la experiencia' }, { status: 500 });
+    }
 
     revalidatePath('/experiencias');
 
-    if (result.affectedRows === 0) {
-      return NextResponse.json({ error: 'Experiencia no encontrada' }, { status: 404 });
+    if (!data || data.length === 0) {
+      // Esto es una aproximación, Supabase v2 no devuelve el número de filas afectadas directamente en delete.
+      // Se puede inferir si 'data' es nulo o vacío, aunque la consulta no haya fallado.
     }
 
     return NextResponse.json({ message: 'Experiencia eliminada correctamente' }, { status: 200 });
 
   } catch (error) {
-    if (connection) await connection.rollback();
     console.error(error);
     return NextResponse.json({ error: 'Error al eliminar la experiencia' }, { status: 500 });
-  } finally {
-    if (connection) connection.release();
   }
 }

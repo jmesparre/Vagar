@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { fetchFilteredBookings } from '@/lib/data';
-import db from '@/lib/db';
+import supabase from '@/lib/db';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -45,33 +45,26 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: 'Faltan campos requeridos' }, { status: 400 });
     }
 
-    const query = `
-      INSERT INTO Bookings (
-        property_id,
-        check_in_date,
-        check_out_date,
-        guests,
-        client_name,
-        client_phone,
-        status
-      ) VALUES (?, ?, ?, ?, ?, ?, ?);
-    `;
-
-    const values = [
+    const newBooking = {
       property_id,
-      new Date(check_in_date),
-      check_out_date ? new Date(check_out_date) : null,
+      check_in_date: new Date(check_in_date).toISOString(),
+      check_out_date: check_out_date ? new Date(check_out_date).toISOString() : null,
       guests,
       client_name,
       client_phone,
-      'pending', // Default status
-    ];
+      status: 'pending', // Default status
+    };
 
-    await db.query(query, values);
+    const { error } = await supabase.from('Bookings').insert([newBooking]);
+
+    if (error) {
+      console.error('Error al crear la consulta:', error);
+      return NextResponse.json({ message: 'Error al crear la consulta.', details: error.message }, { status: 500 });
+    }
 
     return NextResponse.json({ message: 'Consulta creada exitosamente' }, { status: 201 });
   } catch (error) {
-    console.error('Error al crear la consulta:', error);
+    console.error('Error inesperado al crear la consulta:', error);
     return NextResponse.json({ message: 'Error interno del servidor' }, { status: 500 });
   }
 }

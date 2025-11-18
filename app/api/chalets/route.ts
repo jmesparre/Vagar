@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import pool from "@/lib/db";
-import { RowDataPacket, ResultSetHeader } from "mysql2";
-import { allAmenities as amenitiesData } from "@/lib/amenities-data";
+import supabase from "@/lib/db";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }),
@@ -63,86 +61,98 @@ const formSchema = z.object({
 });
 
 export async function POST(request: Request) {
-  let connection;
   try {
     const body = await request.json();
     const { gallery_images, blueprint_images, amenities, rules, ...chaletData } = formSchema.parse(body);
 
-    connection = await pool.getConnection();
-    await connection.beginTransaction();
+    // 1. Insertar la propiedad principal
+    const { data: property, error: propertyError } = await supabase
+      .from("properties")
+      .insert([chaletData])
+      .select()
+      .single();
 
-    const [result] = await connection.query<ResultSetHeader>(
-      "INSERT INTO Properties SET ?",
-      [chaletData]
-    );
-    const propertyId = result.insertId;
+    if (propertyError) {
+      console.error("Error creating chalet:", propertyError);
+      return NextResponse.json({ error: "Error al crear el chalet.", details: propertyError.message }, { status: 500 });
+    }
 
+    const propertyId = property.id;
+
+    // 2. Insertar imágenes de la galería
     if (gallery_images && gallery_images.length > 0) {
-      for (const imageUrl of gallery_images) {
-        await connection.query("INSERT INTO Images SET ?", {
-          url: imageUrl,
-          entity_type: "property",
-          entity_id: propertyId,
-          image_category: "gallery",
-        });
-      }
+      const imagesToInsert = gallery_images.map(url => ({
+        url,
+        entity_type: "property",
+        entity_id: propertyId,
+        image_category: "gallery",
+      }));
+      const { error: galleryError } = await supabase.from("images").insert(imagesToInsert);
+      if (galleryError) console.error("Error inserting gallery images:", galleryError);
     }
 
+    // 3. Insertar imágenes de planos
     if (blueprint_images && blueprint_images.length > 0) {
-      for (const imageUrl of blueprint_images) {
-        await connection.query("INSERT INTO Images SET ?", {
-          url: imageUrl,
-          entity_type: "property",
-          entity_id: propertyId,
-          image_category: "blueprint",
-        });
-      }
+      const imagesToInsert = blueprint_images.map(url => ({
+        url,
+        entity_type: "property",
+        entity_id: propertyId,
+        image_category: "blueprint",
+      }));
+      const { error: blueprintError } = await supabase.from("images").insert(imagesToInsert);
+      if (blueprintError) console.error("Error inserting blueprint images:", blueprintError);
     }
 
+    // 4. Insertar amenities
     if (amenities && amenities.length > 0) {
-      for (const amenityStringId of amenities) {
-        const amenityDetail = amenitiesData.find(a => a.id === amenityStringId);
-        if (amenityDetail) {
-          const [amenityRows] = await connection.query<RowDataPacket[]>(
-            "SELECT id FROM Amenities WHERE name = ?",
-            [amenityDetail.name]
-          );
-          if (amenityRows.length > 0) {
-            const amenityDbId = amenityRows[0].id;
-            await connection.query("INSERT INTO PropertyAmenities SET ?", {
-              property_id: propertyId,
-              amenity_id: amenityDbId,
-            });
+      console.log("Amenities recibidos del formulario (slugs):", amenities);
+
+      const { data: amenitiesFromDb, error: amenitiesError } = await supabase
+        .from("amenities")
+        .select("id, slug")
+        .in("slug", amenities);
+
+      if (amenitiesError) {
+        console.error("Error al buscar amenities en la BD:", amenitiesError);
+      } else {
+        console.log("Amenities encontrados en la BD:", amenitiesFromDb);
+
+        if (amenitiesFromDb && amenitiesFromDb.length > 0) {
+          const propertyAmenitiesToInsert = amenitiesFromDb.map(amenity => ({
+            property_id: propertyId,
+            amenity_id: amenity.id,
+          }));
+
+          console.log("Datos a insertar en propertyamenities:", propertyAmenitiesToInsert);
+
+          const { error: paError } = await supabase.from("propertyamenities").insert(propertyAmenitiesToInsert);
+          if (paError) {
+            console.error("Error al insertar en propertyamenities:", paError);
+          } else {
+            console.log("Amenities guardados correctamente.");
           }
+        } else {
+          console.warn("No se encontraron amenities en la BD para los slugs proporcionados.");
         }
       }
     }
 
+    // 5. Insertar reglas
     if (rules && rules.length > 0) {
-      for (const rule of rules) {
-        await connection.query("INSERT INTO PropertyRules SET ?", {
-          property_id: propertyId,
-          rule_text: rule.rule_text,
-        });
-      }
+      const rulesToInsert = rules.map(rule => ({
+        property_id: propertyId,
+        rule_text: rule.rule_text,
+      }));
+      const { error: rulesError } = await supabase.from("propertyrules").insert(rulesToInsert);
+      if (rulesError) console.error("Error inserting property rules:", rulesError);
     }
-
-    await connection.commit();
 
     return NextResponse.json({ message: "Chalet creado exitosamente", propertyId }, { status: 201 });
   } catch (error) {
-    if (connection) {
-      await connection.rollback();
-    }
-
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.issues }, { status: 400 });
     }
-    console.error(error);
+    console.error("An unexpected error occurred:", error);
     return NextResponse.json({ error: "Error interno del servidor" }, { status: 500 });
-  } finally {
-    if (connection) {
-      connection.release();
-    }
   }
 }

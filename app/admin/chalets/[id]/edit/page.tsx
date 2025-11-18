@@ -1,13 +1,14 @@
-import { fetchPropertyById, fetchUsedMapNodeIds } from '@/lib/data';
+import { fetchPropertyById, fetchUsedMapNodeIds, fetchAllAmenities } from '@/lib/data';
 import { ChaletForm } from '@/components/custom/ChaletForm';
 import { notFound } from 'next/navigation';
 
 export default async function EditChaletPage({ params }: { params: { id: string } }) {
   const { id } = await params;
   try {
-    const [chalet, usedMapNodeIds] = await Promise.all([
+    const [chalet, usedMapNodeIds, allAmenities] = await Promise.all([
       fetchPropertyById(id),
       fetchUsedMapNodeIds(),
+      fetchAllAmenities(),
     ]);
 
     if (!chalet) {
@@ -17,7 +18,7 @@ export default async function EditChaletPage({ params }: { params: { id: string 
     return (
       <div className="space-y-6">
         <h1 className="text-2xl font-bold">Editar Chalet</h1>
-        <ChaletForm defaultValues={chalet} usedMapNodeIds={usedMapNodeIds} />
+        <ChaletForm defaultValues={chalet} usedMapNodeIds={usedMapNodeIds} allAmenities={allAmenities} />
       </div>
     );
   } catch (error) {

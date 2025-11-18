@@ -6,7 +6,6 @@ import { z } from "zod";
 import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { ImageUpload } from "@/components/custom/ImageUpload";
-import { allAmenities } from "@/lib/amenities-data";
 import { slugify } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
@@ -29,7 +28,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Property } from "@/lib/types";
+import { Property, Amenity } from "@/lib/types";
 
 const mapNodeIds = [
   "_2_-_8-9", "_5_-_14-15", "_9_-_13-14", "_9_-_11", "_9_-_7",
@@ -66,9 +65,9 @@ const formSchema = z.object({
   beds: numericString.refine(val => val === null || (Number.isInteger(val) && val > 0), { message: "Debe ser un entero positivo" }),
   bathrooms: numericString.refine(val => val === null || (Number.isInteger(val) && val > 0), { message: "Debe ser un entero positivo" }),
   rating: numericString.refine(val => val === null || (val >= 0 && val <= 10), { message: "Debe estar entre 0 y 10" }),
-  price_high: numericString.refine(val => val === null || val > 0, { message: "Debe ser un número positivo" }),
-  price_mid: numericString.refine(val => val === null || val > 0, { message: "Debe ser un número positivo" }),
-  price_low: numericString.refine(val => val === null || val > 0, { message: "Debe ser un número positivo" }),
+  price_high: numericString.refine(val => val === null || (val > 0 && val < 100000000), { message: "El precio debe ser positivo y menor a 100,000,000" }),
+  price_mid: numericString.refine(val => val === null || (val > 0 && val < 100000000), { message: "El precio debe ser positivo y menor a 100,000,000" }),
+  price_low: numericString.refine(val => val === null || (val > 0 && val < 100000000), { message: "El precio debe ser positivo y menor a 100,000,000" }),
   map_node_id: z.string().optional(),
   video_url: z.string().url({ message: "Por favor, introduce una URL válida." }).or(z.literal("")).optional(),
   featured: z.boolean().default(false),
@@ -86,9 +85,10 @@ type ChaletFormValues = z.infer<typeof formSchema>;
 interface ChaletFormProps {
   defaultValues?: Property;
   usedMapNodeIds?: string[];
+  allAmenities: Amenity[];
 }
 
-export function ChaletForm({ defaultValues, usedMapNodeIds = [] }: ChaletFormProps) {
+export function ChaletForm({ defaultValues, usedMapNodeIds = [], allAmenities }: ChaletFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const isEditMode = !!defaultValues;
@@ -151,15 +151,7 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [] }: ChaletFormPro
       featured: defaultValues.featured || false,
       gallery_images: defaultValues.gallery_images?.map((img) => img.url) || [],
       blueprint_images: defaultValues.blueprint_images?.map((img) => img.url) || [],
-      amenities:
-        defaultValues.amenities
-          ?.map((amenity) => {
-            const matchingAmenity = allAmenities.find(
-              (a) => a.name === amenity.name
-            );
-            return matchingAmenity ? matchingAmenity.id : "";
-          })
-          .filter((id): id is string => id !== "") || [],
+      amenities: defaultValues.amenities?.map(amenity => amenity.slug) || [],
       rules: defaultValues.rules || [],
     };
     return mappedValues;
@@ -203,23 +195,12 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [] }: ChaletFormPro
       const url = isEditMode ? `/api/chalets/${defaultValues.id}` : '/api/chalets';
       const method = isEditMode ? 'PUT' : 'POST';
 
-      // Transform amenities back to the structure expected by the API
-      const transformedValues = {
-        ...values,
-        amenities: values.amenities
-          ?.map(id => {
-            const amenity = allAmenities.find(a => a.id === id);
-            return amenity ? { name: amenity.name, id: amenity.id } : null;
-          })
-          .filter((a): a is { name: string; id: string } => a !== null),
-      };
-
       const response = await fetch(url, {
         method: method,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(transformedValues),
+        body: JSON.stringify(values),
       });
 
       if (!response.ok) {
@@ -683,13 +664,13 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [] }: ChaletFormPro
                         >
                           <FormControl>
                             <Checkbox
-                              checked={field.value?.includes(amenity.id)}
+                              checked={field.value?.includes(amenity.slug)}
                               onCheckedChange={(checked) => {
                                 return checked
-                                  ? field.onChange([...(field.value || []), amenity.id])
+                                  ? field.onChange([...(field.value || []), amenity.slug])
                                   : field.onChange(
                                       (field.value || []).filter(
-                                        (value) => value !== amenity.id
+                                        (value) => value !== amenity.slug
                                       )
                                     );
                               }}

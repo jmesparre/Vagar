@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Phone, Mail, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Phone, Mail, Facebook, Instagram, } from 'lucide-react';
 
 export default function ContactPage() {
   return (
@@ -34,7 +34,7 @@ export default function ContactPage() {
             </div>
             <div>
               <H4>Nuestra Ubicación</H4>
-              <P className="mt-4 text-muted-foreground">USA, New York - 1060</P>
+              <P className="mt-4 text-muted-foreground">Merlo, San Luis - 1060</P>
               <P className="text-muted-foreground">Str. First Avenue 1</P>
             </div>
           </div>
@@ -44,16 +44,14 @@ export default function ContactPage() {
               <H4>Email</H4>
               <div className="flex items-center mt-4 text-muted-foreground">
                 <Mail className="h-4 w-4 mr-2" />
-                <span>neuros@mail.co</span>
+                <span>vagar@gmail.com</span>
               </div>
             </div>
             <div>
               <H4>Redes Sociales</H4>
               <div className="flex items-center space-x-4 mt-4">
                 <Facebook className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
-                <Twitter className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
                 <Instagram className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
-                <Linkedin className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
               </div>
             </div>
           </div>
@@ -87,7 +85,7 @@ export default function ContactPage() {
       <div className="mt-16 text-center bg-gray-100 p-16 rounded-lg">
         <H4>Sección del Mapa</H4>
         <P className="text-muted-foreground mt-2">
-          El mapa interactivo se implementará aquí en una futura actualización.
+          El mapa.
         </P>
       </div>
     </div>

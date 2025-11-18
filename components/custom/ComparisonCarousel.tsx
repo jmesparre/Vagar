@@ -18,7 +18,6 @@ interface ComparisonCarouselProps {
 export function ComparisonCarousel({ mainChalet, propertiesForComparison }: ComparisonCarouselProps) {
   const [comparisonChalet, setComparisonChalet] = useState(propertiesForComparison[0]);
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
-  const [countFilters, setCountFilters] = useState({ bedrooms: 0, beds: 0, bathrooms: 0 });
 
   const handleAmenityToggle = (amenityId: string) => {
     setActiveFilters((prev) =>
@@ -28,27 +27,10 @@ export function ComparisonCarousel({ mainChalet, propertiesForComparison }: Comp
     );
   };
 
-  const handleCountChange = (
-    type: keyof typeof countFilters,
-    operation: "increment" | "decrement"
-  ) => {
-    setCountFilters((prev) => ({
-      ...prev,
-      [type]:
-        operation === "increment"
-          ? Math.min(7, prev[type] + 1)
-          : Math.max(0, prev[type] - 1),
-    }));
-  };
-
   const filteredProperties = propertiesForComparison.filter(property => {
-    const amenitiesMatch = activeFilters.every(filterId => 
+    return activeFilters.every(filterId => 
       (property.amenities || []).some(a => a.id.toString() === filterId)
     );
-    const bedroomsMatch = (property.bedrooms || 0) >= countFilters.bedrooms;
-    const bedsMatch = (property.beds || 0) >= countFilters.beds;
-    const bathroomsMatch = (property.bathrooms || 0) >= countFilters.bathrooms;
-    return amenitiesMatch && bedroomsMatch && bedsMatch && bathroomsMatch;
   });
 
   useEffect(() => {
@@ -57,7 +39,7 @@ export function ComparisonCarousel({ mainChalet, propertiesForComparison }: Comp
     } else if (filteredProperties.length === 0) {
       setComparisonChalet(propertiesForComparison[0]);
     }
-  }, [activeFilters, countFilters, comparisonChalet, filteredProperties, propertiesForComparison]);
+  }, [activeFilters, comparisonChalet, filteredProperties, propertiesForComparison]);
 
   return (
     <section>
@@ -86,8 +68,6 @@ export function ComparisonCarousel({ mainChalet, propertiesForComparison }: Comp
               <AmenitiesPopoverContent
                 selectedAmenities={activeFilters}
                 onAmenityToggle={handleAmenityToggle}
-                counts={countFilters}
-                onCountChange={handleCountChange}
               />
             </PopoverContent>
           </Popover>

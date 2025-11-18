@@ -1,7 +1,6 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import pool from '@/lib/db';
-import { User } from '@/lib/types';
+import supabase from '@/lib/db';
 import * as bcrypt from 'bcryptjs';
 
 const handler = NextAuth({
@@ -22,44 +21,40 @@ const handler = NextAuth({
           return null;
         }
 
-        const connection = await pool.getConnection();
-        console.log('Database connection acquired.');
         try {
-          const [rows] = await connection.execute<User[]>(
-            'SELECT * FROM Users WHERE email = ?',
-            [credentials.email]
-          );
+          const { data: user, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('email', credentials.email)
+            .single();
 
-          if (rows.length > 0) {
-            const user = rows[0];
-            console.log('User found in DB:', { id: user.id, email: user.email, password_hash: user.password });
-            
-            console.log('Comparing passwords...');
-            const passwordMatch = await bcrypt.compare(
-              credentials.password,
-              user.password
-            );
-            console.log('Password match result:', passwordMatch);
-
-            if (passwordMatch) {
-              console.log('Login successful for user:', user.email);
-              console.log('--- Authorize Function End (Success) ---');
-              return { id: user.id, name: user.name, email: user.email, role: user.role };
-            } else {
-              console.log('Password mismatch.');
-            }
-          } else {
-            console.log(`No user found with email: ${credentials.email}`);
+          if (error || !user) {
+            console.log(`No user found with email: ${credentials.email}`, error);
+            console.log('--- Authorize Function End (Failure) ---');
+            return null;
           }
-          
-          console.log('--- Authorize Function End (Failure) ---');
-          return null;
+
+          console.log('User found in DB:', { id: user.id, email: user.email, password_hash: user.password });
+
+          console.log('Comparing passwords...');
+          const passwordMatch = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
+          console.log('Password match result:', passwordMatch);
+
+          if (passwordMatch) {
+            console.log('Login successful for user:', user.email);
+            console.log('--- Authorize Function End (Success) ---');
+            return { id: user.id, name: user.name, email: user.email, role: user.role };
+          } else {
+            console.log('Password mismatch.');
+            console.log('--- Authorize Function End (Failure) ---');
+            return null;
+          }
         } catch (error) {
           console.error('Error during authorization:', error);
           return null;
-        } finally {
-          connection.release();
-          console.log('Database connection released.');
         }
       },
     }),
