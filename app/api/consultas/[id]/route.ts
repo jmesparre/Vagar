@@ -18,7 +18,7 @@ export async function PATCH(
     }
 
     const { error, count } = await supabase
-      .from('Bookings')
+      .from('bookings')
       .update({ status })
       .eq('id', id)
       .select();
@@ -35,6 +35,38 @@ export async function PATCH(
     return NextResponse.json({ message: 'Estado de la consulta actualizado exitosamente' }, { status: 200 });
   } catch (error) {
     console.error(`Error inesperado al actualizar la consulta:`, error);
+    return NextResponse.json({ message: 'Error interno del servidor' }, { status: 500 });
+  }
+}
+
+export async function DELETE(
+  request: NextRequest
+) {
+  try {
+    const url = new URL(request.url);
+    const id = url.pathname.split('/').pop();
+
+    if (!id) {
+      return NextResponse.json({ error: "ID de consulta no encontrado en la URL" }, { status: 400 });
+    }
+
+    const { error, count } = await supabase
+      .from('bookings')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error(`Error al eliminar la consulta ${id}:`, error);
+      return NextResponse.json({ message: 'Error al eliminar la consulta.', details: error.message }, { status: 500 });
+    }
+
+    if (count === 0) {
+      return NextResponse.json({ message: 'Consulta no encontrada' }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: 'Consulta eliminada exitosamente' }, { status: 200 });
+  } catch (error) {
+    console.error(`Error inesperado al eliminar la consulta:`, error);
     return NextResponse.json({ message: 'Error interno del servidor' }, { status: 500 });
   }
 }

@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache';
 export async function GET() {
   try {
     const { data, error } = await supabase
-      .from('Testimonials')
+      .from('testimonials')
       .select('*')
       .order('created_at', { ascending: false });
 
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     const { author_name, author_image_url, testimonial_text, rating, is_featured } = testimonialData;
 
     const { data, error } = await supabase
-      .from('Testimonials')
+      .from('testimonials')
       .insert([
         { author_name, author_image_url, testimonial_text, rating, is_featured: is_featured ? true : false },
       ])

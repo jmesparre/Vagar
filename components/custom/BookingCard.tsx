@@ -36,9 +36,19 @@ export function BookingCard({ chalet }: BookingCardProps) {
     operation: "increment" | "decrement"
   ) => {
     setGuests((prev) => {
+      const totalGuests = prev.adults + prev.children;
+      if (
+        operation === "increment" &&
+        chalet.guests &&
+        totalGuests >= chalet.guests
+      ) {
+        return prev;
+      }
+
       const newCount =
         operation === "increment" ? prev[type] + 1 : prev[type] - 1;
-      if (type === "adults" && newCount < 1) return prev; // Must have at least 1 adult
+      if (type === "adults" && newCount < 1) return prev;
+
       return {
         ...prev,
         [type]: Math.max(0, newCount),

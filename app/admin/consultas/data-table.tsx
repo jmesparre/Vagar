@@ -39,6 +39,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
   totalPages: number
   isLoading: boolean
+  onUpdate: () => void
 }
 
 export function DataTable<TData, TValue>({
@@ -46,6 +47,7 @@ export function DataTable<TData, TValue>({
   data,
   totalPages,
   isLoading,
+  onUpdate,
 }: DataTableProps<TData, TValue>) {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -57,6 +59,9 @@ export function DataTable<TData, TValue>({
   const table = useReactTable({
     data,
     columns,
+    meta: {
+      onUpdate,
+    },
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,

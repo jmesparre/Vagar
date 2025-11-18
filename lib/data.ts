@@ -1,6 +1,15 @@
 import { Property, DashboardMetrics, LatestBooking, Booking, Experience, Testimonial } from '@/lib/types';
 import supabase from './db';
 
+// Tipos intermedios para manejar la respuesta de Supabase con relaciones anidadas
+type BookingWithProperties = Omit<Booking, 'property_name'> & {
+  properties: { name: string } | { name: string }[] | null;
+};
+
+type LatestBookingWithProperties = Omit<LatestBooking, 'property_name'> & {
+  properties: { name: string } | { name: string }[] | null;
+};
+
 /**
  * Fetches properties from the database, optionally filtering them.
  * @param searchParams The search parameters from the URL.
@@ -236,11 +245,10 @@ export const fetchAllBookings = async (): Promise<Booking[]> => {
     console.error('Failed to fetch all bookings:', error);
     return [];
   }
-  // The 'properties' field is an array because it's a relationship.
-  // We need to safely access the first element.
-  return data.map((b: Booking & { properties: { name: string }[] }) => ({
+  // Supabase returns the related record as an object for a to-one relationship.
+  return data.map((b: BookingWithProperties) => ({
     ...b,
-    property_name: b.properties[0]?.name ?? 'Chalet no encontrado',
+    property_name: Array.isArray(b.properties) ? b.properties[0]?.name ?? 'Chalet no encontrado' : b.properties?.name ?? 'Chalet no encontrado',
   }));
 };
 
@@ -286,9 +294,9 @@ export const fetchFilteredBookings = async (
   }
 
   const totalPages = count ? Math.ceil(count / itemsPerPage) : 0;
-  const bookings = data.map((b: Booking & { properties: { name: string }[] }) => ({
+  const bookings = data.map((b: BookingWithProperties) => ({
     ...b,
-    property_name: b.properties[0]?.name ?? 'Chalet no encontrado',
+    property_name: Array.isArray(b.properties) ? b.properties[0]?.name ?? 'Chalet no encontrado' : b.properties?.name ?? 'Chalet no encontrado',
   }));
 
   return { bookings, totalPages };
@@ -336,9 +344,9 @@ export const fetchLatestBookings = async (): Promise<LatestBooking[]> => {
     console.error('Failed to fetch latest bookings:', error);
     return [];
   }
-  return data.map((b: Omit<LatestBooking, 'property_name'> & { properties: { name: string }[] }) => ({
+  return data.map((b: LatestBookingWithProperties) => ({
     ...b,
-    property_name: b.properties[0]?.name ?? 'Chalet no encontrado',
+    property_name: Array.isArray(b.properties) ? b.properties[0]?.name ?? 'Chalet no encontrado' : b.properties?.name ?? 'Chalet no encontrado',
   }));
 };
 

@@ -150,7 +150,7 @@ export function BookingDialog({
           <div className="flex items-center space-x-4">
             <div className="relative w-24 h-24 rounded-lg overflow-hidden">
               <Image
-                src={chalet.main_image_url || "https://images.unsplash.com/photo-1588557132643-ff9f8a442332?q=80&w=2574&auto=format&fit=crop"}
+                src={chalet.gallery_images?.[0]?.url || "https://images.unsplash.com/photo-1588557132643-ff9f8a442332?q=80&w=2574&auto=format&fit=crop"}
                 alt={chalet.name}
                 fill
                 className="object-cover"

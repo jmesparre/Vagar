@@ -9,7 +9,7 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ id:
     const { author_name, author_image_url, testimonial_text, rating, is_featured } = testimonialData;
 
     const { data, error } = await supabase
-      .from('Testimonials')
+      .from('testimonials')
       .update({
         author_name,
         author_image_url,
@@ -39,7 +39,7 @@ export async function DELETE(request: NextRequest, context: { params: Promise<{ 
     const { id } = await context.params;
 
     const { error } = await supabase
-      .from('Testimonials')
+      .from('testimonials')
       .delete()
       .eq('id', id);
 

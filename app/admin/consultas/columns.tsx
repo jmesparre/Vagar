@@ -1,9 +1,18 @@
 "use client"
 
-import { ColumnDef, Row } from "@tanstack/react-table"
+import { ColumnDef, Row, Table } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
-import { useRouter } from "next/navigation"
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -18,8 +27,11 @@ import { useToast } from "@/components/ui/use-toast"
 import { Booking } from "@/lib/types"
 
 
-const ActionsCell = ({ row }: { row: Row<Booking> }) => {
-  const router = useRouter();
+interface BookingTableMeta {
+  onUpdate: () => void;
+}
+
+const ActionsCell = ({ row, table }: { row: Row<Booking>, table: Table<Booking> }) => {
   const { toast } = useToast();
   const booking = row.original as Booking;
 
@@ -41,7 +53,7 @@ const ActionsCell = ({ row }: { row: Row<Booking> }) => {
         title: "Éxito",
         description: "El estado de la consulta ha sido actualizado.",
       });
-      router.refresh();
+      (table.options.meta as BookingTableMeta)?.onUpdate();
     } catch (error) {
       toast({
         title: "Error",
@@ -52,32 +64,79 @@ const ActionsCell = ({ row }: { row: Row<Booking> }) => {
     }
   };
 
+  const deleteBooking = async (id: number) => {
+    try {
+      const response = await fetch(`/api/consultas/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete booking');
+      }
+
+      toast({
+        title: "Éxito",
+        description: "La consulta ha sido eliminada.",
+      });
+      (table.options.meta as BookingTableMeta)?.onUpdate();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "No se pudo eliminar la consulta.",
+        variant: "destructive",
+      });
+      console.error(error);
+    }
+  };
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-8 w-8 p-0">
-          <span className="sr-only">Open menu</span>
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(booking.id.toString())}>
-          Copiar ID de consulta
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        {booking.status === 'pending' && (
-          <DropdownMenuItem onClick={() => updateBookingStatus(booking.id, 'confirmed')}>
-            Marcar como confirmada
+    <AlertDialog>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(booking.id.toString())}>
+            Copiar ID de consulta
           </DropdownMenuItem>
-        )}
-        {booking.status !== 'cancelled' && (
-          <DropdownMenuItem onClick={() => updateBookingStatus(booking.id, 'cancelled')}>
-            Cancelar consulta
-          </DropdownMenuItem>
-        )}
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuSeparator />
+          {booking.status === 'pending' && (
+            <DropdownMenuItem onClick={() => updateBookingStatus(booking.id, 'confirmed')}>
+              Marcar como confirmada
+            </DropdownMenuItem>
+          )}
+          {booking.status !== 'cancelled' && (
+            <DropdownMenuItem onClick={() => updateBookingStatus(booking.id, 'cancelled')}>
+              Cancelar consulta
+            </DropdownMenuItem>
+          )}
+          <DropdownMenuSeparator />
+          <AlertDialogTrigger asChild>
+            <DropdownMenuItem className="text-red-600">
+              Eliminar consulta
+            </DropdownMenuItem>
+          </AlertDialogTrigger>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Esta acción no se puede deshacer. Esto eliminará permanentemente la consulta.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+          <AlertDialogAction onClick={() => deleteBooking(booking.id)}>
+            Eliminar
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
 
@@ -102,9 +161,13 @@ export const columns: ColumnDef<Booking>[] = [
     header: "Fechas",
     cell: ({ row }) => (
       <span>
-        {new Date(row.original.check_in_date).toLocaleDateString()} - {new Date(row.original.check_out_date).toLocaleDateString()}
+        {new Date(row.original.check_in_date + 'T00:00:00').toLocaleDateString()} - {new Date(row.original.check_out_date + 'T00:00:00').toLocaleDateString()}
       </span>
     ),
+  },
+  {
+    accessorKey: "guests",
+    header: "Huéspedes",
   },
   {
     accessorKey: "status",
@@ -129,10 +192,10 @@ export const columns: ColumnDef<Booking>[] = [
         </Button>
       )
     },
-    cell: ({ row }) => new Date(row.original.created_at).toLocaleString(),
+    cell: ({ row }) => new Date(row.original.created_at).toLocaleString('es-AR', { timeZone: 'America/Argentina/Buenos_Aires' }),
   },
   {
     id: "actions",
-    cell: ActionsCell,
+    cell: ({ row, table }) => <ActionsCell row={row} table={table} />,
   },
 ]

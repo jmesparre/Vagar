@@ -55,7 +55,7 @@ export async function POST(request: Request) {
       status: 'pending', // Default status
     };
 
-    const { error } = await supabase.from('Bookings').insert([newBooking]);
+    const { error } = await supabase.from('bookings').insert([newBooking]);
 
     if (error) {
       console.error('Error al crear la consulta:', error);
