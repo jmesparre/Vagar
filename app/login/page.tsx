@@ -21,7 +21,8 @@ export default function LoginPage() {
     setError("");
 
     const result = await signIn("credentials", {
-      redirect: false,
+      redirect: true,
+      callbackUrl: "/admin/dashboard",
       email,
       password,
     });
@@ -33,12 +34,6 @@ export default function LoginPage() {
         description: "Credenciales inválidas. Por favor, intente de nuevo.",
         variant: "destructive",
       });
-    } else {
-      toast({
-        title: "Inicio de sesión exitoso",
-        description: "Redirigiendo al panel de administración...",
-      });
-      router.push("/admin/dashboard");
     }
   };
 
