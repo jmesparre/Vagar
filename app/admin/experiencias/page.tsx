@@ -3,20 +3,40 @@ import Link from 'next/link';
 import ExperiencesTable from '@/components/custom/ExperiencesTable';
 import { Experience } from '@/lib/types';
 
-async function getExperiences(): Promise<Experience[]> {
-  // Construct the base URL using the VERCEL_URL or a local fallback
-  const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/experiencias`, {
-    cache: 'no-store',
-  });
-  if (!res.ok) {
-    throw new Error('Failed to fetch experiences');
+async function getExperiences(): Promise<Experience[] | null> {
+  try {
+    const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/experiencias`, {
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      // Log the error response for debugging
+      const errorBody = await res.text();
+      console.error(`Failed to fetch experiences. Status: ${res.status}, Body: ${errorBody}`);
+      return null;
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error('An unexpected error occurred while fetching experiences:', error);
+    return null;
   }
-  return res.json();
 }
 
 export default async function ExperiencesPage() {
   const experiences = await getExperiences();
+
+  if (!experiences) {
+    return (
+      <div className="container mx-auto py-10 text-center">
+        <h1 className="text-3xl font-bold mb-4">Error</h1>
+        <p className="text-lg text-red-500">
+          No se pudieron cargar las experiencias. Por favor, revisa los logs del servidor para más detalles.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto py-10">

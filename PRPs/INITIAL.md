@@ -98,7 +98,5 @@ lib/
 ## ✅ Resultado Esperado
 Un MVP funcional, escalable y visualmente coherente que siente las bases del ecosistema digital de **Vagar Vacaciones**, integrando:
 - Frontend elegante e intuitivo.  
-- Backend con base de datos MySQL.  
+- Backend con base de datos supabase.  
 - Panel administrativo para gestión interna.
-
-**Nivel de confianza: 9/10** — el plan está completamente definido y listo para ejecución.

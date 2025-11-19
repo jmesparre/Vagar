@@ -90,9 +90,15 @@ export async function POST(request: Request) {
 export async function GET() {
   try {
     const experiences: Experience[] = await fetchExperiences();
+    // Log para depuración en Vercel
+    console.log('Successfully fetched experiences:', JSON.stringify(experiences, null, 2));
     return NextResponse.json(experiences);
   } catch (error) {
-    console.error('Error fetching experiences:', error);
-    return NextResponse.json({ message: 'Error interno del servidor' }, { status: 500 });
+    // Log del error específico
+    console.error('Error in GET /api/experiencias:', error);
+
+    // Devolver una respuesta de error más detallada
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    return NextResponse.json({ message: 'Error interno del servidor', error: errorMessage }, { status: 500 });
   }
 }

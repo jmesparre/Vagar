@@ -623,7 +623,7 @@ export const fetchExperiences = async (): Promise<Experience[]> => {
 
   if (experiencesError) {
     console.error('Failed to fetch all experiences:', experiencesError);
-    return [];
+    throw new Error('Could not fetch experiences from the database.');
   }
   if (!experiences || experiences.length === 0) {
     return [];
