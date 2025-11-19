@@ -88,6 +88,7 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
+  console.log('API route /api/experiencias received a GET request.');
   try {
     const experiences: Experience[] = await fetchExperiences();
     // Log para depuración en Vercel

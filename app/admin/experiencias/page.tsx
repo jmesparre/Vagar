@@ -1,40 +1,10 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import ExperiencesTable from '@/components/custom/ExperiencesTable';
-import { Experience } from '@/lib/types';
-
-async function getExperiences(): Promise<Experience[] | null> {
-  try {
-    const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
-    const headers: HeadersInit = {
-      'Cache-Control': 'no-store',
-    };
-
-    // Add Vercel bypass token if available
-    if (process.env.VERCEL_AUTOMATION_BYPASS_SECRET) {
-      headers['Authorization'] = `Bearer ${process.env.VERCEL_AUTOMATION_BYPASS_SECRET}`;
-    }
-
-    const res = await fetch(`${baseUrl}/api/experiencias`, {
-      headers,
-    });
-
-    if (!res.ok) {
-      // Log the error response for debugging
-      const errorBody = await res.text();
-      console.error(`Failed to fetch experiences. Status: ${res.status}, Body: ${errorBody}`);
-      return null;
-    }
-
-    return res.json();
-  } catch (error) {
-    console.error('An unexpected error occurred while fetching experiences:', error);
-    return null;
-  }
-}
+import { fetchAllExperiences } from '@/lib/data';
 
 export default async function ExperiencesPage() {
-  const experiences = await getExperiences();
+  const experiences = await fetchAllExperiences();
 
   if (!experiences) {
     return (

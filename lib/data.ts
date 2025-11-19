@@ -612,6 +612,46 @@ export const fetchAllChalets = async (): Promise<Property[]> => {
 };
 
 /**
+ * Fetches all experiences by calling the internal API route.
+ * This is used by server components to fetch data in Vercel deployments,
+ * bypassing the Vercel Authentication layer.
+ */
+export const fetchAllExperiences = async (): Promise<Experience[] | null> => {
+  try {
+    const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
+    const url = `${baseUrl}/api/experiencias`;
+    
+    console.log(`Fetching experiences from URL: ${url}`);
+
+    const headers: HeadersInit = {
+      'Cache-Control': 'no-store',
+    };
+
+    const bypassToken = process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
+    if (bypassToken) {
+      console.log('Vercel bypass token found. Adding Authorization header.');
+      headers['Authorization'] = `Bearer ${bypassToken}`;
+    } else {
+      console.warn('Vercel bypass token is not set. Fetching without Authorization.');
+    }
+
+    const res = await fetch(url, { headers });
+
+    if (!res.ok) {
+      const errorBody = await res.text();
+      console.error(`Failed to fetch experiences. Status: ${res.status}, Body: ${errorBody}`);
+      return null;
+    }
+
+    console.log('Successfully fetched experiences.');
+    return res.json();
+  } catch (error) {
+    console.error('An unexpected error occurred while fetching experiences:', error);
+    return null;
+  }
+};
+
+/**
  * Fetches all experiences from the database.
  */
 export const fetchExperiences = async (): Promise<Experience[]> => {
