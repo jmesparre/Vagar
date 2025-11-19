@@ -6,8 +6,17 @@ import { Experience } from '@/lib/types';
 async function getExperiences(): Promise<Experience[] | null> {
   try {
     const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
+    const headers: HeadersInit = {
+      'Cache-Control': 'no-store',
+    };
+
+    // Add Vercel bypass token if available
+    if (process.env.VERCEL_AUTOMATION_BYPASS_SECRET) {
+      headers['Authorization'] = `Bearer ${process.env.VERCEL_AUTOMATION_BYPASS_SECRET}`;
+    }
+
     const res = await fetch(`${baseUrl}/api/experiencias`, {
-      cache: 'no-store',
+      headers,
     });
 
     if (!res.ok) {
