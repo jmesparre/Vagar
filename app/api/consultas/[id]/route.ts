@@ -2,14 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import supabase from '@/lib/db';
 
 export async function PATCH(
-  request: NextRequest
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const url = new URL(request.url);
-    const id = url.pathname.split('/').pop();
-    if (!id) {
-      return NextResponse.json({ error: "ID de consulta no encontrado en la URL" }, { status: 400 });
-    }
+    const { id } = await context.params;
     const body = await request.json();
     const { status } = body;
 
@@ -40,16 +37,11 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  request: NextRequest
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const url = new URL(request.url);
-    const id = url.pathname.split('/').pop();
-
-    if (!id) {
-      return NextResponse.json({ error: "ID de consulta no encontrado en la URL" }, { status: 400 });
-    }
-
+    const { id } = await context.params;
     const { error, count } = await supabase
       .from('bookings')
       .delete()

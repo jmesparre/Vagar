@@ -10,11 +10,12 @@ export default async function ExperienciaDetailPage({
 }: {
   params: { slug: string };
 }) {
+  const { slug } = params;
   let experience;
   try {
-    experience = await fetchExperienceBySlug(params.slug);
+    experience = await fetchExperienceBySlug(slug);
   } catch (error) {
-    console.error(`Error fetching experience for slug "${params.slug}":`, error);
+    console.error(`Error fetching experience for slug "${slug}":`, error);
     // Render an error message for the user
     return (
       <div className="container mx-auto py-10 text-center">

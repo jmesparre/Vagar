@@ -25,8 +25,8 @@ interface ChaletDetailPageProps {
 }
 
 export default async function ChaletDetailPage({ params }: ChaletDetailPageProps) {
-  // const { slug } = params;
-  const chalet = await fetchPropertyBySlug(params.slug);
+  const { slug } = params;
+  const chalet = await fetchPropertyBySlug(slug);
   const allProperties = await fetchProperties();
 
   if (!chalet) {
