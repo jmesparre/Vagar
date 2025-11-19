@@ -67,37 +67,45 @@ export default function ExperiencesTable({ experiences: initialExperiences }: Ex
           </TableRow>
         </TableHeader>
         <TableBody>
-          {experiences.map((experience) => (
-            <TableRow key={experience.id}>
+          {experiences && experiences.length > 0 ? (
+            experiences.map((experience) => (
+              <TableRow key={experience.id}>
+                  <TableCell>
+                    <Image
+                      src={experience.main_image_url || '/placeholder.svg'}
+                      alt={experience.title}
+                      width={64}
+                      height={64}
+                      className="rounded-md object-cover"
+                    />
+                  </TableCell>
+                <TableCell className="font-medium">{experience.title}</TableCell>
                 <TableCell>
-                  <Image
-                    src={experience.main_image_url || '/placeholder.svg'}
-                    alt={experience.title}
-                    width={64}
-                    height={64}
-                    className="rounded-md object-cover"
-                  />
+                  <Badge variant="outline">{experience.category}</Badge>
                 </TableCell>
-              <TableCell className="font-medium">{experience.title}</TableCell>
-              <TableCell>
-                <Badge variant="outline">{experience.category}</Badge>
-              </TableCell>
-              <TableCell className="text-right">
-                <Button asChild variant="outline" size="sm" className="mr-2">
-                  <Link href={`/admin/experiencias/${experience.id}/edit`}>
-                    Editar
-                  </Link>
-                </Button>
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  onClick={() => handleDelete(experience.id)}
-                >
-                  Eliminar
-                </Button>
+                <TableCell className="text-right">
+                  <Button asChild variant="outline" size="sm" className="mr-2">
+                    <Link href={`/admin/experiencias/${experience.id}/edit`}>
+                      Editar
+                    </Link>
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => handleDelete(experience.id)}
+                  >
+                    Eliminar
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={4} className="text-center">
+                No hay experiencias para mostrar.
               </TableCell>
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </div>
