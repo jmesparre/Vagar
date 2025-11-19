@@ -10,22 +10,42 @@ export default async function ExperienciaDetailPage({
 }: {
   params: { slug: string };
 }) {
-  const experience = await fetchExperienceBySlug(params.slug);
+  let experience;
+  try {
+    experience = await fetchExperienceBySlug(params.slug);
+  } catch (error) {
+    console.error(`Error fetching experience for slug "${params.slug}":`, error);
+    // Render an error message for the user
+    return (
+      <div className="container mx-auto py-10 text-center">
+        <H1 className="text-3xl font-bold mb-4">Error al cargar la experiencia</H1>
+        <P className="text-lg text-red-500">
+          No pudimos encontrar los detalles para esta experiencia. Por favor, intenta de nuevo más tarde.
+        </P>
+      </div>
+    );
+  }
 
   if (!experience) {
     notFound();
   }
 
-  // Ensure what_to_know is an array
-  let whatToKnowItems = [];
-  if (typeof experience.what_to_know === 'string') {
-    try {
-      whatToKnowItems = JSON.parse(experience.what_to_know);
-    } catch (error) {
-      console.error('Failed to parse what_to_know:', error);
+  // Safely parse what_to_know, ensuring it's always an array
+  let whatToKnowItems: string[] = [];
+  if (experience.what_to_know) {
+    if (Array.isArray(experience.what_to_know)) {
+      whatToKnowItems = experience.what_to_know;
+    } else if (typeof experience.what_to_know === 'string') {
+      try {
+        const parsed = JSON.parse(experience.what_to_know);
+        if (Array.isArray(parsed)) {
+          whatToKnowItems = parsed;
+        }
+      } catch (error) {
+        console.error('Failed to parse what_to_know string:', error);
+        // whatToKnowItems remains an empty array, which is the desired fallback
+      }
     }
-  } else if (Array.isArray(experience.what_to_know)) {
-    whatToKnowItems = experience.what_to_know;
   }
 
   // Fetch all experiences to find related ones
@@ -47,17 +67,19 @@ export default async function ExperienciaDetailPage({
 
       <Separator className="my-8" />
 
-      <div>
-        <H2>Qué deberías saber</H2>
-        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-          {whatToKnowItems.map((item: string, index: number) => (
-            <div key={index} className="flex items-start">
-              <span className="mr-2 mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-black" />
-              <P>{item}</P>
-            </div>
-          ))}
+      {whatToKnowItems && whatToKnowItems.length > 0 && (
+        <div>
+          <H2>Qué deberías saber</H2>
+          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+            {whatToKnowItems.map((item: string, index: number) => (
+              <div key={index} className="flex items-start">
+                <span className="mr-2 mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-black" />
+                <P>{item}</P>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <Separator className="my-8" />
 

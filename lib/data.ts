@@ -666,7 +666,7 @@ export const fetchExperienceById = async (id: string): Promise<Experience | unde
 
   if (experienceError) {
     console.error(`Failed to fetch experience with id ${id}:`, experienceError);
-    return undefined;
+    throw new Error(`Could not fetch experience with id ${id}.`);
   }
   if (!experience) {
     return undefined;
@@ -704,7 +704,7 @@ export const fetchExperienceBySlug = async (slug: string): Promise<Experience | 
 
   if (experienceError) {
     console.error(`Failed to fetch experience with slug ${slug}:`, experienceError);
-    return undefined;
+    throw new Error(`Could not fetch experience with slug ${slug}.`);
   }
   if (!experience) {
     return undefined;
