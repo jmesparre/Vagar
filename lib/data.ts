@@ -635,7 +635,10 @@ export const fetchAllExperiences = async (): Promise<Experience[] | null> => {
       console.warn('Vercel bypass token is not set. Fetching without Authorization.');
     }
 
-    const res = await fetch(url, { headers });
+    const res = await fetch(url, {
+      headers,
+      cache: 'no-store', // Previene el caching agresivo de Next.js en el servidor
+    });
 
     if (!res.ok) {
       const errorBody = await res.text();
