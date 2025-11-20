@@ -39,7 +39,7 @@ CREATE TABLE properties (
     bedrooms SMALLINT,
     beds SMALLINT,
     bathrooms SMALLINT,
-    rating DECIMAL(3, 2),
+    rating DECIMAL(4, 2),
     price_high DECIMAL(10, 2),
     price_mid DECIMAL(10, 2),
     price_low DECIMAL(10, 2),
