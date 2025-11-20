@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { fetchAllChalets } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
