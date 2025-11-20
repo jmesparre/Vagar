@@ -21,26 +21,20 @@ export function AvailabilityCalendar({ bookings, className }: AvailabilityCalend
   }, [bookings]);
 
   // Los rangos de fechas no disponibles.
-  // Para evitar problemas de zona horaria, creamos las fechas como UTC.
   const disabledDays: DateRange[] = bookings.map(booking => {
-    // 1. Parsear las fechas de entrada, que vienen en formato ISO (UTC por defecto).
-    const fromDate = new Date(booking.check_in_date);
-    const toDate = new Date(booking.check_out_date);
+    // Parseamos el string 'YYYY-MM-DD' manualmente para crear una fecha
+    // en la zona horaria local del navegador, evitando desplazamientos.
+    const fromParts = booking.check_in_date.split('-').map(Number);
+    const toParts = booking.check_out_date.split('-').map(Number);
+    
+    const from = new Date(fromParts[0], fromParts[1] - 1, fromParts[2]);
+    const to = new Date(toParts[0], toParts[1] - 1, toParts[2]);
 
-    // 2. Compensar el desfase de la zona horaria del cliente.
-    // getTimezoneOffset() devuelve la diferencia en minutos (ej. 180 para UTC-3).
-    // Lo multiplicamos por 60000 para convertirlo a milisegundos.
-    const fromUTCDate = new Date(fromDate.getTime() + fromDate.getTimezoneOffset() * 60000);
-    const toUTCDate = new Date(toDate.getTime() + toDate.getTimezoneOffset() * 60000);
-
-    // 3. Restamos un día al check_out_date porque el componente de calendario
+    // Restamos un día al check_out_date porque el componente de calendario
     // trata el final del rango como inclusivo, y el check-out es el primer día disponible.
-    toUTCDate.setDate(toUTCDate.getDate() - 1);
+    to.setDate(to.getDate() - 1);
 
-    return {
-      from: fromUTCDate,
-      to: toUTCDate,
-    };
+    return { from, to };
   });
 
   return (
