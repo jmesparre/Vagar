@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 import supabase from "@/lib/db";
 
 const formSchema = z.object({
@@ -146,6 +147,11 @@ export async function POST(request: Request) {
       const { error: rulesError } = await supabase.from("propertyrules").insert(rulesToInsert);
       if (rulesError) console.error("Error inserting property rules:", rulesError);
     }
+
+    // Revalidate paths
+    revalidatePath("/");
+    revalidatePath("/chalets");
+
 
     return NextResponse.json({ message: "Chalet creado exitosamente", propertyId }, { status: 201 });
   } catch (error) {

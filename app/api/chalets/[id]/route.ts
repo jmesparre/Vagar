@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 import supabase from "@/lib/db";
 
 const formSchema = z.object({
@@ -150,6 +151,11 @@ export async function PUT(request: Request) {
       if (rulesError) console.error("Error inserting new property rules:", rulesError);
     }
 
+    // Revalidate paths
+    revalidatePath("/");
+    revalidatePath("/chalets");
+    revalidatePath(`/chalets/${body.slug}`);
+
     return NextResponse.json({ message: "Chalet actualizado exitosamente" }, { status: 200 });
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -183,6 +189,10 @@ export async function DELETE(request: Request) {
     if (count === 0) {
       return NextResponse.json({ error: "Chalet no encontrado" }, { status: 404 });
     }
+
+    // Revalidate paths
+    revalidatePath("/");
+    revalidatePath("/chalets");
 
     return NextResponse.json({ message: "Chalet eliminado exitosamente" }, { status: 200 });
   } catch (error) {

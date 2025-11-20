@@ -63,9 +63,7 @@ const ChaletsClientPage = ({ initialProperties }: ChaletsClientPageProps) => {
       <div className="mb-8 pt-4 w-full flex justify-center">
         <SearchBar onSearch={handleSearch} initialFilters={initialFilters} />
       </div>
-      <div className="text-center">
-        <H1>Nuestros Chalets</H1>
-      </div>
+     
       <Separator className="mb-10 mt-16" />
       {initialProperties.length > 0 ? (
         <ChaletGrid initialProperties={initialProperties} />
