@@ -9,13 +9,13 @@ export default async function Home() {
   // Fetch featured properties and experiences in parallel
   const [
     featuredVerde,
-    featuredAmarillo,
+    featuredAzul,
     featuredCeleste,
     featuredExperiences,
     featuredTestimonials,
   ] = await Promise.all([
     fetchFeaturedPropertiesByCategory('Verde', 6),
-    fetchFeaturedPropertiesByCategory('Amarillo', 6),
+    fetchFeaturedPropertiesByCategory('Azul', 6),
     fetchFeaturedPropertiesByCategory('Celeste', 6),
     fetchFeaturedExperiences(4),
     fetchFeaturedTestimonials(),
@@ -37,11 +37,11 @@ export default async function Home() {
         </div>
       )}
 
-      {/* Section for 'Amarillo' category */}
-      {featuredAmarillo.length > 0 && (
+      {/* Section for 'Azul' category */}
+      {featuredAzul.length > 0 && (
         <div className="py-12 bg-gray-50">
-          <Typography.H2 className="mb-8 pl-4 sm:pl-6 lg:pl-8">Chalets Amarillos Destacados</Typography.H2>
-          <FeaturedProperties properties={featuredAmarillo} />
+          <Typography.H2 className="mb-8 pl-4 sm:pl-6 lg:pl-8">Chalets Azules Destacados</Typography.H2>
+          <FeaturedProperties properties={featuredAzul} />
         </div>
       )}
 

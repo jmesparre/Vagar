@@ -80,7 +80,7 @@ Se ha implementado un nuevo filtro de "Amenities" en la barra de búsqueda y se 
 
 *   `vagar-mvp/lib/placeholder-data.ts`:
     *   Se actualizaron las URLs de las imágenes para corregir las que no se cargaban.
-    *   Se añadieron nuevas propiedades para asegurar un mínimo de 6 por cada categoría (Chalets Celestes, Verdes y Amarillos).
+    *   Se añadieron nuevas propiedades para asegurar un mínimo de 6 por cada categoría (Chalets Celestes, Verdes y Azules).
 
 *   `vagar-mvp/components/custom/FeaturedProperties.tsx`:
     *   Se refactorizó para ser un componente reutilizable que acepta un título y una lista de propiedades.

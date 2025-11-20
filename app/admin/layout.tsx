@@ -12,7 +12,7 @@ export default function AdminLayout({
 }) {
   return (
     <div className="flex bg-gray-100 dark:bg-gray-900">
-      <aside className="w-64 bg-white dark:bg-gray-800 shadow-md flex flex-col">
+      <aside className="w-64 min-h-[100vh] bg-white dark:bg-gray-800 shadow-md flex flex-col">
         <div className="flex-1">
           <nav className="mt-2">
             <a

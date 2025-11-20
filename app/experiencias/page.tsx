@@ -2,6 +2,8 @@ import HeroSection from '@/components/custom/HeroSection';
 import { FeaturedExperiences } from '@/components/custom/FeaturedExperiences';
 import { fetchExperiences } from '@/lib/data';
 
+export const revalidate = 0;
+
 export default async function ExperienciasPage() {
   const experiences = await fetchExperiences();
 

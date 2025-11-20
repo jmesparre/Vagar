@@ -353,7 +353,7 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [], allAmenities }:
                   <SelectContent>
                     <SelectItem value="Celeste">Celeste</SelectItem>
                     <SelectItem value="Verde">Verde</SelectItem>
-                    <SelectItem value="Amarillo">Amarillo</SelectItem>
+                    <SelectItem value="Azul">Azul</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />

@@ -492,7 +492,7 @@ Almacena la información central de cada chalet.
 | `name` | `VARCHAR(255) NOT NULL` | Nombre del chalet. |
 | `description` | `TEXT` | Descripción detallada. |
 | `location` | `VARCHAR(255)` | Ubicación o ciudad. |
-| `category` | `VARCHAR(100)` | Categoría (Celeste, Verde, Amarillo). |
+| `category` | `VARCHAR(100)` | Categoría (Celeste, Verde, Azul). |
 | `guests` | `TINYINT UNSIGNED` | Capacidad máxima de huéspedes. |
 | `bedrooms` | `TINYINT UNSIGNED` | Número de dormitorios. |
 | `beds` | `TINYINT UNSIGNED` | Número de camas. |
