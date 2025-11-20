@@ -6,6 +6,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Property } from '@/lib/types';
 import { PropertyCard } from './PropertyCard';
 import { Skeleton } from '@/components/ui/skeleton';
+import { H2 } from '@/components/ui/typography';
 import {
   Select,
   SelectContent,
@@ -16,9 +17,10 @@ import {
 
 interface ChaletGridProps {
   initialProperties: Property[];
+  totalCount: number;
 }
 
-const ChaletGrid = ({ initialProperties }: ChaletGridProps) => {
+const ChaletGrid = ({ initialProperties, totalCount }: ChaletGridProps) => {
   const [properties, setProperties] = useState<Property[]>([]);
   const [sortedProperties, setSortedProperties] = useState<Property[]>([]);
   const [sortOrder, setSortOrder] = useState('rating-desc'); // Default sort
@@ -100,7 +102,8 @@ const ChaletGrid = ({ initialProperties }: ChaletGridProps) => {
 
   return (
     <div>
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-between items-center mb-4">
+        <H2>{`${totalCount} Chalet${totalCount !== 1 ? 's' : ''}`}</H2>
         <Select onValueChange={setSortOrder} defaultValue={sortOrder}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Ordenar por:" />

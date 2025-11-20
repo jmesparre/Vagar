@@ -66,7 +66,7 @@ const ChaletsClientPage = ({ initialProperties }: ChaletsClientPageProps) => {
      
       <Separator className="mb-10 mt-16" />
       {initialProperties.length > 0 ? (
-        <ChaletGrid initialProperties={initialProperties} />
+        <ChaletGrid initialProperties={initialProperties} totalCount={initialProperties.length} />
       ) : (
         <p className="text-center text-gray-500">
           No se encontraron chalets que coincidan con su búsqueda.
