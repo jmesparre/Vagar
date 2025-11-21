@@ -87,8 +87,9 @@ export const searchProperties = async (filters: {
   amenities?: string[] | null;
   startDate?: string | null;
   endDate?: string | null;
+  name?: string | null;
 }): Promise<Property[]> => {
-  const { guests, amenities, startDate, endDate } = filters;
+  const { guests, amenities, startDate, endDate, name } = filters;
 
   let propertyIdsToFilter: number[] | null = null;
 
@@ -117,7 +118,7 @@ export const searchProperties = async (filters: {
     if (requestedAmenityIds.length === 0) {
       return [];
     }
-    
+
     const ids = requestedAmenityIds;
 
     const { data: propertyAmenities, error: paError } = await supabase
@@ -195,7 +196,25 @@ export const searchProperties = async (filters: {
   }
 
   // 4. Fetch related data for the filtered properties
-  const propertyIds = properties.map(p => p.id);
+  let filteredProperties = properties;
+
+  // Filter by name in memory to support accent-insensitive search
+  if (name) {
+    const normalizeText = (text: string) =>
+      text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+    const normalizedQuery = normalizeText(name);
+
+    filteredProperties = properties.filter(p =>
+      normalizeText(p.name).includes(normalizedQuery)
+    );
+  }
+
+  if (filteredProperties.length === 0) {
+    return [];
+  }
+
+  const propertyIds = filteredProperties.map(p => p.id);
 
   const [
     { data: images, error: imagesError },
@@ -212,7 +231,7 @@ export const searchProperties = async (filters: {
   if (rulesError) console.error('Failed to fetch property rules:', rulesError);
 
   // 5. Combine all data and return
-  return properties.map(property => {
+  return filteredProperties.map(property => {
     const relatedImages = images?.filter(img => img.entity_id === property.id) || [];
     const galleryImages = relatedImages.filter(img => img.image_category === 'gallery');
     const relatedAmenities = propertyAmenities?.filter(pa => pa.property_id === property.id).map(pa => pa.amenities) || [];
@@ -279,7 +298,7 @@ export const fetchFilteredBookings = async (
   if (query) {
     supabaseQuery = supabaseQuery.or(`client_name.ilike.%${query}%,client_phone.ilike.%${query}%,properties.name.ilike.%${query}%`);
   }
-  
+
   const validSortBy = ['created_at', 'client_name', 'status'].includes(sortBy) ? sortBy : 'created_at';
 
   supabaseQuery = supabaseQuery
@@ -308,7 +327,7 @@ export const fetchFilteredBookings = async (
 export const fetchDashboardMetrics = async (): Promise<DashboardMetrics> => {
   const { count: pendingBookings, error: pendingError } = await supabase.from('bookings').select('*', { count: 'exact', head: true }).eq('status', 'pending');
   const { count: activeProperties, error: propertiesError } = await supabase.from('properties').select('*', { count: 'exact', head: true });
-  
+
   const today = new Date().toISOString().slice(0, 10);
   const { count: newBookingsToday, error: newTodayError } = await supabase.from('bookings').select('*', { count: 'exact', head: true }).gte('created_at', `${today}T00:00:00Z`).lt('created_at', `${today}T23:59:59Z`);
 
@@ -522,7 +541,7 @@ export const fetchFeaturedProperties = async (limit: number = 6): Promise<Proper
     .select('*')
     .eq('featured', true)
     .limit(limit);
-  
+
   if (propertiesError) {
     console.error(`Failed to fetch featured properties:`, propertiesError);
     return [];
@@ -620,7 +639,7 @@ export const fetchAllExperiences = async (): Promise<Experience[] | null> => {
   try {
     const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000';
     const url = `${baseUrl}/api/experiencias`;
-    
+
     console.log(`Fetching experiences from URL: ${url}`);
 
     const headers: HeadersInit = {
@@ -827,7 +846,7 @@ export const fetchFilteredChalets = async (filters: {
 }): Promise<Property[]> => {
   // This is a complex query that will require an RPC function for filtering by amenities.
   console.warn("Filtered chalet search is not fully implemented with Supabase yet.");
-  
+
   let query = supabase.from('properties').select('*');
 
   if (parseInt(filters.guests, 10) > 0) {

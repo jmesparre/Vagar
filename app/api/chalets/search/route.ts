@@ -8,6 +8,7 @@ export async function GET(req: NextRequest) {
   const amenities = searchParams.get('amenities')?.split(',').filter(Boolean);
   const startDate = searchParams.get('startDate');
   const endDate = searchParams.get('endDate');
+  const name = searchParams.get('name');
 
   try {
     const properties = await searchProperties({
@@ -15,6 +16,7 @@ export async function GET(req: NextRequest) {
       amenities,
       startDate,
       endDate,
+      name,
     });
     return NextResponse.json(properties);
   } catch (error) {

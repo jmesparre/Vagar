@@ -6,9 +6,9 @@ import { notFound } from "next/navigation";
 export default async function EditTestimonialPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const id = params.id;
+  const { id } = await params;
   const testimonial = await fetchTestimonialById(id);
 
   if (!testimonial) {

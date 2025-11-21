@@ -27,7 +27,7 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
         transformComponentRef.current.zoomToElement(selectedNodeId, 2, 300);
       }
     }
-  }, [selectedNodeId, properties]);
+  }, [selectedNodeId, properties, svgContent]);
 
   useEffect(() => {
     fetch('/svg-nodos.svg')

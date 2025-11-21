@@ -1,4 +1,6 @@
 import { fetchPropertyBySlug, fetchProperties, getChaletBookings } from "@/lib/data";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { notFound } from "next/navigation";
 import { Star } from "lucide-react";
 import { AvailabilityCalendar } from "@/components/custom/AvailabilityCalendar";
@@ -25,7 +27,7 @@ interface ChaletDetailPageProps {
 }
 
 export default async function ChaletDetailPage({ params }: ChaletDetailPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
   const chalet = await fetchPropertyBySlug(slug);
   const allProperties = await fetchProperties();
 
@@ -41,10 +43,10 @@ export default async function ChaletDetailPage({ params }: ChaletDetailPageProps
     <main className="container mx-auto px-4 py-8">
       {/* Galería de Imágenes */}
       <section className="mb-8">
-        <ImageGallery 
-          galleryImages={chalet.gallery_images || []} 
-          blueprintImages={chalet.blueprint_images || []} 
-          videoUrl={chalet.video_url} 
+        <ImageGallery
+          galleryImages={chalet.gallery_images || []}
+          blueprintImages={chalet.blueprint_images || []}
+          videoUrl={chalet.video_url}
         />
       </section>
 
@@ -124,7 +126,12 @@ export default async function ChaletDetailPage({ params }: ChaletDetailPageProps
 
           {/* Dónde vas a hospedarte */}
           <section>
-            <H2>Dónde vas a hospedarte</H2>
+            <div className="flex items-center justify-between">
+              <H2>Dónde vas a hospedarte</H2>
+              <Link href={`/mapa?chaletId=${chalet.id}`}>
+                <Button variant="outline">Ver en mapa</Button>
+              </Link>
+            </div>
             <div className="mt-4 h-[400px] w-full rounded-lg bg-slate-200">
               {chalet.latitude && chalet.longitude ? (
                 <GoogleMapsEmbed latitude={chalet.latitude} longitude={chalet.longitude} />

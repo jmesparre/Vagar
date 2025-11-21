@@ -8,9 +8,9 @@ import { notFound } from 'next/navigation';
 export default async function ExperienciaDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = params;
+  const { slug } = await params;
   let experience;
   try {
     experience = await fetchExperienceBySlug(slug);
@@ -52,16 +52,13 @@ export default async function ExperienciaDetailPage({
   // Fetch all experiences to find related ones
   const allExperiences = await fetchExperiences();
   const relatedExperiences = allExperiences
-    .filter(
-      (exp) =>
-        exp.category === experience.category && exp.slug !== experience.slug,
-    )
-    .slice(0, 3);
+    .filter((exp) => exp.slug !== experience.slug)
+    .sort(() => 0.5 - Math.random());
 
   return (
     <div className="container mx-auto px-4 py-12">
       <ImageGallery galleryImages={experience.gallery_images} />
-      <div className="mt-8">
+      <div className="mt-8 text-center">
         <H1>{experience.title}</H1>
         <P className="mt-4 text-lg">{experience.long_description}</P>
       </div>

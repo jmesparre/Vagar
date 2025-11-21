@@ -43,7 +43,7 @@ export function FeaturedExperiences({
         className="w-full"
       >
         <div className="relative mb-8">
-          <H2 className="text-2xl md:text-3xl font-bold tracking-tight">
+          <H2 className="text-2xl text-left md:text-3xl font-bold tracking-tight">
             {title}
           </H2>
           <div className="absolute top-3 right-10 hidden  md:flex items-center gap-2">
@@ -54,27 +54,27 @@ export function FeaturedExperiences({
         <CarouselContent className="ml-4 ">
           {isLoading
             ? Array.from({ length: 3 }).map((_, index) => (
-                <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <div className="flex flex-col space-y-3">
-                    <Skeleton className="w-full rounded-xl aspect-[3/4]" />
-                    <div className="space-y-2">
-                      <Skeleton className="h-4 w-3/4" />
-                      <Skeleton className="h-4 w-1/2" />
-                    </div>
+              <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                <div className="flex flex-col space-y-3">
+                  <Skeleton className="w-full rounded-xl aspect-[3/4]" />
+                  <div className="space-y-2">
+                    <Skeleton className="h-4 w-3/4" />
+                    <Skeleton className="h-4 w-1/2" />
                   </div>
-                </CarouselItem>
-              ))
+                </div>
+              </CarouselItem>
+            ))
             : experiences.map((experience, index) => (
-                <CarouselItem
-                  key={experience.id}
-                  className="pl-4 md:basis-1/2 lg:basis-1/3"
-                >
-                  <ExperienceCard
-                    experience={experience}
-                    priority={priority && index < 3}
-                  />
-                </CarouselItem>
-              ))}
+              <CarouselItem
+                key={experience.id}
+                className="pl-4 md:basis-1/2 lg:basis-1/3"
+              >
+                <ExperienceCard
+                  experience={experience}
+                  priority={priority && index < 3}
+                />
+              </CarouselItem>
+            ))}
         </CarouselContent>
         <div className="md:hidden flex items-center justify-center gap-2 mt-6">
           <CarouselPrevious />

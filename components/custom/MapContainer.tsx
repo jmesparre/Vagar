@@ -7,10 +7,11 @@ import { Property } from '@/lib/types';
 
 interface MapContainerProps {
   properties: Property[];
+  initialSelectedNodeId?: string | null;
 }
 
-const MapContainer = ({ properties }: MapContainerProps) => {
-  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+const MapContainer = ({ properties, initialSelectedNodeId = null }: MapContainerProps) => {
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(initialSelectedNodeId);
 
   const handleSearchResultSelect = (nodeId: string) => {
     setSelectedNodeId(nodeId);

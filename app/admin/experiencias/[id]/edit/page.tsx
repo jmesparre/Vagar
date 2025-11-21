@@ -2,8 +2,8 @@ import { fetchExperienceById } from '@/lib/data';
 import { ExperienceForm } from '@/components/custom/ExperienceForm';
 import { notFound } from 'next/navigation';
 
-export default async function EditExperiencePage({ params }: { params: { id: string } }) {
-  const id = params.id;
+export default async function EditExperiencePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const experience = await fetchExperienceById(id);
 
   if (!experience) {

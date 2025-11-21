@@ -201,8 +201,8 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
   };
 
   return (
-    <div className="bg-white border-1 border-gray-200 rounded-full shadow-lg flex items-center w-full max-w-3xl">
-      <div className="flex-1 relative">
+    <div className="bg-white border border-gray-200 rounded-full shadow-lg flex flex-row items-center w-full max-w-3xl p-0">
+      <div className="hidden md:block flex-1 relative">
         <Popover onOpenChange={setIsAmenitiesPopoverOpen}>
           <PopoverTrigger asChild>
             <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-l-full pr-10">
@@ -228,12 +228,12 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
         )}
       </div>
 
-      <div className="h-8 border-l border-gray-200"></div>
+      <div className="hidden md:block h-8 border-l border-gray-200"></div>
 
       <div className="flex-1 relative">
         <Popover onOpenChange={setIsDatePopoverOpen}>
           <PopoverTrigger asChild>
-            <button className="w-full text-left px-6 py-3 hover:bg-gray-200 pr-10">
+            <button className="w-full text-left px-3 md:px-6 py-3 hover:bg-gray-200 rounded-l-full md:rounded-none pr-2 md:pr-10">
               <p className="font-bold text-xs text-gray-800">Cuándo</p>
               <p className="text-sm text-gray-500">
                 {date?.from ? (
@@ -246,7 +246,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
                     format(date.from, "LLL dd, y", { locale: es })
                   )
                 ) : (
-                  <span>Agregar fechas</span>
+                  <span className="text-xs md:text-sm">Agregar fechas</span>
                 )}
               </p>
             </button>
@@ -279,7 +279,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
       <div className="flex-1 relative">
         <Popover onOpenChange={setIsGuestsPopoverOpen}>
           <PopoverTrigger asChild>
-            <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-r-full pr-10">
+            <button className="w-full text-left px-3 md:px-6 py-3 hover:bg-gray-200 rounded-r-full pr-2 md:pr-10">
               <p className="font-bold text-xs text-gray-800">Huéspedes</p>
               <p className="text-sm text-gray-500">{guestText}</p>
             </button>
