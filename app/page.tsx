@@ -4,6 +4,7 @@ import { fetchFeaturedPropertiesByCategory, fetchFeaturedExperiences, fetchFeatu
 import * as Typography from "@/components/ui/typography";
 import { FeaturedExperiences } from "@/components/custom/FeaturedExperiences";
 import { FeaturedTestimonials } from "@/components/custom/FeaturedTestimonials";
+import HomeAboutSection from "@/components/custom/HomeAboutSection";
 
 export default async function Home() {
   // Fetch featured properties and experiences in parallel
@@ -28,7 +29,7 @@ export default async function Home() {
         title="Encuentra tu Próximo Destino"
         subtitle="Explora propiedades exclusivas para unas vacaciones inolvidables."
       />
-      
+
       {/* Section for 'Celeste' category */}
       {featuredCeleste.length > 0 && (
         <div className="py-12">
@@ -59,6 +60,9 @@ export default async function Home() {
           <FeaturedExperiences title="Experiencias Destacadas" experiences={featuredExperiences} />
         </div>
       )}
+
+      {/* About Section */}
+      <HomeAboutSection />
 
       {/* Section for Featured Testimonials */}
       {featuredTestimonials.length > 0 && (

@@ -59,19 +59,31 @@ const ChaletsClientPage = ({ initialProperties }: ChaletsClientPageProps) => {
   };
 
   return (
-    <div className="mx-auto px-8 py-8">
-      <div className="mb-8 pt-4 w-full flex justify-center">
-        <SearchBar onSearch={handleSearch} initialFilters={initialFilters} />
+    <div className="w-full">
+      <div className="relative w-full h-[250px] flex items-center justify-center mb-8">
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: "url('/Banner-search.svg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div className="relative z-10 w-full flex justify-center px-4">
+          <SearchBar onSearch={handleSearch} initialFilters={initialFilters} />
+        </div>
       </div>
-     
-      <Separator className="mb-10 mt-16" />
-      {initialProperties.length > 0 ? (
-        <ChaletGrid initialProperties={initialProperties} totalCount={initialProperties.length} />
-      ) : (
-        <p className="text-center text-gray-500">
-          No se encontraron chalets que coincidan con su búsqueda.
-        </p>
-      )}
+
+      <div className="mx-auto px-8 pb-8">
+        <Separator className="mb-10" />
+        {initialProperties.length > 0 ? (
+          <ChaletGrid initialProperties={initialProperties} totalCount={initialProperties.length} />
+        ) : (
+          <p className="text-center text-gray-500">
+            No se encontraron chalets que coincidan con su búsqueda.
+          </p>
+        )}
+      </div>
     </div>
   );
 };

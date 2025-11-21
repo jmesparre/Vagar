@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -19,9 +20,18 @@ const Header = () => {
 
   return (
     <header className="bg-white shadow-md">
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="text-2xl font-bold text-gray-800">
-          <Link href="/">Vagar</Link>
+      <div className="container mx-auto px-4 py-0 max-h-[60px] flex justify-between items-center">
+        <div className="flex items-center">
+          <Link href="/">
+            <Image
+              src="/logo_vagar.svg"
+              alt="Vagar"
+              width={200}
+              height={65}
+              className="h-22 w-auto"
+              priority
+            />
+          </Link>
         </div>
 
         {/* Desktop Navigation */}
