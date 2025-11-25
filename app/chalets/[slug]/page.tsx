@@ -20,6 +20,8 @@ export async function generateStaticParams() {
   }));
 }
 
+export const revalidate = 60;
+
 interface ChaletDetailPageProps {
   params: {
     slug: string;
@@ -56,7 +58,7 @@ export default async function ChaletDetailPage({ params }: ChaletDetailPageProps
         <div className="md:col-span-1 md:order-2">
           <BookingCard chalet={chalet} />
         </div>
-        
+
         {/* Columna Izquierda: Información (aparece segundo en móvil) */}
         <div className="md:col-span-2 md:order-1">
           <H1 className="text-3xl font-bold">{chalet.name}</H1>

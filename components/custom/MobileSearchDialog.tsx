@@ -4,7 +4,7 @@ import * as React from "react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { DateRange } from "react-day-picker";
-import { X, Search } from "lucide-react";
+import {  Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -84,7 +84,6 @@ export function MobileSearchDialog({
             <DialogContent className="w-full h-[100vh] max-w-full p-0 flex flex-col gap-0 sm:rounded-none border-0">
                 <DialogHeader className="px-4 py-4 border-b flex flex-row items-center justify-between space-y-0">
                     <DialogClose className="rounded-full p-2 hover:bg-gray-100 transition-colors">
-                        <X className="h-5 w-5" />
                         <span className="sr-only">Cerrar</span>
                     </DialogClose>
                     {/* Empty title for accessibility if needed, or just hidden */}

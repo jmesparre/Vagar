@@ -43,7 +43,7 @@ export function VideoDialog({ videoUrl }: VideoDialogProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary" className="flex items-center gap-2">
+        <Button variant="secondary"  size="sm" className="flex text-xs items-center gap-2">
           <Video size={16} />
           Ver Video
         </Button>

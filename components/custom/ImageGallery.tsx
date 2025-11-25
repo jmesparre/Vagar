@@ -104,10 +104,11 @@ export const ImageGallery = ({
             ))}
           </div>
         </div>
-        <div className="absolute bottom-4 right-4 flex gap-2">
+        <div className="absolute sm:bottom-6 md:bottom-4 right-4 flex flex-col items-end gap-1.5 md:flex-row">
           <Button
             variant="secondary"
-            className="flex items-center gap-2"
+            size="sm"
+            className="flex items-center gap-2 text-xs"
             onClick={openModal}
           >
             <Camera size={16} />
@@ -117,7 +118,8 @@ export const ImageGallery = ({
           {blueprintImageUrls.length > 0 && (
             <Button
               variant="secondary"
-              className="flex items-center gap-2"
+               size="sm"
+              className="flex items-center gap-2 text-xs"
               onClick={openBlueprintLightbox}
             >
               <Layout size={16} />
