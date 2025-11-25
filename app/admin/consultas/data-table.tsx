@@ -123,8 +123,8 @@ export function DataTable<TData, TValue>({
   }, [sorting, router, searchParams]);
 
   const deleteSelectedRows = async () => {
-    const selectedIds = table.getSelectedRowModel().rows.map(row => (row.original as any).id);
-    
+    const selectedIds = table.getSelectedRowModel().rows.map(row => (row.original as { id: string | number }).id);
+
     try {
       const response = await fetch('/api/consultas', {
         method: 'DELETE',
@@ -158,17 +158,17 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center justify-between py-4">
         <div className="flex items-center gap-4">
-        <Input
-          placeholder="Buscar por cliente, teléfono o propiedad..."
-          value={searchParams.get('query') || ''}
-          onChange={(event) => handleSearch(event.target.value)}
-          className="max-w-sm"
-        />
-        {table.getSelectedRowModel().rows.length > 0 && (
-          <Button variant="destructive" onClick={deleteSelectedRows}>
-            Eliminar ({table.getSelectedRowModel().rows.length})
-          </Button>
-        )}
+          <Input
+            placeholder="Buscar por cliente, teléfono o propiedad..."
+            value={searchParams.get('query') || ''}
+            onChange={(event) => handleSearch(event.target.value)}
+            className="max-w-sm"
+          />
+          {table.getSelectedRowModel().rows.length > 0 && (
+            <Button variant="destructive" onClick={deleteSelectedRows}>
+              Eliminar ({table.getSelectedRowModel().rows.length})
+            </Button>
+          )}
         </div>
         <Select onValueChange={handleStatusFilter} defaultValue={searchParams.get('status') || 'all'}>
           <SelectTrigger className="w-[180px]">
@@ -193,9 +193,9 @@ export function DataTable<TData, TValue>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                     </TableHead>
                   )
                 })}

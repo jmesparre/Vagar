@@ -6,8 +6,6 @@ import React, { useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import SearchBar from "@/components/custom/SearchBar";
 import ChaletGrid from '@/components/custom/ChaletGrid';
-import { H1 } from '@/components/ui/typography';
-import { Separator } from '@/components/ui/separator';
 import { Property } from '@/lib/types';
 
 interface ChaletsClientPageProps {
