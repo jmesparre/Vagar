@@ -56,7 +56,7 @@ export default async function ChaletDetailPage({ params }: ChaletDetailPageProps
       <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
         {/* Columna Derecha: Tarjeta de Reserva (aparece primero en móvil) */}
         <div className="md:col-span-1 md:order-2">
-          <BookingCard chalet={chalet} />
+          <BookingCard chalet={chalet} bookings={bookings} />
         </div>
 
         {/* Columna Izquierda: Información (aparece segundo en móvil) */}

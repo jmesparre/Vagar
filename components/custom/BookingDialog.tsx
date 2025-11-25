@@ -23,17 +23,20 @@ interface BookingDialogProps {
   chalet: Property;
   selectedDates: DateRange | undefined;
   guestCount: { adults: number; children: number; infants: number };
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
 }
 
 export function BookingDialog({
   chalet,
   selectedDates,
   guestCount,
+  open,
+  onOpenChange,
 }: BookingDialogProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [countdown, setCountdown] = useState(3);
   const { toast } = useToast();
@@ -47,18 +50,17 @@ export function BookingDialog({
             const formattedDates = selectedDates?.from
               ? selectedDates.to
                 ? `${format(selectedDates.from, "dd/MM/yyyy")} - ${format(
-                    selectedDates.to,
-                    "dd/MM/yyyy"
-                  )}`
+                  selectedDates.to,
+                  "dd/MM/yyyy"
+                )}`
                 : format(selectedDates.from, "dd/MM/yyyy")
               : "Fechas no seleccionadas";
 
             const message = `
 ¡Hola! Quisiera solicitar una reserva para el chalet *${chalet.name}*.
 *Fechas:* ${formattedDates}
-*Huéspedes:* ${guestCount.adults} Adultos, ${guestCount.children} Niños, ${
-              guestCount.infants
-            } Infantes
+*Huéspedes:* ${guestCount.adults} Adultos, ${guestCount.children} Niños, ${guestCount.infants
+              } Infantes
 *Mi nombre es:* ${name}
 *Mi teléfono es:* ${phone}
             `.trim();
@@ -114,7 +116,7 @@ export function BookingDialog({
         description: "Tu solicitud ha sido guardada.",
       });
 
-      setIsDialogOpen(false);
+      onOpenChange(false);
       setCountdown(3);
       setIsConfirmationOpen(true);
     } catch (error) {
@@ -131,88 +133,85 @@ export function BookingDialog({
 
   return (
     <>
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild>
-          <Button className="w-full mt-4">Reservar</Button>
-        </DialogTrigger>
+      <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent
           overlayClassName="bg-black/80"
           className="sm:max-w-[425px]"
         >
-        <DialogHeader>
-          <DialogTitle>Solicitar Reserva</DialogTitle>
-          <DialogDescription className="sr-only">
-            Este formulario se enviará a través de WhatsApp para completar la
-            reserva.
-          </DialogDescription>
-        </DialogHeader>
-        <div className=" space-y-4">
-          <div className="flex items-center space-x-4">
-            <div className="relative w-24 h-24 rounded-lg overflow-hidden">
-              <Image
-                src={chalet.gallery_images?.[0]?.url || "https://images.unsplash.com/photo-1588557132643-ff9f8a442332?q=80&w=2574&auto=format&fit=crop"}
-                alt={chalet.name}
-                fill
-                className="object-cover"
+          <DialogHeader>
+            <DialogTitle>Solicitar Reserva</DialogTitle>
+            <DialogDescription className="sr-only">
+              Este formulario se enviará a través de WhatsApp para completar la
+              reserva.
+            </DialogDescription>
+          </DialogHeader>
+          <div className=" space-y-4">
+            <div className="flex items-center space-x-4">
+              <div className="relative w-24 h-24 rounded-lg overflow-hidden">
+                <Image
+                  src={chalet.gallery_images?.[0]?.url || "https://images.unsplash.com/photo-1588557132643-ff9f8a442332?q=80&w=2574&auto=format&fit=crop"}
+                  alt={chalet.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <P className="font-semibold">{chalet.name}</P>
+            </div>
+            <Separator />
+            <div className="space-y-1">
+              <div className="flex items-center justify-between">
+                <P className="font-semibold !mt-0">Fechas:</P>
+                <P className="text-right !mt-0">
+                  {selectedDates?.from ? (
+                    selectedDates.to ? (
+                      `${format(selectedDates.from, "d MMM")} - ${format(
+                        selectedDates.to,
+                        "d MMM"
+                      )}`
+                    ) : (
+                      format(selectedDates.from, "d MMM")
+                    )
+                  ) : (
+                    "Seleccione fechas"
+                  )}
+                </P>
+              </div>
+              <div className="flex items-center justify-between">
+                <P className="font-semibold !mt-0">Personas:</P>
+                <P className="text-right !mt-0">
+                  {guestCount.adults} Adultos
+                  {guestCount.children > 0 && `, ${guestCount.children} Niños`}
+                </P>
+              </div>
+            </div>
+            <Separator />
+            <div className="space-y-2">
+              <label htmlFor="name">
+                <Small>Nombre</Small>
+              </label>
+              <Input
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Tu nombre completo"
               />
             </div>
-            <P className="font-semibold">{chalet.name}</P>
-          </div>
-          <Separator />
-          <div className="space-y-1">
-            <div className="flex items-center justify-between">
-              <P className="font-semibold !mt-0">Fechas:</P>
-              <P className="text-right !mt-0">
-                {selectedDates?.from ? (
-                  selectedDates.to ? (
-                    `${format(selectedDates.from, "d MMM")} - ${format(
-                      selectedDates.to,
-                      "d MMM"
-                    )}`
-                  ) : (
-                    format(selectedDates.from, "d MMM")
-                  )
-                ) : (
-                  "Seleccione fechas"
-                )}
-              </P>
+            <div className="space-y-2">
+              <label htmlFor="phone">
+                <Small>Teléfono</Small>
+              </label>
+              <Input
+                id="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Tu número de teléfono"
+              />
             </div>
-            <div className="flex items-center justify-between">
-              <P className="font-semibold !mt-0">Personas:</P>
-              <P className="text-right !mt-0">
-                {guestCount.adults} Adultos
-                {guestCount.children > 0 && `, ${guestCount.children} Niños`}
-              </P>
-            </div>
+            <Small className="text-center block text-gray-500">
+              El formulario se enviará a través de WhatsApp para completar la
+              reserva.
+            </Small>
           </div>
-          <Separator />
-          <div className="space-y-2">
-            <label htmlFor="name">
-              <Small>Nombre</Small>
-            </label>
-            <Input
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Tu nombre completo"
-            />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="phone">
-              <Small>Teléfono</Small>
-            </label>
-            <Input
-              id="phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Tu número de teléfono"
-            />
-          </div>
-          <Small className="text-center block text-gray-500">
-            El formulario se enviará a través de WhatsApp para completar la
-            reserva.
-          </Small>
-        </div>
           <Button onClick={handleSend} className="w-full" disabled={isLoading}>
             {isLoading ? "Enviando..." : "Enviar"}
           </Button>

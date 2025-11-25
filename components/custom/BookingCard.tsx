@@ -10,16 +10,20 @@ import {
 } from "@/components/ui/popover";
 import { GuestsPopoverContent } from "@/components/custom/GuestsPopoverContent";
 import { DatePickerPopoverContent } from "@/components/custom/DatePickerPopoverContent";
+import { Button } from "@/components/ui/button";
+import { Booking, Property } from "@/lib/types";
 import { H2 } from "@/components/ui/typography";
 import { BookingDialog } from "@/components/custom/BookingDialog";
-import { Property } from "@/lib/types";
 
 interface BookingCardProps {
   chalet: Property;
+  bookings: Booking[];
 }
 
-export function BookingCard({ chalet }: BookingCardProps) {
+export function BookingCard({ chalet, bookings }: BookingCardProps) {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false);
+  const [warningMessage, setWarningMessage] = useState<string | null>(null);
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 7),
@@ -54,6 +58,46 @@ export function BookingCard({ chalet }: BookingCardProps) {
         [type]: Math.max(0, newCount),
       };
     });
+  };
+
+  const handleReserveClick = () => {
+    setWarningMessage(null);
+
+    if (!date?.from || !date?.to) {
+      setWarningMessage("Por favor, selecciona fechas de check-in y check-out.");
+      return;
+    }
+
+    // Check for overlap
+    const hasOverlap = bookings.some((booking) => {
+      const bookingStart = new Date(booking.check_in_date);
+      const bookingEnd = new Date(booking.check_out_date);
+      // Adjust booking end date to be exclusive for overlap check if needed, 
+      // but usually check-out day is available for check-in.
+      // Let's assume standard logic: overlap if (StartA < EndB) and (EndA > StartB)
+
+      // We need to be careful with timezones. The dates from date-fns are local.
+      // The dates from bookings are strings YYYY-MM-DD.
+      // Let's parse booking dates as local dates to match the picker.
+      const bStartParts = booking.check_in_date.split('-').map(Number);
+      const bEndParts = booking.check_out_date.split('-').map(Number);
+      const bStart = new Date(bStartParts[0], bStartParts[1] - 1, bStartParts[2]);
+      const bEnd = new Date(bEndParts[0], bEndParts[1] - 1, bEndParts[2]);
+
+      // Check overlap
+      // Selected range: date.from to date.to
+      // Existing booking: bStart to bEnd
+
+      // Overlap condition: 
+      // (SelectedStart < BookingEnd) AND (SelectedEnd > BookingStart)
+      return date.from! < bEnd && date.to! > bStart;
+    });
+
+    if (hasOverlap) {
+      setWarningMessage("Las fechas seleccionadas no están disponibles.");
+    } else {
+      setIsBookingDialogOpen(true);
+    }
   };
 
   const totalGuests = guests.adults + guests.children;
@@ -140,10 +184,23 @@ export function BookingCard({ chalet }: BookingCardProps) {
           />
         </PopoverContent>
       </Popover>
+
+      <Button className="w-full mt-4" onClick={handleReserveClick}>
+        Reservar
+      </Button>
+
+      {warningMessage && (
+        <div className="mt-2 text-sm text-red-500 text-center font-medium">
+          {warningMessage}
+        </div>
+      )}
+
       <BookingDialog
         chalet={chalet}
         selectedDates={date}
         guestCount={guests}
+        open={isBookingDialogOpen}
+        onOpenChange={setIsBookingDialogOpen}
       />
     </div>
   );

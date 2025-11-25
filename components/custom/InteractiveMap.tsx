@@ -18,6 +18,9 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [hoveredPropertyId, setHoveredPropertyId] = useState<number | null>(null);
 
+  // Ref to store the starting position of a click/drag
+  const dragStartPos = useRef<{ x: number; y: number } | null>(null);
+
   useEffect(() => {
     if (selectedNodeId && transformComponentRef.current) {
       const property = properties.find((p) => p.map_node_id === selectedNodeId);
@@ -39,12 +42,37 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
       });
   }, []);
 
-  const handlePropertyClick = (property: Property) => {
+  const handlePropertyClick = (e: React.MouseEvent, property: Property) => {
+    e.stopPropagation(); // Prevent map background click
     setSelectedProperty(property);
   };
 
   const handleCloseCard = () => {
     setSelectedProperty(null);
+  };
+
+  const handleMouseDown = (e: React.MouseEvent | React.TouchEvent) => {
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    dragStartPos.current = { x: clientX, y: clientY };
+  };
+
+  const handleMouseUp = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!dragStartPos.current) return;
+
+    const clientX = 'changedTouches' in e ? e.changedTouches[0].clientX : e.clientX;
+    const clientY = 'changedTouches' in e ? e.changedTouches[0].clientY : e.clientY;
+
+    const dx = clientX - dragStartPos.current.x;
+    const dy = clientY - dragStartPos.current.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    // If movement is small (less than 5px), consider it a click and close the card
+    if (distance < 5) {
+      handleCloseCard();
+    }
+
+    dragStartPos.current = null;
   };
 
   const options: HTMLReactParserOptions = {
@@ -71,7 +99,7 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
             return (
               <g
                 {...domNode.attribs}
-                onClick={() => handlePropertyClick(property)}
+                onClick={(e) => handlePropertyClick(e, property)}
                 onMouseEnter={() => setHoveredPropertyId(property.id)}
                 onMouseLeave={() => setHoveredPropertyId(null)}
               >
@@ -87,7 +115,13 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
   };
 
   return (
-    <div className="relative w-full h-full overflow-hidden bg-[#C5D594]">
+    <div
+      className="relative w-full h-full overflow-hidden bg-[#C5D594]"
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onTouchStart={handleMouseDown}
+      onTouchEnd={handleMouseUp}
+    >
       <TransformWrapper
         ref={transformComponentRef}
         initialScale={1.2}
@@ -97,9 +131,9 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
         {({ zoomIn, zoomOut, resetTransform }) => (
           <React.Fragment>
             <div className="absolute top-2 left-2 z-20 flex flex-col gap-2">
-              <button onClick={() => zoomIn()} className="bg-white p-2 rounded-md shadow-md">+</button>
-              <button onClick={() => zoomOut()} className="bg-white p-2 rounded-md shadow-md">-</button>
-              <button onClick={() => resetTransform()} className="bg-white p-2 rounded-md shadow-md">Reset</button>
+              <button onClick={(e) => { e.stopPropagation(); zoomIn(); }} className="bg-white p-2 rounded-md shadow-md">+</button>
+              <button onClick={(e) => { e.stopPropagation(); zoomOut(); }} className="bg-white p-2 rounded-md shadow-md">-</button>
+              <button onClick={(e) => { e.stopPropagation(); resetTransform(); }} className="bg-white p-2 rounded-md shadow-md">Reset</button>
             </div>
             <TransformComponent
               wrapperStyle={{ width: '100%', height: '100%' }}
@@ -123,7 +157,14 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
         )}
       </TransformWrapper>
       {selectedProperty && (
-        <div className="absolute bottom-25 right-4 transform  z-20 w-72">
+        <div
+          className="absolute bottom-25 right-4 transform  z-20 w-72"
+          onMouseDown={(e) => e.stopPropagation()}
+          onMouseUp={(e) => e.stopPropagation()}
+          onTouchStart={(e) => e.stopPropagation()}
+          onTouchEnd={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="bg-white rounded-xl shadow-lg px-1 pt-1 pb-5 overflow-hidden">
             <button onClick={handleCloseCard} className="absolute top-2 right-2 bg-white rounded-full p-1 z-30 leading-none">
               &times;
