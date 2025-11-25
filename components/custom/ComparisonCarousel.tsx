@@ -50,11 +50,11 @@ export function ComparisonCarousel({ mainChalet, propertiesForComparison }: Comp
         }}
         className="w-full"
       >
-        <div className="relative mb-4">
+        <div className="flex items-center justify-between mb-4">
           <H2 className="md:pr-48">Comparar {mainChalet.name} con otros Chalets</H2>
-          <div className="absolute right-14 top-4.5 hidden items-center gap-1 md:flex">
-            <CarouselPrevious />
-            <CarouselNext />
+          <div className="flex items-center gap-2">
+            <CarouselPrevious className="static translate-y-0" />
+            <CarouselNext className="static translate-y-0" />
           </div>
         </div>
 
@@ -88,10 +88,7 @@ export function ComparisonCarousel({ mainChalet, propertiesForComparison }: Comp
             </div>
           )}
         </CarouselContent>
-        <div className="mt-6 flex items-center justify-center gap-2 md:hidden">
-          <CarouselPrevious />
-          <CarouselNext />
-        </div>
+
       </Carousel>
 
       {comparisonChalet && <ComparisonTable mainChalet={mainChalet} comparisonChalet={comparisonChalet} />}

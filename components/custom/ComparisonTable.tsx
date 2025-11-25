@@ -61,7 +61,7 @@ export function ComparisonTable({ mainChalet, comparisonChalet }: ComparisonTabl
   return (
     <div className="mt-6">
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[600px] border-collapse text-left">
+        <table className="w-full text-sm max-w-[600px] border-collapse text-left">
           <thead>
             <tr>
               <th className="border-b p-2">Característica</th>

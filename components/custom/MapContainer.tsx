@@ -19,7 +19,8 @@ const MapContainer = ({ properties, initialSelectedNodeId = null }: MapContainer
 
   return (
     <div className="relative w-full h-screen">
-      <div className="absolute top-4 right-4 z-10">
+      <div className="absolute top-4 left-16 z-10 w-full max-w-[70vw] 
+      sm:max-w-[40vw]  px-4">
         <MapSearchBar onSearchResultSelect={handleSearchResultSelect} />
       </div>
       <InteractiveMap properties={properties} selectedNodeId={selectedNodeId} />

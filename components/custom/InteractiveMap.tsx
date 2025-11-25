@@ -123,7 +123,7 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
         )}
       </TransformWrapper>
       {selectedProperty && (
-        <div className="absolute top-1/3 right-4 transform -translate-y-1/2 z-20 w-50">
+        <div className="absolute bottom-25 right-4 transform  z-20 w-72">
           <div className="bg-white rounded-xl shadow-lg px-1 pt-1 pb-5 overflow-hidden">
             <button onClick={handleCloseCard} className="absolute top-2 right-2 bg-white rounded-full p-1 z-30 leading-none">
               &times;

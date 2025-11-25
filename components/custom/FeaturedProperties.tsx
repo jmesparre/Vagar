@@ -7,13 +7,14 @@ import {
 } from "@/components/ui/carousel";
 import { PropertyCard } from "./PropertyCard";
 import { type Property } from "@/lib/types";
+import { H2 } from "@/components/ui/typography";
 
 interface FeaturedPropertiesProps {
   title?: string;
   properties: Property[];
 }
 
-export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
+export function FeaturedProperties({ title, properties }: FeaturedPropertiesProps) {
   if (!properties || properties.length === 0) {
     return null; // No renderizar nada si no hay propiedades
   }
@@ -27,10 +28,11 @@ export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
         }}
         className="w-full"
       >
-        <div className="relative">
-          <div className="absolute -top-12 right-10 hidden md:flex items-center gap-2">
-            <CarouselPrevious />
-            <CarouselNext />
+        <div className="flex items-center justify-between mb-6">
+          {title && <H2 className="text-2xl font-bold">{title}</H2>}
+          <div className="flex items-center gap-2">
+            <CarouselPrevious className="static translate-y-0" />
+            <CarouselNext className="static translate-y-0" />
           </div>
         </div>
         <CarouselContent className="-ml-4">
@@ -40,10 +42,6 @@ export function FeaturedProperties({ properties }: FeaturedPropertiesProps) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <div className="md:hidden flex items-center justify-center gap-2 mt-6">
-          <CarouselPrevious />
-          <CarouselNext />
-        </div>
       </Carousel>
     </section>
   );

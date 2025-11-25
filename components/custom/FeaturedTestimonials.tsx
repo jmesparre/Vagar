@@ -32,14 +32,16 @@ export function FeaturedTestimonials({
           }}
           className="w-full"
         >
-          <div className="relative mb-4">
-            <H2>Lo que dicen nuestros huéspedes</H2>
-            <P className="text-muted-foreground">
-              Experiencias reales de quienes nos eligieron.
-            </P>
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden items-center gap-1 md:flex">
-              <CarouselPrevious />
-              <CarouselNext />
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <H2>Lo que dicen nuestros huéspedes</H2>
+              <P className="text-muted-foreground">
+                Experiencias reales de quienes nos eligieron.
+              </P>
+            </div>
+            <div className="flex items-center gap-2">
+              <CarouselPrevious className="static translate-y-0" />
+              <CarouselNext className="static translate-y-0" />
             </div>
           </div>
           <CarouselContent>
@@ -52,10 +54,7 @@ export function FeaturedTestimonials({
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className="mt-6 flex items-center justify-center gap-2 md:hidden">
-            <CarouselPrevious />
-            <CarouselNext />
-          </div>
+
         </Carousel>
       </div>
     </section>

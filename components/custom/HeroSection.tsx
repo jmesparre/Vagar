@@ -76,7 +76,7 @@ const HeroSection = ({
 
         {/* Title at the bottom */}
         <div className="flex-grow text-center flex flex-col">
-          <H1 className="text-5xl mt-22 md:text-7xl font-bold leading-tight mb-4">
+          <H1 className="text-5xl mt-11 md:text-7xl font-bold leading-tight mb-4">
             {title}
           </H1>
           <Lead className="text-lg md:text-xl">{subtitle}</Lead>

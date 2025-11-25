@@ -52,8 +52,13 @@ export default async function ChaletDetailPage({ params }: ChaletDetailPageProps
 
       {/* Información Principal y Reserva */}
       <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
-        {/* Columna Izquierda: Información */}
-        <div className="md:col-span-2">
+        {/* Columna Derecha: Tarjeta de Reserva (aparece primero en móvil) */}
+        <div className="md:col-span-1 md:order-2">
+          <BookingCard chalet={chalet} />
+        </div>
+        
+        {/* Columna Izquierda: Información (aparece segundo en móvil) */}
+        <div className="md:col-span-2 md:order-1">
           <H1 className="text-3xl font-bold">{chalet.name}</H1>
           <div className="mt-2 flex items-center">
             <Star className="h-5 w-5 fill-primary text-primary" />
@@ -150,11 +155,6 @@ export default async function ChaletDetailPage({ params }: ChaletDetailPageProps
             mainChalet={chalet}
             propertiesForComparison={propertiesForComparison}
           />
-        </div>
-
-        {/* Columna Derecha: Tarjeta de Reserva */}
-        <div className="md:col-span-1">
-          <BookingCard chalet={chalet} />
         </div>
       </section>
     </main>

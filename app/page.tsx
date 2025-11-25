@@ -33,24 +33,21 @@ export default async function Home() {
       {/* Section for 'Celeste' category */}
       {featuredCeleste.length > 0 && (
         <div className="py-12">
-          <Typography.H2 className="mb-8 pl-4 sm:pl-6 lg:pl-8">Chalets Celestes</Typography.H2>
-          <FeaturedProperties properties={featuredCeleste} />
+          <FeaturedProperties title="Chalets Celestes" properties={featuredCeleste} />
         </div>
       )}
 
       {/* Section for 'Azul' category */}
       {featuredAzul.length > 0 && (
         <div className="py-12 bg-gray-50">
-          <Typography.H2 className="mb-8 pl-4 sm:pl-6 lg:pl-8">Chalets Azules</Typography.H2>
-          <FeaturedProperties properties={featuredAzul} />
+          <FeaturedProperties title="Chalets Azules" properties={featuredAzul} />
         </div>
       )}
 
       {/* Section for 'Verde' category */}
       {featuredVerde.length > 0 && (
         <div className="py-12">
-          <Typography.H2 className="mb-8 pl-4 sm:pl-6 lg:pl-8">Chalets Verdes</Typography.H2>
-          <FeaturedProperties properties={featuredVerde} />
+          <FeaturedProperties title="Chalets Verdes" properties={featuredVerde} />
         </div>
       )}
 

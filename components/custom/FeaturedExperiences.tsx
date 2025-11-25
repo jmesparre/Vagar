@@ -42,13 +42,13 @@ export function FeaturedExperiences({
         }}
         className="w-full"
       >
-        <div className="relative mb-8">
+        <div className="flex items-center justify-between mb-6">
           <H2 className="text-2xl text-left md:text-3xl font-bold tracking-tight">
             {title}
           </H2>
-          <div className="absolute top-3 right-10 hidden  md:flex items-center gap-2">
-            <CarouselPrevious />
-            <CarouselNext />
+          <div className="flex items-center gap-2">
+            <CarouselPrevious className="static translate-y-0" />
+            <CarouselNext className="static translate-y-0" />
           </div>
         </div>
         <CarouselContent className="ml-4 ">
@@ -76,10 +76,7 @@ export function FeaturedExperiences({
               </CarouselItem>
             ))}
         </CarouselContent>
-        <div className="md:hidden flex items-center justify-center gap-2 mt-6">
-          <CarouselPrevious />
-          <CarouselNext />
-        </div>
+
       </Carousel>
     </section>
   );
