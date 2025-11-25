@@ -70,7 +70,7 @@ const HeroSection = ({
       <div className="z-20 flex flex-col items-center justify-between h-full w-full pt-8 pb-12">
 
         {/* SearchBar in the middle */}
-        <div className="w-full flex justify-center">
+        <div className="w-full flex justify-center pt-11.5">
           {showSearchBar && (isLoading ? <SearchBarSkeleton /> : <SearchBar onSearch={handleSearch} />)}
         </div>
 

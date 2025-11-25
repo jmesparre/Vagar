@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/popover";
 import { AmenitiesPopoverContent } from "./AmenitiesPopoverContent";
 import { GuestsPopoverContent } from "./GuestsPopoverContent";
+import { MobileSearchTrigger } from "./MobileSearchTrigger";
+import { MobileSearchDialog } from "./MobileSearchDialog";
 
 // Helper function to safely parse a YYYY-MM-DD string into a local Date object
 const parseDateString = (dateString: string): Date | null => {
@@ -175,7 +177,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
     } else {
       timer = setTimeout(() => {
         setIsButtonExpanded(false);
-      }, 75); // A small delay to prevent flickering when switching popovers
+      }, 175); // A small delay to prevent flickering when switching popovers
     }
     return () => clearTimeout(timer);
   }, [isAnyPopoverOpen]);
@@ -200,144 +202,174 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
     onSearch(filters);
   };
 
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = React.useState(false);
+
+  const handleClearFilters = () => {
+    setDate(undefined);
+    setGuests({ adults: 0, children: 0, infants: 0 });
+    setSelectedAmenities([]);
+  };
+
   return (
-    <div className="bg-white border border-gray-200 rounded-full shadow-lg flex flex-row items-center w-full max-w-3xl p-0">
-      <div className="hidden md:block flex-1 relative">
-        <Popover onOpenChange={setIsAmenitiesPopoverOpen}>
-          <PopoverTrigger asChild>
-            <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-l-full pr-10">
-              <p className="font-bold text-xs text-gray-800">Amenities</p>
-              <p className="text-sm text-gray-500">{amenitiesText}</p>
-            </button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <AmenitiesPopoverContent
-              selectedAmenities={selectedAmenities}
-              onAmenityToggle={handleAmenityToggle}
-            />
-          </PopoverContent>
-        </Popover>
-        {selectedAmenities.length > 0 && (
-          <button
-            title="Limpiar amenities"
-            onClick={handleClearAmenities}
-            className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-300"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        )}
+    <>
+      {/* Mobile Trigger */}
+      <div className="md:hidden w-full px-4">
+        <MobileSearchTrigger onClick={() => setIsMobileSearchOpen(true)} />
       </div>
 
-      <div className="hidden md:block h-8 border-l border-gray-200"></div>
+      {/* Mobile Dialog */}
+      <MobileSearchDialog
+        isOpen={isMobileSearchOpen}
+        onOpenChange={setIsMobileSearchOpen}
+        date={date}
+        setDate={setDate}
+        guests={guests}
+        handleGuestChange={handleGuestChange}
+        selectedAmenities={selectedAmenities}
+        onAmenityToggle={handleAmenityToggle}
+        onSearch={handleSearch}
+        onClearFilters={handleClearFilters}
+      />
 
-      <div className="flex-1 relative">
-        <Popover onOpenChange={setIsDatePopoverOpen}>
-          <PopoverTrigger asChild>
-            <button className="w-full text-left px-3 md:px-6 py-3 hover:bg-gray-200 rounded-l-full md:rounded-none pr-2 md:pr-10">
-              <p className="font-bold text-xs text-gray-800">Cuándo</p>
-              <p className="text-sm text-gray-500">
-                {date?.from ? (
-                  date.to ? (
-                    <>
-                      {format(date.from, "LLL dd", { locale: es })} -{" "}
-                      {format(date.to, "LLL dd", { locale: es })}
-                    </>
-                  ) : (
-                    format(date.from, "LLL dd, y", { locale: es })
-                  )
-                ) : (
-                  <span className="text-xs md:text-sm">Agregar fechas</span>
-                )}
-              </p>
+      {/* Desktop Search Bar */}
+      <div className="hidden md:flex bg-white border-gray-200 rounded-full shadow-lg flex-row items-center w-full max-w-3xl p-0">
+        <div className="flex-1 relative">
+          <Popover onOpenChange={setIsAmenitiesPopoverOpen}>
+            <PopoverTrigger asChild>
+              <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-l-full pr-10">
+                <p className="font-bold text-xs text-gray-800">Amenities</p>
+                <p className="text-sm text-gray-500">{amenitiesText}</p>
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <AmenitiesPopoverContent
+                selectedAmenities={selectedAmenities}
+                onAmenityToggle={handleAmenityToggle}
+              />
+            </PopoverContent>
+          </Popover>
+          {selectedAmenities.length > 0 && (
+            <button
+              title="Limpiar amenities"
+              onClick={handleClearAmenities}
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-300"
+            >
+              <X className="h-4 w-4" />
             </button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              initialFocus
-              mode="range"
-              defaultMonth={date?.from}
-              selected={date}
-              onSelect={setDate}
-              numberOfMonths={2}
-              locale={es}
-            />
-          </PopoverContent>
-        </Popover>
-        {date?.from && (
-          <button
-            title="Limpiar fechas"
-            onClick={handleClearDate}
-            className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-300"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        )}
-      </div>
-
-      <div className="h-8 border-l border-gray-200"></div>
-
-      <div className="flex-1 relative">
-        <Popover onOpenChange={setIsGuestsPopoverOpen}>
-          <PopoverTrigger asChild>
-            <button className="w-full text-left px-3 md:px-6 py-3 hover:bg-gray-200 rounded-r-full pr-2 md:pr-10">
-              <p className="font-bold text-xs text-gray-800">Huéspedes</p>
-              <p className="text-sm text-gray-500">{guestText}</p>
-            </button>
-          </PopoverTrigger>
-          <PopoverContent className="w-80">
-            <GuestsPopoverContent
-              guests={guests}
-              handleGuestChange={handleGuestChange}
-            />
-          </PopoverContent>
-        </Popover>
-        {totalGuests > 0 && (
-          <button
-            title="Limpiar huéspedes"
-            onClick={handleClearGuests}
-            className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-300"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        )}
-      </div>
-
-      <div className="p-2">
-        <Button
-          title="Buscar"
-          onClick={handleSearch}
-          className={cn(
-            "bg-blue-400 text-white rounded-full hover:bg-blue-500 flex items-center justify-center transition-all duration-300 ease-in-out overflow-hidden",
-            isButtonExpanded ? "w-26 h-12" : "w-12 h-12"
           )}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 ml-2 flex-shrink-0"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-          <span
+        </div>
+
+        <div className="h-8 border-l border-gray-200"></div>
+
+        <div className="flex-1 relative">
+          <Popover onOpenChange={setIsDatePopoverOpen}>
+            <PopoverTrigger asChild>
+              <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-none pr-10">
+                <p className="font-bold text-xs text-gray-800">Cuándo</p>
+                <p className="text-sm text-gray-500">
+                  {date?.from ? (
+                    date.to ? (
+                      <>
+                        {format(date.from, "LLL dd", { locale: es })} -{" "}
+                        {format(date.to, "LLL dd", { locale: es })}
+                      </>
+                    ) : (
+                      format(date.from, "LLL dd, y", { locale: es })
+                    )
+                  ) : (
+                    <span className="text-sm">Agregar fechas</span>
+                  )}
+                </p>
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                initialFocus
+                mode="range"
+                defaultMonth={date?.from}
+                selected={date}
+                onSelect={setDate}
+                numberOfMonths={2}
+                locale={es}
+              />
+            </PopoverContent>
+          </Popover>
+          {date?.from && (
+            <button
+              title="Limpiar fechas"
+              onClick={handleClearDate}
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-300"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </div>
+
+        <div className="h-8 border-l border-gray-200"></div>
+
+        <div className="flex-1 relative">
+          <Popover onOpenChange={setIsGuestsPopoverOpen}>
+            <PopoverTrigger asChild>
+              <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-r-full pr-10">
+                <p className="font-bold text-xs text-gray-800">Huéspedes</p>
+                <p className="text-sm text-gray-500">{guestText}</p>
+              </button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80">
+              <GuestsPopoverContent
+                guests={guests}
+                handleGuestChange={handleGuestChange}
+              />
+            </PopoverContent>
+          </Popover>
+          {totalGuests > 0 && (
+            <button
+              title="Limpiar huéspedes"
+              onClick={handleClearGuests}
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-300"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </div>
+
+        <div className="p-2">
+          <Button
+            title="Buscar"
+            onClick={handleSearch}
             className={cn(
-              "whitespace-nowrap transition-all ease-in-out duration-300",
-              isButtonExpanded
-                ? "max-w-[100px] opacity-100 ml-1 mr-1"
-                : "max-w-0 opacity-0 ml-0"
+              "bg-blue-400 text-white rounded-full hover:bg-blue-500 flex items-center justify-center transition-all duration-300 ease-in-out overflow-hidden",
+              isButtonExpanded ? "w-26 h-12" : "w-12 h-12"
             )}
           >
-            Buscar
-          </span>
-        </Button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 ml-2 flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+            <span
+              className={cn(
+                "whitespace-nowrap transition-all ease-in-out duration-300",
+                isButtonExpanded
+                  ? "max-w-[100px] opacity-100 ml-1 mr-1"
+                  : "max-w-0 opacity-0 ml-0"
+              )}
+            >
+              Buscar
+            </span>
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

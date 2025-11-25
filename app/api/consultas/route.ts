@@ -68,3 +68,26 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: 'Error interno del servidor' }, { status: 500 });
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const body = await request.json();
+    const { ids } = body;
+
+    if (!ids || !Array.isArray(ids) || ids.length === 0) {
+      return NextResponse.json({ message: 'Se requieren los IDs' }, { status: 400 });
+    }
+
+    const { error } = await supabase.from('bookings').delete().in('id', ids);
+
+    if (error) {
+      console.error('Error al eliminar las consultas:', error);
+      return NextResponse.json({ message: 'Error al eliminar las consultas.', details: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ message: 'Consultas eliminadas exitosamente' }, { status: 200 });
+  } catch (error) {
+    console.error('Error inesperado al eliminar las consultas:', error);
+    return NextResponse.json({ message: 'Error interno del servidor' }, { status: 500 });
+  }
+}

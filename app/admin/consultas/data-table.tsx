@@ -3,6 +3,7 @@
 import * as React from "react"
 import {
   ColumnDef,
+  RowSelectionState,
   SortingState,
   flexRender,
   getCoreRowModel,
@@ -23,6 +24,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useToast } from "@/components/ui/use-toast"
 
 import { useSearchParams, useRouter } from "next/navigation"
 import {
@@ -55,6 +57,8 @@ export function DataTable<TData, TValue>({
   const [sorting, setSorting] = React.useState<SortingState>([
     { id: searchParams.get('sortBy') || 'created_at', desc: searchParams.get('order') === 'desc' },
   ])
+  const [rowSelection, setRowSelection] = React.useState({})
+  const { toast } = useToast()
 
   const table = useReactTable({
     data,
@@ -67,8 +71,10 @@ export function DataTable<TData, TValue>({
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    onRowSelectionChange: setRowSelection,
     state: {
       sorting,
+      rowSelection,
     },
     pageCount: totalPages,
     manualPagination: true,
@@ -116,15 +122,54 @@ export function DataTable<TData, TValue>({
     router.replace(`?${params.toString()}`);
   }, [sorting, router, searchParams]);
 
+  const deleteSelectedRows = async () => {
+    const selectedIds = table.getSelectedRowModel().rows.map(row => (row.original as any).id);
+    
+    try {
+      const response = await fetch('/api/consultas', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ids: selectedIds }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete bookings');
+      }
+
+      toast({
+        title: "Éxito",
+        description: "Las consultas seleccionadas han sido eliminadas.",
+      });
+      onUpdate();
+      setRowSelection({});
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "No se pudieron eliminar las consultas seleccionadas.",
+        variant: "destructive",
+      });
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between py-4">
+        <div className="flex items-center gap-4">
         <Input
           placeholder="Buscar por cliente, teléfono o propiedad..."
           value={searchParams.get('query') || ''}
           onChange={(event) => handleSearch(event.target.value)}
           className="max-w-sm"
         />
+        {table.getSelectedRowModel().rows.length > 0 && (
+          <Button variant="destructive" onClick={deleteSelectedRows}>
+            Eliminar ({table.getSelectedRowModel().rows.length})
+          </Button>
+        )}
+        </div>
         <Select onValueChange={handleStatusFilter} defaultValue={searchParams.get('status') || 'all'}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Filtrar por estado" />
