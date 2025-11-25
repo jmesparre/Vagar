@@ -28,7 +28,7 @@ const ChaletGrid = ({ initialProperties, totalCount }: ChaletGridProps) => {
   const [hasMore, setHasMore] = useState(true);
   const loadMoreRef = useRef<HTMLDivElement>(null);
 
-  const itemsPerPage = 9;
+  const itemsPerPage = 12;
 
   // Effect to sort properties when sortOrder changes
   useEffect(() => {
@@ -103,7 +103,7 @@ const ChaletGrid = ({ initialProperties, totalCount }: ChaletGridProps) => {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <H2>{`${totalCount} Chalet${totalCount !== 1 ? 's' : ''}`}</H2>
+        <H2 className='text-2xl'>{`${totalCount} Chalet${totalCount !== 1 ? 's' : ''}`}</H2>
         <Select onValueChange={setSortOrder} defaultValue={sortOrder}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Ordenar por:" />
@@ -117,7 +117,7 @@ const ChaletGrid = ({ initialProperties, totalCount }: ChaletGridProps) => {
         </Select>
       </div>
       {isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: itemsPerPage }).map((_, index) => (
             <div key={index} className="flex flex-col h-full w-full">
               <Skeleton className="w-full rounded-xl aspect-[1/1]" />
@@ -130,7 +130,7 @@ const ChaletGrid = ({ initialProperties, totalCount }: ChaletGridProps) => {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {properties.map((property) => (
               <PropertyCard key={property.id} property={property} />
             ))}
@@ -138,8 +138,8 @@ const ChaletGrid = ({ initialProperties, totalCount }: ChaletGridProps) => {
 
           <div ref={loadMoreRef} className="flex justify-center items-center py-8">
             {hasMore && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-                {Array.from({ length: 3 }).map((_, index) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full">
+                {Array.from({ length: 4 }).map((_, index) => (
                   <div key={index} className="flex flex-col h-full w-full">
                     <Skeleton className="w-full rounded-xl aspect-[1/1]" />
                     <div className="px-1 pt-2 flex flex-col flex-grow">

@@ -28,7 +28,7 @@ export function ComparisonCarousel({ mainChalet, propertiesForComparison }: Comp
   };
 
   const filteredProperties = propertiesForComparison.filter(property => {
-    return activeFilters.every(filterId => 
+    return activeFilters.every(filterId =>
       (property.amenities || []).some(a => a.id.toString() === filterId)
     );
   });
@@ -51,7 +51,7 @@ export function ComparisonCarousel({ mainChalet, propertiesForComparison }: Comp
         className="w-full"
       >
         <div className="relative mb-4">
-          <H2>Comparar con otros Chalets</H2>
+          <H2 className="md:pr-48">Comparar {mainChalet.name} con otros Chalets</H2>
           <div className="absolute right-14 top-4.5 hidden items-center gap-1 md:flex">
             <CarouselPrevious />
             <CarouselNext />

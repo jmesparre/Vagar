@@ -74,8 +74,7 @@ const ChaletsClientPage = ({ initialProperties }: ChaletsClientPageProps) => {
         </div>
       </div>
 
-      <div className="mx-auto px-8 pb-8">
-        <Separator className="mb-10" />
+      <div className="mx-auto px-8 pb-8 pt-4">
         {initialProperties.length > 0 ? (
           <ChaletGrid initialProperties={initialProperties} totalCount={initialProperties.length} />
         ) : (
