@@ -39,7 +39,7 @@ const Header = () => {
           <ul className="flex space-x-6">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="text-gray-600 hover:text-gray-800">
+                <Link href={link.href} className="text-gray-600 text-sm hover:text-gray-800">
                   {link.label}
                 </Link>
               </li>

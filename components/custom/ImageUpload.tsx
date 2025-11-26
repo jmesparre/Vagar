@@ -4,17 +4,9 @@ import { useState, useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
-import { UploadCloud, X, Images } from 'lucide-react';
+import { UploadCloud, X } from 'lucide-react';
 import Image from 'next/image';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { BlobImageGallery } from './BlobImageGallery';
+
 
 interface ImageUploadProps {
   value: string[];
@@ -23,9 +15,7 @@ interface ImageUploadProps {
 
 export function ImageUpload({ value, onChange }: ImageUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
-  const [gallerySelectedUrls, setGallerySelectedUrls] = useState<string[]>([]);
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -66,8 +56,32 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
     setIsUploading(false);
   };
 
-  const handleRemove = (urlToRemove: string) => {
-    onChange(value.filter(url => url !== urlToRemove));
+  const handleRemove = async (urlToRemove: string) => {
+    setIsDeleting(true);
+    try {
+      const response = await fetch(`/api/upload?url=${encodeURIComponent(urlToRemove)}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al eliminar la imagen.');
+      }
+
+      onChange(value.filter(url => url !== urlToRemove));
+      toast({
+        title: 'Imagen eliminada',
+        description: 'La imagen se ha eliminado correctamente.',
+      });
+    } catch (error) {
+      console.error('Error deleting image:', error);
+      toast({
+        title: 'Error',
+        description: 'No se pudo eliminar la imagen.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
@@ -84,18 +98,7 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
     event.stopPropagation();
   };
 
-  const handleConfirmSelection = () => {
-    // Añadir solo las URLs que no estén ya en el `value` para evitar duplicados
-    const newUrls = gallerySelectedUrls.filter(url => !value.includes(url));
-    onChange([...value, ...newUrls]);
-    setIsGalleryOpen(false);
-  };
 
-  const handleOpenGallery = () => {
-    // Sincronizar la selección de la galería con el valor actual del formulario
-    setGallerySelectedUrls(value);
-    setIsGalleryOpen(true);
-  };
 
   return (
     <div>
@@ -119,39 +122,10 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
             accept="image/*"
           />
         </div>
-        <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
-          <DialogTrigger asChild>
-            <Button type="button" variant="outline" onClick={handleOpenGallery}>
-              <Images className="mr-2 h-4 w-4" />
-              Seleccionar de la Galería
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-full w-full h-full flex flex-col">
-            <DialogHeader className="flex-row items-center justify-between">
-              <DialogTitle>Seleccionar Imágenes Existentes</DialogTitle>
-              <Input
-                placeholder="Buscar por nombre..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-1/3"
-              />
-            </DialogHeader>
-            <div className="flex-grow overflow-hidden">
-              <BlobImageGallery 
-                selectedUrls={gallerySelectedUrls}
-                onSelectionChange={setGallerySelectedUrls}
-                searchTerm={searchTerm}
-              />
-            </div>
-            <DialogFooter>
-              <Button variant="outline" onClick={() => setIsGalleryOpen(false)}>Cancelar</Button>
-              <Button onClick={handleConfirmSelection}>Confirmar Selección</Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
       </div>
 
       {isUploading && <p className="mt-4 text-sm text-gray-500">Subiendo imágenes...</p>}
+      {isDeleting && <p className="mt-4 text-sm text-gray-500">Eliminando imagen...</p>}
 
       <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {value.map((url) => (

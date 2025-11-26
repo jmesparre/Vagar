@@ -87,7 +87,7 @@ export default async function ChaletDetailPage({ params }: ChaletDetailPageProps
                 if (!amenityDetails) return null;
                 const Icon = amenityDetails.icon;
                 return (
-                  <div key={`amenity-item-${amenity.id}`} className="flex items-center space-x-2">
+                  <div key={`amenity-item-${amenity.id}`} className="flex text-sm items-center space-x-2">
                     <Icon className="h-5 w-5" />
                     <span>{amenity.name}</span>
                   </div>

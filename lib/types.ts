@@ -84,6 +84,7 @@ export type Booking = {
   status: 'pending' | 'confirmed' | 'cancelled';
   created_at: string;
   property_name: string; // Joined from Properties table
+  source?: string;
 };
 
 export type Testimonial = {

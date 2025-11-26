@@ -232,13 +232,13 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
       />
 
       {/* Desktop Search Bar */}
-      <div className="hidden md:flex bg-white border-gray-200 rounded-full shadow-lg flex-row items-center w-full max-w-3xl p-0">
+      <div className="hidden md:flex bg-white border-gray-200 rounded-full shadow-lg flex-row items-center w-full md:max-w-2xl lg:max-w-3xl px-1">
         <div className="flex-1 relative">
           <Popover onOpenChange={setIsAmenitiesPopoverOpen}>
             <PopoverTrigger asChild>
               <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-l-full pr-10">
-                <p className="font-bold text-xs text-gray-800">Amenities</p>
-                <p className="text-sm text-gray-500">{amenitiesText}</p>
+                <p className="font-semibold text-xs text-gray-800">Amenities</p>
+                <p className="text-xs pt-0.5 text-gray-500">{amenitiesText}</p>
               </button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
@@ -265,8 +265,8 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
           <Popover onOpenChange={setIsDatePopoverOpen}>
             <PopoverTrigger asChild>
               <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-none pr-10">
-                <p className="font-bold text-xs text-gray-800">Cuándo</p>
-                <p className="text-sm text-gray-500">
+                <p className="font-semibold text-xs text-gray-800">Cuándo</p>
+                <p className="text-xs pt-0.5 text-gray-500">
                   {date?.from ? (
                     date.to ? (
                       <>
@@ -277,7 +277,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
                       format(date.from, "LLL dd, y", { locale: es })
                     )
                   ) : (
-                    <span className="text-sm">Agregar fechas</span>
+                    <span className="text-xs pt-0.5">Agregar fechas</span>
                   )}
                 </p>
               </button>
@@ -311,8 +311,8 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
           <Popover onOpenChange={setIsGuestsPopoverOpen}>
             <PopoverTrigger asChild>
               <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-r-full pr-10">
-                <p className="font-bold text-xs text-gray-800">Huéspedes</p>
-                <p className="text-sm text-gray-500">{guestText}</p>
+                <p className="font-semibold text-xs text-gray-800">Huéspedes</p>
+                <p className="text-xs pt-0.5 text-gray-500">{guestText}</p>
               </button>
             </PopoverTrigger>
             <PopoverContent className="w-80">

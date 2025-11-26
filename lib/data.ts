@@ -258,7 +258,8 @@ export const fetchAllBookings = async (): Promise<Booking[]> => {
       *,
       properties(name)
     `)
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .neq('source', 'excel');
 
   if (error) {
     console.error('Failed to fetch all bookings:', error);
@@ -299,6 +300,9 @@ export const fetchFilteredBookings = async (
     supabaseQuery = supabaseQuery.or(`client_name.ilike.%${query}%,client_phone.ilike.%${query}%,properties.name.ilike.%${query}%`);
   }
 
+  // Filter out bookings from excel (availability blocks)
+  supabaseQuery = supabaseQuery.neq('source', 'excel');
+
   const validSortBy = ['created_at', 'client_name', 'status'].includes(sortBy) ? sortBy : 'created_at';
 
   supabaseQuery = supabaseQuery
@@ -325,11 +329,11 @@ export const fetchFilteredBookings = async (
  * Fetches dashboard metrics from the database.
  */
 export const fetchDashboardMetrics = async (): Promise<DashboardMetrics> => {
-  const { count: pendingBookings, error: pendingError } = await supabase.from('bookings').select('*', { count: 'exact', head: true }).eq('status', 'pending');
+  const { count: pendingBookings, error: pendingError } = await supabase.from('bookings').select('*', { count: 'exact', head: true }).eq('status', 'pending').neq('source', 'excel');
   const { count: activeProperties, error: propertiesError } = await supabase.from('properties').select('*', { count: 'exact', head: true });
 
   const today = new Date().toISOString().slice(0, 10);
-  const { count: newBookingsToday, error: newTodayError } = await supabase.from('bookings').select('*', { count: 'exact', head: true }).gte('created_at', `${today}T00:00:00Z`).lt('created_at', `${today}T23:59:59Z`);
+  const { count: newBookingsToday, error: newTodayError } = await supabase.from('bookings').select('*', { count: 'exact', head: true }).gte('created_at', `${today}T00:00:00Z`).lt('created_at', `${today}T23:59:59Z`).neq('source', 'excel');
 
   if (pendingError || propertiesError || newTodayError) {
     console.error('Failed to fetch dashboard metrics:', pendingError || propertiesError || newTodayError);
@@ -357,6 +361,7 @@ export const fetchLatestBookings = async (): Promise<LatestBooking[]> => {
       status
     `)
     .order('created_at', { ascending: false })
+    .neq('source', 'excel')
     .limit(5);
 
   if (error) {

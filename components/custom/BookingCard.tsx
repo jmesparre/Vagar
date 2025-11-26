@@ -109,7 +109,7 @@ export function BookingCard({ chalet, bookings }: BookingCardProps) {
   return (
     <div className="sticky top-6 rounded-xl border px-6 pt-6 pb-8 shadow-lg">
       <H2 className="mb-1">Precio</H2>
-      <div className="space-y-2 text-sm text-muted-foreground mb-6">
+      <div className="space-y-2 text-xs text-muted-foreground mb-6">
         <div className="flex justify-between">
           <span>Temporada alta</span>
           <span className="font-semibold text-foreground">
@@ -123,7 +123,7 @@ export function BookingCard({ chalet, bookings }: BookingCardProps) {
           </span>
         </div>
         <div className="flex justify-between">
-          <span>Temporada Baja</span>
+          <span>Temporada baja</span>
           <span className="font-semibold text-foreground">
             ${chalet.price_low?.toLocaleString('es-AR')}
           </span>
@@ -133,13 +133,13 @@ export function BookingCard({ chalet, bookings }: BookingCardProps) {
         <PopoverTrigger asChild>
           <div className="grid grid-cols-2 rounded-t-lg border cursor-pointer">
             <div className="p-2">
-              <div className="text-xs font-bold uppercase">CHECK-IN</div>
+              <div className="text-[11px] font-semibold uppercase">CHECK-IN</div>
               <div className="text-xs">
                 {date?.from ? format(date.from, "MM/dd/yyyy") : "Add date"}
               </div>
             </div>
             <div className="border-l p-2">
-              <div className="text-xs font-bold uppercase">CHECKOUT</div>
+              <div className="text-[11px] font-semibold uppercase">CHECKOUT</div>
               <div className="text-xs">
                 {date?.to ? format(date.to, "MM/dd/yyyy") : "Add date"}
               </div>
@@ -157,7 +157,7 @@ export function BookingCard({ chalet, bookings }: BookingCardProps) {
       <Popover>
         <PopoverTrigger asChild>
           <div className="rounded-b-lg border border-t-0 p-2 cursor-pointer">
-            <div className="text-xs font-bold uppercase">HUESPEDES</div>
+            <div className="text-[11px] font-semibold uppercase">HUESPEDES</div>
             <div className="flex items-center justify-between text-xs">
               <span>{guestText}</span>
               <svg
