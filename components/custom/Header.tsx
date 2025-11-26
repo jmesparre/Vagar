@@ -20,7 +20,7 @@ const Header = () => {
 
   return (
     <header className="bg-white shadow-md">
-      <div className="container mx-auto px-4 py-0 max-h-[60px] flex justify-between items-center">
+      <div className="container mx-auto px-0 py-0 max-h-[60px] flex justify-between items-center">
         <div className="flex items-center">
           <Link href="/">
             <Image
