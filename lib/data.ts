@@ -516,7 +516,7 @@ export const fetchFeaturedPropertiesByCategory = async (category: string, limit:
   const propertyIds = properties.map(p => p.id);
   const { data: images, error: imagesError } = await supabase
     .from('images')
-    .select('url, entity_id')
+    .select('url, entity_id, image_category')
     .in('entity_id', propertyIds)
     .eq('entity_type', 'property');
 
@@ -527,7 +527,10 @@ export const fetchFeaturedPropertiesByCategory = async (category: string, limit:
 
   // Step 3: Map images to their properties
   return properties.map(p => {
-    const mainImage = images?.find(img => img.entity_id === p.id);
+    const relatedImages = images?.filter(img => img.entity_id === p.id) || [];
+    const galleryImage = relatedImages.find(img => img.image_category === 'gallery');
+    const mainImage = galleryImage || relatedImages[0];
+
     return {
       ...p,
       main_image_url: mainImage?.url ?? undefined,
@@ -559,7 +562,7 @@ export const fetchFeaturedProperties = async (limit: number = 6): Promise<Proper
   const propertyIds = properties.map(p => p.id);
   const { data: images, error: imagesError } = await supabase
     .from('images')
-    .select('url, entity_id')
+    .select('url, entity_id, image_category')
     .in('entity_id', propertyIds)
     .eq('entity_type', 'property');
 
@@ -569,7 +572,10 @@ export const fetchFeaturedProperties = async (limit: number = 6): Promise<Proper
 
   // Step 3: Map images to their properties
   return properties.map(p => {
-    const mainImage = images?.find(img => img.entity_id === p.id);
+    const relatedImages = images?.filter(img => img.entity_id === p.id) || [];
+    const galleryImage = relatedImages.find(img => img.image_category === 'gallery');
+    const mainImage = galleryImage || relatedImages[0];
+
     return {
       ...p,
       main_image_url: mainImage?.url ?? undefined,

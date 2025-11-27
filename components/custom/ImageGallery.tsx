@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogTitle,
 } from '@/components/ui/dialog-custom';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Lightbox } from '@/components/custom/Lightbox';
 import { Camera, Layout } from 'lucide-react';
 import { Image as ImageType } from '@/lib/types';
@@ -118,7 +119,7 @@ export const ImageGallery = ({
           {blueprintImageUrls.length > 0 && (
             <Button
               variant="secondary"
-               size="sm"
+              size="sm"
               className="flex items-center gap-2 text-xs"
               onClick={openBlueprintLightbox}
             >
@@ -132,23 +133,25 @@ export const ImageGallery = ({
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="h-screen max-w-full bg-white p-4">
           <DialogTitle className="sr-only">Image Gallery</DialogTitle>
-          <div className="columns-1 gap-4 sm:columns-2 md:columns-3 lg:columns-4">
-            {galleryImageUrls.map((imageUrl, index) => (
-              <div
-                key={index}
-                className="relative mb-4 cursor-pointer overflow-hidden rounded-lg"
-                onClick={() => openGalleryLightbox(index)}
-              >
-                <Image
-                  src={imageUrl}
-                  alt={`Gallery image ${index + 1}`}
-                  width={500}
-                  height={300}
-                  className="h-auto w-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
+          <ScrollArea className="h-full w-full pr-4">
+            <div className="columns-1 gap-4 sm:columns-2 md:columns-3 lg:columns-4">
+              {galleryImageUrls.map((imageUrl, index) => (
+                <div
+                  key={index}
+                  className="relative mb-4 cursor-pointer overflow-hidden rounded-lg"
+                  onClick={() => openGalleryLightbox(index)}
+                >
+                  <Image
+                    src={imageUrl}
+                    alt={`Gallery image ${index + 1}`}
+                    width={500}
+                    height={300}
+                    className="h-auto w-full object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
         </DialogContent>
       </Dialog>
 
