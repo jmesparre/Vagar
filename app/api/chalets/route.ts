@@ -16,7 +16,7 @@ const formSchema = z.object({
     (val) => (val === "" || val === null || val === undefined ? undefined : Number(val)),
     z.number().optional()
   ),
-  category: z.string().optional(),
+  category: z.string().min(1, { message: "La categoría es obligatoria." }),
   guests: z.preprocess(
     (val) => (val === "" || val === null || val === undefined ? undefined : Number(val)),
     z.number().int().positive().optional()

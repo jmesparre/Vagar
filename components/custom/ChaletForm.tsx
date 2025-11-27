@@ -59,7 +59,7 @@ const formSchema = z.object({
   optional_services: z.string().optional(),
   latitude: numericString.refine(val => val === null || (val >= -90 && val <= 90), { message: "Latitud fuera de rango" }),
   longitude: numericString.refine(val => val === null || (val >= -180 && val <= 180), { message: "Longitud fuera de rango" }),
-  category: z.string().optional(),
+  category: z.string().min(1, { message: "La categoría es obligatoria." }),
   guests: numericString.refine(val => val === null || (Number.isInteger(val) && val > 0), { message: "Debe ser un entero positivo" }),
   bedrooms: numericString.refine(val => val === null || (Number.isInteger(val) && val > 0), { message: "Debe ser un entero positivo" }),
   beds: numericString.refine(val => val === null || (Number.isInteger(val) && val > 0), { message: "Debe ser un entero positivo" }),
@@ -211,7 +211,7 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [], allAmenities }:
         title: "Éxito",
         description: `El chalet ha sido ${isEditMode ? 'actualizado' : 'guardado'} correctamente.`,
       });
-      
+
       if (!isEditMode) {
         form.reset();
       }
@@ -669,10 +669,10 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [], allAmenities }:
                                 return checked
                                   ? field.onChange([...(field.value || []), amenity.slug])
                                   : field.onChange(
-                                      (field.value || []).filter(
-                                        (value) => value !== amenity.slug
-                                      )
-                                    );
+                                    (field.value || []).filter(
+                                      (value) => value !== amenity.slug
+                                    )
+                                  );
                               }}
                             />
                           </FormControl>
