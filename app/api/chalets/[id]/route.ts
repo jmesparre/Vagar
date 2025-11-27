@@ -88,12 +88,24 @@ export async function PUT(request: Request) {
     if (deleteImagesError) console.error("Error deleting old images:", deleteImagesError);
 
     if (gallery_images && gallery_images.length > 0) {
-      const imagesToInsert = gallery_images.map(url => ({ url, entity_type: "property", entity_id: propertyId, image_category: "gallery" }));
+      const imagesToInsert = gallery_images.map((url, index) => ({
+        url,
+        entity_type: "property",
+        entity_id: propertyId,
+        image_category: "gallery",
+        order: index
+      }));
       const { error: galleryError } = await supabase.from("images").insert(imagesToInsert);
       if (galleryError) console.error("Error inserting new gallery images:", galleryError);
     }
     if (blueprint_images && blueprint_images.length > 0) {
-      const imagesToInsert = blueprint_images.map(url => ({ url, entity_type: "property", entity_id: propertyId, image_category: "blueprint" }));
+      const imagesToInsert = blueprint_images.map((url, index) => ({
+        url,
+        entity_type: "property",
+        entity_id: propertyId,
+        image_category: "blueprint",
+        order: index
+      }));
       const { error: blueprintError } = await supabase.from("images").insert(imagesToInsert);
       if (blueprintError) console.error("Error inserting new blueprint images:", blueprintError);
     }

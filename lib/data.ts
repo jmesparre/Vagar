@@ -52,7 +52,7 @@ export const fetchProperties = async (searchParams?: {
     { data: propertyAmenities, error: paError },
     { data: propertyRules, error: rulesError }
   ] = await Promise.all([
-    supabase.from('images').select('*').in('entity_id', propertyIds).eq('entity_type', 'property'),
+    supabase.from('images').select('*').in('entity_id', propertyIds).eq('entity_type', 'property').order('order', { ascending: true }),
     supabase.from('propertyamenities').select('*, amenities(*)').in('property_id', propertyIds),
     supabase.from('propertyrules').select('*').in('property_id', propertyIds)
   ]);
@@ -221,7 +221,7 @@ export const searchProperties = async (filters: {
     { data: propertyAmenities, error: paError },
     { data: propertyRules, error: rulesError }
   ] = await Promise.all([
-    supabase.from('images').select('*').in('entity_id', propertyIds).eq('entity_type', 'property'),
+    supabase.from('images').select('*').in('entity_id', propertyIds).eq('entity_type', 'property').order('order', { ascending: true }),
     supabase.from('propertyamenities').select('*, amenities(*)').in('property_id', propertyIds),
     supabase.from('propertyrules').select('*').in('property_id', propertyIds)
   ]);
@@ -400,7 +400,7 @@ export const fetchPropertyById = async (id: string): Promise<Property | undefine
     { data: propertyAmenities, error: paError },
     { data: propertyRules, error: rulesError }
   ] = await Promise.all([
-    supabase.from('images').select('*').eq('entity_id', property.id).eq('entity_type', 'property'),
+    supabase.from('images').select('*').eq('entity_id', property.id).eq('entity_type', 'property').order('order', { ascending: true }),
     supabase.from('propertyamenities').select('*, amenities(id, name, slug, category, icon)').eq('property_id', property.id),
     supabase.from('propertyrules').select('*').eq('property_id', property.id)
   ]);
@@ -463,7 +463,7 @@ export const fetchPropertyBySlug = async (slug: string): Promise<Property | unde
     { data: propertyAmenities, error: paError },
     { data: propertyRules, error: rulesError }
   ] = await Promise.all([
-    supabase.from('images').select('*').eq('entity_id', property.id).eq('entity_type', 'property'),
+    supabase.from('images').select('*').eq('entity_id', property.id).eq('entity_type', 'property').order('order', { ascending: true }),
     supabase.from('propertyamenities').select('*, amenities(id, name, slug, category, icon)').eq('property_id', property.id),
     supabase.from('propertyrules').select('*').eq('property_id', property.id)
   ]);
@@ -518,7 +518,8 @@ export const fetchFeaturedPropertiesByCategory = async (category: string, limit:
     .from('images')
     .select('url, entity_id, image_category')
     .in('entity_id', propertyIds)
-    .eq('entity_type', 'property');
+    .eq('entity_type', 'property')
+    .order('order', { ascending: true });
 
   if (imagesError) {
     console.error('Failed to fetch images for featured properties:', imagesError);
@@ -564,7 +565,8 @@ export const fetchFeaturedProperties = async (limit: number = 6): Promise<Proper
     .from('images')
     .select('url, entity_id, image_category')
     .in('entity_id', propertyIds)
-    .eq('entity_type', 'property');
+    .eq('entity_type', 'property')
+    .order('order', { ascending: true });
 
   if (imagesError) {
     console.error('Failed to fetch images for featured properties:', imagesError);
@@ -611,7 +613,7 @@ export const fetchAllChalets = async (): Promise<Property[]> => {
     { data: propertyAmenities, error: paError },
     { data: propertyRules, error: rulesError }
   ] = await Promise.all([
-    supabase.from('images').select('*').in('entity_id', propertyIds).eq('entity_type', 'property'),
+    supabase.from('images').select('*').in('entity_id', propertyIds).eq('entity_type', 'property').order('order', { ascending: true }),
     supabase.from('propertyamenities').select('*, amenities(*)').in('property_id', propertyIds),
     supabase.from('propertyrules').select('*').in('property_id', propertyIds)
   ]);

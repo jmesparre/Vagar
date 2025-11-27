@@ -16,6 +16,7 @@ interface ImageUploadProps {
 export function ImageUpload({ value, onChange }: ImageUploadProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -98,7 +99,31 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
     event.stopPropagation();
   };
 
+  // Funciones para el reordenamiento
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+    setDraggedIndex(index);
+    e.dataTransfer.effectAllowed = "move";
+    // Set a transparent image or similar if needed, but default ghost image is usually fine
+  };
 
+  const handleDragOverItem = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    if (draggedIndex === null || draggedIndex === index) return;
+
+    // Reorder logic
+    const newItems = [...value];
+    const draggedItem = newItems[draggedIndex];
+    newItems.splice(draggedIndex, 1);
+    newItems.splice(index, 0, draggedItem);
+
+    onChange(newItems);
+    setDraggedIndex(index);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedIndex(null);
+  };
 
   return (
     <div>
@@ -128,24 +153,36 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
       {isDeleting && <p className="mt-4 text-sm text-gray-500">Eliminando imagen...</p>}
 
       <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {value.map((url) => (
-          <div key={url} className="relative group">
+        {value.map((url, index) => (
+          <div
+            key={url}
+            className={`relative group cursor-move ${draggedIndex === index ? 'opacity-50' : ''}`}
+            draggable
+            onDragStart={(e) => handleDragStart(e, index)}
+            onDragOver={(e) => handleDragOverItem(e, index)}
+            onDragEnd={handleDragEnd}
+          >
             <Image
               src={url}
               alt="Vista previa de la imagen"
               width={150}
               height={150}
-              className="rounded-lg object-cover w-full h-full"
+              className="rounded-lg object-cover w-full h-full pointer-events-none" // pointer-events-none prevents image dragging interfering with div dragging
             />
-            <Button
-              type="button"
-              variant="destructive"
-              size="icon"
-              className="absolute top-1 right-1 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
-              onClick={() => handleRemove(url)}
-            >
-              <X className="h-4 w-4" />
-            </Button>
+            <div className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
+              <Button
+                type="button"
+                variant="destructive"
+                size="icon"
+                className="h-6 w-6"
+                onClick={() => handleRemove(url)}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="absolute bottom-1 right-1 bg-black/50 text-white text-xs px-2 py-1 rounded">
+              {index + 1}
+            </div>
           </div>
         ))}
       </div>

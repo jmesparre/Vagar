@@ -131,27 +131,26 @@ export const ImageGallery = ({
       </div>
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="h-screen max-w-full bg-white p-4">
+        <DialogContent className="flex flex-col max-h-[85vh] h-[85vh] w-full max-w-5xl bg-white p-6 overflow-hidden">
           <DialogTitle className="sr-only">Image Gallery</DialogTitle>
-          <ScrollArea className="h-full w-full pr-4">
-            <div className="columns-1 gap-4 sm:columns-2 md:columns-3 lg:columns-4">
+          <div className="flex-1 w-full pr-4 overflow-y-auto">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {galleryImageUrls.map((imageUrl, index) => (
                 <div
                   key={index}
-                  className="relative mb-4 cursor-pointer overflow-hidden rounded-lg"
+                  className="relative cursor-pointer overflow-hidden rounded-lg aspect-video"
                   onClick={() => openGalleryLightbox(index)}
                 >
                   <Image
                     src={imageUrl}
                     alt={`Gallery image ${index + 1}`}
-                    width={500}
-                    height={300}
-                    className="h-auto w-full object-cover"
+                    fill
+                    className="object-cover transition-transform duration-300 hover:scale-105"
                   />
                 </div>
               ))}
             </div>
-          </ScrollArea>
+          </div>
         </DialogContent>
       </Dialog>
 

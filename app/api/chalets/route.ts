@@ -82,11 +82,12 @@ export async function POST(request: Request) {
 
     // 2. Insertar imágenes de la galería
     if (gallery_images && gallery_images.length > 0) {
-      const imagesToInsert = gallery_images.map(url => ({
+      const imagesToInsert = gallery_images.map((url, index) => ({
         url,
         entity_type: "property",
         entity_id: propertyId,
         image_category: "gallery",
+        order: index,
       }));
       const { error: galleryError } = await supabase.from("images").insert(imagesToInsert);
       if (galleryError) console.error("Error inserting gallery images:", galleryError);
@@ -94,11 +95,12 @@ export async function POST(request: Request) {
 
     // 3. Insertar imágenes de planos
     if (blueprint_images && blueprint_images.length > 0) {
-      const imagesToInsert = blueprint_images.map(url => ({
+      const imagesToInsert = blueprint_images.map((url, index) => ({
         url,
         entity_type: "property",
         entity_id: propertyId,
         image_category: "blueprint",
+        order: index,
       }));
       const { error: blueprintError } = await supabase.from("images").insert(imagesToInsert);
       if (blueprintError) console.error("Error inserting blueprint images:", blueprintError);
