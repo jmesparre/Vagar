@@ -103,57 +103,59 @@ const ChaletGrid = ({ initialProperties, totalCount }: ChaletGridProps) => {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <H2 className='text-2xl'>{`${totalCount} Chalet${totalCount !== 1 ? 's' : ''}`}</H2>
+        <H2 className='text-lg'>{`${totalCount} Chalet${totalCount !== 1 ? 's' : ''}`}</H2>
         <Select onValueChange={setSortOrder} defaultValue={sortOrder}>
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="text-xs w-[180px]">
             <SelectValue placeholder="Ordenar por:" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="rating-desc">Mayor Calificacion</SelectItem>
-            <SelectItem value="rating-asc">Menor Calificacion</SelectItem>
-            <SelectItem value="price-desc">Mayor Precio</SelectItem>
-            <SelectItem value="price-asc">Menor Precio</SelectItem>
+            <SelectItem className="text-xs" value="rating-desc">Mayor Calificacion</SelectItem>
+            <SelectItem className="text-xs" value="rating-asc">Menor Calificacion</SelectItem>
+            <SelectItem className="text-xs" value="price-desc">Mayor Precio</SelectItem>
+            <SelectItem className="text-xs" value="price-asc">Menor Precio</SelectItem>
           </SelectContent>
         </Select>
       </div>
-      {isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {Array.from({ length: itemsPerPage }).map((_, index) => (
-            <div key={index} className="flex flex-col h-full w-full">
-              <Skeleton className="w-full rounded-xl aspect-[1/1]" />
-              <div className="px-1 pt-2 flex flex-col flex-grow">
-                <Skeleton className="h-4 w-3/4 mb-3 mt-1" />
-                <Skeleton className="h-4 w-1/2" />
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <>
+      {
+        isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {properties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
+            {Array.from({ length: itemsPerPage }).map((_, index) => (
+              <div key={index} className="flex flex-col h-full w-full">
+                <Skeleton className="w-full rounded-xl aspect-[1/1]" />
+                <div className="px-1 pt-2 flex flex-col flex-grow">
+                  <Skeleton className="h-4 w-3/4 mb-3 mt-1" />
+                  <Skeleton className="h-4 w-1/2" />
+                </div>
+              </div>
             ))}
           </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {properties.map((property) => (
+                <PropertyCard key={property.id} property={property} />
+              ))}
+            </div>
 
-          <div ref={loadMoreRef} className="flex justify-center items-center py-8">
-            {hasMore && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full">
-                {Array.from({ length: 4 }).map((_, index) => (
-                  <div key={index} className="flex flex-col h-full w-full">
-                    <Skeleton className="w-full rounded-xl aspect-[1/1]" />
-                    <div className="px-1 pt-2 flex flex-col flex-grow">
-                      <Skeleton className="h-4 w-3/4 mb-1" />
-                      <Skeleton className="h-4 w-1/2" />
+            <div ref={loadMoreRef} className="flex justify-center items-center py-8">
+              {hasMore && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full">
+                  {Array.from({ length: 4 }).map((_, index) => (
+                    <div key={index} className="flex flex-col h-full w-full">
+                      <Skeleton className="w-full rounded-xl aspect-[1/1]" />
+                      <div className="px-1 pt-2 flex flex-col flex-grow">
+                        <Skeleton className="h-4 w-3/4 mb-1" />
+                        <Skeleton className="h-4 w-1/2" />
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </>
-      )}
-    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </>
+        )
+      }
+    </div >
   );
 };
 

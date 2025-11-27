@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
+import { del } from '@vercel/blob';
 import supabase from "@/lib/db";
 
 const formSchema = z.object({
@@ -166,6 +167,8 @@ export async function PUT(request: Request) {
   }
 }
 
+
+
 export async function DELETE(request: Request) {
   try {
     const url = new URL(request.url);
@@ -174,8 +177,41 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: "ID de chalet no encontrado en la URL" }, { status: 400 });
     }
 
-    // Asumiendo que hay ON DELETE CASCADE en la base de datos,
-    // Supabase se encargará de borrar los registros relacionados.
+    // 1. Obtener las imágenes asociadas al chalet
+    const { data: imagesToDelete, error: fetchImagesError } = await supabase
+      .from("images")
+      .select("url")
+      .eq("entity_type", "property")
+      .eq("entity_id", propertyId);
+
+    if (fetchImagesError) {
+      console.error("Error fetching images for deletion:", fetchImagesError);
+    }
+
+    // 2. Eliminar imágenes de Vercel Blob y de la base de datos
+    if (imagesToDelete && imagesToDelete.length > 0) {
+      const urls = imagesToDelete.map(img => img.url);
+      try {
+        // Eliminar de Vercel Blob
+        await del(urls);
+      } catch (blobError) {
+        console.error("Error deleting images from Vercel Blob:", blobError);
+        // Continuamos con la eliminación de la BD aunque falle el Blob para no dejar datos inconsistentes
+      }
+
+      // Eliminar de la tabla images
+      const { error: deleteImagesError } = await supabase
+        .from("images")
+        .delete()
+        .eq("entity_type", "property")
+        .eq("entity_id", propertyId);
+
+      if (deleteImagesError) {
+        console.error("Error deleting images from database:", deleteImagesError);
+      }
+    }
+
+    // 3. Eliminar el chalet (Cascada para amenities y rules, SET NULL para bookings)
     const { error, count } = await supabase
       .from("properties")
       .delete({ count: 'exact' })

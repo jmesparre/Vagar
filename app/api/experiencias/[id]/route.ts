@@ -4,6 +4,7 @@ import supabase from '@/lib/db';
 import { z } from 'zod';
 import { fetchExperienceById } from '@/lib/data';
 import { Experience } from '@/lib/types';
+import { del } from '@vercel/blob';
 
 const formSchema = z.object({
   title: z.string().min(2, "El título debe tener al menos 2 caracteres."),
@@ -33,7 +34,7 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ id:
     const { id } = await context.params;
     const body = await request.json();
     const validatedData = formSchema.parse(body);
-    
+
     const { title, category, short_description, long_description, what_to_know, images } = validatedData;
 
     // 1. Actualizar la experiencia en Supabase
@@ -74,7 +75,7 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ id:
         entity_id: id,
         order: index,
       }));
-      
+
       const { error: insertError } = await supabase.from('images').insert(imageInserts);
 
       if (insertError) {
@@ -97,23 +98,47 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ id:
   }
 }
 
+
+
 export async function DELETE(request: NextRequest, context: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await context.params;
 
-    // Eliminar imágenes asociadas
-    const { error: imageError } = await supabase
+    // 1. Obtener las imágenes asociadas a la experiencia
+    const { data: imagesToDelete, error: fetchImagesError } = await supabase
       .from('images')
-      .delete()
+      .select('url')
       .eq('entity_type', 'experience')
       .eq('entity_id', id);
 
-    if (imageError) {
-      console.error('Error deleting associated images:', imageError);
-      // No se considera un error fatal, pero se registra.
+    if (fetchImagesError) {
+      console.error('Error fetching images for deletion:', fetchImagesError);
     }
 
-    // Eliminar la experiencia
+    // 2. Eliminar imágenes de Vercel Blob y de la base de datos
+    if (imagesToDelete && imagesToDelete.length > 0) {
+      const urls = imagesToDelete.map(img => img.url);
+      try {
+        // Eliminar de Vercel Blob
+        await del(urls);
+      } catch (blobError) {
+        console.error('Error deleting images from Vercel Blob:', blobError);
+        // Continuamos con la eliminación de la BD aunque falle el Blob
+      }
+
+      // Eliminar de la tabla images
+      const { error: imageError } = await supabase
+        .from('images')
+        .delete()
+        .eq('entity_type', 'experience')
+        .eq('entity_id', id);
+
+      if (imageError) {
+        console.error('Error deleting associated images from database:', imageError);
+      }
+    }
+
+    // 3. Eliminar la experiencia
     const { data, error: experienceError } = await supabase
       .from('experiences')
       .delete()

@@ -166,10 +166,10 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
           onClick={(e) => e.stopPropagation()}
         >
           <div className="bg-white rounded-xl shadow-lg px-1 pt-1 pb-5 overflow-hidden">
-            <button onClick={handleCloseCard} className="absolute top-2 right-2 bg-white rounded-full p-1 z-30 leading-none">
+            <button onClick={handleCloseCard} className="absolute top-2 right-2 w-6 bg-white rounded-full p-1 z-30 leading-none">
               &times;
             </button>
-            <PropertyCard property={selectedProperty} disableLink={true} />
+            <PropertyCard property={selectedProperty}  />
           </div>
         </div>
       )}
