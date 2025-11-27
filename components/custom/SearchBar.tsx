@@ -241,7 +241,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
                 <p className="text-xs pt-0.5 text-gray-500">{amenitiesText}</p>
               </button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
+            <PopoverContent className="w-auto mt-2 p-0" align="start">
               <AmenitiesPopoverContent
                 selectedAmenities={selectedAmenities}
                 onAmenityToggle={handleAmenityToggle}
@@ -261,7 +261,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
 
         <div className="h-8 border-l border-gray-200"></div>
 
-        <div className="flex-1 relative">
+        <div className="flex-1 relative ">
           <Popover onOpenChange={setIsDatePopoverOpen}>
             <PopoverTrigger asChild>
               <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-none pr-10">
@@ -282,7 +282,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
                 </p>
               </button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
+            <PopoverContent className="w-auto absolute lg:top-45 md:top-39 left-15 mt-2" align="center" centerScreen>
               <Calendar
                 initialFocus
                 mode="range"
@@ -310,12 +310,12 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
         <div className="flex-1 relative">
           <Popover onOpenChange={setIsGuestsPopoverOpen}>
             <PopoverTrigger asChild>
-              <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-r-full pr-10">
+              <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-r-full">
                 <p className="font-semibold text-xs text-gray-800">Huéspedes</p>
                 <p className="text-xs pt-0.5 text-gray-500">{guestText}</p>
               </button>
             </PopoverTrigger>
-            <PopoverContent className="w-80">
+            <PopoverContent className="w-88 absolute  md:-left-34 lg:-left-30 mt-2">
               <GuestsPopoverContent
                 guests={guests}
                 handleGuestChange={handleGuestChange}

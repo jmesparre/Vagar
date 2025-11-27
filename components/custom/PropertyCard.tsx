@@ -33,20 +33,33 @@ export function PropertyCard({ property, disableLink = false }: PropertyCardProp
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="rounded-t-lg object-cover"
         />
-        <div className="absolute bottom-2 left-2 z-10">
-          <CircleDollarSign className="w-8 h-8 text-white bg-black/50 rounded-full p-1" />
+        <div
+          className="absolute bottom-2 left-2 z-10 lg:hidden"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsPriceVisible(true);
+          }}
+        >
+          <CircleDollarSign className="w-16 h-16 m-1 md:w-8 md:h-8  text-white bg-black/50 rounded-full p-1" />
         </div>
         <div
-          className={`absolute inset-0 bg-black/70 p-4 text-white transition-opacity duration-300 z-20 ${
-            isPriceVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'
-          }`}
+          className={`absolute inset-0 bg-black/70 p-4 text-white transition-opacity duration-300 z-20 ${isPriceVisible ? 'opacity-100 lg:pointer-events-none' : 'opacity-0 pointer-events-none'
+            }`}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setIsPriceVisible(false);
+          }}
         >
-          <H4>Precios por Temporada</H4>
-          <ul className="mt-2 space-y-1">
-            <li>Alta: ${property.price_high?.toLocaleString() ?? 'N/A'}</li>
-            <li>Media: ${property.price_mid?.toLocaleString() ?? 'N/A'}</li>
-            <li>Baja: ${property.price_low?.toLocaleString() ?? 'N/A'}</li>
-          </ul>
+          <div className="text-center font-light pt-3">
+            <H4 className="text-bg leading-tight font-light pb-3 px-4">Precios por Temporada</H4>
+            <ul className="mt-2 space-y-1.5">
+              <li>Alta: ${property.price_high?.toLocaleString() ?? 'N/A'}</li>
+              <li>Media: ${property.price_mid?.toLocaleString() ?? 'N/A'}</li>
+              <li>Baja: ${property.price_low?.toLocaleString() ?? 'N/A'}</li>
+            </ul>
+          </div>
         </div>
       </ItemMedia>
       <ItemContent className="px-1 pt-0 -mt-2 flex flex-col flex-grow">

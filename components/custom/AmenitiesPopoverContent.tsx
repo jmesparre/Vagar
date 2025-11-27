@@ -46,12 +46,12 @@ export function AmenitiesPopoverContent({
   }, {} as Record<string, typeof allAmenities>);
 
   return (
-    <div className="p-4 w-96">
+    <div className="p-6 w-96">
       <ScrollArea className="h-80 w-full">
         <div className="pr-4">
           {Object.entries(groupedAmenities).map(([category, amenities]) => (
             <div key={category} className="mb-4">
-              <h4 className="font-semibold mb-3">{category}</h4>
+              <h4 className="text-sm pb-1">{category}</h4>
               <div className="flex flex-wrap gap-2">
                 {amenities.map((amenity) => (
                   <AmenityButton

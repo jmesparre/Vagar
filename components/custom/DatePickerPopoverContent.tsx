@@ -103,7 +103,7 @@ export const DatePickerPopoverContent: React.FC<DatePickerPopoverContentProps> =
         selected={date}
         onSelect={setDate}
         numberOfMonths={2}
-        className="p-0"
+        className="p-1"
       />
       <div className="flex justify-end items-center mt-4 space-x-2">
         <Button variant="link" onClick={() => setDate(undefined)}>
