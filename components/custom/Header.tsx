@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Separator } from "@/components/ui/separator";
 import {
   Sheet,
   SheetContent,
@@ -10,6 +12,8 @@ import {
 } from '@/components/ui/sheet';
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const navLinks = [
     { href: '/chalets', label: 'Chalets' },
     { href: '/mapa', label: 'Mapa' },
@@ -49,7 +53,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         <div className="md:hidden">
-          <Sheet>
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="text-gray-800">
                 <Menu className="h-6 w-6" />
@@ -57,15 +61,18 @@ const Header = () => {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
-              <SheetTitle className="text-left mb-4">Menú</SheetTitle>
-              <nav className="flex flex-col space-y-4 mt-4">
+              <SheetTitle className='hidden'>menú</SheetTitle>
+              <nav className="flex flex-col space-y-0 mx-8 mt-14">
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
                     className="text-lg text-gray-600 hover:text-gray-800 font-medium"
+                    onClick={() => setIsOpen(false)}
                   >
                     {link.label}
+                    <Separator className="my-3" />
+
                   </Link>
                 ))}
               </nav>

@@ -61,20 +61,26 @@ export default async function ChaletDetailPage({ params }: ChaletDetailPageProps
 
         {/* Columna Izquierda: Información (aparece segundo en móvil) */}
         <div className="md:col-span-2 md:order-1">
-          <H1 className="text-3xl font-bold">{chalet.name}</H1>
-          <div className="mt-2 flex items-center">
-            <Star className="h-5 w-5 fill-primary text-primary" />
-            <span className="ml-1 font-semibold">{chalet.rating ? Number(chalet.rating).toFixed(2) : 'N/A'}</span>
+          <div className="flex space-x-4">
+            <H1 className="text-3xl font-bold">{chalet.name}</H1>
+            <div className="mt-2 lg:mt-4 flex">
+              <Star className="h-5 w-5 fill-primary text-primary" />
+              <span className="ml-1 font-semibold">{chalet.rating ? Number(chalet.rating).toFixed(2) : 'N/A'}</span>
+            </div>
           </div>
-          <div className="mt-4 flex space-x-4 text-sm text-muted-foreground">
+          <div className="mt-2 flex space-x-4 text-sm text-muted-foreground">
             <span>{chalet.guests} huéspedes</span>
             <span>·</span>
             <span>{chalet.bedrooms} dormitorios</span>
             <span>·</span>
             <span>{chalet.beds} camas</span>
           </div>
-          <Separator className="my-6" />
-          <P>{chalet.description}</P>
+          {chalet.description && (
+            <>
+              <Separator className="my-6" />
+              <P>{chalet.description}</P>
+            </>
+          )}
 
           <Separator className="my-8" />
 

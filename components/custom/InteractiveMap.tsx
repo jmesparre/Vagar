@@ -143,10 +143,12 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
                 <Image
                   src="/mapa.png"
                   alt="Mapa de propiedades"
-                  layout="fill"
-                  objectFit="contain"
+                  fill
+                  style={{ objectFit: 'contain' }}
                   className="absolute top-0 left-0"
                   priority
+                  quality={100}
+                  unoptimized
                 />
                 <div className="absolute top-0 left-0 w-full h-full">
                   {svgContent && parse(svgContent, options)}
@@ -169,7 +171,7 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
             <button onClick={handleCloseCard} className="absolute top-2 right-2 w-6 bg-white rounded-full p-1 z-30 leading-none">
               &times;
             </button>
-            <PropertyCard property={selectedProperty}  />
+            <PropertyCard property={selectedProperty} />
           </div>
         </div>
       )}

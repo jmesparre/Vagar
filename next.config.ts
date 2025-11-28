@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
         hostname: "placehold.co",
       },
     ],
+    qualities: [100],
   },
   webpack: (config, { isServer }) => {
     // Excluir módulos nativos de Node.js del bundle del cliente
