@@ -9,6 +9,7 @@ import { PropertyCard } from "@/components/custom/PropertyCard";
 import { H2, P } from "@/components/ui/typography";
 import { ComparisonTable } from "@/components/custom/ComparisonTable";
 import { Property } from "@/lib/types";
+import { allAmenities } from "@/lib/amenities-data";
 
 interface ComparisonCarouselProps {
   mainChalet: Property;
@@ -28,9 +29,11 @@ export function ComparisonCarousel({ mainChalet, propertiesForComparison }: Comp
   };
 
   const filteredProperties = propertiesForComparison.filter(property => {
-    return activeFilters.every(filterId =>
-      (property.amenities || []).some(a => a.id.toString() === filterId)
-    );
+    return activeFilters.every(filterId => {
+      const staticAmenity = allAmenities.find(a => a.id === filterId);
+      if (!staticAmenity) return false;
+      return (property.amenities || []).some(a => a.name === staticAmenity.name);
+    });
   });
 
   useEffect(() => {
