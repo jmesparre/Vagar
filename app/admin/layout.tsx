@@ -53,7 +53,7 @@ export default function AdminLayout({
             </a>
             <a
               href="/admin/galeria"
-              className="block px-6 py-2.5 mt-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg"
+              className="block hidden px-6 py-2.5 mt-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg"
             >
               Galería
             </a>
