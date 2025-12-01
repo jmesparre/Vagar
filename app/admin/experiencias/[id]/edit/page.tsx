@@ -14,7 +14,9 @@ export default async function EditExperiencePage({ params }: { params: Promise<{
   // We need to stringify it before passing it to the form.
   const transformedExperience = {
     ...experience,
-    what_to_know: JSON.stringify(experience.what_to_know || []),
+    what_to_know: (experience.what_to_know && experience.what_to_know.length > 0)
+      ? JSON.stringify(experience.what_to_know)
+      : "",
     // The form also expects images as an array of objects with a `url` property.
     images: experience.gallery_images.map(img => ({ url: img.url })),
   };

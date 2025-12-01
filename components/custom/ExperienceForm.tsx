@@ -34,7 +34,7 @@ const formSchema = z.object({
   category: z.string().min(1, "La categoría es obligatoria."),
   short_description: z.string().min(10, "La descripción corta debe tener al menos 10 caracteres."),
   long_description: z.string().min(20, "La descripción larga debe tener al menos 20 caracteres."),
-  what_to_know: z.string().min(1, "Debes añadir al menos un punto clave."),
+  what_to_know: z.string().optional(),
   images: z.array(z.object({ url: z.string().url("Debe ser una URL válida.") })),
 });
 
@@ -57,7 +57,7 @@ export function ExperienceForm({ defaultValues }: ExperienceFormProps) {
       category: "",
       short_description: "",
       long_description: "",
-      what_to_know: "[]",
+      what_to_know: "",
       images: [],
     },
   });
@@ -210,7 +210,7 @@ export function ExperienceForm({ defaultValues }: ExperienceFormProps) {
             </FormItem>
           )}
         />
-        
+
         <FormField
           control={form.control}
           name="images"

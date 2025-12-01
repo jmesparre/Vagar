@@ -48,7 +48,15 @@ export function Lightbox({ images, initialIndex, onClose }: LightboxProps) {
   }, [goToNext, goToPrevious, onClose]);
 
   return (
-    <div data-lightbox-root className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90">
+    <div
+      data-lightbox-root
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
+    >
       {/* Close Button */}
       <button
         onClick={(e) => handleInteraction(e, onClose)}

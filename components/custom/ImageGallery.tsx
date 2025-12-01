@@ -130,7 +130,15 @@ export const ImageGallery = ({
         </div>
       </div>
 
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+      <Dialog
+        open={isModalOpen}
+        onOpenChange={(open) => {
+          if (!open && (isGalleryLightboxOpen || isBlueprintLightboxOpen)) {
+            return;
+          }
+          setIsModalOpen(open);
+        }}
+      >
         <DialogContent className="flex flex-col max-h-[85vh] h-[85vh] w-full max-w-5xl bg-white p-6 overflow-hidden">
           <DialogTitle className="sr-only">Image Gallery</DialogTitle>
           <div className="flex-1 w-full pr-4 overflow-y-auto">

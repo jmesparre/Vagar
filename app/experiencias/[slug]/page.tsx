@@ -63,10 +63,11 @@ export default async function ExperienciaDetailPage({
         <P className="mt-4 text-lg">{experience.long_description}</P>
       </div>
 
-      <Separator className="my-8" />
+
 
       {whatToKnowItems && whatToKnowItems.length > 0 && (
         <div>
+          <Separator className="my-8" />
           <H2>Qué deberías saber</H2>
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
             {whatToKnowItems.map((item: string, index: number) => (
