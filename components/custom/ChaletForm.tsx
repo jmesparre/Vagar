@@ -182,8 +182,8 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [], allAmenities }:
     if (!Number.isNaN(price) && price > 0) {
       const midPrice = price * 0.8;
       const lowPrice = price * 0.6;
-      setValue("price_mid", parseFloat(midPrice.toFixed(2)), { shouldValidate: true });
-      setValue("price_low", parseFloat(lowPrice.toFixed(2)), { shouldValidate: true });
+      setValue("price_mid", Math.round(midPrice), { shouldValidate: true });
+      setValue("price_low", Math.round(lowPrice), { shouldValidate: true });
     }
   }, [priceHigh, setValue]);
 

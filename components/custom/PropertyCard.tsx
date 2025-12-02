@@ -52,8 +52,8 @@ export function PropertyCard({ property, disableLink = false }: PropertyCardProp
             setIsPriceVisible(false);
           }}
         >
-          <div className="text-center font-light pt-[13%]">
-            <H4 className="text-bg leading-tight font-light pb-3 px-4">Precios por Temporada</H4>
+          <div className="text-center font-light pt-[20%] md:pt-[10%]">
+            <H4 className="text-lg leading-tight font-light pb-3 px-4">Precios por Temporada</H4>
             <ul className="mt-2 space-y-1.5">
               <li>Alta: ${property.price_high?.toLocaleString() ?? 'N/A'}</li>
               <li>Media: ${property.price_mid?.toLocaleString() ?? 'N/A'}</li>

@@ -167,7 +167,7 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
           onTouchEnd={(e) => e.stopPropagation()}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="bg-white rounded-xl shadow-lg px-1 pt-1 pb-5 overflow-hidden">
+          <div className="bg-white rounded-xl shadow-lg px-1.25 pt-1 pb-3 overflow-hidden">
             <button onClick={handleCloseCard} className="absolute top-2 right-2 w-6 bg-white rounded-full p-1 z-30 leading-none">
               &times;
             </button>

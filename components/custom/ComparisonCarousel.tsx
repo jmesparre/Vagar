@@ -19,6 +19,7 @@ interface ComparisonCarouselProps {
 export function ComparisonCarousel({ mainChalet, propertiesForComparison }: ComparisonCarouselProps) {
   const [comparisonChalet, setComparisonChalet] = useState(propertiesForComparison[0]);
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
+  const [minGuests, setMinGuests] = useState(1);
 
   const handleAmenityToggle = (amenityId: string) => {
     setActiveFilters((prev) =>
@@ -29,11 +30,13 @@ export function ComparisonCarousel({ mainChalet, propertiesForComparison }: Comp
   };
 
   const filteredProperties = propertiesForComparison.filter(property => {
-    return activeFilters.every(filterId => {
+    const matchesGuests = (property.guests || 0) >= minGuests;
+    const matchesAmenities = activeFilters.every(filterId => {
       const staticAmenity = allAmenities.find(a => a.id === filterId);
       if (!staticAmenity) return false;
       return (property.amenities || []).some(a => a.name === staticAmenity.name);
     });
+    return matchesGuests && matchesAmenities;
   });
 
   useEffect(() => {
@@ -42,7 +45,7 @@ export function ComparisonCarousel({ mainChalet, propertiesForComparison }: Comp
     } else if (filteredProperties.length === 0) {
       setComparisonChalet(propertiesForComparison[0]);
     }
-  }, [activeFilters, comparisonChalet, filteredProperties, propertiesForComparison]);
+  }, [activeFilters, minGuests, comparisonChalet, filteredProperties, propertiesForComparison]);
 
   return (
     <section>
@@ -71,6 +74,9 @@ export function ComparisonCarousel({ mainChalet, propertiesForComparison }: Comp
               <AmenitiesPopoverContent
                 selectedAmenities={activeFilters}
                 onAmenityToggle={handleAmenityToggle}
+                minGuests={minGuests}
+                onMinGuestsChange={setMinGuests}
+                showGuestFilter={true}
               />
             </PopoverContent>
           </Popover>
