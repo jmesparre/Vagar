@@ -54,16 +54,16 @@ export const DatePickerPopoverContent: React.FC<DatePickerPopoverContentProps> =
   const nights = date?.from && date?.to ? differenceInDays(date.to, date.from) : 0;
 
   return (
-    <div className="p-6">
+    <div className="p-5">
       <div className="flex items-center justify-between mb-4">
         <div>
           <H3>{nights > 0 ? `${nights} noches` : "Elegir fecha"}</H3>
           <Small className="text-muted-foreground">
             {date?.from && date?.to
               ? `${format(date.from, "MMM d, yyyy")} - ${format(
-                  date.to,
-                  "MMM d, yyyy"
-                )}`
+                date.to,
+                "MMM d, yyyy"
+              )}`
               : "2 días"}
           </Small>
         </div>

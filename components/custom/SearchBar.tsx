@@ -315,7 +315,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
                 <p className="text-xs pt-0.5 text-gray-500">{guestText}</p>
               </button>
             </PopoverTrigger>
-            <PopoverContent className="w-88 absolute  md:-left-34 lg:-left-30 mt-2">
+            <PopoverContent className="w-80 absolute  md:-left-26 lg:-left-23 mt-2">
               <GuestsPopoverContent
                 guests={guests}
                 handleGuestChange={handleGuestChange}
@@ -338,7 +338,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
             title="Buscar"
             onClick={handleSearch}
             className={cn(
-              "bg-blue-400 text-white rounded-full hover:bg-blue-500 flex items-center justify-center transition-all duration-300 ease-in-out overflow-hidden",
+              "bg-blue-400 text-white rounded-full hover:bg-blue-500 flex items-center justify-center transition-all duration-600 ease-in-out overflow-hidden",
               isButtonExpanded ? "w-26 h-12" : "w-12 h-12"
             )}
           >

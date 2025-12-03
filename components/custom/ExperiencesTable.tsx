@@ -15,6 +15,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useToast } from '@/components/ui/use-toast';
+import { Pencil, Trash2 } from 'lucide-react';
 
 interface ExperiencesTableProps {
   experiences: Experience[];
@@ -42,7 +43,7 @@ export default function ExperiencesTable({ experiences: initialExperiences }: Ex
         title: 'Éxito',
         description: 'Experiencia eliminada correctamente.',
       });
-      
+
       const updatedExperiences = experiences.filter(exp => exp.id !== id);
       setExperiences(updatedExperiences);
 
@@ -70,31 +71,33 @@ export default function ExperiencesTable({ experiences: initialExperiences }: Ex
           {experiences && experiences.length > 0 ? (
             experiences.map((experience) => (
               <TableRow key={experience.id}>
-                  <TableCell>
-                    <Image
-                      src={experience.main_image_url || '/placeholder.svg'}
-                      alt={experience.title}
-                      width={64}
-                      height={64}
-                      className="rounded-md object-cover"
-                    />
-                  </TableCell>
+                <TableCell>
+                  <Image
+                    src={experience.main_image_url || '/placeholder.svg'}
+                    alt={experience.title}
+                    width={64}
+                    height={64}
+                    className="rounded-md object-cover"
+                  />
+                </TableCell>
                 <TableCell className="font-medium">{experience.title}</TableCell>
                 <TableCell>
                   <Badge variant="outline">{experience.category}</Badge>
                 </TableCell>
                 <TableCell className="text-right">
-                  <Button asChild variant="outline" size="sm" className="mr-2">
+                  <Button asChild variant="outline" size="icon" className="mr-2">
                     <Link href={`/admin/experiencias/${experience.id}/edit`}>
-                      Editar
+                      <Pencil className="h-4 w-4" />
+                      <span className="sr-only">Editar</span>
                     </Link>
                   </Button>
                   <Button
                     variant="destructive"
-                    size="sm"
+                    size="icon"
                     onClick={() => handleDelete(experience.id)}
                   >
-                    Eliminar
+                    <Trash2 className="h-4 w-4" />
+                    <span className="sr-only">Eliminar</span>
                   </Button>
                 </TableCell>
               </TableRow>

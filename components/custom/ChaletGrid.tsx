@@ -118,7 +118,7 @@ const ChaletGrid = ({ initialProperties, totalCount }: ChaletGridProps) => {
       </div>
       {
         isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-5">
             {Array.from({ length: itemsPerPage }).map((_, index) => (
               <div key={index} className="flex flex-col h-full w-full">
                 <Skeleton className="w-full rounded-xl aspect-[1/1]" />
@@ -131,7 +131,7 @@ const ChaletGrid = ({ initialProperties, totalCount }: ChaletGridProps) => {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-5">
               {properties.map((property) => (
                 <PropertyCard key={property.id} property={property} />
               ))}

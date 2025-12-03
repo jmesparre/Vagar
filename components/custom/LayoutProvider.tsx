@@ -16,7 +16,7 @@ export default function LayoutProvider({
     <>
       {!isAdminPage && <Header />}
       <main className="flex-grow">{children}</main>
-      {!isAdminPage && <Footer />}
+      {!isAdminPage && !pathname.startsWith("/mapa") && <Footer />}
     </>
   );
 }

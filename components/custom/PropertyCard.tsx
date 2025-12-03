@@ -44,7 +44,7 @@ export function PropertyCard({ property, disableLink = false }: PropertyCardProp
           <CircleDollarSign className="w-16 h-16 m-1 md:w-8 md:h-8  text-white bg-black/50 rounded-full p-1" />
         </div>
         <div
-          className={`absolute inset-0 bg-black/70 p-4 text-white transition-opacity duration-300 z-20 ${isPriceVisible ? 'opacity-100 lg:pointer-events-none' : 'opacity-0 pointer-events-none'
+          className={`absolute inset-0 bg-black/60 p-4 text-white transition-opacity duration-500 z-20 ${isPriceVisible ? 'opacity-100 lg:pointer-events-none' : 'opacity-0 pointer-events-none'
             }`}
           onClick={(e) => {
             e.preventDefault();

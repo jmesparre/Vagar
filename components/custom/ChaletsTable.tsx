@@ -15,6 +15,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useToast } from '@/components/ui/use-toast';
+import { Pencil, Trash2 } from 'lucide-react';
 
 interface ChaletsTableProps {
   initialChalets: Property[];
@@ -42,7 +43,7 @@ export default function ChaletsTable({ initialChalets }: ChaletsTableProps) {
         title: 'Éxito',
         description: 'Chalet eliminado correctamente.',
       });
-      
+
       const updatedChalets = chalets.filter(chalet => chalet.id !== id);
       setChalets(updatedChalets);
 
@@ -70,7 +71,7 @@ export default function ChaletsTable({ initialChalets }: ChaletsTableProps) {
         </TableHeader>
         <TableBody>
           {chalets.map((chalet) => (
-            <TableRow key={chalet.id}>
+            <TableRow key={chalet.id} >
               <TableCell>
                 <Image
                   src={chalet.main_image_url || "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=2070&auto=format&fit=crop"}
@@ -87,17 +88,19 @@ export default function ChaletsTable({ initialChalets }: ChaletsTableProps) {
               <TableCell>{chalet.guests}</TableCell>
               <TableCell>${chalet.price_high}</TableCell>
               <TableCell className="text-right">
-                <Button asChild variant="outline" size="sm" className="mr-2">
+                <Button asChild variant="outline" size="icon" className="mr-2">
                   <Link href={`/admin/chalets/${chalet.id}/edit`}>
-                    Editar
+                    <Pencil className="h-4 w-4" />
+                    <span className="sr-only">Editar</span>
                   </Link>
                 </Button>
                 <Button
                   variant="destructive"
-                  size="sm"
+                  size="icon"
                   onClick={() => handleDelete(chalet.id)}
                 >
-                  Eliminar
+                  <Trash2 className="h-4 w-4" />
+                  <span className="sr-only">Eliminar</span>
                 </Button>
               </TableCell>
             </TableRow>

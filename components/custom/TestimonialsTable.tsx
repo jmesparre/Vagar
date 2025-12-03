@@ -30,6 +30,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Pencil, Trash2 } from 'lucide-react';
 
 async function deleteTestimonial(id: number) {
   const response = await fetch(`/api/testimonials/${id}`, {
@@ -64,12 +65,16 @@ export default function TestimonialsTable({ testimonials }: { testimonials: Test
         const testimonial = row.original;
         return (
           <div className="flex gap-2">
-            <Button onClick={() => router.push(`/admin/testimonials/${testimonial.id}/edit`)}>
-              Editar
+            <Button size="icon" variant="outline" onClick={() => router.push(`/admin/testimonials/${testimonial.id}/edit`)}>
+              <Pencil className="h-4 w-4" />
+              <span className="sr-only">Editar</span>
             </Button>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="destructive">Eliminar</Button>
+                <Button variant="destructive" size="icon">
+                  <Trash2 className="h-4 w-4" />
+                  <span className="sr-only">Eliminar</span>
+                </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>

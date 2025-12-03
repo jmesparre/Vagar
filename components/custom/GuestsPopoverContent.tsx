@@ -22,7 +22,7 @@ export const GuestsPopoverContent: React.FC<GuestsPopoverContentProps> = ({
   handleGuestChange,
 }) => {
   return (
-    <div className="grid gap-4 p-4 text-sm ">
+    <div className="grid gap-4 pl-4 pr-3 py-4 text-sm ">
       <div className="grid gap-2">
         <div className="flex items-center justify-between">
           <div>

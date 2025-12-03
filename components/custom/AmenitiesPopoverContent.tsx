@@ -54,7 +54,7 @@ export function AmenitiesPopoverContent({
   }, {} as Record<string, typeof allAmenities>);
 
   return (
-    <div className="p-4 pr-2 w-96">
+    <div className="p-4 pr-2 w-96 pt-6">
       {showGuestFilter && (
         <div className="mb-4 border-b pb-4 flex flex-wrap gap-15">
           <h4 className="text-sm pt-3 font-medium mb-3">Cantidad de huéspedes</h4>
