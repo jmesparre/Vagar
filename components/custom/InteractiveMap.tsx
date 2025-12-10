@@ -131,7 +131,7 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
       >
         {({ zoomIn, zoomOut, resetTransform }) => (
           <React.Fragment>
-            <div className="absolute top-3 left-3 z-20 flex flex-col gap-2">
+            <div className="absolute top-3 left-3  z-20 flex flex-col gap-2">
               <button onClick={(e) => { e.stopPropagation(); zoomIn(); }} className="bg-white p-2 w-8.5 rounded-md shadow-md flex items-center justify-center">
                 <Plus className="w-4 h-4 text-gray-700" />
               </button>

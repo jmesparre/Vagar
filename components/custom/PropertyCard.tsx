@@ -31,7 +31,7 @@ export function PropertyCard({ property, disableLink = false }: PropertyCardProp
           alt={property.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="rounded-t-lg object-cover"
+          className="rounded-xl object-cover"
         />
         <div
           className="absolute bottom-2 left-2 z-10 lg:hidden"

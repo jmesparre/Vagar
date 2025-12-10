@@ -87,7 +87,7 @@ export default function ChaletsTable({ initialChalets }: ChaletsTableProps) {
               </TableCell>
               <TableCell>{chalet.guests}</TableCell>
               <TableCell>${chalet.price_high}</TableCell>
-              <TableCell className="text-right">
+              <TableCell className="text-right flex justify-end">
                 <Button asChild variant="outline" size="icon" className="mr-2">
                   <Link href={`/admin/chalets/${chalet.id}/edit`}>
                     <Pencil className="h-4 w-4" />

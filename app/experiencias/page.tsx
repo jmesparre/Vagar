@@ -18,7 +18,7 @@ export default async function ExperienciasPage() {
   return (
     <main>
       <HeroSection
-        videoSrc="/video-hero.mp4"
+        videoSrc="/video-experiencias.mp4"
         title="Experiencias Únicas"
         subtitle="Vive momentos inolvidables en Vagar"
         showSearchBar={false}

@@ -105,7 +105,7 @@ export const ImageGallery = ({
             ))}
           </div>
         </div>
-        <div className="absolute sm:bottom-6 md:bottom-4 right-4 flex flex-col items-end gap-1.5 md:flex-row">
+        <div className="absolute bottom-7.5 sm:bottom-6 md:bottom-4 right-4 flex flex-col items-end gap-1.5 md:flex-row">
           <Button
             variant="secondary"
             size="sm"

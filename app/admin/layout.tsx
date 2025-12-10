@@ -13,12 +13,14 @@ export default async function AdminLayout({
   const isCollapsed = collapsedCookie?.value === "true";
 
   return (
-    <div className="flex bg-gray-100 dark:bg-gray-900 h-screen overflow-hidden">
-      <AdminSidebar initialCollapsed={isCollapsed} />
-      <main className="flex-1 p-6 overflow-y-auto">
-        {children}
-        <Toaster />
-      </main>
-    </div>
+    <>
+      <div className="fixed inset-0 flex bg-gray-100 dark:bg-gray-900 overflow-hidden">
+        <AdminSidebar initialCollapsed={isCollapsed} />
+        <main className="flex-1 p-4 md:p-6 overflow-y-auto">
+          {children}
+        </main>
+      </div>
+      <Toaster />
+    </>
   );
 }

@@ -54,12 +54,12 @@ export function AdminSidebar({ initialCollapsed }: AdminSidebarProps) {
                 isCollapsed ? "w-20" : "w-64"
             )}
         >
-            <div className="flex justify-end p-4">
+            <div className="flex p-4 pl-5">
                 <Button
                     variant="ghost"
                     size="icon"
                     onClick={toggleSidebar}
-                    className="hidden md:flex"
+                    className="flex"
                 >
                     {isCollapsed ? <ChevronRight /> : <ChevronLeft />}
                 </Button>
