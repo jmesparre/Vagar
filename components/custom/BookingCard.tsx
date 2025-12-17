@@ -70,8 +70,6 @@ export function BookingCard({ chalet, bookings }: BookingCardProps) {
 
     // Check for overlap
     const hasOverlap = bookings.some((booking) => {
-      const bookingStart = new Date(booking.check_in_date);
-      const bookingEnd = new Date(booking.check_out_date);
       // Adjust booking end date to be exclusive for overlap check if needed, 
       // but usually check-out day is available for check-in.
       // Let's assume standard logic: overlap if (StartA < EndB) and (EndA > StartB)

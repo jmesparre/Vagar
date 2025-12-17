@@ -5,6 +5,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog-custom";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
@@ -69,7 +75,20 @@ export function AmenitiesDialog({ chalet }: AmenitiesDialogProps) {
                       return (
                         <li key={amenity.id} className="flex items-center">
                           <Icon className="h-5 w-5 mr-3" />
-                          <span>{amenity.name}</span>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <span className="cursor-help underline decoration-dotted decoration-gray-400 underline-offset-4">
+                                  {amenity.name}
+                                </span>
+                              </TooltipTrigger>
+                              {amenity.description && (
+                                <TooltipContent>
+                                  <p className="max-w-xs">{amenity.description}</p>
+                                </TooltipContent>
+                              )}
+                            </Tooltip>
+                          </TooltipProvider>
                         </li>
                       );
                     })}

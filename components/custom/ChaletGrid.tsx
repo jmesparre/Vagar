@@ -5,7 +5,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Property } from '@/lib/types';
 import { PropertyCard } from './PropertyCard';
-import { Skeleton } from '@/components/ui/skeleton';
+
+import { PropertyCardSkeleton } from './PropertyCardSkeleton';
 import { H2 } from '@/components/ui/typography';
 import {
   Select,
@@ -120,14 +121,9 @@ const ChaletGrid = ({ initialProperties, totalCount }: ChaletGridProps) => {
         isLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 gap-y-5">
             {Array.from({ length: itemsPerPage }).map((_, index) => (
-              <div key={index} className="flex flex-col h-full w-full">
-                <Skeleton className="w-full rounded-xl aspect-[1/1]" />
-                <div className="px-1 pt-2 flex flex-col flex-grow">
-                  <Skeleton className="h-4 w-3/4 mb-3 mt-1" />
-                  <Skeleton className="h-4 w-1/2" />
-                </div>
-              </div>
-            ))}
+              <PropertyCardSkeleton key={index} />
+            ))
+            }
           </div>
         ) : (
           <>
@@ -141,13 +137,7 @@ const ChaletGrid = ({ initialProperties, totalCount }: ChaletGridProps) => {
               {hasMore && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full">
                   {Array.from({ length: 4 }).map((_, index) => (
-                    <div key={index} className="flex flex-col h-full w-full">
-                      <Skeleton className="w-full rounded-xl aspect-[1/1]" />
-                      <div className="px-1 pt-2 flex flex-col flex-grow">
-                        <Skeleton className="h-4 w-3/4 mb-1" />
-                        <Skeleton className="h-4 w-1/2" />
-                      </div>
-                    </div>
+                    <PropertyCardSkeleton key={index} />
                   ))}
                 </div>
               )}

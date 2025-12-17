@@ -59,10 +59,17 @@ export function MobileSearchDialog({
     onClearFilters,
 }: MobileSearchDialogProps) {
     const totalGuests = guests.adults + guests.children;
-    const guestsText =
+    const guestsPart =
         totalGuests > 0
             ? `${totalGuests} huésped${totalGuests > 1 ? "es" : ""}`
-            : "Agregar huéspedes";
+            : "";
+    const infantsPart =
+        guests.infants > 0
+            ? `${guests.infants} Infante${guests.infants > 1 ? "s" : ""}`
+            : "";
+
+    const guestsText =
+        [guestsPart, infantsPart].filter(Boolean).join(", ") || "Agregar huéspedes";
 
     const dateText = date?.from
         ? date.to
@@ -78,6 +85,9 @@ export function MobileSearchDialog({
         selectedAmenities.length > 0
             ? `${selectedAmenities.length} seleccionados`
             : "Agregar amenities";
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
     return (
         <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -137,6 +147,8 @@ export function MobileSearchDialog({
                                                 numberOfMonths={1}
                                                 locale={es}
                                                 className="rounded-md border"
+                                                fromDate={today}
+                                                disabled={[{ before: today }]}
                                             />
                                         </div>
                                     </AccordionContent>
@@ -179,7 +191,7 @@ export function MobileSearchDialog({
                             onSearch();
                             onOpenChange(false);
                         }}
-                        className="bg-blue-500 hover:bg-blue-600 text-white rounded-lg px-8 py-6 flex items-center gap-2 text-lg"
+                        className="bg-primary hover:bg-primary/80 text-white rounded-lg px-8 py-6 flex items-center gap-2 text-lg"
                     >
                         <Search className="h-5 w-5" />
                         Buscar

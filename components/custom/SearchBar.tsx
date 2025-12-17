@@ -210,6 +210,9 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
     setSelectedAmenities([]);
   };
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
   return (
     <>
       {/* Mobile Trigger */}
@@ -232,7 +235,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
       />
 
       {/* Desktop Search Bar */}
-      <div className="hidden md:flex bg-white border-gray-200 rounded-full shadow-lg flex-row items-center w-full md:max-w-2xl lg:max-w-3xl px-1">
+      <div className="hidden md:flex bg-white border-gray-200 rounded-full shadow-lg flex-row items-center w-full md:max-w-2xl lg:max-w-[75%] px-1">
         <div className="flex-1 relative">
           <Popover onOpenChange={setIsAmenitiesPopoverOpen}>
             <PopoverTrigger asChild>
@@ -291,6 +294,8 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
                 onSelect={setDate}
                 numberOfMonths={2}
                 locale={es}
+                fromDate={today}
+                disabled={[{ before: today }]}
               />
             </PopoverContent>
           </Popover>
@@ -338,7 +343,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
             title="Buscar"
             onClick={handleSearch}
             className={cn(
-              "bg-blue-400 text-white rounded-full hover:bg-blue-500 flex items-center justify-center transition-all duration-600 ease-in-out overflow-hidden",
+              "bg-primary text-white rounded-full hover:bg-primary/80 flex items-center justify-center transition-all duration-600 ease-in-out overflow-hidden",
               isButtonExpanded ? "w-26 h-12" : "w-12 h-12"
             )}
           >

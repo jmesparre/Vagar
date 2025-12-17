@@ -1,33 +1,57 @@
-"use client";
-
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { allAmenities } from "@/lib/amenities-data";
+import { iconMap } from "@/lib/amenities-data";
 import { cn } from "@/lib/utils";
+import { getAmenitiesWithDescriptions } from "@/app/actions/getAmenities";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Minus, Plus } from "lucide-react";
 
 interface AmenityButtonProps {
   text: string;
   Icon: React.ElementType;
   isSelected: boolean;
   onClick: () => void;
+  description?: string;
 }
 
-const AmenityButton = ({ text, Icon, isSelected, onClick }: AmenityButtonProps) => (
-  <Button
-    variant="outline"
-    onClick={onClick}
-    className={cn(
-      "flex items-center gap-2 h-8 rounded-md px-2 text-xs",
-      isSelected && "border-primary text-primary"
-    )}
-  >
-    <Icon className="h-4 w-4" />
-    {text}
-  </Button>
-);
+const AmenityButton = ({ text, Icon, isSelected, onClick, description }: AmenityButtonProps) => {
+  const button = (
+    <Button
+      variant="outline"
+      onClick={onClick}
+      className={cn(
+        "flex items-center gap-2 h-8 rounded-md px-2 text-xs",
+        isSelected && "border-primary text-primary"
+      )}
+    >
+      <Icon className="h-4 w-4" />
+      {text}
+    </Button>
+  );
 
-import { Minus, Plus } from "lucide-react";
+  if (description) {
+    return (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            {button}
+          </TooltipTrigger>
+          <TooltipContent side="bottom" align="start">
+            <p className="max-w-xs">{description}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+  }
+
+  return button;
+};
 
 interface AmenitiesPopoverContentProps {
   selectedAmenities?: string[];
@@ -37,6 +61,14 @@ interface AmenitiesPopoverContentProps {
   showGuestFilter?: boolean;
 }
 
+interface AmenityItem {
+  id: string;
+  name: string;
+  icon: React.ElementType;
+  category: string;
+  description?: string;
+}
+
 export function AmenitiesPopoverContent({
   selectedAmenities = [],
   onAmenityToggle = () => { },
@@ -44,14 +76,43 @@ export function AmenitiesPopoverContent({
   onMinGuestsChange = () => { },
   showGuestFilter = false,
 }: AmenitiesPopoverContentProps) {
-  const groupedAmenities = allAmenities.reduce((acc, amenity) => {
-    const { category } = amenity;
-    if (!acc[category]) {
-      acc[category] = [];
-    }
-    acc[category].push(amenity);
-    return acc;
-  }, {} as Record<string, typeof allAmenities>);
+  const [amenitiesList, setAmenitiesList] = useState<AmenityItem[]>([]);
+
+  useEffect(() => {
+    const fetchAmenities = async () => {
+      try {
+        const dbAmenities = await getAmenitiesWithDescriptions();
+        if (dbAmenities && dbAmenities.length > 0) {
+          const mappedAmenities = dbAmenities.map((a) => {
+            // Map DB icon name to component, fallback to generic if missing
+            const IconComponent = a.icon && iconMap[a.icon] ? iconMap[a.icon] : iconMap["Home"];
+            return {
+              id: a.slug, // Use slug to match expected ID format
+              name: a.name,
+              icon: IconComponent,
+              category: a.category,
+              description: a.description
+            };
+          });
+          setAmenitiesList(mappedAmenities);
+        }
+      } catch (error) {
+        console.error("Failed to fetch amenities details:", error);
+      }
+    };
+    fetchAmenities();
+  }, []);
+
+  const groupedAmenities = amenitiesList
+    .filter((amenity) => amenity.category === "Premium")
+    .reduce((acc, amenity) => {
+      const { category } = amenity;
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(amenity);
+      return acc;
+    }, {} as Record<string, AmenityItem[]>);
 
   return (
     <div className="p-4 pr-2 w-96 pt-6">
@@ -84,7 +145,7 @@ export function AmenitiesPopoverContent({
         <div className="pr-4">
           {Object.entries(groupedAmenities).map(([category, amenities]) => (
             <div key={category} className="mb-4">
-              <h4 className="text-xs font-medium  pb-2">{category}</h4>
+              <h4 className="text-xs font-medium hidden pb-2">{category}</h4>
               <div className="flex flex-wrap gap-1.5">
                 {amenities.map((amenity) => (
                   <AmenityButton
@@ -93,6 +154,7 @@ export function AmenitiesPopoverContent({
                     Icon={amenity.icon}
                     isSelected={selectedAmenities.includes(amenity.id)}
                     onClick={() => onAmenityToggle(amenity.id)}
+                    description={amenity.description}
                   />
                 ))}
               </div>

@@ -1,4 +1,5 @@
 import { fetchPropertyBySlug, fetchProperties, getChaletBookings } from "@/lib/data";
+import { getCategoryColor } from "@/lib/utils";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { notFound } from "next/navigation";
@@ -7,7 +8,13 @@ import { AvailabilityCalendar } from "@/components/custom/AvailabilityCalendar";
 import { ImageGallery } from "@/components/custom/ImageGallery";
 import { Separator } from "@/components/ui/separator";
 import { H1, H2, P } from "@/components/ui/typography";
-import { AmenitiesDialog } from "@/components/custom/AmenitiesDialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 import { GoogleMapsEmbed } from "@/components/custom/GoogleMapsEmbed";
 import { ComparisonCarousel } from "@/components/custom/ComparisonCarousel";
 import { BookingCard } from "@/components/custom/BookingCard";
@@ -64,16 +71,16 @@ export default async function ChaletDetailPage({ params }: ChaletDetailPageProps
           <div className="flex space-x-4">
             <H1 className="text-3xl font-bold">{chalet.name}</H1>
             <div className="mt-2 lg:mt-4 flex">
-              <Star className="h-5 w-5 fill-primary text-primary" />
+              <Star className={`h-5 w-5 ${getCategoryColor(chalet.category)}`} />
               <span className="ml-1 font-semibold">{chalet.rating ? Number(chalet.rating).toFixed(2) : 'N/A'}</span>
             </div>
           </div>
           <div className="mt-2 flex space-x-4 text-sm text-muted-foreground">
             <span>{chalet.guests} huéspedes</span>
             <span>·</span>
-            <span>{chalet.bedrooms} dormitorios</span>
+            <span>{chalet.bathrooms} baños</span>
             <span>·</span>
-            <span>{chalet.beds} camas</span>
+            <span>{chalet.bedrooms} dormitorios</span>
           </div>
           {chalet.description && (
             <>
@@ -87,21 +94,53 @@ export default async function ChaletDetailPage({ params }: ChaletDetailPageProps
           {/* Qué ofrece este chalet */}
           <section>
             <H2>Qué ofrece este chalet</H2>
-            <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3">
-              {(chalet.amenities || []).slice(0, 6).map((amenity: { id: number; name: string }) => {
-                const amenityDetails = allAmenities.find((a) => a.name === amenity.name);
-                if (!amenityDetails) return null;
-                const Icon = amenityDetails.icon;
+            <div className="mt-6 space-y-8 pb-10">
+              {["Premium", "Generales", "Exteriores"].map((category) => {
+                const categoryAmenities = (chalet.amenities || []).filter((amenity: { name: string; category?: string }) => {
+                  const details = allAmenities.find((a) => a.name === amenity.name);
+                  // Prefer the category from the static file to ensure correct grouping
+                  return (details?.category || amenity.category) === category;
+                });
+
+                if (categoryAmenities.length === 0) return null;
+
                 return (
-                  <div key={`amenity-item-${amenity.id}`} className="flex text-sm items-center space-x-2">
-                    <Icon className="h-5 w-5" />
-                    <span>{amenity.name}</span>
+                  <div key={category}>
+                    <h3 className="mb-4 text-lg font-semibold">{category}</h3>
+                    <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+                      {categoryAmenities.map((amenity: { id: number; name: string; description?: string }) => {
+                        const details = allAmenities.find((a) => a.name === amenity.name);
+                        if (!details) return null;
+                        const Icon = details.icon;
+                        return (
+                          <div
+                            key={`amenity-item-${amenity.id}`}
+                            className="flex items-center space-x-2 text-sm"
+                          >
+                            <Icon className="h-5 w-5" />
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <span className="cursor-help decoration-gray-400 underline-offset-4">
+                                    {amenity.name}
+                                  </span>
+                                </TooltipTrigger>
+                                {amenity.description && (
+                                  <TooltipContent>
+                                    <p className="max-w-xs">{amenity.description}</p>
+                                  </TooltipContent>
+                                )}
+                              </Tooltip>
+                            </TooltipProvider>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 );
               })}
-            </div>
-            <AmenitiesDialog chalet={chalet} />
-          </section>
+            </div >
+          </section >
 
           {chalet.optional_services && (
             <>

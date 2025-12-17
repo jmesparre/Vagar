@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Menu } from 'lucide-react';
+import { Menu, MapPin, Mail, Phone, Instagram, Facebook, Youtube } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from "@/components/ui/separator";
 import {
@@ -10,6 +10,24 @@ import {
   SheetTrigger,
   SheetTitle,
 } from '@/components/ui/sheet';
+
+// Custom WhatsApp Icon as it is not always available in Lucide or we want a specific style
+const WhatsAppIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
+  </svg>
+);
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,7 +80,7 @@ const Header = () => {
             </SheetTrigger>
             <SheetContent side="right">
               <SheetTitle className='hidden'>menú</SheetTitle>
-              <nav className="flex flex-col space-y-0 mx-8 mt-14">
+              <nav className="flex flex-col mx-6 mt-14 flex-1 pb-8">
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
@@ -75,6 +93,40 @@ const Header = () => {
 
                   </Link>
                 ))}
+                <div className="mt-auto flex flex-col space-y-4 text-center md:text-left">
+                  <ul className="space-y-2 text-sm text-gray-800">
+                    <li className="flex items-start justify-start gap-2">
+                      <MapPin className="h-4 w-4 mt-0.5 shrink-0" />
+                      <span className='text-left'>Chumamaya 2100, Merlo, Argentina</span>
+                    </li>
+                    <li className="flex items-center justify-start gap-2">
+                      <Mail className="h-4 w-4 shrink-0" />
+                      <a href="mailto:reservas@vagar.com.ar" className="hover:text-primary transition-colors">
+                        reservas@vagar.com.ar
+                      </a>
+                    </li>
+                    <li className="flex items-center justify-start gap-2">
+                      <Phone className="h-4 w-4 shrink-0" />
+                      <a href="tel:02656476500" className="hover:text-primary transition-colors">
+                        02656 - 476500
+                      </a>
+                    </li>
+                  </ul>
+                  <div className="flex items-center justify-start gap-4 pt-2">
+                    <a href="#" className="text-gray-800 hover:text-primary transition-colors" aria-label="WhatsApp">
+                      <WhatsAppIcon className="h-5 w-5" />
+                    </a>
+                    <a href="#" className="text-gray-800 hover:text-primary transition-colors" aria-label="Instagram">
+                      <Instagram className="h-5 w-5" />
+                    </a>
+                    <a href="#" className="text-gray-800 hover:text-primary transition-colors" aria-label="Facebook">
+                      <Facebook className="h-5 w-5" />
+                    </a>
+                    <a href="#" className="text-gray-800 hover:text-primary transition-colors" aria-label="YouTube">
+                      <Youtube className="h-5 w-5" />
+                    </a>
+                  </div>
+                </div>
               </nav>
             </SheetContent>
           </Sheet>

@@ -401,7 +401,7 @@ export const fetchPropertyById = async (id: string): Promise<Property | undefine
     { data: propertyRules, error: rulesError }
   ] = await Promise.all([
     supabase.from('images').select('*').eq('entity_id', property.id).eq('entity_type', 'property').order('order', { ascending: true }),
-    supabase.from('propertyamenities').select('*, amenities(id, name, slug, category, icon)').eq('property_id', property.id),
+    supabase.from('propertyamenities').select('*, amenities(id, name, slug, category, description, icon)').eq('property_id', property.id),
     supabase.from('propertyrules').select('*').eq('property_id', property.id)
   ]);
 
@@ -464,7 +464,7 @@ export const fetchPropertyBySlug = async (slug: string): Promise<Property | unde
     { data: propertyRules, error: rulesError }
   ] = await Promise.all([
     supabase.from('images').select('*').eq('entity_id', property.id).eq('entity_type', 'property').order('order', { ascending: true }),
-    supabase.from('propertyamenities').select('*, amenities(id, name, slug, category, icon)').eq('property_id', property.id),
+    supabase.from('propertyamenities').select('*, amenities(id, name, slug, category, description, icon)').eq('property_id', property.id),
     supabase.from('propertyrules').select('*').eq('property_id', property.id)
   ]);
 
@@ -641,6 +641,24 @@ export const fetchAllChalets = async (): Promise<Property[]> => {
   });
 
   return propertiesWithDetails as Property[];
+};
+
+/**
+ * Fetches all amenities from the database.
+ */
+export const fetchAllAmenities = async (): Promise<import('@/lib/types').Amenity[]> => {
+  const { data: amenities, error } = await supabase
+    .from('amenities')
+    .select('*')
+    .order('category', { ascending: true })
+    .order('name', { ascending: true });
+
+  if (error) {
+    console.error('Failed to fetch amenities:', error);
+    return [];
+  }
+
+  return amenities || [];
 };
 
 /**
@@ -972,14 +990,4 @@ export const getChaletBookings = async (chaletId: string): Promise<Booking[]> =>
 /**
  * Fetches all amenities from the database.
  */
-export const fetchAllAmenities = async () => {
-  const { data, error } = await supabase
-    .from('amenities')
-    .select('id, name, slug, category');
 
-  if (error) {
-    console.error('Error fetching all amenities:', error);
-    return [];
-  }
-  return data;
-};

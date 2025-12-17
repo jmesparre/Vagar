@@ -1,7 +1,7 @@
 import HeroSection from "../components/custom/HeroSection";
 import { FeaturedProperties } from "../components/custom/FeaturedProperties";
 import { fetchFeaturedPropertiesByCategory, fetchFeaturedExperiences, fetchFeaturedTestimonials } from "@/lib/data";
-import * as Typography from "@/components/ui/typography";
+
 import { FeaturedExperiences } from "@/components/custom/FeaturedExperiences";
 import { FeaturedTestimonials } from "@/components/custom/FeaturedTestimonials";
 import HomeAboutSection from "@/components/custom/HomeAboutSection";
@@ -26,21 +26,22 @@ export default async function Home() {
     <main>
       <HeroSection
         videoSrc="/video-hero.mp4"
-        title="Encuentra tu Próximo Destino"
-        subtitle="Explora propiedades exclusivas para unas vacaciones inolvidables."
+        title="Una experiencia exclusiva en cada Chalet"
+        subtitle="Naturaleza y confort en Chumamaya Country Club"
       />
 
-      {/* Section for 'Celeste' category */}
-      {featuredCeleste.length > 0 && (
-        <div className="py-12">
-          <FeaturedProperties title="Chalets Celestes" properties={featuredCeleste} />
-        </div>
-      )}
 
       {/* Section for 'Azul' category */}
       {featuredAzul.length > 0 && (
         <div className="py-12 bg-gray-50">
           <FeaturedProperties title="Chalets Azules" properties={featuredAzul} />
+        </div>
+      )}
+
+      {/* Section for 'Celeste' category */}
+      {featuredCeleste.length > 0 && (
+        <div className="py-12">
+          <FeaturedProperties title="Chalets Celestes" properties={featuredCeleste} />
         </div>
       )}
 

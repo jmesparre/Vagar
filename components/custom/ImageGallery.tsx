@@ -8,7 +8,7 @@ import {
   DialogContent,
   DialogTitle,
 } from '@/components/ui/dialog-custom';
-import { ScrollArea } from '@/components/ui/scroll-area';
+
 import { Lightbox } from '@/components/custom/Lightbox';
 import { Camera, Layout } from 'lucide-react';
 import { Image as ImageType } from '@/lib/types';

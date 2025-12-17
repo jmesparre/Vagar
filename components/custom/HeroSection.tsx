@@ -51,7 +51,7 @@ const HeroSection = ({
   };
 
   return (
-    <section className="relative h-screen flex flex-col justify-center items-center text-white p-4">
+    <section className="relative shadow-lg border-b h-screen flex flex-col justify-center items-center text-white p-4">
       {/* Video Background */}
       <video
         autoPlay
@@ -75,11 +75,11 @@ const HeroSection = ({
         </div>
 
         {/* Title at the bottom */}
-        <div className="flex-grow text-center flex flex-col">
-          <H1 className="text-4xl mt-11 font-bold leading-tight mb-4">
+        <div className="flex-grow text-center flex flex-col max-w-[100%] md:max-w-[60%]">
+          <H1 className="mt-20 md:mt-10 font-bold leading-tight mb-4">
             {title}
           </H1>
-          <Lead className="text-lg">{subtitle}</Lead>
+          <Lead className="text-md">{subtitle}</Lead>
         </div>
       </div>
     </section>

@@ -62,7 +62,7 @@ const formSchema = z.object({
   category: z.string().min(1, { message: "La categoría es obligatoria." }),
   guests: numericString.refine(val => val === null || (Number.isInteger(val) && val > 0), { message: "Debe ser un entero positivo" }),
   bedrooms: numericString.refine(val => val === null || (Number.isInteger(val) && val > 0), { message: "Debe ser un entero positivo" }),
-  beds: numericString.refine(val => val === null || (Number.isInteger(val) && val > 0), { message: "Debe ser un entero positivo" }),
+
   bathrooms: numericString.refine(val => val === null || (Number.isInteger(val) && val > 0), { message: "Debe ser un entero positivo" }),
   rating: numericString.refine(val => val === null || (val >= 0 && val <= 10), { message: "Debe estar entre 0 y 10" }),
   price_high: numericString.refine(val => val === null || (val > 0 && val < 100000000), { message: "El precio debe ser positivo y menor a 100,000,000" }),
@@ -109,7 +109,7 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [], allAmenities }:
       category: "",
       guests: null,
       bedrooms: null,
-      beds: null,
+
       bathrooms: null,
       rating: null,
       price_high: null,
@@ -140,7 +140,7 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [], allAmenities }:
       category: defaultValues.category || "",
       guests: defaultValues.guests ?? null,
       bedrooms: defaultValues.bedrooms ?? null,
-      beds: defaultValues.beds ?? null,
+
       bathrooms: defaultValues.bathrooms ?? null,
       rating: defaultValues.rating ?? null,
       price_high: defaultValues.price_high ?? null,
@@ -418,24 +418,7 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [], allAmenities }:
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="beds"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Camas</FormLabel>
-                <FormControl>
-                  <Input
-                    type="number"
-                    placeholder="Ej: 3"
-                    {...field}
-                    value={field.value ?? ''}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+
           <FormField
             control={form.control}
             name="bathrooms"
@@ -650,39 +633,55 @@ export function ChaletForm({ defaultValues, usedMapNodeIds = [], allAmenities }:
                   Selecciona los servicios que ofrece el chalet.
                 </FormDescription>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {allAmenities.map((amenity) => (
-                  <FormField
-                    key={amenity.id}
-                    control={form.control}
-                    name="amenities"
-                    render={({ field }) => {
-                      return (
-                        <FormItem
+              <div className="space-y-6">
+                {Object.entries(
+                  allAmenities.reduce((acc, amenity) => {
+                    const category = amenity.category || "Otros";
+                    if (!acc[category]) {
+                      acc[category] = [];
+                    }
+                    acc[category].push(amenity);
+                    return acc;
+                  }, {} as Record<string, typeof allAmenities>)
+                ).map(([category, amenities]) => (
+                  <div key={category}>
+                    <h3 className="text-sm font-semibold mb-3">{category}</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      {amenities.map((amenity) => (
+                        <FormField
                           key={amenity.id}
-                          className="flex flex-row items-start space-x-3 space-y-0"
-                        >
-                          <FormControl>
-                            <Checkbox
-                              checked={field.value?.includes(amenity.slug)}
-                              onCheckedChange={(checked) => {
-                                return checked
-                                  ? field.onChange([...(field.value || []), amenity.slug])
-                                  : field.onChange(
-                                    (field.value || []).filter(
-                                      (value) => value !== amenity.slug
-                                    )
-                                  );
-                              }}
-                            />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            {amenity.name}
-                          </FormLabel>
-                        </FormItem>
-                      );
-                    }}
-                  />
+                          control={form.control}
+                          name="amenities"
+                          render={({ field }) => {
+                            return (
+                              <FormItem
+                                key={amenity.id}
+                                className="flex flex-row items-start space-x-3 space-y-0"
+                              >
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value?.includes(amenity.slug)}
+                                    onCheckedChange={(checked) => {
+                                      return checked
+                                        ? field.onChange([...(field.value || []), amenity.slug])
+                                        : field.onChange(
+                                          (field.value || []).filter(
+                                            (value) => value !== amenity.slug
+                                          )
+                                        );
+                                    }}
+                                  />
+                                </FormControl>
+                                <FormLabel className="font-normal">
+                                  {amenity.name}
+                                </FormLabel>
+                              </FormItem>
+                            );
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
               <FormMessage />

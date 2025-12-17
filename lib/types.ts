@@ -11,6 +11,7 @@ export type Amenity = {
   name: string;
   slug: string;
   category: string;
+  description?: string; // Added description field
   icon?: string; // Making icon optional as it's not in the DB
 };
 

@@ -27,5 +27,20 @@ export const formatDateToYYYYMMDD = (date: Date): string => {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
+
   return `${year}-${month}-${day}`;
+
+};
+
+export const getCategoryColor = (category: string | undefined | null) => {
+  switch (category) {
+    case 'Verde':
+      return 'text-[rgb(168,207,69)] fill-[rgb(168,207,69)]';
+    case 'Celeste':
+      return 'text-[rgb(0,158,189)] fill-[rgb(0,158,189)]';
+    case 'Azul':
+      return 'text-[rgb(20,100,161)] fill-[rgb(20,100,161)]';
+    default:
+      return 'text-primary fill-primary';
+  }
 };

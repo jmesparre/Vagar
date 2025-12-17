@@ -9,7 +9,7 @@ const H1 = React.forwardRef<
     <h1
       ref={ref}
       className={cn(
-        "scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl",
+        "scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-4xl",
         className
       )}
       {...props}
@@ -135,7 +135,7 @@ const Lead = React.forwardRef<
   return (
     <p
       ref={ref}
-      className={cn("text-xl text-muted-foreground", className)}
+      className={cn("text-xl text-gray-300", className)}
       {...props}
     />
   );

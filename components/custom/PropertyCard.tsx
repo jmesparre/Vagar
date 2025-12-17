@@ -8,6 +8,8 @@ import { Bath, BedDouble, CircleDollarSign, Star, Users } from "lucide-react";
 import { Property } from "@/lib/types";
 import { H4, Muted, Small } from "@/components/ui/typography";
 
+import { getCategoryColor } from "@/lib/utils";
+
 interface PropertyCardProps {
   property: Property;
   disableLink?: boolean;
@@ -41,7 +43,7 @@ export function PropertyCard({ property, disableLink = false }: PropertyCardProp
             setIsPriceVisible(true);
           }}
         >
-          <CircleDollarSign className="w-16 h-16 m-1 md:w-8 md:h-8  text-white bg-black/50 rounded-full p-1" />
+          <CircleDollarSign className="w-14 h-14 m-1 md:w-8 md:h-8  text-white bg-black/50 rounded-full p-1" />
         </div>
         <div
           className={`absolute inset-0 bg-black/60 p-4 text-white transition-opacity duration-500 z-20 ${isPriceVisible ? 'opacity-100 lg:pointer-events-none' : 'opacity-0 pointer-events-none'
@@ -76,18 +78,19 @@ export function PropertyCard({ property, disableLink = false }: PropertyCardProp
             </span>
             <span className="flex items-center gap-1.5">
               <BedDouble className="w-4 h-4" />
-              {property.beds ?? 'N/A'}
+              {property.bedrooms ?? 'N/A'}
             </span>
+
           </Muted>
           <div className="flex items-center gap-1 pr-1 pl-3 shrink-0">
-            <Star className="w-4 h-4 fill-primary text-primary" />
+            <Star className={`w-4 h-4 ${getCategoryColor(property.category)}`} />
             <Small className="font-semibold">
               {property.rating ? parseFloat(String(property.rating)).toFixed(2) : 'N/A'}
             </Small>
           </div>
         </div>
       </ItemContent>
-    </Item>
+    </Item >
   );
 
   if (disableLink) {

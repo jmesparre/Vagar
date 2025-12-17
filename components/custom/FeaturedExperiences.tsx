@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/carousel";
 import { ExperienceCard } from "./ExperienceCard";
 import { type Experience } from "@/lib/types";
-import { Skeleton } from "@/components/ui/skeleton";
+
+import { ExperienceCardSkeleton } from "./ExperienceCardSkeleton";
 import { H2 } from "@/components/ui/typography";
 
 interface FeaturedExperiencesProps {
@@ -55,13 +56,7 @@ export function FeaturedExperiences({
           {isLoading
             ? Array.from({ length: 3 }).map((_, index) => (
               <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                <div className="flex flex-col space-y-3">
-                  <Skeleton className="w-full rounded-xl aspect-[3/4]" />
-                  <div className="space-y-2">
-                    <Skeleton className="h-4 w-3/4" />
-                    <Skeleton className="h-4 w-1/2" />
-                  </div>
-                </div>
+                <ExperienceCardSkeleton />
               </CarouselItem>
             ))
             : experiences.map((experience, index) => (
