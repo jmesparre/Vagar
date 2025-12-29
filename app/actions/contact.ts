@@ -16,7 +16,7 @@ export async function sendContactEmail(formData: FormData) {
 
     try {
         const data = await resend.emails.send({
-            from: 'Vagar <onboarding@resend.dev>', // Update this if you have a custom domain
+            from: 'Vagar <administracion@vagar.com>', // Update this if you have a custom domain
             to: ['jmesparre@gmail.com'],
             subject: `Nuevo mensaje de contacto: ${subject}`,
             text: `Nombre: ${name}\nEmail: ${email}\nMensaje: ${message}`,

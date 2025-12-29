@@ -22,8 +22,8 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 
 const Footer = () => {
   return (
-    <footer className="bg-white border-t  pt-16 pb-12">
-      <div className="container mx-auto px-4 pt-10">
+    <footer className="bg-white border-t pt-16 pb-12 shadow-[0_-5px_15px_-5px_rgba(0,0,0,0.13)]">
+      <div className="container mx-auto px-4 pt-5">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Column 1: Logo */}
           <div className="flex flex-col items-center md:items-start justify-center">

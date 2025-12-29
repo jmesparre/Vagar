@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { H2, P } from "@/components/ui/typography";
+import { motion } from "framer-motion";
 
 const HomeAboutSection = () => {
     return (
@@ -35,17 +36,23 @@ const HomeAboutSection = () => {
             </div>
 
             {/* Content */}
-            <div className="absolute top-[13%] md:top-[30%] text-center ml-0 md:ml-[40%] z-10 text-white px-4">
+            <motion.div
+                className="absolute top-[13%] md:top-[30%] text-center ml-0 md:ml-[40%] z-10 text-white px-4"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                viewport={{ once: true }}
+            >
                 <H2 className="text-white text-4xl leading-10 md:leading-2 pb-0">+25 años de trayectoria</H2>
                 <P className="text-white/90 mb-7 text-md">
-                    Acompañando experiencias auténticas
+                    acompañando experiencias auténticas
                 </P>
                 <Link href="/nosotros">
                     <Button size="lg" variant={"default"} className="text-black text-white hover:bg-primary/80 border-none">
                         Conoce Más
                     </Button>
                 </Link>
-            </div>
+            </motion.div>
         </div>
     );
 };

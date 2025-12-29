@@ -116,6 +116,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -125,23 +126,26 @@
 .interactive-polygon {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  fill: rgb(255, 0, 170);
-  stroke-width: 35.28;
+  fill: var(--primary);
+  stroke-width: 60;
   pointer-events: all;
   stroke: white;
 }
 
 .interactive-polygon.hovered {
-  fill: rgba(219, 16, 16, 0.7);
+  fill: var(--primary);
+  fill-opacity: 80%;
   filter: url(#drop-shadow);
-  stroke-width: 50;
+  stroke-width: 60;
 }
 
 .interactive-polygon.selected {
-  fill: rgba(255, 243, 24, 0.8);
-  stroke-width: 50;
+  fill: var(--primary);
+  fill-opacity: 60%;
+  stroke-width: 60;
 }
 
-.rounded-xl, .rounded-md {
+.rounded-xl,
+.rounded-md {
   corner-shape: squircle;
 }

@@ -148,7 +148,7 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
             >
               <div className="relative w-[6027px] bg-[#C5D594]">
                 <Image
-                  src="/mapa.png"
+                  src="/mapa.webp"
                   alt="Mapa de propiedades"
                   fill
                   style={{ objectFit: 'contain' }}
