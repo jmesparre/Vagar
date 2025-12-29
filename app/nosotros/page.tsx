@@ -113,7 +113,7 @@ export default function NosotrosPage() {
             </motion.h2>
             <motion.div variants={fadeInUpVariants}>
               <P className="text-justify text-muted-foreground">
-                VAGAR es una empresa de servicios inmobiliarios y turísticos cuyo titular es el Lic. en Adm. y M.C.P. Gabriel Barrera. Inicia sus actividades en 1997 como un servicio post-venta de CHUMAMAYA, empresa fundadora y constructora del Chumamaya Country Club, obra de Roberto y Celina Barrera. Como tal, VAGAR es la evolución natural de CHUMAMAYA.
+                VAGAR es una empresa de <span className="italic">servicios inmobiliarios y turísticos</span> cuyo titular es el <span className="font-semibold">Lic. en Adm. y M.C.P. Gabriel Barrera</span>. Inicia sus actividades en <span className="font-bold">1997</span> como un servicio post-venta de <span className="font-bold">CHUMAMAYA</span>, empresa fundadora y constructora del Chumamaya Country Club, obra de Roberto y Celina Barrera. Como tal, VAGAR es la <span className="italic">evolución natural</span> de CHUMAMAYA.
               </P>
             </motion.div>
           </motion.div>
@@ -189,12 +189,12 @@ export default function NosotrosPage() {
             </motion.h2>
             <motion.div variants={fadeInUpVariants}>
               <P className="text-justify text-muted-foreground">
-                Vagar consolida más de 25 años de trayectoria en la gestión de chalets y experiencias certeras, confiables y superadoras, acompañando a familias, parejas y amigos con una misma misión: convertir el tiempo vacacional en una experiencia ideal y alcanzar los mejores parámetros antes experimentados por el huésped, e incluso mejorarlos.
+                Vagar consolida <span className="font-bold">más de 25 años de trayectoria</span> en la gestión de chalets y <span className="italic">experiencias certeras, confiables y superadoras</span>, acompañando a familias, parejas y amigos con una misma <span className="font-bold">misión</span>: <span className="italic">convertir el tiempo vacacional en una experiencia ideal</span> y alcanzar los mejores parámetros antes experimentados por el huésped, e incluso mejorarlos.
               </P>
             </motion.div>
             <motion.div variants={fadeInUpVariants}>
               <P className="text-justify text-muted-foreground">
-                Creemos en una forma de trabajar basada en el compromiso, la honestidad y dar siempre más de lo esperado.
+                Creemos en una forma de trabajar basada en el <span className="font-semibold">compromiso</span>, la <span className="font-semibold">honestidad</span> y <span className="italic">dar siempre más de lo esperado</span>.
               </P>
             </motion.div>
           </motion.div>
@@ -214,12 +214,12 @@ export default function NosotrosPage() {
             </motion.h2>
             <motion.div variants={fadeInUpVariants}>
               <P className="text-justify text-muted-foreground">
-                Un nombre que conecta con la historia y la naturaleza. Chumamaya proviene de la lengua camiare y significa “Río Bravo”. Así fue bautizado por la familia Barrera al crear el country en 1978.
+                Un nombre que conecta con la <span className="font-bold">historia y la naturaleza</span>. Chumamaya proviene de la <span className="italic">lengua camiare</span> y significa <span className="font-bold">“Río Bravo”</span>. Así fue bautizado por la familia Barrera al crear el country en <span className="font-bold">1978</span>.
               </P>
             </motion.div>
             <motion.div variants={fadeInUpVariants}>
               <P className="text-justify text-muted-foreground">
-                Chumamaya tiene un marcado perfil ecosustentable, desarrollado sobre casi 400 hectáreas de montañas y naturaleza pura, de las cuales solo un 20% fue urbanizado con una arquitectura de jerarquía tanto en la zona deportiva como en el barrio residencial, logrando una sinergia positiva entre la intervención humana y el marco paisajístico único del lugar.
+                Chumamaya tiene un marcado <span className="font-semibold">perfil ecosustentable</span>, desarrollado sobre <span className="font-bold">casi 400 hectáreas</span> de montañas y naturaleza pura, de las cuales <span className="italic">solo un 20% fue urbanizado</span> con una arquitectura de jerarquía tanto en la zona deportiva como en el barrio residencial, logrando una <span className="italic">sinergia positiva</span> entre la intervención humana y el marco paisajístico único del lugar.
               </P>
             </motion.div>
           </motion.div>

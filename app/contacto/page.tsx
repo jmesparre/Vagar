@@ -1,6 +1,6 @@
 'use client';
 
-import { H1, H4, P, Small } from '@/components/ui/typography';
+import { H1, P, H4 } from '@/components/ui/typography';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -41,30 +41,24 @@ export default function ContactPage() {
         {/* Columna Izquierda: Información de Contacto */}
         <div className="space-y-8">
           <div>
-
-            <Small className="text-muted-foreground">/ ponte en contacto /</Small>
-            <H1>Siempre estamos listos para ayudarte y responder tus preguntas</H1>
+            <H1>Siempre listos para ayudarte a planificar tu próxima estadía</H1>
             <P className="text-muted-foreground mt-4">
-              Completa el formulario o utiliza nuestros canales de contacto directo. Nuestro equipo está disponible para asistirte con cualquier consulta que tengas.
+              Completá el formulario y nos pondremos en contacto a la brevedad. Queremos que tu próxima estadía en las sierras de Merlo, San Luis, sea tan perfecta como la imaginás.
             </P>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm">
             <div>
               <H4>Atención Telefónica</H4>
-              <div className="flex items-center mt-4 text-muted-foreground">
+              <div className="flex items-center mt-4  text-muted-foreground">
                 <Phone className="h-4 w-4 mr-2" />
-                <span>800 100 975 20 54</span>
-              </div>
-              <div className="flex items-center mt-2 text-muted-foreground">
-                <Phone className="h-4 w-4 mr-2" />
-                <span>(123) 1800-234-5678</span>
+                <span>02656 - 476500</span>
               </div>
             </div>
             <div>
               <H4>Nuestra Ubicación</H4>
-              <P className="mt-4 text-muted-foreground">Merlo, San Luis - 1060</P>
-              <P className="text-muted-foreground">Str. First Avenue 1</P>
+              <P className="mt-4 text-muted-foreground">Chumamaya 2100, Merlo, San Luis,
+                Argentina</P>
             </div>
           </div>
 
@@ -73,7 +67,7 @@ export default function ContactPage() {
               <H4>Email</H4>
               <div className="flex items-center mt-4 text-muted-foreground">
                 <Mail className="h-4 w-4 mr-2" />
-                <span>vagar@gmail.com</span>
+                <span>reservas@vagar.com.ar</span>
               </div>
             </div>
             <div>

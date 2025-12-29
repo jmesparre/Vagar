@@ -11,6 +11,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Minus, Plus } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface AmenityButtonProps {
   text: string;
@@ -77,6 +78,7 @@ export function AmenitiesPopoverContent({
   showGuestFilter = false,
 }: AmenitiesPopoverContentProps) {
   const [amenitiesList, setAmenitiesList] = useState<AmenityItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchAmenities = async () => {
@@ -98,6 +100,8 @@ export function AmenitiesPopoverContent({
         }
       } catch (error) {
         console.error("Failed to fetch amenities details:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchAmenities();
@@ -143,23 +147,39 @@ export function AmenitiesPopoverContent({
       )}
       <ScrollArea className="h-80 w-full">
         <div className="pr-4">
-          {Object.entries(groupedAmenities).map(([category, amenities]) => (
-            <div key={category} className="mb-4">
-              <h4 className="text-xs font-medium hidden pb-2">{category}</h4>
-              <div className="flex flex-wrap gap-1.5">
-                {amenities.map((amenity) => (
-                  <AmenityButton
-                    key={amenity.id}
-                    text={amenity.name}
-                    Icon={amenity.icon}
-                    isSelected={selectedAmenities.includes(amenity.id)}
-                    onClick={() => onAmenityToggle(amenity.id)}
-                    description={amenity.description}
-                  />
-                ))}
-              </div>
+          {isLoading ? (
+            <div className="space-y-6">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="mb-4">
+                  <Skeleton className="h-4 w-24 mb-2" />
+                  <div className="flex flex-wrap gap-1.5">
+                    <Skeleton className="h-8 w-28 rounded-md" />
+                    <Skeleton className="h-8 w-20 rounded-md" />
+                    <Skeleton className="h-8 w-24 rounded-md" />
+                    <Skeleton className="h-8 w-32 rounded-md" />
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          ) : (
+            Object.entries(groupedAmenities).map(([category, amenities]) => (
+              <div key={category} className="mb-4">
+                <h4 className="text-xs font-medium hidden pb-2">{category}</h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {amenities.map((amenity) => (
+                    <AmenityButton
+                      key={amenity.id}
+                      text={amenity.name}
+                      Icon={amenity.icon}
+                      isSelected={selectedAmenities.includes(amenity.id)}
+                      onClick={() => onAmenityToggle(amenity.id)}
+                      description={amenity.description}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </ScrollArea>
     </div>
