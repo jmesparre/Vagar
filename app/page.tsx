@@ -33,7 +33,7 @@ export default async function Home() {
 
       {/* Section for 'Azul' category */}
       {featuredAzul.length > 0 && (
-        <div className="py-12 bg-gray-50">
+        <div className="pt-24 pb-12 bg-gray-50">
           <FeaturedProperties title="Chalets Azules" properties={featuredAzul} />
         </div>
       )}
@@ -47,7 +47,7 @@ export default async function Home() {
 
       {/* Section for 'Verde' category */}
       {featuredVerde.length > 0 && (
-        <div className="py-12">
+        <div className="pt-12 pb-24">
           <FeaturedProperties title="Chalets Verdes" properties={featuredVerde} />
         </div>
       )}
@@ -64,7 +64,7 @@ export default async function Home() {
 
       {/* Section for Featured Testimonials */}
       {featuredTestimonials.length > 0 && (
-        <div className="py-12">
+        <div className="pt-24 pb-48">
           <FeaturedTestimonials testimonials={featuredTestimonials} />
         </div>
       )}

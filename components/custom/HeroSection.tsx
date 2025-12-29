@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import SearchBar from './SearchBar';
 import { SearchBarSkeleton } from './SearchBarSkeleton';
 import { H1, Lead } from '@/components/ui/typography';
+import { motion } from 'framer-motion';
 
 interface HeroSectionProps {
   videoSrc: string;
@@ -50,6 +51,23 @@ const HeroSection = ({
     router.push(`/chalets?${params.toString()}`);
   };
 
+  // Animation Variants
+  const heroTextVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.8, ease: "easeOut" }
+    }
+  };
+
+  const staggerContainerVariants = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.2 }
+    }
+  };
+
   return (
     <section className="relative shadow-lg border-b h-screen flex flex-col justify-center items-center text-white p-4">
       {/* Video Background */}
@@ -75,12 +93,22 @@ const HeroSection = ({
         </div>
 
         {/* Title at the bottom */}
-        <div className="flex-grow text-center flex flex-col max-w-[100%] md:max-w-[60%]">
-          <H1 className="mt-20 md:mt-10 font-bold leading-tight mb-4">
-            {title}
-          </H1>
-          <Lead className="text-md">{subtitle}</Lead>
-        </div>
+        <motion.div
+          className="flex-grow text-center flex flex-col max-w-[100%] md:max-w-[60%]"
+          initial="hidden"
+          animate="visible"
+          variants={staggerContainerVariants}
+        >
+          <motion.div variants={heroTextVariants}>
+            <H1 className="mt-20 md:mt-10 font-bold leading-tight mb-4">
+              {title}
+            </H1>
+          </motion.div>
+
+          <motion.div variants={heroTextVariants}>
+            <Lead className="text-md">{subtitle}</Lead>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
