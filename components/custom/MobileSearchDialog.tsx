@@ -23,7 +23,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Calendar } from "@/components/ui/calendar";
 
-import { AmenitiesPopoverContent } from "./AmenitiesPopoverContent";
+import { AmenitiesPopoverContent, AmenityItem } from "./AmenitiesPopoverContent";
 import { GuestsPopoverContent } from "./GuestsPopoverContent";
 
 interface MobileSearchDialogProps {
@@ -44,6 +44,8 @@ interface MobileSearchDialogProps {
     onAmenityToggle: (amenityId: string) => void;
     onSearch: () => void;
     onClearFilters: () => void;
+    amenities?: AmenityItem[];
+    isLoadingAmenities?: boolean;
 }
 
 export function MobileSearchDialog({
@@ -57,6 +59,8 @@ export function MobileSearchDialog({
     onAmenityToggle,
     onSearch,
     onClearFilters,
+    amenities,
+    isLoadingAmenities,
 }: MobileSearchDialogProps) {
     const totalGuests = guests.adults + guests.children;
     const guestsPart =
@@ -121,6 +125,8 @@ export function MobileSearchDialog({
                                                 <AmenitiesPopoverContent
                                                     selectedAmenities={selectedAmenities}
                                                     onAmenityToggle={onAmenityToggle}
+                                                    amenities={amenities}
+                                                    isLoading={isLoadingAmenities}
                                                 />
                                             </div>
                                         </div>

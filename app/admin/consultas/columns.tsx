@@ -198,8 +198,13 @@ export const columns: ColumnDef<Booking>[] = [
     cell: ({ row }) => {
       const status = row.getValue("status") as string
       const variant = status === 'pending' ? 'destructive' : status === 'confirmed' ? 'default' : 'outline'
-      
-      return <Badge variant={variant}>{status}</Badge>
+      const statusMap: Record<string, string> = {
+        pending: 'Pendiente',
+        confirmed: 'Confirmado',
+        cancelled: 'Cancelado',
+      }
+
+      return <Badge variant={variant}>{statusMap[status] || status}</Badge>
     },
   },
   {

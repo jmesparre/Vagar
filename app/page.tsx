@@ -64,7 +64,7 @@ export default async function Home() {
 
       {/* Section for Featured Testimonials */}
       {featuredTestimonials.length > 0 && (
-        <div className="pt-24 pb-48">
+        <div className="pt-24 pb-34">
           <FeaturedTestimonials testimonials={featuredTestimonials} />
         </div>
       )}

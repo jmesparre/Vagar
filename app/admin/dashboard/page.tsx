@@ -72,8 +72,12 @@ export default async function DashboardPage() {
                     <TableCell>{booking.property_name}</TableCell>
                     <TableCell>{new Date(booking.check_in_date).toLocaleDateString()}</TableCell>
                     <TableCell>
-                      <Badge variant={booking.status === 'pending' ? 'destructive' : 'outline'}>
-                        {booking.status}
+                      <Badge variant={booking.status === 'pending' ? 'destructive' : booking.status === 'confirmed' ? 'default' : 'outline'}>
+                        {{
+                          pending: 'Pendiente',
+                          confirmed: 'Confirmado',
+                          cancelled: 'Cancelado',
+                        }[booking.status] || booking.status}
                       </Badge>
                     </TableCell>
                   </TableRow>

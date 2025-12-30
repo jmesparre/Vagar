@@ -14,10 +14,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { AmenitiesPopoverContent } from "./AmenitiesPopoverContent";
+import { AmenitiesPopoverContent, AmenityItem } from "./AmenitiesPopoverContent";
 import { GuestsPopoverContent } from "./GuestsPopoverContent";
 import { MobileSearchTrigger } from "./MobileSearchTrigger";
 import { MobileSearchDialog } from "./MobileSearchDialog";
+import { getAmenitiesWithDescriptions } from "@/app/actions/getAmenities";
+import { iconMap } from "@/lib/amenities-data";
 
 // Helper function to safely parse a YYYY-MM-DD string into a local Date object
 const parseDateString = (dateString: string): Date | null => {
@@ -51,6 +53,35 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
+  const [amenities, setAmenities] = React.useState<AmenityItem[]>([]);
+  const [isLoadingAmenities, setIsLoadingAmenities] = React.useState(true);
+
+  React.useEffect(() => {
+    const fetchAmenities = async () => {
+      try {
+        const dbAmenities = await getAmenitiesWithDescriptions();
+        if (dbAmenities && dbAmenities.length > 0) {
+          const mappedAmenities = dbAmenities.map((a) => {
+            const IconComponent = a.icon && iconMap[a.icon] ? iconMap[a.icon] : iconMap["Home"];
+            return {
+              id: a.slug,
+              name: a.name,
+              icon: IconComponent,
+              category: a.category,
+              description: a.description
+            };
+          });
+          setAmenities(mappedAmenities);
+        }
+      } catch (error) {
+        console.error("Failed to fetch amenities details:", error);
+      } finally {
+        setIsLoadingAmenities(false);
+      }
+    };
+    fetchAmenities();
+  }, []);
+
   const [date, setDate] = React.useState<DateRange | undefined>(() => {
     const fromString = initialFilters?.dateRange?.from;
     const toString = initialFilters?.dateRange?.to;
@@ -232,6 +263,8 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
         onAmenityToggle={handleAmenityToggle}
         onSearch={handleSearch}
         onClearFilters={handleClearFilters}
+        amenities={amenities}
+        isLoadingAmenities={isLoadingAmenities}
       />
 
       {/* Desktop Search Bar */}
@@ -248,6 +281,8 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
               <AmenitiesPopoverContent
                 selectedAmenities={selectedAmenities}
                 onAmenityToggle={handleAmenityToggle}
+                amenities={amenities}
+                isLoading={isLoadingAmenities}
               />
             </PopoverContent>
           </Popover>

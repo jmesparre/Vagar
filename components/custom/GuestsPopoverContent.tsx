@@ -22,12 +22,12 @@ export const GuestsPopoverContent: React.FC<GuestsPopoverContentProps> = ({
   handleGuestChange,
 }) => {
   return (
-    <div className="grid gap-4 pl-4 pr-3 py-4 text-sm ">
+    <div className="grid gap-4 pl-6 pr-5 py-4 text-sm ">
       <div className="grid gap-2">
         <div className="flex items-center justify-between">
           <div>
             <p className="font-semibold">Adultos</p>
-            <p className="text-sm text-gray-500">12 años o más</p>
+            <p className="text-xs text-gray-500">12 años o más</p>
           </div>
           <div className="flex items-center gap-4">
             <Button
@@ -50,10 +50,10 @@ export const GuestsPopoverContent: React.FC<GuestsPopoverContentProps> = ({
             </Button>
           </div>
         </div>
-        <div className="flex items-center justify-between text-xs ">
+        <div className="flex items-center justify-between">
           <div>
             <p className="font-semibold">Niños</p>
-            <p className="text-sm text-gray-500">2 a 12 años</p>
+            <p className="text-xs text-gray-500">2 a 12 años</p>
           </div>
           <div className="flex items-center gap-4">
             <Button
@@ -79,7 +79,7 @@ export const GuestsPopoverContent: React.FC<GuestsPopoverContentProps> = ({
         <div className="flex items-center justify-between">
           <div>
             <p className="font-semibold">Infantes</p>
-            <p className="text-sm text-gray-500">0 a 2 años</p>
+            <p className="text-xs text-gray-500">0 a 2 años</p>
           </div>
           <div className="flex items-center gap-4">
             <Button

@@ -67,8 +67,8 @@ export default function UploadForm() {
         <CardTitle>Subir Archivo de Disponibilidad</CardTitle>
       </CardHeader>
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <Input type="file" onChange={handleFileChange} accept=".xlsx, .csv" />
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <Input className="bg-blue-100 max-w-sm" type="file" onChange={handleFileChange} accept=".xlsx, .csv" />
           <Button type="submit">Actualizar Disponibilidad</Button>
         </form>
       </CardContent>

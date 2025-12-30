@@ -1,24 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MapPin, Phone, Instagram, Facebook, Youtube } from "lucide-react";
-
-// Custom WhatsApp Icon as it is not always available in Lucide or we want a specific style
-const WhatsAppIcon = ({ className }: { className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21" />
-  </svg>
-);
+import { Mail, MapPin, Phone } from "lucide-react";
+import { FacebookIcon, InstagramIcon, YoutubeIcon, WhatsappIcon } from "@/components/social-icons";
 
 const Footer = () => {
   return (
@@ -117,18 +100,18 @@ const Footer = () => {
             </ul>
 
             {/* Social Icons */}
-            <div className="flex items-center justify-center md:justify-start gap-4 pt-2">
-              <a href="#" className="text-gray-800 hover:text-primary transition-colors" aria-label="WhatsApp">
-                <WhatsAppIcon className="h-5 w-5" />
+            <div className="flex items-center justify-center md:justify-start gap-4">
+              <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-primary transition-colors" aria-label="WhatsApp">
+                <WhatsappIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
               </a>
-              <a href="#" className="text-gray-800 hover:text-primary transition-colors" aria-label="Instagram">
-                <Instagram className="h-5 w-5" />
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-primary transition-colors" aria-label="Instagram">
+                <InstagramIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
               </a>
-              <a href="#" className="text-gray-800 hover:text-primary transition-colors" aria-label="Facebook">
-                <Facebook className="h-5 w-5" />
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-primary transition-colors" aria-label="Facebook">
+                <FacebookIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
               </a>
-              <a href="#" className="text-gray-800 hover:text-primary transition-colors" aria-label="YouTube">
-                <Youtube className="h-5 w-5" />
+              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-primary transition-colors" aria-label="YouTube">
+                <YoutubeIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
               </a>
             </div>
           </div>

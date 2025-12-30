@@ -38,7 +38,7 @@ export function AdminSidebar({ initialCollapsed }: AdminSidebarProps) {
     };
 
     const navItems = [
-        { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+        { href: "/admin/dashboard", label: "Escritorio", icon: LayoutDashboard },
         { href: "/admin/consultas", label: "Consultas", icon: MessageSquare },
         { href: "/admin/disponibilidad", label: "Disponibilidad", icon: Calendar },
         { href: "/admin/chalets", label: "Chalets", icon: Home },

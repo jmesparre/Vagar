@@ -5,7 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Phone, Mail, Facebook, Instagram, Loader2, CheckCircle2 } from 'lucide-react';
+import { Phone, Mail, Loader2, CheckCircle2 } from 'lucide-react';
+import { FacebookIcon, InstagramIcon, YoutubeIcon, WhatsappIcon } from '@/components/social-icons';
 import { sendContactEmail } from '@/app/actions/contact';
 import { useToast } from '@/components/ui/use-toast';
 import { useState, useTransition } from 'react';
@@ -49,16 +50,16 @@ export default function ContactPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm">
             <div>
+              <H4>Nuestra Ubicación</H4>
+              <P className="mt-4 text-muted-foreground">Chumamaya 2100, Merlo, San Luis,
+                Argentina</P>
+            </div>
+            <div>
               <H4>Atención Telefónica</H4>
               <div className="flex items-center mt-4  text-muted-foreground">
                 <Phone className="h-4 w-4 mr-2" />
                 <span>02656 - 476500</span>
               </div>
-            </div>
-            <div>
-              <H4>Nuestra Ubicación</H4>
-              <P className="mt-4 text-muted-foreground">Chumamaya 2100, Merlo, San Luis,
-                Argentina</P>
             </div>
           </div>
 
@@ -73,8 +74,18 @@ export default function ContactPage() {
             <div>
               <H4>Redes Sociales</H4>
               <div className="flex items-center space-x-4 mt-4">
-                <Facebook className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
-                <Instagram className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <FacebookIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <InstagramIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
+                </a>
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                  <YoutubeIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
+                </a>
+                <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                  <WhatsappIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
+                </a>
               </div>
             </div>
           </div>
@@ -82,12 +93,9 @@ export default function ContactPage() {
 
         {/* Columna Derecha: Formulario de Contacto */}
         <div>
-          <Card className="bg-gray-50 border-none shadow-lg">
+          <Card className="py-10 bg-gray-50 border-none shadow-lg">
             <CardHeader>
               <CardTitle>Ponte en Contacto</CardTitle>
-              <P className="text-muted-foreground pt-2">
-                Completa el formulario y nos pondremos en contacto contigo a la brevedad.
-              </P>
             </CardHeader>
             <CardContent>
               {success ? (

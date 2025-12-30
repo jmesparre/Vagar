@@ -54,20 +54,24 @@ const AmenityButton = ({ text, Icon, isSelected, onClick, description }: Amenity
   return button;
 };
 
+
+
+export interface AmenityItem {
+  id: string;
+  name: string;
+  icon: React.ElementType;
+  category: string;
+  description?: string;
+}
+
 interface AmenitiesPopoverContentProps {
   selectedAmenities?: string[];
   onAmenityToggle?: (amenityId: string) => void;
   minGuests?: number;
   onMinGuestsChange?: (guests: number) => void;
   showGuestFilter?: boolean;
-}
-
-interface AmenityItem {
-  id: string;
-  name: string;
-  icon: React.ElementType;
-  category: string;
-  description?: string;
+  amenities?: AmenityItem[];
+  isLoading?: boolean;
 }
 
 export function AmenitiesPopoverContent({
@@ -76,11 +80,20 @@ export function AmenitiesPopoverContent({
   minGuests = 1,
   onMinGuestsChange = () => { },
   showGuestFilter = false,
+  amenities: externalAmenities,
+  isLoading: externalIsLoading,
 }: AmenitiesPopoverContentProps) {
-  const [amenitiesList, setAmenitiesList] = useState<AmenityItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [internalAmenities, setInternalAmenities] = useState<AmenityItem[]>([]);
+  const [isInternalLoading, setIsInternalLoading] = useState(true);
+
+  const amenitiesList = externalAmenities || internalAmenities;
+  const isLoading = externalIsLoading !== undefined ? externalIsLoading : isInternalLoading;
 
   useEffect(() => {
+    if (externalAmenities) {
+      return;
+    }
+
     const fetchAmenities = async () => {
       try {
         const dbAmenities = await getAmenitiesWithDescriptions();
@@ -96,16 +109,16 @@ export function AmenitiesPopoverContent({
               description: a.description
             };
           });
-          setAmenitiesList(mappedAmenities);
+          setInternalAmenities(mappedAmenities);
         }
       } catch (error) {
         console.error("Failed to fetch amenities details:", error);
       } finally {
-        setIsLoading(false);
+        setIsInternalLoading(false);
       }
     };
     fetchAmenities();
-  }, []);
+  }, [externalAmenities]);
 
   const groupedAmenities = amenitiesList
     .filter((amenity) => amenity.category === "Premium")

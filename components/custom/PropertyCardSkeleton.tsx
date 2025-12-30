@@ -20,12 +20,8 @@ export function PropertyCardSkeleton() {
                         </span>
                         <span className="flex items-center gap-1.5">
                             <Skeleton className="w-4 h-4 rounded-full" />
-                            <Skeleton className="w-4 h-4 rounded" />
+                            <Skeleton className="w-8 h-4 rounded" />
                         </span>
-                    </div>
-                    <div className="flex items-center gap-1 pr-1 pl-3 shrink-0">
-                        <Skeleton className="w-4 h-4" />
-                        <Skeleton className="w-8 h-4 ml-1" />
                     </div>
                 </div>
             </div>

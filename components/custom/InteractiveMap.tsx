@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import mapaImg from '@/assets/mapa.webp';
 import { Plus, Minus, RotateCcw } from 'lucide-react';
 import { TransformWrapper, TransformComponent, ReactZoomPanPinchRef } from 'react-zoom-pan-pinch';
 import { PropertyCard } from './PropertyCard';
@@ -18,6 +19,7 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
   const [svgContent, setSvgContent] = useState<string>('');
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
   const [hoveredPropertyId, setHoveredPropertyId] = useState<number | null>(null);
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
 
   // Ref to store the starting position of a click/drag
   const dragStartPos = useRef<{ x: number; y: number } | null>(null);
@@ -147,15 +149,30 @@ const InteractiveMap = ({ properties, selectedNodeId }: InteractiveMapProps) => 
               contentStyle={{ width: '100%', height: '100%' }}
             >
               <div className="relative w-[6027px] bg-[#C5D594]">
+                {/* Custom Placeholder */}
+                {mapaImg.blurDataURL && (
+                  <div
+                    className={`absolute top-0 left-0 w-full h-full pointer-events-none transition-opacity duration-700 ${isMapLoaded ? 'opacity-0' : 'opacity-100'}`}
+                    style={{
+                      backgroundImage: `url(${mapaImg.blurDataURL})`,
+                      backgroundSize: 'contain',
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat',
+                      filter: 'blur(20px)',
+                      transform: 'scale(1.1)'
+                    }}
+                  />
+                )}
                 <Image
-                  src="/mapa.webp"
+                  src={mapaImg}
                   alt="Mapa de propiedades"
                   fill
                   style={{ objectFit: 'contain' }}
-                  className="absolute top-0 left-0"
+                  className={`absolute top-0 left-0 transition-opacity duration-500 ${isMapLoaded ? 'opacity-100' : 'opacity-0'}`}
                   priority
                   quality={100}
                   unoptimized
+                  onLoad={() => setIsMapLoaded(true)}
                 />
                 <div className="absolute top-0 left-0 w-full h-full">
                   {svgContent && parse(svgContent, options)}
