@@ -46,7 +46,7 @@ export function PropertyCard({ property, disableLink = false }: PropertyCardProp
           <CircleDollarSign className="w-14 h-14 m-1 md:w-8 md:h-8  text-white bg-black/50 rounded-full p-1" />
         </div>
         <div
-          className={`absolute inset-0 bg-black/60 p-4 text-white transition-opacity duration-500 z-20 ${isPriceVisible ? 'opacity-100 lg:pointer-events-none' : 'opacity-0 pointer-events-none'
+          className={`absolute inset-0 bg-black/60 p-4 text-white transition-opacity duration-500 z-20 flex flex-col items-center justify-center ${isPriceVisible ? 'opacity-100 lg:pointer-events-none' : 'opacity-0 pointer-events-none'
             }`}
           onClick={(e) => {
             e.preventDefault();
@@ -54,9 +54,9 @@ export function PropertyCard({ property, disableLink = false }: PropertyCardProp
             setIsPriceVisible(false);
           }}
         >
-          <div className="text-center font-light pt-[20%] md:pt-[10%]">
-            <H4 className="text-lg leading-tight font-light pb-3 px-4">Precios por Temporada</H4>
-            <ul className="mt-2 space-y-1.5">
+          <div className="text-center font-light flex flex-col">
+            <H4 className="text-lg leading-tight font-semibold pb-3 px-4">Precios por Temporada</H4>
+            <ul className="space-y-1.5">
               <li>Alta: ${property.price_high?.toLocaleString() ?? 'N/A'}</li>
               <li>Media: ${property.price_mid?.toLocaleString() ?? 'N/A'}</li>
               <li>Baja: ${property.price_low?.toLocaleString() ?? 'N/A'}</li>

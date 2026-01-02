@@ -10,7 +10,7 @@ export const SearchBarSkeleton = () => {
         </div>
       </div>
 
-      <div className="hidden md:flex bg-white border-gray-200 rounded-full shadow-lg flex-row items-center w-full md:max-w-2xl lg:max-w-[75%] px-1">
+      <div className="hidden md:flex bg-white border-gray-200 rounded-full shadow-lg flex-row items-center w-full md:max-w-2xl lg:max-w-[65%]  px-1">
         <div className="flex-1 px-6 py-3">
           <Skeleton className="h-3 w-16 mb-1" />
           <Skeleton className="h-3 w-20" />

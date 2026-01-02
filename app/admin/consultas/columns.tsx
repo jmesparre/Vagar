@@ -100,7 +100,7 @@ const ActionsCell = ({ row, table }: { row: Row<Booking>, table: Table<Booking> 
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+          <DropdownMenuLabel className="hidden">Acciones</DropdownMenuLabel>
           <DropdownMenuItem onClick={() => navigator.clipboard.writeText(booking.id.toString())}>
             Copiar ID de consulta
           </DropdownMenuItem>
