@@ -101,16 +101,16 @@ const Footer = () => {
 
             {/* Social Icons */}
             <div className="flex items-center justify-center md:justify-start gap-4">
-              <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-primary transition-colors" aria-label="WhatsApp">
+              <a href="https://wa.link/yj2tjy" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-primary transition-colors" aria-label="WhatsApp">
                 <WhatsappIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-primary transition-colors" aria-label="Instagram">
+              <a href="https://www.instagram.com/vagar.vacaciones/" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-primary transition-colors" aria-label="Instagram">
                 <InstagramIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
               </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-primary transition-colors" aria-label="Facebook">
+              <a href="https://www.facebook.com/vagar.vacaciones/" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-primary transition-colors" aria-label="Facebook">
                 <FacebookIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-primary transition-colors" aria-label="YouTube">
+              <a href="https://www.youtube.com/@chumamayavagar835" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-primary transition-colors" aria-label="YouTube">
                 <YoutubeIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
               </a>
             </div>

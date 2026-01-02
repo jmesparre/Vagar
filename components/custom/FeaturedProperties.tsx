@@ -20,7 +20,7 @@ export function FeaturedProperties({ title, properties }: FeaturedPropertiesProp
   }
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="w-full max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
       <Carousel
         opts={{
           align: "start",

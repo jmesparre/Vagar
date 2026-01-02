@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 
 export default function Loading() {
     return (
-        <main className="container mx-auto px-4 py-8">
+        <main className="container mx-auto px-4 sm:px-0 xl:px-10 py-8">
             {/* Gallery Skeleton */}
             <section className="mb-8">
                 <ImageGallerySkeleton />
@@ -50,7 +50,7 @@ export default function Loading() {
                     {/* Title and Rating */}
                     <div className="flex space-x-4 mb-4">
                         <Skeleton className="h-10 w-3/4 md:w-1/2" />
-                        <Skeleton className="h-8 w-16 mt-1" />
+                        <Skeleton className="h-8 w-16 mt-1 " />
                     </div>
 
                     {/* Quick info */}

@@ -49,7 +49,7 @@ export default async function ChaletDetailPage({ params }: ChaletDetailPageProps
   const bookings = await getChaletBookings(chalet.id.toString());
 
   return (
-    <main className="container mx-auto px-4 py-8">
+    <main className="container mx-auto px-4 sm:px-0 xl:px-10 py-8">
       {/* Galería de Imágenes */}
       <section className="mb-8">
         <ImageGallery
@@ -75,7 +75,7 @@ export default async function ChaletDetailPage({ params }: ChaletDetailPageProps
               <span className="ml-1 font-semibold">{chalet.rating ? Number(chalet.rating).toFixed(2) : 'N/A'}</span>
             </div>
           </div>
-          <div className="mt-2 flex space-x-4 text-sm text-muted-foreground">
+          <div className="mt-2 flex space-x-4 xl:mt-4 text-sm text-muted-foreground">
             <span>{chalet.guests} huéspedes</span>
             <span>·</span>
             <span>{chalet.bathrooms} baños</span>

@@ -51,8 +51,8 @@ export function ComparisonTable({ mainChalet, comparisonChalet }: ComparisonTabl
   const renderValue = (chalet: Property, amenity: ComparisonItem) => {
     if (amenity.isAmenity) {
       const hasAmenity = chalet.amenities?.some(a => a.name === amenity.name);
-      return hasAmenity ? 
-        <Check className="mx-auto h-5 w-5 text-green-500" /> : 
+      return hasAmenity ?
+        <Check className="mx-auto h-5 w-5 text-green-500" /> :
         <X className="mx-auto h-5 w-5 text-red-500" />;
     }
     return amenity.getValue(chalet);
@@ -61,7 +61,7 @@ export function ComparisonTable({ mainChalet, comparisonChalet }: ComparisonTabl
   return (
     <div className="mt-6">
       <div className="overflow-x-auto">
-        <table className="w-full text-sm max-w-[600px] border-collapse text-left">
+        <table className="w-full text-sm border-collapse text-left">
           <thead>
             <tr>
               <th className="border-b p-2">Característica</th>

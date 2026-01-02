@@ -74,17 +74,17 @@ export default function ContactPage() {
             <div>
               <H4>Redes Sociales</H4>
               <div className="flex items-center space-x-4 mt-4">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                  <FacebookIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
+                <a href="https://wa.link/yj2tjy" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                  <WhatsappIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
                 </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <a href="https://www.instagram.com/vagar.vacaciones/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                   <InstagramIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
                 </a>
-                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                  <YoutubeIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
+                <a href="https://www.facebook.com/vagar.vacaciones/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <FacebookIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
                 </a>
-                <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-                  <WhatsappIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
+                <a href="https://www.youtube.com/@chumamayavagar835" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                  <YoutubeIcon className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
                 </a>
               </div>
             </div>
@@ -93,7 +93,7 @@ export default function ContactPage() {
 
         {/* Columna Derecha: Formulario de Contacto */}
         <div>
-          <Card className="py-10 bg-gray-50 border-none shadow-lg">
+          <Card className="py-10 bg-gray-50 border-none shadow-md">
             <CardHeader>
               <CardTitle>Ponte en Contacto</CardTitle>
             </CardHeader>
@@ -101,7 +101,7 @@ export default function ContactPage() {
               {success ? (
                 <div className="flex flex-col items-center justify-center py-8 space-y-4 text-center animate-in fade-in zoom-in duration-300">
                   <div className="rounded-full bg-green-100 p-3">
-                    <CheckCircle2 className="h-12 w-12 text-green-600" />
+                    <CheckCircle2 className="h-12 w-12 text-green-400" />
                   </div>
                   <div className="space-y-2">
                     <H4>¡Mensaje enviado!</H4>
@@ -123,7 +123,7 @@ export default function ContactPage() {
                   <Input name="email" type="email" placeholder="Correo electrónico" required />
                   <Input name="subject" placeholder="Asunto" required />
                   <Textarea name="message" placeholder="Mensaje" rows={5} required />
-                  <Button type="submit" className="w-full" disabled={isPending}>
+                  <Button type="submit" className="mt-10 flex mx-auto w-full max-w-md" disabled={isPending}>
                     {isPending ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />

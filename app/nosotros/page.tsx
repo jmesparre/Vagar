@@ -84,13 +84,13 @@ export default function NosotrosPage() {
           variants={staggerContainerVariants}
         >
           <motion.h1
-            className="text-4xl font-bold text-white drop-shadow-md"
+            className="text-4xl xl:text-5xl font-bold text-white drop-shadow-md"
             variants={heroTextVariants}
           >
             Nosotros y nuestra historia
           </motion.h1>
           <motion.p
-            className="mt-2 text-lg text-white drop-shadow-md"
+            className="mt-2 xl:mt-5 text-lg xl:text-2xl text-white drop-shadow-md"
             variants={heroTextVariants}
           >
             +25 años acompañando estadías en Merlo
@@ -112,7 +112,7 @@ export default function NosotrosPage() {
               Creando recuerdos
             </motion.h2>
             <motion.div variants={fadeInUpVariants}>
-              <P className="text-muted-foreground">
+              <P className="text-muted-foreground text-sm xl:text-lg max-w-xl">
                 VAGAR es una empresa de <span className="italic">servicios inmobiliarios y turísticos</span> cuyo titular es el <span className="font-semibold">Lic. en Adm. y M.C.P. Gabriel Barrera</span>. Inicia sus actividades en <span className="font-bold">1997</span> como un servicio post-venta de <span className="font-bold">CHUMAMAYA</span>, empresa fundadora y constructora del Chumamaya Country Club, obra de Roberto y Celina Barrera. Como tal, VAGAR es la <span className="italic">evolución natural</span> de CHUMAMAYA.
               </P>
             </motion.div>
@@ -124,7 +124,7 @@ export default function NosotrosPage() {
             viewport={{ once: true, margin: "-100px" }}
             variants={carouselVariants}
           >
-            <Carousel className="w-full max-w-lg">
+            <Carousel className="w-full max-w-xl">
               <CarouselContent>
                 {images.map((src, index) => (
                   <CarouselItem key={index}>
@@ -156,7 +156,7 @@ export default function NosotrosPage() {
             viewport={{ once: true, margin: "-100px" }}
             variants={carouselVariants}
           >
-            <Carousel className="w-full max-w-lg">
+            <Carousel className="w-full max-w-xl">
               <CarouselContent>
                 {imagesExperience.map((src, index) => (
                   <CarouselItem key={index}>
@@ -184,16 +184,16 @@ export default function NosotrosPage() {
             viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainerVariants}
           >
-            <motion.h2 className="text-4xl mb-6 font-semibold text-foreground" variants={fadeInUpVariants}>
+            <motion.h2 className="text-4xl max-w-xl mb-6 font-semibold text-foreground" variants={fadeInUpVariants}>
               La experiencia de hospedarte diferente
             </motion.h2>
             <motion.div variants={fadeInUpVariants}>
-              <P className="text-muted-foreground">
+              <P className="text-muted-foreground max-w-xl text-sm xl:text-lg ">
                 Vagar consolida <span className="font-bold">más de 25 años de trayectoria</span> en la gestión de chalets y <span className="italic">experiencias certeras, confiables y superadoras</span>, acompañando a familias, parejas y amigos con una misma <span className="font-bold">misión</span>: <span className="italic">convertir el tiempo vacacional en una experiencia ideal</span> y alcanzar los mejores parámetros antes experimentados por el huésped, e incluso mejorarlos.
               </P>
             </motion.div>
             <motion.div variants={fadeInUpVariants}>
-              <P className="text-justify text-muted-foreground">
+              <P className="text-justify max-w-xl text-muted-foreground text-sm xl:text-lg ">
                 Creemos en una forma de trabajar basada en el <span className="font-semibold">compromiso</span>, la <span className="font-semibold">honestidad</span> y <span className="italic">dar siempre más de lo esperado</span>.
               </P>
             </motion.div>
@@ -213,12 +213,12 @@ export default function NosotrosPage() {
               Chumamaya Country Club:
             </motion.h2>
             <motion.div variants={fadeInUpVariants}>
-              <P className="text-muted-foreground">
+              <P className="text-muted-foreground max-w-xl text-sm xl:text-lg ">
                 Un nombre que conecta con la <span className="font-bold">historia y la naturaleza</span>. Chumamaya proviene de la <span className="italic">lengua camiare</span> y significa <span className="font-bold">“Río Bravo”</span>. Así fue bautizado por la familia Barrera al crear el country en <span className="font-bold">1978</span>.
               </P>
             </motion.div>
             <motion.div variants={fadeInUpVariants}>
-              <P className="text-muted-foreground">
+              <P className="text-muted-foreground max-w-xl text-sm xl:text-lg ">
                 Chumamaya tiene un marcado <span className="font-semibold">perfil ecosustentable</span>, desarrollado sobre <span className="font-bold">casi 400 hectáreas</span> de montañas y naturaleza pura, de las cuales <span className="italic">solo un 20% fue urbanizado</span> con una arquitectura de jerarquía tanto en la zona deportiva como en el barrio residencial, logrando una <span className="italic">sinergia positiva</span> entre la intervención humana y el marco paisajístico único del lugar.
               </P>
             </motion.div>
@@ -230,7 +230,7 @@ export default function NosotrosPage() {
             viewport={{ once: true, margin: "-100px" }}
             variants={carouselVariants}
           >
-            <Carousel className="w-full max-w-lg">
+            <Carousel className="w-full max-w-xl">
               <CarouselContent>
                 {imagesChumamaya.map((src, index) => (
                   <CarouselItem key={index}>

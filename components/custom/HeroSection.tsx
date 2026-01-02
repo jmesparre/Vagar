@@ -106,7 +106,7 @@ const HeroSection = ({
           </motion.div>
 
           <motion.div variants={heroTextVariants}>
-            <Lead className="text-md">{subtitle}</Lead>
+            <Lead className="text-md xl:text-lg">{subtitle}</Lead>
           </motion.div>
         </motion.div>
       </div>

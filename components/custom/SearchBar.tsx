@@ -268,11 +268,11 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
       />
 
       {/* Desktop Search Bar */}
-      <div className="hidden md:flex bg-white border-gray-200 rounded-full shadow-lg flex-row items-center w-full md:max-w-2xl lg:max-w-[75%] px-1">
+      <div className="hidden md:flex bg-white border-gray-200 rounded-full shadow-lg flex-row items-center w-full md:max-w-2xl lg:max-w-[65%] px-1">
         <div className="flex-1 relative">
           <Popover onOpenChange={setIsAmenitiesPopoverOpen}>
             <PopoverTrigger asChild>
-              <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-l-full pr-10">
+              <button className="w-full text-left px-6 py-3 hover:bg-gray-100 rounded-l-full pr-10">
                 <p className="font-semibold text-xs text-gray-800">Amenities</p>
                 <p className="text-xs pt-0.5 text-gray-500">{amenitiesText}</p>
               </button>
@@ -290,7 +290,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
             <button
               title="Limpiar amenities"
               onClick={handleClearAmenities}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-300"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-100"
             >
               <X className="h-4 w-4" />
             </button>
@@ -302,7 +302,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
         <div className="flex-1 relative ">
           <Popover onOpenChange={setIsDatePopoverOpen}>
             <PopoverTrigger asChild>
-              <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-none pr-10">
+              <button className="w-full text-left px-6 py-3 hover:bg-gray-100 rounded-none pr-10">
                 <p className="font-semibold text-xs text-gray-800">Cuándo</p>
                 <p className="text-xs pt-0.5 text-gray-500">
                   {date?.from ? (
@@ -338,7 +338,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
             <button
               title="Limpiar fechas"
               onClick={handleClearDate}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-300"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-100"
             >
               <X className="h-4 w-4" />
             </button>
@@ -350,7 +350,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
         <div className="flex-1 relative">
           <Popover onOpenChange={setIsGuestsPopoverOpen}>
             <PopoverTrigger asChild>
-              <button className="w-full text-left px-6 py-3 hover:bg-gray-200 rounded-r-full">
+              <button className="w-full text-left px-6 py-3 hover:bg-gray-100 rounded-r-full">
                 <p className="font-semibold text-xs text-gray-800">Huéspedes</p>
                 <p className="text-xs pt-0.5 text-gray-500">{guestText}</p>
               </button>
@@ -366,7 +366,7 @@ const SearchBar = ({ onSearch, initialFilters }: SearchBarProps) => {
             <button
               title="Limpiar huéspedes"
               onClick={handleClearGuests}
-              className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-300"
+              className="absolute top-1/2 right-4 transform -translate-y-1/2 p-1 rounded-full hover:bg-gray-100"
             >
               <X className="h-4 w-4" />
             </button>
